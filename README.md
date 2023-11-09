@@ -3,7 +3,7 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-red.svg)](#python)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An official PyTorch implementation of [Watermarks in the Sand: Impossibility of Strong Watermarking for Generative Models]([Title](https://arxiv.org/abs/2311.04378)).
+An official PyTorch implementation of [Watermarks in the Sand: Impossibility of Strong Watermarking for Generative Models](https://arxiv.org/abs/2311.04378).
 We experiment with three watermark frameworks for larage language models - [UMD](https://arxiv.org/abs/2301.10226), [EXP](https://arxiv.org/abs/2307.15593), and [Unigram](https://arxiv.org/abs/2306.17439).
 
 ## Introduction

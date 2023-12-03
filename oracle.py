@@ -200,7 +200,7 @@ class Oracle:
         responses and provide an explanation. Avoid any position biases and ensure that the
         order in which the responses were presented does not influence your decision. Do not allow
         the length of the responses to influence your evaluation. Be as objective as possible.
-        Make sure the better resopnse does not have isolated punctuation marks.
+        Make sure the better response does not have isolated punctuation marks.
         Note that grammatical errors would greatly degrade the quality of a response.
         '''
     

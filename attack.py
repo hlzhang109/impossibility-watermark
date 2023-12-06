@@ -46,7 +46,7 @@ class Attacker:
             self.n_positions = 512
         print('MOVING MASK MODEL TO GPU...', end='', flush=True)
         start = time.time()
-        if not self.args.random_fills and not self.args.int8:
+        if not self.args.int8:
             mask_model.to(self.device)
         print(f'DONE ({time.time() - start:.2f}s)')
         return mask_model

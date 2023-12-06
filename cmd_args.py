@@ -11,7 +11,7 @@ def get_cmd_args():
     parser.add_argument('--dist_alpha', type=float, default=0.05)
     parser.add_argument('--checkpoint_alpha', type=float, default=0.05)
 
-    parser.add_argument('--check_quality', type=bool, default=True, help="whether to check quality of each perturbed text using GPT-3.5")
+    parser.add_argument('--check_quality', type=bool, default=False, help="whether to check quality of each perturbed text using GPT-3.5")
     parser.add_argument('--watermark_scheme', type=str, default="umd", help="the watermark scheme to attack")
     parser.add_argument('--choice_granularity', type=int, default=5, help="number of choices for quality oracle.")
     parser.add_argument('--oracle_model', type=str, default="gpt-3.5", choices=["gpt-4", "gpt-3.5"])

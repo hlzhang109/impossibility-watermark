@@ -10,6 +10,7 @@ import jsonlines
 import re
 import copy
 import transformers
+import torch
 
 DEF_MODEL = "gpt-4"
 MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
@@ -176,7 +177,7 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, check_quality=False, choice_granuality=5, use_chat_arena_prompt=False, cache_dir='~/.cache') -> None:
+    def __init__(self, query, response, check_quality=False, choice_granuality=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
         self.init_score = -1
         self.query = query
         self.response = response
@@ -186,7 +187,7 @@ class Oracle:
         self.history =  [{"role": "system", "content": self.system_prompt}]
         tokenizer_name = reward_name = "OpenAssistant/reward-model-deberta-v3-large-v2"
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cache_dir)
-        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cuda:0")
+        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
         self.check_quality = check_quality
 
     @property
@@ -282,7 +283,7 @@ class Oracle:
         text2 = context + response_2
         tokenized_text1 = self.tokenizer.encode_plus(text1, return_tensors="pt")
         tokenized_text2 = self.tokenizer.encode_plus(text2, return_tensors="pt")
-        device="cuda:0"
+        device="cpu"
         input_ids_1, attention_mask_1 = tokenized_text1['input_ids'].to(device), tokenized_text1['attention_mask'].to(device)
         input_ids_2, attention_mask_2 = tokenized_text2['input_ids'].to(device), tokenized_text2['attention_mask'].to(device)
         score_1 = self.reward_model(input_ids=input_ids_1,attention_mask=attention_mask_1).logits.detach()

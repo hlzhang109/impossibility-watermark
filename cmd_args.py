@@ -22,7 +22,7 @@ def get_cmd_args():
     parser.add_argument('--n_spans', type=int, default=1, help="number of spans to perturb")
     parser.add_argument('--span_len', type=int, default=6,  help="pick random subsequence of k tokens in each iteration") # 3, 4 shortern # default 2?
     parser.add_argument('--gen_len', type=int, default=200, help="length of the generated watermarked text")
-    parser.add_argument('--step_T', type=int, default=400, help="number or randomw walks/iterations")
+    parser.add_argument('--step_T', type=int, default=400, help="number or random walks/iterations")
     parser.add_argument('--mask_filling_model_name', type=str, default="google/t5-v1_1-xl")
     parser.add_argument('--chunk_size', type=int, default=20)
     parser.add_argument('--int8', action='store_true')

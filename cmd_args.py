@@ -10,6 +10,8 @@ def get_cmd_args():
     parser.add_argument('--cache_dir', type=str, default=os.getenv('XDG_CACHE_HOME', './.cache'))
     parser.add_argument('--dist_alpha', type=float, default=0.05)
     parser.add_argument('--checkpoint_alpha', type=float, default=0.05)
+    parser.add_argument('--input', type=str, default=None)
+    parser.add_argument('--output', type=str, default=os.getenv('OUTPUT_FILE', './results/output.csv'))
 
     parser.add_argument('--check_quality', type=bool, default=False, help="whether to check quality of each perturbed text using GPT-3.5")
     parser.add_argument('--watermark_scheme', type=str, default="umd", help="the watermark scheme to attack")

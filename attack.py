@@ -8,6 +8,8 @@ import jsonlines
 from cmd_args import get_cmd_args
 from tqdm import tqdm
 import numpy as np
+import pandas as pd
+import os
 from oracle import *
 
 class Attacker:
@@ -155,6 +157,7 @@ class Trainer():
         self.mask_filling_model_name = self.args.mask_filling_model_name
         self.n_positions = 512 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.responses = []
 
     def load_mask_model(self):
         # mask filling t5 model
@@ -215,6 +218,7 @@ class Trainer():
                 print(oracle.response.__repr__())
             print(f"Walk {rnd_walk_step} / Iteration {n_iter}, {len(attacker.original_tokens)} > {threshold_dist} unique tokens replaced, Paraphrased Text:")
             print(n_response.__repr__())
+            self.responses.append(n_response.__repr__())
             if rnd_walk_step >= max_rnd_steps or patience >= 150:
                 print("Max random walk steps reached. Exiting.")
                 break 
@@ -322,6 +326,7 @@ def main(query, response=None):
                 writer.write(item)'''
     print("Final results:")
     print(attack_results)
+    return trainer.responses
 
 if __name__ == '__main__':
 
@@ -350,5 +355,19 @@ if __name__ == '__main__':
     As for the lighthouse, it continued to shine brightly, a symbol of hope and guidance, much like Elias himself, whose journey had shown that it’s never too late for adventure and that the greatest treasures in life are often found in the journey, not the destination.
     """
 
-    main(query=query,
-         response=response_1)
+    output_file = get_cmd_args().output
+    input_file = get_cmd_args().input
+
+    if input_file is not None:
+        df_in = pd.read_csv(input_file)
+        query = df_in['query'][0]
+        responses = list(df_in['response'])
+    else:
+        responses = [response_1, response_2]
+    
+    perturbed_responses = [main(query=query, response=response) for response in responses]
+    perturbed_walks = { f'response_{i}' : random_walk for i, random_walk in enumerate(perturbed_responses, 1)}
+    
+    df_out = pd.DataFrame(perturbed_walks)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    df_out.to_csv(output_file, index=False)

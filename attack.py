@@ -315,11 +315,11 @@ def main(query, response=None):
         attack_results.append(result_dict)
         
         # Saved intermediate results
-        output_file = f"{out_folder}/{dataset}/{dataset}_{watermark_scheme}_len{gen_len}_step{args.step_T}_attack.jsonl"
+        '''output_file = f"{out_folder}/{dataset}/{dataset}_{watermark_scheme}_len{gen_len}_step{args.step_T}_attack.jsonl"
         print(f"Saving to {output_file}")
         with jsonlines.open(output_file, mode='w') as writer:
             for item in attack_results:
-                writer.write(item)
+                writer.write(item)'''
     print("Final results:")
     print(attack_results)
 

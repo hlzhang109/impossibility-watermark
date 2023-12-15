@@ -12,6 +12,16 @@ import pandas as pd
 import os
 from oracle import *
 
+def save_intermediate_results(data, filename):
+    df_out = pd.DataFrame(data)
+    if os.path.exists(filename):
+        df_out.to_csv(filename, mode='a', header=False, index=False)  # Append without writing headers
+    else:
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        df_out.to_csv(filename, index=False)  # Create new file with headers
+    print(f"Data appended to {filename}")
+
+
 class Attacker:
     def __init__(self) -> None:
         self.n_resample = 5
@@ -195,6 +205,8 @@ class Trainer():
         ckpt_cnt = 0
         mixing_patience = 0
         intermediate_examples = [response]
+
+        all_perturbations = []
         while n_iter < self.args.step_T:
             last_replaced_tokens = set()
             attacker.cached_replaced_tokens = set()
@@ -219,6 +231,15 @@ class Trainer():
             print(f"Walk {rnd_walk_step} / Iteration {n_iter}, {len(attacker.original_tokens)} > {threshold_dist} unique tokens replaced, Paraphrased Text:")
             print(n_response.__repr__())
             self.responses.append(n_response.__repr__())
+
+            perturbation_data = {"iteration": n_iter, "perturbed_text": n_response}
+            all_perturbations.append(perturbation_data)
+            
+            save_interval = 1 # can choose to save after every few iterations
+            if n_iter % save_interval == 0:
+                save_intermediate_results(all_perturbations, output_file)
+                all_perturbations = []  # Clear the list after saving
+
             if rnd_walk_step >= max_rnd_steps or patience >= 150:
                 print("Max random walk steps reached. Exiting.")
                 break 
@@ -235,6 +256,7 @@ class Trainer():
                 attacker.original_tokens = last_replaced_tokens | attacker.original_tokens
             patience += 1
 
+        save_intermediate_results(all_perturbations, output_file)
         if patience >= 150:
             maintain_quality_or_not = False
         if self.verbose:

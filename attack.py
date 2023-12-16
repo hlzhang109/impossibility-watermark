@@ -189,7 +189,7 @@ class Trainer():
         print(f'DONE ({time.time() - start:.2f}s)')
         return mask_model
     
-    def random_walk_attack(self, oracle, attacker):
+    def random_walk_attack(self, oracle, attacker, trial_id):
         # find a perturbation (through repeated sampling) such that the quality oracle says quality is maintained; then repeat, several times 
         response = oracle.response
         dist = -1
@@ -232,7 +232,7 @@ class Trainer():
             print(n_response.__repr__())
             self.responses.append(n_response.__repr__())
 
-            perturbation_data = {"iteration": n_iter, "perturbed_text": n_response}
+            perturbation_data = {"trial_id" : trial_id, "step_num": n_iter, "perturbed_text": n_response}
             all_perturbations.append(perturbation_data)
             
             save_interval = 1 # can choose to save after every few iterations
@@ -298,7 +298,7 @@ def run_once(query, response=None):
     print("Final results:")
     print(attack_results)
 
-def main(query, response=None):
+def main(query, response=None, trial_id = None):
     args = get_cmd_args()
     args.dataset = 'c4_realnews'
     attacker = Attacker()
@@ -332,7 +332,7 @@ def main(query, response=None):
         print(f"Iteration {i}-th data:")
         print(f"Query: {query}")
         trainer = Trainer(data, oracle, args)
-        result_dict = trainer.random_walk_attack(oracle, attacker)
+        result_dict = trainer.random_walk_attack(oracle, attacker, trial_id)
         paraphrased_response = result_dict["paraphrased_response"]
         print(f"Response: {response}")
         print(f"Paraphrased Response: {paraphrased_response}")
@@ -396,7 +396,7 @@ if __name__ == '__main__':
 
     for trial_id in range(1, 1 + num_trials):
         # Loop over every query and response and get the perturbed responses
-        perturbed_responses = [main(query=query, response=response) for response in responses]
+        perturbed_responses = [main(query=query, response=response, trial_id = trial_id) for response in responses]
 
         # Put the perturbed responses in the DF using the schema
         for i, random_walk in enumerate(perturbed_responses, 1):
@@ -404,6 +404,6 @@ if __name__ == '__main__':
                 data.append((trial_id, step_num, response))
     
     # Create the Pandas DF and write it to a CSV file
-    df_out = pd.DataFrame(data, columns=['Trial ID', 'Step Number', 'Response'])
+    df_out = pd.DataFrame(data, columns=['trial_id', 'step_num', 'response'])
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)

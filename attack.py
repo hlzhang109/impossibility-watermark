@@ -284,7 +284,7 @@ def run_once(query, response=None):
     result_dict["watermarked_response"] = response
 
     attack_results = []
-    oracle = Oracle(query, response, check_quality=args.check_quality, choice_granuality=args.choice_granularity, cache_dir=args.cache_dir)
+    oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity, cache_dir=args.cache_dir)
     print(f"Query: {query}")
     data = None
     trainer = Trainer(data, oracle, args)
@@ -328,7 +328,7 @@ def main(query, response=None):
             query = None
         
         attacker.prefix = query
-        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granuality=args.choice_granularity)
+        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity)
         print(f"Iteration {i}-th data:")
         print(f"Query: {query}")
         trainer = Trainer(data, oracle, args)
@@ -390,9 +390,20 @@ if __name__ == '__main__':
     else:
         responses = [response_1, response_2]
 
-    perturbed_responses = [main(query=query, response=response) for response in responses]
-    perturbed_walks = { f'response_{i}' : random_walk for i, random_walk in enumerate(perturbed_responses, 1)}
+    data = []
+
+    num_trials = args.num_trials
+
+    for trial_id in range(1, 1 + num_trials):
+        # Loop over every query and response and get the perturbed responses
+        perturbed_responses = [main(query=query, response=response) for response in responses]
+
+        # Put the perturbed responses in the DF using the schema
+        for i, random_walk in enumerate(perturbed_responses, 1):
+            for step_num, response in enumerate(random_walk, 1):
+                data.append((trial_id, step_num, response))
     
-    df_out = pd.DataFrame(perturbed_walks)
+    # Create the Pandas DF and write it to a CSV file
+    df_out = pd.DataFrame(data, columns=['Trial ID', 'Step Number', 'Response'])
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)

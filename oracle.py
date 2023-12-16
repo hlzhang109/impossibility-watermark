@@ -177,12 +177,12 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, check_quality=False, choice_granuality=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
+    def __init__(self, query, response, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
         self.init_score = -1
         self.query = query
         self.response = response
         self.detailed_prompt = "" 
-        self.choice_granularity = choice_granuality
+        self.choice_granularity = choice_granularity
         self.system_prompt = "You are a capable, helpful and useful assistant." if not use_chat_arena_prompt else self.chat_arena_prompt
         self.history =  [{"role": "system", "content": self.system_prompt}]
         tokenizer_name = reward_name = "OpenAssistant/reward-model-deberta-v3-large-v2"

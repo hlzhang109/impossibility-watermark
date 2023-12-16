@@ -377,16 +377,19 @@ if __name__ == '__main__':
     As for the lighthouse, it continued to shine brightly, a symbol of hope and guidance, much like Elias himself, whose journey had shown that it’s never too late for adventure and that the greatest treasures in life are often found in the journey, not the destination.
     """
 
-    output_file = get_cmd_args().output
-    input_file = get_cmd_args().input
+    args = get_cmd_args()
+
+    output_file = args.output
+    input_file = args.input
 
     if input_file is not None:
+        print(f"Successfully read the input file {input_file}.")
         df_in = pd.read_csv(input_file)
         query = df_in['query'][0]
         responses = list(df_in['response'])
     else:
         responses = [response_1, response_2]
-    
+
     perturbed_responses = [main(query=query, response=response) for response in responses]
     perturbed_walks = { f'response_{i}' : random_walk for i, random_walk in enumerate(perturbed_responses, 1)}
     

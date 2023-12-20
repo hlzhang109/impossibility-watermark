@@ -12,6 +12,30 @@ import pandas as pd
 import os
 from oracle import *
 
+import json
+
+def append_dict_to_json_file(file_path, new_data):
+    """
+    Append a dictionary to a JSON file. Assumes the file contains an array of objects.
+
+    :param file_path: Path to the JSON file
+    :param new_data: Dictionary to append
+    """
+    try:
+        with open(file_path, 'r') as file:
+            # Load the existing data
+            data = json.load(file)
+    except FileNotFoundError:
+        # If the file doesn't exist, create a new list
+        data = []
+
+    # Append the new dictionary to the list
+    data.append(new_data)
+
+    # Write the modified list back to the file
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
 def save_intermediate_results(data, filename):
     df_out = pd.DataFrame(data)
     if os.path.exists(filename):
@@ -190,15 +214,20 @@ class Trainer():
         return mask_model
     
     def random_walk_attack(self, oracle, attacker, trial_id):
-        # find a perturbation (through repeated sampling) such that the quality oracle says quality is maintained; then repeat, several times 
+
         response = oracle.response
         dist = -1
         n_iter, max_rnd_steps = 0, 200
+        # Keeps track of the number of successful perturbations.
         rnd_walk_step = 0
-        # set the stopping criterion
-        threshold_dist = self.args.dist_alpha * len(oracle.response)
+
+        # Original tokens keeps track of the content of the original response.
+        # This is used to determine how much progress we're making when perturbing.
         attacker.original_tokens = set(response.replace("\n", " ").split(" ")) 
+
+
         threshold_dist = int(self.args.dist_alpha * len(attacker.original_tokens))
+        # This determines how often we're going to checkpoint.
         checkpoint_dist = int(self.args.checkpoint_alpha * len(attacker.original_tokens))
         maintain_quality_or_not = True
         patience = 0
@@ -215,10 +244,17 @@ class Trainer():
             n_response = re.sub(r'\s{2,}', ' ', n_response) # strip the extra spaces
             if oracle.maintain_quality(n_response, model=self.args.oracle_model, tie_threshold=self.args.tie_threshold):
                 response = n_response
+                # Increment the number of quality-preserving perturbations.
                 rnd_walk_step += 1
+
+                # Remove tokens that have been replaced from original tokens
                 attacker.original_tokens -= attacker.cached_replaced_tokens
+
                 last_replaced_tokens = attacker.cached_replaced_tokens
+
+                # Reset patience since we just had a successful attempt.
                 patience = 0
+
                 if int(rnd_walk_step*self.args.span_len) // checkpoint_dist > ckpt_cnt:
                     intermediate_examples.append(n_response)
                     ckpt_cnt += 1
@@ -240,25 +276,33 @@ class Trainer():
                 save_intermediate_results(all_perturbations, output_file)
                 all_perturbations = []  # Clear the list after saving
 
-            if rnd_walk_step >= max_rnd_steps or patience >= 150:
+            if patience >= 150:
+                print("We had 150 unsuccessful attempts at perturbing. Exiting.")
+                maintain_quality_or_not = False
+                break
+            if rnd_walk_step >= max_rnd_steps:
                 print("Max random walk steps reached. Exiting.")
                 break 
+
             if len(attacker.original_tokens) <= threshold_dist:
                 mixing_patience += 1
             if mixing_patience > self.args.step_T/3:
                 print("Mixing patience exceeded. Exiting.")
                 break
+            
+            # If we haven't had any success at perturbing after trying 30 times, backtrack.
             if patience > 30:
                 print("Remaining tokens to be masked.")
                 print(attacker.original_tokens)
                 print("Patience exceeded. Backtrack.")
                 response = intermediate_examples[-1]
                 attacker.original_tokens = last_replaced_tokens | attacker.original_tokens
+
             patience += 1
 
+        # Make sure we save the last batch of perturbations.
         save_intermediate_results(all_perturbations, output_file)
-        if patience >= 150:
-            maintain_quality_or_not = False
+
         if self.verbose:
             print("Step: ", n_iter)
             print("Original Text: ")
@@ -338,6 +382,9 @@ def main(query, response=None, trial_id = None):
         print(f"Paraphrased Response: {paraphrased_response}")
         result_dict["watermarked_response"] = datum["output_with_watermark"]
         result_dict["query"] = query
+
+        append_dict_to_json_file('./result_dicts.json', result_dict)
+
         attack_results.append(result_dict)
         
         # Saved intermediate results

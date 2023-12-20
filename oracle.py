@@ -318,6 +318,7 @@ class Oracle:
     def maintain_quality(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
         """
         Use both the reward model and GPT to see if the paraphrased response maintains the quality.
+        We can play with the mean score in order to 
         """
         # First round of comparison
         choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
@@ -334,10 +335,9 @@ class Oracle:
         if score < 0:
             return False
         if self.check_quality:
-            prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
-            # They had a check_error_prompt that they later commented out.
-            check_quality = chat(prompt, model=model, tokenizer=tokenizer)
-            return 'yes' in check_quality.lower() # new response is at least as good as the original response
+            mean_score = self.report_mean_score(paraphrased_response)
+            print(f"Mean Quality Score from GPT: {mean_score}")
+            return (mean_score >= 0)
         return True
 
     def report_mean_score(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
@@ -347,13 +347,13 @@ class Oracle:
         Positive scores indicate that the paraphrased response is better.
         """
         # First round of comparison
-        choice = self.query_gpt_once(paraphrased_response, self.response)
+        choice = self.query_gpt_once(paraphrased_response)
         score_dict = self.get_score_dict()
         if choice is None:
             return False
         score = score_dict[choice]
         # Second round of comparison
-        choice = self.query_gpt_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
+        choice = self.query_gpt_once(paraphrased_response, invert_order=True)
         if choice is None:
             return False
         second_score = score_dict[choice]
@@ -385,6 +385,6 @@ if __name__ == '__main__':
     oracle = Oracle(query, response, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
 
     
-    response = oracle.query_gpt_once(paraphrased_response)
+    response = oracle.report_mean_score(paraphrased_response)
 
     print(response)

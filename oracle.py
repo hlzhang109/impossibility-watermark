@@ -189,6 +189,7 @@ class Oracle:
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cache_dir)
         self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
         self.check_quality = check_quality
+        self.latest_mean_score = 0
 
     @property
     def chat_arena_prompt(self):
@@ -336,6 +337,7 @@ class Oracle:
             return False
         if self.check_quality:
             mean_score = self.report_mean_score(paraphrased_response)
+            self.latest_mean_score = mean_score
             print(f"Mean Quality Score from GPT: {mean_score}")
             return (mean_score >= 0)
         return True

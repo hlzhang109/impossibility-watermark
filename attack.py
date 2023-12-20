@@ -268,12 +268,12 @@ class Trainer():
             print(n_response.__repr__())
             self.responses.append(n_response.__repr__())
 
-            perturbation_data = {"trial_id" : trial_id, "step_num": n_iter, "perturbed_text": n_response}
+            perturbation_data = {"trial_id" : trial_id, "step_num": n_iter, "perturbed_text": n_response, "quality_score" : oracle.latest_mean_score}
             all_perturbations.append(perturbation_data)
             
             save_interval = 1 # can choose to save after every few iterations
             if n_iter % save_interval == 0:
-                save_intermediate_results(all_perturbations, output_file)
+                save_intermediate_results(all_perturbations, intermediate_file)
                 all_perturbations = []  # Clear the list after saving
 
             if patience >= 150:
@@ -301,7 +301,7 @@ class Trainer():
             patience += 1
 
         # Make sure we save the last batch of perturbations.
-        save_intermediate_results(all_perturbations, output_file)
+        save_intermediate_results(all_perturbations, intermediate_file)
 
         if self.verbose:
             print("Step: ", n_iter)
@@ -372,7 +372,7 @@ def main(query, response=None, trial_id = None):
             query = None
         
         attacker.prefix = query
-        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity)
+        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity, use_chat_arena_prompt=True)
         print(f"Iteration {i}-th data:")
         print(f"Query: {query}")
         trainer = Trainer(data, oracle, args)
@@ -426,6 +426,7 @@ if __name__ == '__main__':
 
     args = get_cmd_args()
 
+    intermediate_file = args.intermediate
     output_file = args.output
     input_file = args.input
 
@@ -448,9 +449,9 @@ if __name__ == '__main__':
         # Put the perturbed responses in the DF using the schema
         for i, random_walk in enumerate(perturbed_responses, 1):
             for step_num, response in enumerate(random_walk, 1):
-                data.append((trial_id, step_num, response))
+                data.append((trial_id, i, step_num, response))
     
     # Create the Pandas DF and write it to a CSV file
-    df_out = pd.DataFrame(data, columns=['trial_id', 'step_num', 'response'])
+    df_out = pd.DataFrame(data, columns=['trial_id', 'story_id','step_num', 'response'])
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)

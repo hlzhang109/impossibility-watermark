@@ -242,7 +242,7 @@ class Oracle:
         '''
     
     def get_score_dict(self):
-        return {1: 1, 2: 0.5, 3: 0, 4: -0.5, 5:-1} if self.choice_granularity == 5 else {1: 1, 2: 0, 3: -1} 
+        return {1: 1.0, 2: 0.5, 3: 0.0, 4: -0.5, 5:-1.0} if self.choice_granularity == 5 else {1: 1.0, 2: 0, 3: -1.0} 
 
     @property
     def three_choice(self):
@@ -339,7 +339,7 @@ class Oracle:
             mean_score = self.report_mean_score(paraphrased_response)
             self.latest_mean_score = mean_score
             print(f"Mean Quality Score from GPT: {mean_score}")
-            return (mean_score >= 0)
+            return (mean_score >= 0.0)
         return True
 
     def report_mean_score(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
@@ -361,7 +361,7 @@ class Oracle:
         second_score = score_dict[choice]
 
         # We subtract the second score since the positions are now inverted.
-        return (score-second_score)/2
+        return (score-second_score) / 2.0
     
 if __name__ == '__main__':
 

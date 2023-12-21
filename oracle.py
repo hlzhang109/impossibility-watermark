@@ -348,6 +348,7 @@ class Oracle:
         To account for GPT's position bias, swap their position and report the mean.
         Positive scores indicate that the paraphrased response is better.
         """
+        # TODO: Instead of returning False, add a repetition mechanism.
         # First round of comparison
         choice = self.query_gpt_once(paraphrased_response)
         score_dict = self.get_score_dict()

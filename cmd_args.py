@@ -38,6 +38,7 @@ def get_cmd_args():
 
     parser.add_argument('--num_trials', type=int, default=10)
     parser.add_argument('--intermediate', type=str, default = "./results/intermediate.csv")
-    # parser.add_argument('--perturb_type', type=str, default="mask", help="t5 or mask")
+    parser.add_argument('--result_stats', type=str, default = "./results/result_stats.csv")
+    parser.add_argument('--use_query', type=bool, default=True, help="whether this is a query or a completion")
     args = parser.parse_args()
     return args

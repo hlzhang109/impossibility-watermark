@@ -181,7 +181,7 @@ class Attacker:
         return self.perturb_texts_t5(texts, span_len=self.args.span_len, pct=0.2, k=k, ceil_pct=False)
 
 class Trainer():
-    def __init__(self, data, oracle, verbose=True):
+    def __init__(self, data, oracle, intermediate_file, verbose=True):
         self.data = data
         self.oracle = oracle
         self.verbose = verbose
@@ -214,7 +214,7 @@ class Trainer():
         return mask_model
     
     def random_walk_attack(self, oracle, attacker, trial_id):
-
+        intermediate_file = self.args.intermediate
         response = oracle.response
         dist = -1
         n_iter, max_rnd_steps = 0, 200
@@ -346,172 +346,73 @@ def main(query, response=None, trial_id = None):
     args = get_cmd_args()
     attacker = Attacker()
 
-
     watermark_scheme = args.watermark_scheme
     dataset = args.dataset 
     gen_len = args.gen_len
 
-    intermediate_file = args.intermediate
     output_file = args.output
     input_file = args.input
+    stats_file = args.result_stats
+
+    num_trials = args.num_trials
+
+    use_query = args.use_query
 
     # Try to read the input file
     if input_file is not None:
         print(f"Successfully read the input file {input_file}.")
         df_in = pd.read_csv(input_file)
-        query = df_in['query'][0]
+        queries = list(df_in['query'])
         responses = list(df_in['response'])
     else:
-        responses = [response_1, response_2]
+        print(f"Couldn't find input file {input_file}")
+        return 1
 
-    query = lor_prompt
-    responses = [lor_1, lor_2]
+    input_data = [{'query': q, 'response': r} for q, r in zip(queries, responses)]
 
+    output_data = []
 
-    data = [
-        {
-            "query": query,
-            "output_with_watermark": response
-        }
-    ]
-    # load more from the jsonl file...
-    # prefix = f'{watermark_scheme}-watermark/{out_folder}' 
-    # data = load_data(f"{prefix}/{dataset}_{watermark_scheme}.jsonl") 
     attack_results = []
     print(args)
-    for i, datum in tqdm(enumerate(data), desc="Data Iteration"):
-        response = datum["output_with_watermark"]
+    for trial_id in range(1, num_trials+1):
+        for i, datum in tqdm(enumerate(input_data), desc="Data Iteration"):
+            response = datum["output_with_watermark"]
 
-        if "prefix" in list(datum.keys()):
-            query = datum["prefix"]
-        elif "query" in list(datum.keys()):
-            query = datum["query"]
-        else:
-            query = None
-        
-        attacker.prefix = query
-        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity, use_chat_arena_prompt=True)
-        print(f"Iteration {i}-th data:")
-        print(f"Query: {query}")
-        trainer = Trainer(data, oracle, args)
-        result_dict = trainer.random_walk_attack(oracle, attacker, trial_id)
-        paraphrased_response = result_dict["paraphrased_response"]
-        print(f"Response: {response}")
-        print(f"Paraphrased Response: {paraphrased_response}")
-        result_dict["watermarked_response"] = datum["output_with_watermark"]
-        result_dict["query"] = query
+            if "prefix" in list(datum.keys()):
+                query = datum["prefix"]
+            elif "query" in list(datum.keys()):
+                query = datum["query"]
+            else:
+                query = None
+            
+            attacker.prefix = query
+            oracle = Oracle(query, response, use_query=use_query, check_quality=args.check_quality, choice_granularity=args.choice_granularity, use_chat_arena_prompt=True)
+            print(f"Iteration {i}-th data:")
+            print(f"Query: {query}")
+            trainer = Trainer(input_data, oracle, args)
+            result_dict = trainer.random_walk_attack(oracle, attacker, trial_id)
+            paraphrased_response = result_dict["paraphrased_response"]
+            print(f"Response: {response}")
+            print(f"Paraphrased Response: {paraphrased_response}")
+            result_dict["watermarked_response"] = datum["output_with_watermark"]
+            result_dict["query"] = query
 
-        append_dict_to_json_file('./result_dicts.json', result_dict)
+            # Add the stats of the last attack to the JSON file
+            append_dict_to_json_file(stats_file, result_dict)
 
-        attack_results.append(result_dict)
-        
-        # Saved intermediate results
-        '''output_file = f"{out_folder}/{dataset}/{dataset}_{watermark_scheme}_len{gen_len}_step{args.step_T}_attack.jsonl"
-        print(f"Saving to {output_file}")
-        with jsonlines.open(output_file, mode='w') as writer:
-            for item in attack_results:
-                writer.write(item)'''
+            attack_results.append(result_dict)
+
+            # Put the perturbed responses in the DF using the schema
+            for i, random_walk in enumerate(trainer.responses, 1):
+                for step_num, response in enumerate(random_walk, 1):
+                    output_data.append((trial_id, i, step_num, response))
+            
     print("Final results:")
     print(attack_results)
-    return trainer.responses
 
-if __name__ == '__main__':
-
-    query = "Write me a good story."
-
-    # First story.
-
-    response_1 ="""
-    Once upon a time in a mystical forest, there lived a young girl named Elara, who had the unique ability to communicate with animals. Elara's best friend was a wise old owl named Hoot, who had seen many seasons pass in the forest.
-    One day, the tranquility of the forest was disturbed by a strange rumbling sound. Elara and Hoot discovered that a giant machine, driven by people from the city, was cutting down the trees. The forest creatures were in panic, and their home was in danger.
-    Determined to save the forest, Elara decided to seek the help of the legendary Green Dragon, known to be the guardian of nature. Despite being warned of the dragon's fierce nature, Elara and Hoot ventured deep into the unexplored parts of the forest.
-    After days of journeying, they finally found the Green Dragon in a hidden valley. The dragon was initially distrustful, but Elara's genuine concern for the forest and her ability to speak with animals convinced the dragon of her sincerity.
-    The Green Dragon agreed to help and revealed an ancient secret to Elara – a magical song that could awaken the spirits of the forest. Elara, with the help of Hoot and the forest animals, sang the magical song under the full moon.
-    Miraculously, the spirits of the forest awoke. The trees began to move, gently at first, then with purpose. They formed a barrier, halting the progress of the machines. The people from the city, witnessing this extraordinary event, realized the importance of the forest and the error of their ways.
-    From that day on, the forest was protected, and the animals lived in peace. Elara became known as the Guardian of the Forest, and the Green Dragon, once feared, was celebrated as its protector. Elara and Hoot continued to watch over the forest, ensuring its safety and harmony for many years to come.
-    And so, the forest remained a magical place, where the spirits danced in the moonlight, and the voice of a young girl who spoke for the trees echoed in the wind, reminding all of the delicate balance between humans and nature.
-    """
-
-    # Second story.
-
-    response_2="""
-    One stormy night, as thunder roared and waves crashed against the cliffs, Elias noticed a strange glimmer in the water. Braving the storm, he descended from the lighthouse to investigate. There, amidst the tumultuous waves, he found a glowing, ancient bottle sealed with a wax emblem unknown to him. Inside the bottle was a tattered map, leading to a hidden cove on the far side of the island.
-    Driven by curiosity and a sense of adventure that he hadn’t felt in years, Elias embarked on a journey to uncover the secrets of the map. He traversed dense forests, scaled steep cliffs, and navigated through hidden trails. Along the way, he encountered a variety of creatures – some friendly, like the wise old owl who offered guidance, and others not so much, like the sly fox that tried to lead him astray.
-    After several days of travel, Elias arrived at the hidden cove. The cove was breathtaking, with crystal-clear waters and a beach of fine, white sand. At the center of the cove, half-buried in the sand, was an ancient chest. With trembling hands, Elias opened it to reveal its contents: a collection of rare, luminescent pearls and a note. The note was from a pirate captain who, centuries ago, had hidden his treasure in the cove, regretting his life of plunder and hoping someone worthy would find it.
-    Elias returned to the village, his life forever changed by the adventure. He used the pearls to better the lives of the villagers, funding schools, repairing homes, and ensuring the village prospered. The old lighthouse keeper, who had once watched over the sea, became a guardian of the village, his story inspiring generations to come.
-    As for the lighthouse, it continued to shine brightly, a symbol of hope and guidance, much like Elias himself, whose journey had shown that it’s never too late for adventure and that the greatest treasures in life are often found in the journey, not the destination.
-    """
-
-
-    # Lord of the Rings.
-
-    lor_prompt = "Write a 500 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
-
-    lor_1 = """Title: The Role of Power and Its Impact on Characters in the Lord of the Rings Series
-    Introduction:
-    J.R.R. Tolkien's epic fantasy series, "The Lord of the Rings," delves deep into the complex interplay of power and its consequences on the characters inhabiting Middle-earth. At the heart of this narrative is the One Ring, a symbol of absolute power, and the various characters who come into contact with it. Through their journeys and struggles, Tolkien offers profound insights into the nature of power, its corrupting influence, and the transformative effects it has on individuals and societies.
-    The One Ring as a Symbol of Power:
-    The One Ring is the central symbol of power in Tolkien's universe. Forged by the Dark Lord Sauron, it possesses the ability to dominate the minds and wills of those who possess it. The Ring represents the corrupting allure of power, as it promises its bearer immense control and authority. It becomes the object of desire for many characters throughout the series, illustrating the seductive nature of power.
-    Corruption of Characters:
-    One of the most prominent examples of the corrupting influence of power is seen in the character of Gollum. Originally, Gollum was a hobbit named Sméagol, who came into possession of the Ring. Over time, the Ring twisted his nature, turning him into a creature consumed by his obsession with the Ring. Gollum's transformation is a poignant representation of how power can corrupt even the most innocent of souls.
-    Another character profoundly affected by the lure of power is Boromir, a noble warrior from Gondor. Boromir initially joins the Fellowship with noble intentions, but his desire to use the Ring for the defense of his people ultimately leads to his downfall. His inner struggle and eventual redemption highlight the dangers of succumbing to the temptation of power.
-    The Ring-Bearer, Frodo Baggins, experiences the corrupting influence of the Ring firsthand. Despite his pure and noble heart, he is not immune to its allure. Throughout his journey, Frodo faces inner turmoil and temptation, which serves as a testament to the insidious nature of power.
-    The Nature of Power
-    Tolkien's portrayal of power in "The Lord of the Rings" suggests several key insights into its nature. First, power is a double-edged sword. While it offers the potential for great good, it also carries the risk of immense corruption. The Ring's ability to corrupt its bearers underscores the idea that absolute power corrupts absolutely.
-    Second, power is a test of character. Characters like Frodo and Sam demonstrate that even in the face of overwhelming power, individuals can choose to resist its corrupting influence and act with courage and selflessness. Their unwavering commitment to destroying the Ring reflects Tolkien's belief in the capacity of individuals to resist the temptations of power.
-    Additionally, Tolkien emphasizes the importance of collective action in the face of power. The Fellowship of the Ring, comprised of diverse races and backgrounds, exemplifies the idea that unity and cooperation are essential when confronting the most formidable manifestations of power. Together, they stand a better chance of resisting the Ring's influence.
-    Conclusion:
-    In "The Lord of the Rings," J.R.R. Tolkien masterfully explores the role of power and its profound impact on characters and societies. Through the symbolism of the One Ring and the character arcs of individuals like Gollum, Boromir, and Frodo, Tolkien reveals the corrupting influence of absolute power and the enduring struggle between the desire for power and the need for moral integrity.
-    Tolkien's work suggests that power is a force that can shape destinies, test character, and ultimately determine the course of history. However, he also offers hope through the examples of characters who resist the seductive pull of power, illustrating that the choices individuals make can lead to redemption and the preservation of the values that define a just and noble society. Ultimately, "The Lord of the Rings" is a timeless exploration of the timeless question: What does power do to those who wield it, and what does it take to resist its temptations?"""
-
-    lor_2 = """Title: The Corrupting Influence of Power in "The Lord of the Rings"
-    Introduction
-    J.R.R. Tolkien's epic fantasy series, "The Lord of the Rings," explores the profound and often destructive influence of power on its characters. At the heart of this narrative is the One Ring, a symbol of ultimate power that serves as a catalyst for corruption and moral dilemmas. Tolkien's work delves deeply into the nature of power, offering insights into how it can shape individuals and societies and the consequences of wielding it.
-    The Symbolism of the Ring
-    The One Ring in "The Lord of the Rings" is the quintessential symbol of power. Crafted by the Dark Lord Sauron, the Ring contains a portion of his own power, which he uses to dominate Middle-earth. The Ring's allure is undeniable, as it grants immense power to its possessor. However, it comes at a great cost. The Ring is not just a magical artifact; it embodies the corrupting nature of power itself. As characters are drawn to its power, they begin to experience its malevolent influence, demonstrating the allure and peril of power.
-    The Impact on Characters
-    Throughout the series, various characters grapple with the temptation of the Ring and its corrupting effects. The most prominent example is Frodo Baggins, the Ring-bearer. Initially, Frodo resists the Ring's pull, but as he carries it closer to its place of destruction, the burden takes a toll on him. The Ring seeks to dominate its possessor, making them more susceptible to its influence. Frodo's struggle embodies the idea that even the most virtuous individuals can be corrupted by power.
-    Another character profoundly affected by the allure of power is Boromir. His desire to use the Ring to defend his homeland ultimately leads him to attempt to take it from Frodo. Boromir's tragic fall demonstrates how power can corrupt even those with noble intentions. It is a cautionary tale of how power can twist one's values and goals.
-    Gollum, the Ring's previous owner, serves as a tragic example of the Ring's corrupting influence. Once a normal hobbit-like creature named Sméagol, he was consumed by his obsession with the Ring over centuries, becoming a grotesque and tormented figure. Gollum's transformation underscores the corrosive nature of power, as it destroyed his humanity and left him a wretched creature driven solely by his lust for the Ring.
-    Societal Impact
-    Beyond individual characters, "The Lord of the Rings" also explores the impact of power on society. The quest for power is a recurring theme, with various factions seeking control of the Ring for their own purposes. The Dark Lord Sauron seeks to dominate Middle-earth using the Ring's power, and this desire for supremacy leads to war and suffering on a grand scale. The struggles for power among races and nations highlight the destructive potential of unchecked ambition.
-    Tolkien's Insights on Power
-    Through the symbolism of the Ring and the experiences of its characters, Tolkien offers profound insights into the nature of power. He suggests that power is inherently corrupting, and its allure can lead individuals astray. Furthermore, Tolkien emphasizes the importance of humility and selflessness in the face of power, as these qualities are crucial in resisting its corrupting influence.
-    Conclusion
-    In "The Lord of the Rings," J.R.R. Tolkien masterfully explores the role of power and its impact on characters and societies. The One Ring serves as a potent symbol of power's allure and corruption, leading individuals like Frodo, Boromir, and Gollum down dark paths. Tolkien's work is a cautionary tale that reminds us of the dangers of unchecked ambition and the importance of resisting the corrupting influence of power. Ultimately, "The Lord of the Rings" offers profound insights into the human condition and the enduring struggle between the desire for power and the need for humility and selflessness."""
-
-
-    args = get_cmd_args()
-
-    intermediate_file = args.intermediate
-    output_file = args.output
-    input_file = args.input
-
-    if input_file is not None:
-        print(f"Successfully read the input file {input_file}.")
-        df_in = pd.read_csv(input_file)
-        query = df_in['query'][0]
-        responses = list(df_in['response'])
-    else:
-        responses = [response_1, response_2]
-
-    query = lor_prompt
-    responses = [lor_1, lor_2]
-
-    data = []
-
-    num_trials = args.num_trials
-
-    for trial_id in range(1, 1 + num_trials):
-        # Loop over every query and response and get the perturbed responses
-        perturbed_responses = [main(query=query, response=response, trial_id = trial_id) for response in responses]
-
-        # Put the perturbed responses in the DF using the schema
-        for i, random_walk in enumerate(perturbed_responses, 1):
-            for step_num, response in enumerate(random_walk, 1):
-                data.append((trial_id, i, step_num, response))
-    
     # Create the Pandas DF and write it to a CSV file
-    df_out = pd.DataFrame(data, columns=['trial_id', 'story_id','step_num', 'response'])
+    df_out = pd.DataFrame(output_data, columns=['trial_id', 'story_id','step_num', 'response'])
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)
+
+    return 0

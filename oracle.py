@@ -177,7 +177,7 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
+    def __init__(self, query, response, use_query, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
         self.init_score = -1
         self.query = query
         self.response = response
@@ -190,6 +190,7 @@ class Oracle:
         self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
         self.check_quality = check_quality
         self.latest_mean_score = -2.0
+        self.use_query = use_query
 
     @property
     def chat_arena_prompt(self):
@@ -336,10 +337,34 @@ class Oracle:
         if score < 0:
             return False
         if self.check_quality:
-            mean_score = self.report_mean_score(paraphrased_response)
-            self.latest_mean_score = mean_score
-            print(f"Mean Quality Score from GPT: {mean_score}")
-            return (mean_score >= 0.0)
+            # Check if the response has grammatical mistakes
+            grammar_prompt = f"{paraphrased_response} \n" + self.check_error_prompt
+
+            check_error = chat(grammar_prompt, model=model, tokenizer=tokenizer)
+            print(f"Oracle Answer: {check_error}")
+            pattern = r'\d+'
+            filtered_response = re.findall(pattern, check_error)
+
+            if len(filtered_response) == 0:
+                return False
+
+            score = int(filtered_response[-1])
+
+            if score != 2:
+                print("Response had punctuation mistakes.")
+                return False
+
+            if self.use_query:
+                mean_score = self.report_mean_score(paraphrased_response)
+                self.latest_mean_score = mean_score
+                print(f"Mean Quality Score from GPT: {mean_score}")
+                return (mean_score >= 0.0)
+            else:
+                prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
+                check_quality = chat(prompt, model=model, tokenizer=tokenizer)
+                print(f"Quality Oracle Response: {check_quality}")
+                return 'yes' in check_quality.lower()
+            
         return True
 
     def report_mean_score(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
@@ -363,7 +388,8 @@ class Oracle:
 
         # We subtract the second score since the positions are now inverted.
         return (score-second_score) / 2.0
-    
+
+# This can be used to test modifications to the oracle quickly.
 if __name__ == '__main__':
 
     query = "Write me a good story."
@@ -386,7 +412,6 @@ if __name__ == '__main__':
     """
 
     oracle = Oracle(query, response, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
-
     
     response = oracle.report_mean_score(paraphrased_response)
 

@@ -344,12 +344,30 @@ def run_once(query, response=None):
 
 def main(query, response=None, trial_id = None):
     args = get_cmd_args()
-    args.dataset = 'c4_realnews'
     attacker = Attacker()
+
+
     watermark_scheme = args.watermark_scheme
     dataset = args.dataset 
     gen_len = args.gen_len
-    out_folder = 'outs_300'
+
+    intermediate_file = args.intermediate
+    output_file = args.output
+    input_file = args.input
+
+    # Try to read the input file
+    if input_file is not None:
+        print(f"Successfully read the input file {input_file}.")
+        df_in = pd.read_csv(input_file)
+        query = df_in['query'][0]
+        responses = list(df_in['response'])
+    else:
+        responses = [response_1, response_2]
+
+    query = lor_prompt
+    responses = [lor_1, lor_2]
+
+
     data = [
         {
             "query": query,

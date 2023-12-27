@@ -416,3 +416,6 @@ def main(query, response=None, trial_id = None):
     df_out.to_csv(output_file, index=False)
 
     return 0
+
+if __name__ == "__main__":
+    main()

@@ -342,7 +342,7 @@ def run_once(query, response=None):
     print("Final results:")
     print(attack_results)
 
-def main(query, response=None, trial_id = None):
+def main():
     args = get_cmd_args()
     attacker = Attacker()
 

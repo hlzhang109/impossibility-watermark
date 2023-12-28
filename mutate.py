@@ -8,19 +8,39 @@ import random
 from nltk.tokenize import sent_tokenize
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
-class TextMutator:
+class TextMutator:    
+    """
+    This class is responsible for loading and initializing an LLM with specified parameters. 
+    It also provides methods for mutating a text in a 1- or 2-step process. 
+
+    Parameters:
+    - model_name_or_path (str): The name or path of the model to be loaded. Default is "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ".
+    - revision (str): The specific model revision to use. Default is "main". 
+        - NOTE: Use "gptq-3bit-128g-actorder_True" for the 3-bit version. However, current tests show 4x worse inference time.
+    - max_new_tokens (int): The maximum number of new tokens to be generated in a single inference. Default is 1024.
+    - do_sample (bool): If True, sampling is used for generating tokens. If False, deterministic decoding is used. Default is True.
+    - temperature (float): The sampling temperature for token generation. Higher values lead to more randomness. Default is 0.7.
+    - top_p (float): The nucleus sampling probability. Keeps the cumulative probability for the most likely tokens to this threshold. Default is 0.95.
+    - top_k (int): The number of highest probability vocabulary tokens to keep for top-k-filtering. Default is 40.
+    - repetition_penalty (float): The penalty applied to repeated tokens. Values >1 discourage repetition. Default is 1.1.
+    - cache_dir (str): The directory where the model cache is stored. Default is "./.cache/".
+        - NOTE: The default dir is stored to network attached storage (NAS) and NAS is very slow for model loading. 
+                However NAS has more room for LLMs. Store locally to dramatically decrease load time. 
+    """
     def __init__(self, model_name_or_path="TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ", 
+                 revision="main", # "gptq-3bit-128g-actorder_True" for 3-bit version
                  max_new_tokens=1024, do_sample=True, temperature=0.7, top_p=0.95, 
-                 top_k=40, repetition_penalty=1.1):
+                 top_k=40, repetition_penalty=1.1, cache_dir="./.cache/"):
 
         # Initialize and load the model and tokenizer
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name_or_path,
+            cache_dir=cache_dir,
             device_map="auto",
             trust_remote_code=False,
-            revision="main")
+            revision=revision) 
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name_or_path, use_fast=True)
+            model_name_or_path, use_fast=True, cache_dir=cache_dir)
 
         # Store the pipeline configuration
         self.pipeline_config = {

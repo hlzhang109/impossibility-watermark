@@ -48,7 +48,7 @@ class TextMutator:
         prompt_template = f'[INST] {prompt} [/INST]'
         return self.pipe(prompt_template)[0]['generated_text'].replace(prompt_template, "").strip()
 
-    def process_1_step_text(self, text):
+    def mutate_1_step(self, text):
         # Combined prompt for creative alteration and consistency adjustment
         combined_prompt = (
             "Select a sentence at random from this text, rewrite it in a creative way, "
@@ -80,7 +80,7 @@ class TextMutator:
         adjusted_text = self.generate_text(consistency_prompt)
         return adjusted_text
 
-    def process_2_step_text(self, text):
+    def mutate_2_step(self, text):
         # Step 1: Creatively alter a random sentence
         text_with_creative_sentence = self.creatively_alter_sentence(text)
 
@@ -90,6 +90,8 @@ class TextMutator:
         return final_text
 
 if __name__ == "__main__":
+
+    import time
 
     # Example usage
     text_mutator = TextMutator()
@@ -106,9 +108,18 @@ if __name__ == "__main__":
     In conclusion, Tolkien's "The Lord of the Rings" is a profound meditation on the nature of power. Through the symbol of the Ring and the trials of its characters, Tolkien illustrates that true strength lies in humility, selflessness, and the courage to resist the corrupting allure of absolute power. The series serves as a timeless reminder of the complex dynamics of power and the moral integrity required to wield it responsibly.
     """
 
-    processed_1_step_text = text_mutator.process_1_step_text(original_text)
-    print("process_1_step_text " + "=" * 100)
-    print(processed_1_step_text)
-    processed_2_step_text = text_mutator.process_2_step_text(original_text)
-    print("process_2_step_text "  + "=" * 100)
-    print(processed_2_step_text)
+    # Timing mutate_1_step
+    start_time = time.time()
+    mutated_1_step_text = text_mutator.mutate_1_step(original_text)
+    end_time = time.time()
+    print("mutate_1_step " + "=" * 100)
+    print(mutated_1_step_text)
+    print("Execution time for mutate_1_step: {:.2f} seconds".format(end_time - start_time))
+
+    # Timing mutate_2_step
+    start_time = time.time()
+    mutated_2_step_text = text_mutator.mutate_2_step(original_text)
+    end_time = time.time()
+    print("mutate_2_step "  + "=" * 100)
+    print(mutated_2_step_text)
+    print("Execution time for mutate_2_step: {:.2f} seconds".format(end_time - start_time))

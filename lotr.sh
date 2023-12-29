@@ -1,0 +1,1 @@
+python attack.py --input "./inputs/lotr.csv" --output "./results/lotr_output.csv" --step_T 500 --num_trials 1 --check_quality True --intermediate "./results/lotr_intermediate.csv" --result_stats "./results/lotr_stats.csv"

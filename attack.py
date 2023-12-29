@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import os
 from oracle import *
+from inputs import *
 
 import json
 
@@ -361,7 +362,7 @@ def main():
     # Try to read the input file
     if input_file is not None:
         print(f"Successfully read the input file {input_file}.")
-        df_in = pd.read_csv(input_file)
+        df_in = pd.read_csv(input_file, delimiter='|')
         queries = list(df_in['query'])
         responses = list(df_in['response'])
     else:
@@ -370,13 +371,21 @@ def main():
 
     input_data = [{'query': q, 'response': r} for q, r in zip(queries, responses)]
 
+    # TODO: Remove.
+    input_data = [
+        {
+            'query' : LOTR_PROMPT,
+            'response' : LOTR_RESPONSE
+        }
+    ]
+
     output_data = []
 
     attack_results = []
     print(args)
     for trial_id in range(1, num_trials+1):
         for i, datum in tqdm(enumerate(input_data), desc="Data Iteration"):
-            response = datum["output_with_watermark"]
+            response = datum["response"]
 
             if "prefix" in list(datum.keys()):
                 query = datum["prefix"]
@@ -394,7 +403,7 @@ def main():
             paraphrased_response = result_dict["paraphrased_response"]
             print(f"Response: {response}")
             print(f"Paraphrased Response: {paraphrased_response}")
-            result_dict["watermarked_response"] = datum["output_with_watermark"]
+            result_dict["watermarked_response"] = datum["response"]
             result_dict["query"] = query
 
             # Add the stats of the last attack to the JSON file

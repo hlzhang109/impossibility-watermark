@@ -270,7 +270,7 @@ class Oracle:
             response_1 = self.response
             response_2 = paraphrased_response
 
-        prompt = self.instruction + f"Response 1: {response_1}\n" + f"Response 2: {response_2}"
+        prompt = self.instruction + f"Response A: {response_1}\n" + f"Response B: {response_2}"
         print(f"Prompt: {prompt}")
         print(f"Model: {model}")
         # Avoid using max_tokens which can be too short for generating explanations.
@@ -356,6 +356,7 @@ class Oracle:
 
             if self.use_query:
                 mean_score = self.report_mean_score(paraphrased_response)
+                # Save the mean score so we can log it to a file
                 self.latest_mean_score = mean_score
                 print(f"Mean Quality Score from GPT: {mean_score}")
                 return (mean_score >= 0.0)
@@ -392,26 +393,41 @@ class Oracle:
 # This can be used to test modifications to the oracle quickly.
 if __name__ == '__main__':
 
-    query = "Write me a good story."
+    # query = "Write me a good story."
 
-    response ="""
-    Once upon a time in a mystical forest, there lived a young girl named Elara, who had the unique ability to communicate with animals. Elara's best friend was a wise old owl named Hoot, who had seen many seasons pass in the forest.
-    One day, the tranquility of the forest was disturbed by a strange rumbling sound. Elara and Hoot discovered that a giant machine, driven by people from the city, was cutting down the trees. The forest creatures were in panic, and their home was in danger.
-    Determined to save the forest, Elara decided to seek the help of the legendary Green Dragon, known to be the guardian of nature. Despite being warned of the dragon's fierce nature, Elara and Hoot ventured deep into the unexplored parts of the forest.
-    After days of journeying, they finally found the Green Dragon in a hidden valley. The dragon was initially distrustful, but Elara's genuine concern for the forest and her ability to speak with animals convinced the dragon of her sincerity.
-    The Green Dragon agreed to help and revealed an ancient secret to Elara – a magical song that could awaken the spirits of the forest. Elara, with the help of Hoot and the forest animals, sang the magical song under the full moon.
-    Miraculously, the spirits of the forest awoke. The trees began to move, gently at first, then with purpose. They formed a barrier, halting the progress of the machines. The people from the city, witnessing this extraordinary event, realized the importance of the forest and the error of their ways.
-    From that day on, the forest was protected, and the animals lived in peace. Elara became known as the Guardian of the Forest, and the Green Dragon, once feared, was celebrated as its protector. Elara and Hoot continued to watch over the forest, ensuring its safety and harmony for many years to come.
-    And so, the forest remained a magical place, where the spirits danced in the moonlight, and the voice of a young girl who spoke for the trees echoed in the wind, reminding all of the delicate balance between humans and nature.
-    """
+    # response ="""
+    # Once upon a time in a mystical forest, there lived a young girl named Elara, who had the unique ability to communicate with animals. Elara's best friend was a wise old owl named Hoot, who had seen many seasons pass in the forest.
+    # One day, the tranquility of the forest was disturbed by a strange rumbling sound. Elara and Hoot discovered that a giant machine, driven by people from the city, was cutting down the trees. The forest creatures were in panic, and their home was in danger.
+    # Determined to save the forest, Elara decided to seek the help of the legendary Green Dragon, known to be the guardian of nature. Despite being warned of the dragon's fierce nature, Elara and Hoot ventured deep into the unexplored parts of the forest.
+    # After days of journeying, they finally found the Green Dragon in a hidden valley. The dragon was initially distrustful, but Elara's genuine concern for the forest and her ability to speak with animals convinced the dragon of her sincerity.
+    # The Green Dragon agreed to help and revealed an ancient secret to Elara – a magical song that could awaken the spirits of the forest. Elara, with the help of Hoot and the forest animals, sang the magical song under the full moon.
+    # Miraculously, the spirits of the forest awoke. The trees began to move, gently at first, then with purpose. They formed a barrier, halting the progress of the machines. The people from the city, witnessing this extraordinary event, realized the importance of the forest and the error of their ways.
+    # From that day on, the forest was protected, and the animals lived in peace. Elara became known as the Guardian of the Forest, and the Green Dragon, once feared, was celebrated as its protector. Elara and Hoot continued to watch over the forest, ensuring its safety and harmony for many years to come.
+    # And so, the forest remained a magical place, where the spirits danced in the moonlight, and the voice of a young girl who spoke for the trees echoed in the wind, reminding all of the delicate balance between humans and nature.
+    # """
 
-    paraphrased_response = """
-    In a far away coastal nook, stood a lighthouse, protected through ages. An aging keeper, Eli, kept watch, - while a lovely bird, Edward, would light the darkened seas. This beautiful heroic abode, stood firm for when fog had blown. 
-    Eli held his lone head high, stayed, - steady, - while Edward set their lantern, alight - - and then lifted their flag, high, - which sent a beacon of light, towards their beloved home.
-    ""The local villagers, admired them - and while the keeper, - a man named Eli, stood vigilant - the entire lighthouse, owed its life to his helpmate - a bird, named Edward. - - and they became the symbol, for NorthStar.
-    """
+    # paraphrased_response = """
+    # In a far away coastal nook, stood a lighthouse, protected through ages. An aging keeper, Eli, kept watch, - while a lovely bird, Edward, would light the darkened seas. This beautiful heroic abode, stood firm for when fog had blown. 
+    # Eli held his lone head high, stayed, - steady, - while Edward set their lantern, alight - - and then lifted their flag, high, - which sent a beacon of light, towards their beloved home.
+    # ""The local villagers, admired them - and while the keeper, - a man named Eli, stood vigilant - the entire lighthouse, owed its life to his helpmate - a bird, named Edward. - - and they became the symbol, for NorthStar.
+    # """
 
-    oracle = Oracle(query, response, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
+    query = """Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"""
+
+    response = """In J.R.R. Tolkien's "The Lord of the Rings" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series.
+
+    Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a hobbit, becomes utterly consumed by the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall.
+
+    The Ring's impact on Frodo, the protagonist, is particularly poignant. He volunteers to carry the Ring, a burden that slowly erodes his spirit and physical well-being. This journey illustrates Tolkien's view that power, even when wielded for a noble cause, can have detrimental effects on the bearer. Frodo’s gradual deterioration under the Ring’s weight symbolizes the heavy toll that power can exact, even on the purest of hearts.
+
+    Tolkien also uses the Ring to comment on the nature of power itself. He suggests that true power lies not in dominion or control, but in the ability to resist temptation and to make sacrifices for the greater good. This is exemplified by characters like Samwise Gamgee, whose loyalty and humility prove instrumental in aiding Frodo’s quest.
+
+    In summary, "The Lord of the Rings" presents power as a double-edged sword, capable of both corrupting and revealing true character. Through the symbolism of the Ring, Tolkien conveys that the nature of power is not in its possession or use, but in the wisdom to understand its inherent dangers and the strength to renounce it."""
+
+    paraphrased_response = """In J.R.R. Tolkien's ""The Lord of the Rings"" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series. Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a mere man, transforms under the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall. The Ring's impact on Frodo, the protagonist, is particularly poignant. He volunteers to carry the Ring, a burden that slowly erodes his spirit and physical well-being. This journey illustrates Tolkien's view that power, even when wielded for a noble cause, can have detrimental effects on the bearer. Frodo’s gradual deterioration under the Ring’s weight symbolizes the heavy toll that power can exact, even on the purest of hearts. Tolkien also uses the Ring to comment on the nature of power itself. He suggests that true power lies not in dominion or control, but in the ability to resist temptation and to make sacrifices for the greater good. This is exemplified by characters like Samwise Gamgee, whose loyalty and humility prove instrumental in aiding Frodo’s quest. In summary, ""The Lord of the Rings"" presents power as a double-edged sword, capable of both corrupting and revealing true character. Through the symbolism of the Ring, Tolkien conveys that the nature of power is not in its possession or use, but in the wisdom to understand its inherent dangers and the strength to renounce it."""
+
+
+    oracle = Oracle(query, response, use_query=True, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
     
     response = oracle.report_mean_score(paraphrased_response)
 

@@ -362,7 +362,7 @@ def main():
     # Try to read the input file
     if input_file is not None:
         print(f"Successfully read the input file {input_file}.")
-        df_in = pd.read_csv(input_file, delimiter='|')
+        df_in = pd.read_csv(input_file, delimiter=',')
         queries = list(df_in['query'])
         responses = list(df_in['response'])
     else:
@@ -370,14 +370,6 @@ def main():
         return 1
 
     input_data = [{'query': q, 'response': r} for q, r in zip(queries, responses)]
-
-    # TODO: Remove.
-    input_data = [
-        {
-            'query' : LOTR_PROMPT,
-            'response' : LOTR_RESPONSE
-        }
-    ]
 
     output_data = []
 

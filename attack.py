@@ -363,6 +363,7 @@ def main():
     if input_file is not None:
         print(f"Successfully read the input file {input_file}.")
         df_in = pd.read_csv(input_file, delimiter=',')
+        # print(df_in.head())
         queries = list(df_in['query'])
         responses = list(df_in['response'])
     else:

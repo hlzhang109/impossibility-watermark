@@ -297,7 +297,7 @@ class Oracle:
                 continue
  
     def query_rm_once(self, response_1, response_2, tie_threshold=0.01, model="gpt-3.5", max_tokens=5, tokenizer=None):
-        context = '###Human: ' + self.query + '###Assistant: '
+        context = '###Human: ' + str(self.query) + '###Assistant: '
         text1 = context + response_1
         text2 = context + response_2
         tokenized_text1 = self.tokenizer.encode_plus(text1, return_tensors="pt")

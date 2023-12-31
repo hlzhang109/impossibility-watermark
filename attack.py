@@ -413,7 +413,7 @@ def main():
     print(attack_results)
 
     # Create the Pandas DF and write it to a CSV file
-    df_out = pd.DataFrame(output_data, columns=['trial_id', 'story_id','step_num', 'response'])
+    df_out = pd.DataFrame(attack_results)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)
 

@@ -235,6 +235,7 @@ class Trainer():
         ckpt_cnt = 0
         mixing_patience = 0
         intermediate_examples = [response]
+        trial_responses = []
 
         all_perturbations = []
         while n_iter < self.args.step_T:
@@ -267,7 +268,7 @@ class Trainer():
                 print(oracle.response.__repr__())
             print(f"Walk {rnd_walk_step} / Iteration {n_iter}, {len(attacker.original_tokens)} > {threshold_dist} unique tokens replaced, Paraphrased Text:")
             print(n_response.__repr__())
-            self.responses.append(n_response.__repr__())
+            trial_responses.append(n_response.__repr__())
 
             perturbation_data = {"trial_id" : trial_id, "step_num": n_iter, "perturbed_text": n_response, "quality_score" : oracle.latest_mean_score}
             all_perturbations.append(perturbation_data)
@@ -319,6 +320,7 @@ class Trainer():
         if len(intermediate_examples) > 1: # intermediate steps for checkpointing etc
             result_dict["intermediate_examples"] = intermediate_examples
 
+        self.responses.append(trial_responses)
         return result_dict
 
 def run_once(query, response=None):

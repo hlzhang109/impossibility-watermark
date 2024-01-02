@@ -8,7 +8,7 @@ import random
 from nltk.tokenize import sent_tokenize
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from oracle import *
-from cmd_args import get_cmd_args
+# from cmd_args import get_cmd_args
 
 class TextMutator:    
     """
@@ -128,7 +128,7 @@ class TextMutator:
                 print("Mixing patience exceeded. Exiting.")
                 break
             mutated_text = self.mutate_2_step(text)
-            if oracle.maintain_quality(mutated_text, model=self.args.oracle_model, tie_threshold=self.args.tie_threshold):
+            if oracle.maintain_quality(mutated_text, model="gpt-4"):
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
             else:
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     import time
 
     # Example usage
-    args = get_cmd_args()
+    # args = get_cmd_args()
     text_mutator = TextMutator()
     original_text = \
     """
@@ -156,7 +156,7 @@ if __name__ == "__main__":
 
     In conclusion, Tolkien's "The Lord of the Rings" is a profound meditation on the nature of power. Through the symbol of the Ring and the trials of its characters, Tolkien illustrates that true strength lies in humility, selflessness, and the courage to resist the corrupting allure of absolute power. The series serves as a timeless reminder of the complex dynamics of power and the moral integrity required to wield it responsibly.
     """
-    quality_oracle = Oracle(query=None, response=original_text, use_query=use_query, check_quality=args.check_quality, choice_granularity=args.choice_granularity, use_chat_arena_prompt=True)
+    quality_oracle = Oracle(query=None, response=original_text, use_query=True, check_quality=True, use_chat_arena_prompt=True)
     # Timing mutate_with_quality_control
     start_time = time.time()
     mutated_text = text_mutator.mutate_with_quality_control(original_text,quality_oracle)

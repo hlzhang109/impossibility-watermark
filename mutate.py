@@ -38,7 +38,7 @@ class TextMutator:
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name_or_path,
             cache_dir=cache_dir,
-            device_map="auto",
+            device_map="cuda",
             trust_remote_code=False,
             revision=revision) 
         self.tokenizer = AutoTokenizer.from_pretrained(

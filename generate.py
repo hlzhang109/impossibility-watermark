@@ -7,14 +7,17 @@ from extended_watermark_processor import WatermarkLogitsProcessor
 def main():
     print("Starting the script...")
 
-    model_name = "meta-llama/Llama-2-7b-hf"
+    model_name = "TheBloke/Llama-2-7b-Chat-GPTQ"
     print(f"Loading the model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name,
+                                             device_map="auto",
+                                             trust_remote_code=False,
+                                             revision="main")
 
     # Load the dataset
     print("Loading the C4 RealNews dataset subset...")
-    c4_realnews_subset = load_dataset("c4", "realnewslike", split='train[:5000]')
+    c4_realnews_subset = load_dataset("c4", "realnewslike", split='train[:10]')
 
     watermark_processor = WatermarkLogitsProcessor(vocab=list(tokenizer.get_vocab().values()),
                                                    gamma=0.25,

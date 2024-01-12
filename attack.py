@@ -11,6 +11,31 @@ import numpy as np
 import pandas as pd
 import os
 from oracle import *
+from inputs import *
+
+import json
+
+def append_dict_to_json_file(file_path, new_data):
+    """
+    Append a dictionary to a JSON file. Assumes the file contains an array of objects.
+
+    :param file_path: Path to the JSON file
+    :param new_data: Dictionary to append
+    """
+    try:
+        with open(file_path, 'r') as file:
+            # Load the existing data
+            data = json.load(file)
+    except FileNotFoundError:
+        # If the file doesn't exist, create a new list
+        data = []
+
+    # Append the new dictionary to the list
+    data.append(new_data)
+
+    # Write the modified list back to the file
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
 
 def save_intermediate_results(data, filename):
     df_out = pd.DataFrame(data)
@@ -157,7 +182,7 @@ class Attacker:
         return self.perturb_texts_t5(texts, span_len=self.args.span_len, pct=0.2, k=k, ceil_pct=False)
 
 class Trainer():
-    def __init__(self, data, oracle, verbose=True):
+    def __init__(self, data, oracle, intermediate_file, verbose=True):
         self.data = data
         self.oracle = oracle
         self.verbose = verbose
@@ -189,22 +214,28 @@ class Trainer():
         print(f'DONE ({time.time() - start:.2f}s)')
         return mask_model
     
-    def random_walk_attack(self, oracle, attacker):
-        # find a perturbation (through repeated sampling) such that the quality oracle says quality is maintained; then repeat, several times 
+    def random_walk_attack(self, oracle, attacker, trial_id):
+        intermediate_file = self.args.intermediate
         response = oracle.response
         dist = -1
         n_iter, max_rnd_steps = 0, 200
+        # Keeps track of the number of successful perturbations.
         rnd_walk_step = 0
-        # set the stopping criterion
-        threshold_dist = self.args.dist_alpha * len(oracle.response)
+
+        # Original tokens keeps track of the content of the original response.
+        # This is used to determine how much progress we're making when perturbing.
         attacker.original_tokens = set(response.replace("\n", " ").split(" ")) 
+
+
         threshold_dist = int(self.args.dist_alpha * len(attacker.original_tokens))
+        # This determines how often we're going to checkpoint.
         checkpoint_dist = int(self.args.checkpoint_alpha * len(attacker.original_tokens))
         maintain_quality_or_not = True
         patience = 0
         ckpt_cnt = 0
         mixing_patience = 0
         intermediate_examples = [response]
+        trial_responses = []
 
         all_perturbations = []
         while n_iter < self.args.step_T:
@@ -215,10 +246,17 @@ class Trainer():
             n_response = re.sub(r'\s{2,}', ' ', n_response) # strip the extra spaces
             if oracle.maintain_quality(n_response, model=self.args.oracle_model, tie_threshold=self.args.tie_threshold):
                 response = n_response
+                # Increment the number of quality-preserving perturbations.
                 rnd_walk_step += 1
+
+                # Remove tokens that have been replaced from original tokens
                 attacker.original_tokens -= attacker.cached_replaced_tokens
+
                 last_replaced_tokens = attacker.cached_replaced_tokens
+
+                # Reset patience since we just had a successful attempt.
                 patience = 0
+
                 if int(rnd_walk_step*self.args.span_len) // checkpoint_dist > ckpt_cnt:
                     intermediate_examples.append(n_response)
                     ckpt_cnt += 1
@@ -230,35 +268,43 @@ class Trainer():
                 print(oracle.response.__repr__())
             print(f"Walk {rnd_walk_step} / Iteration {n_iter}, {len(attacker.original_tokens)} > {threshold_dist} unique tokens replaced, Paraphrased Text:")
             print(n_response.__repr__())
-            self.responses.append(n_response.__repr__())
+            trial_responses.append(n_response.__repr__())
 
-            perturbation_data = {"iteration": n_iter, "perturbed_text": n_response}
+            perturbation_data = {"trial_id" : trial_id, "step_num": n_iter, "perturbed_text": n_response, "quality_score" : oracle.latest_mean_score}
             all_perturbations.append(perturbation_data)
             
             save_interval = 1 # can choose to save after every few iterations
             if n_iter % save_interval == 0:
-                save_intermediate_results(all_perturbations, output_file)
+                save_intermediate_results(all_perturbations, intermediate_file)
                 all_perturbations = []  # Clear the list after saving
 
-            if rnd_walk_step >= max_rnd_steps or patience >= 150:
+            if patience >= 150:
+                print("We had 150 unsuccessful attempts at perturbing. Exiting.")
+                maintain_quality_or_not = False
+                break
+            if rnd_walk_step >= max_rnd_steps:
                 print("Max random walk steps reached. Exiting.")
                 break 
+
             if len(attacker.original_tokens) <= threshold_dist:
                 mixing_patience += 1
             if mixing_patience > self.args.step_T/3:
                 print("Mixing patience exceeded. Exiting.")
                 break
+            
+            # If we haven't had any success at perturbing after trying 30 times, backtrack.
             if patience > 30:
                 print("Remaining tokens to be masked.")
                 print(attacker.original_tokens)
                 print("Patience exceeded. Backtrack.")
                 response = intermediate_examples[-1]
                 attacker.original_tokens = last_replaced_tokens | attacker.original_tokens
+
             patience += 1
 
-        save_intermediate_results(all_perturbations, output_file)
-        if patience >= 150:
-            maintain_quality_or_not = False
+        # Make sure we save the last batch of perturbations.
+        save_intermediate_results(all_perturbations, intermediate_file)
+
         if self.verbose:
             print("Step: ", n_iter)
             print("Original Text: ")
@@ -274,6 +320,7 @@ class Trainer():
         if len(intermediate_examples) > 1: # intermediate steps for checkpointing etc
             result_dict["intermediate_examples"] = intermediate_examples
 
+        self.responses.append(trial_responses)
         return result_dict
 
 def run_once(query, response=None):
@@ -284,7 +331,7 @@ def run_once(query, response=None):
     result_dict["watermarked_response"] = response
 
     attack_results = []
-    oracle = Oracle(query, response, check_quality=args.check_quality, choice_granuality=args.choice_granularity, cache_dir=args.cache_dir)
+    oracle = Oracle(query, response, check_quality=args.check_quality, choice_granularity=args.choice_granularity, cache_dir=args.cache_dir)
     print(f"Query: {query}")
     data = None
     trainer = Trainer(data, oracle, args)
@@ -298,98 +345,81 @@ def run_once(query, response=None):
     print("Final results:")
     print(attack_results)
 
-def main(query, response=None):
+def main():
     args = get_cmd_args()
-    args.dataset = 'c4_realnews'
     attacker = Attacker()
+
     watermark_scheme = args.watermark_scheme
     dataset = args.dataset 
     gen_len = args.gen_len
-    out_folder = 'outs_300'
-    data = [
-        {
-            "query": query,
-            "output_with_watermark": response
-        }
-    ]
-    # load more from the jsonl file...
-    # prefix = f'{watermark_scheme}-watermark/{out_folder}' 
-    # data = load_data(f"{prefix}/{dataset}_{watermark_scheme}.jsonl") 
-    attack_results = []
-    print(args)
-    for i, datum in tqdm(enumerate(data), desc="Data Iteration"):
-        response = datum["output_with_watermark"]
 
-        if "prefix" in list(datum.keys()):
-            query = datum["prefix"]
-        elif "query" in list(datum.keys()):
-            query = datum["query"]
-        else:
-            query = None
-        
-        attacker.prefix = query
-        oracle = Oracle(query, response, check_quality=args.check_quality, choice_granuality=args.choice_granularity)
-        print(f"Iteration {i}-th data:")
-        print(f"Query: {query}")
-        trainer = Trainer(data, oracle, args)
-        result_dict = trainer.random_walk_attack(oracle, attacker)
-        paraphrased_response = result_dict["paraphrased_response"]
-        print(f"Response: {response}")
-        print(f"Paraphrased Response: {paraphrased_response}")
-        result_dict["watermarked_response"] = datum["output_with_watermark"]
-        result_dict["query"] = query
-        attack_results.append(result_dict)
-        
-        # Saved intermediate results
-        '''output_file = f"{out_folder}/{dataset}/{dataset}_{watermark_scheme}_len{gen_len}_step{args.step_T}_attack.jsonl"
-        print(f"Saving to {output_file}")
-        with jsonlines.open(output_file, mode='w') as writer:
-            for item in attack_results:
-                writer.write(item)'''
-    print("Final results:")
-    print(attack_results)
-    return trainer.responses
+    output_file = args.output
+    input_file = args.input
+    stats_file = args.result_stats
 
-if __name__ == '__main__':
+    num_trials = args.num_trials
 
-    query = "Write me a good story."
+    use_query = args.use_query
 
-    # First story.
-
-    response_1 ="""
-    Once upon a time in a mystical forest, there lived a young girl named Elara, who had the unique ability to communicate with animals. Elara's best friend was a wise old owl named Hoot, who had seen many seasons pass in the forest.
-    One day, the tranquility of the forest was disturbed by a strange rumbling sound. Elara and Hoot discovered that a giant machine, driven by people from the city, was cutting down the trees. The forest creatures were in panic, and their home was in danger.
-    Determined to save the forest, Elara decided to seek the help of the legendary Green Dragon, known to be the guardian of nature. Despite being warned of the dragon's fierce nature, Elara and Hoot ventured deep into the unexplored parts of the forest.
-    After days of journeying, they finally found the Green Dragon in a hidden valley. The dragon was initially distrustful, but Elara's genuine concern for the forest and her ability to speak with animals convinced the dragon of her sincerity.
-    The Green Dragon agreed to help and revealed an ancient secret to Elara – a magical song that could awaken the spirits of the forest. Elara, with the help of Hoot and the forest animals, sang the magical song under the full moon.
-    Miraculously, the spirits of the forest awoke. The trees began to move, gently at first, then with purpose. They formed a barrier, halting the progress of the machines. The people from the city, witnessing this extraordinary event, realized the importance of the forest and the error of their ways.
-    From that day on, the forest was protected, and the animals lived in peace. Elara became known as the Guardian of the Forest, and the Green Dragon, once feared, was celebrated as its protector. Elara and Hoot continued to watch over the forest, ensuring its safety and harmony for many years to come.
-    And so, the forest remained a magical place, where the spirits danced in the moonlight, and the voice of a young girl who spoke for the trees echoed in the wind, reminding all of the delicate balance between humans and nature.
-    """
-
-    # Second story.
-
-    response_2="""
-    One stormy night, as thunder roared and waves crashed against the cliffs, Elias noticed a strange glimmer in the water. Braving the storm, he descended from the lighthouse to investigate. There, amidst the tumultuous waves, he found a glowing, ancient bottle sealed with a wax emblem unknown to him. Inside the bottle was a tattered map, leading to a hidden cove on the far side of the island.
-    Driven by curiosity and a sense of adventure that he hadn’t felt in years, Elias embarked on a journey to uncover the secrets of the map. He traversed dense forests, scaled steep cliffs, and navigated through hidden trails. Along the way, he encountered a variety of creatures – some friendly, like the wise old owl who offered guidance, and others not so much, like the sly fox that tried to lead him astray.
-    After several days of travel, Elias arrived at the hidden cove. The cove was breathtaking, with crystal-clear waters and a beach of fine, white sand. At the center of the cove, half-buried in the sand, was an ancient chest. With trembling hands, Elias opened it to reveal its contents: a collection of rare, luminescent pearls and a note. The note was from a pirate captain who, centuries ago, had hidden his treasure in the cove, regretting his life of plunder and hoping someone worthy would find it.
-    Elias returned to the village, his life forever changed by the adventure. He used the pearls to better the lives of the villagers, funding schools, repairing homes, and ensuring the village prospered. The old lighthouse keeper, who had once watched over the sea, became a guardian of the village, his story inspiring generations to come.
-    As for the lighthouse, it continued to shine brightly, a symbol of hope and guidance, much like Elias himself, whose journey had shown that it’s never too late for adventure and that the greatest treasures in life are often found in the journey, not the destination.
-    """
-
-    output_file = get_cmd_args().output
-    input_file = get_cmd_args().input
-
+    # Try to read the input file
     if input_file is not None:
-        df_in = pd.read_csv(input_file)
-        query = df_in['query'][0]
+        print(f"Successfully read the input file {input_file}.")
+        df_in = pd.read_csv(input_file, delimiter=',')
+        # print(df_in.head())
+        queries = list(df_in['query'])
         responses = list(df_in['response'])
     else:
-        responses = [response_1, response_2]
-    
-    perturbed_responses = [main(query=query, response=response) for response in responses]
-    perturbed_walks = { f'response_{i}' : random_walk for i, random_walk in enumerate(perturbed_responses, 1)}
-    
-    df_out = pd.DataFrame(perturbed_walks)
+        print(f"Couldn't find input file {input_file}")
+        return 1
+
+    input_data = [{'query': q, 'response': r} for q, r in zip(queries, responses)]
+
+    output_data = []
+
+    attack_results = []
+    print(args)
+    for trial_id in range(1, num_trials+1):
+        for i, datum in tqdm(enumerate(input_data), desc="Data Iteration"):
+            response = datum["response"]
+
+            if "prefix" in list(datum.keys()):
+                query = datum["prefix"]
+            elif "query" in list(datum.keys()):
+                query = datum["query"]
+            else:
+                query = None
+            
+            attacker.prefix = query
+            oracle = Oracle(query, response, use_query=use_query, check_quality=args.check_quality, choice_granularity=args.choice_granularity, use_chat_arena_prompt=True)
+            print(f"Iteration {i}-th data:")
+            print(f"Query: {query}")
+            trainer = Trainer(input_data, oracle, args)
+            result_dict = trainer.random_walk_attack(oracle, attacker, trial_id)
+            paraphrased_response = result_dict["paraphrased_response"]
+            print(f"Response: {response}")
+            print(f"Paraphrased Response: {paraphrased_response}")
+            result_dict["watermarked_response"] = datum["response"]
+            result_dict["query"] = query
+
+            # Add the stats of the last attack to the JSON file
+            append_dict_to_json_file(stats_file, result_dict)
+
+            attack_results.append(result_dict)
+
+            # Put the perturbed responses in the DF using the schema
+            for i, random_walk in enumerate(trainer.responses, 1):
+                for step_num, response in enumerate(random_walk, 1):
+                    output_data.append((trial_id, i, step_num, response))
+            
+    print("Final results:")
+    print(attack_results)
+
+    # Create the Pandas DF and write it to a CSV file
+    df_out = pd.DataFrame(attack_results)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     df_out.to_csv(output_file, index=False)
+
+    return 0
+
+if __name__ == "__main__":
+    main()

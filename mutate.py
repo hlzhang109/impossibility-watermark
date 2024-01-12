@@ -3,10 +3,13 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ["WORLD_SIZE"] = "1"
 
+from tqdm import tqdm
 import nltk
 import random
 from nltk.tokenize import sent_tokenize
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from oracle import *
+# from cmd_args import get_cmd_args
 
 class TextMutator:    
     """
@@ -36,7 +39,7 @@ class TextMutator:
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name_or_path,
             cache_dir=cache_dir,
-            device_map="auto",
+            device_map="cuda",
             trust_remote_code=False,
             revision=revision) 
         self.tokenizer = AutoTokenizer.from_pretrained(
@@ -108,12 +111,39 @@ class TextMutator:
         final_text = self.adjust_for_consistency(text_with_creative_sentence)
 
         return final_text
+    
+    def mutate_with_quality_control(self, text, oracle, num_steps=100):
+        """
+        Mutate the text for a given number of steps with quality control.
+
+        Parameters:
+        - text (str): The original text to mutate.
+        - oracle (Oracle): An instance of the Oracle class for quality control.
+
+        Returns:
+        - str: The final high-quality mutated text.
+        """
+        patience = 0
+        for _ in tqdm(range(num_steps)):
+            if patience > num_steps/3: # exit after too many failed perturbations
+                print("Mixing patience exceeded. Exiting.")
+                break
+            mutated_text = self.mutate_2_step(text)
+            if oracle.maintain_quality(mutated_text, model="gpt-4"):
+                text = mutated_text
+                patience = 0 # reset patience after successful perturbation
+            else:
+                # If quality is not maintained, increment patience and retry the mutation process
+                patience += 1
+                continue
+        return text
 
 if __name__ == "__main__":
 
     import time
 
     # Example usage
+    # args = get_cmd_args()
     text_mutator = TextMutator()
     original_text = \
     """
@@ -127,19 +157,11 @@ if __name__ == "__main__":
 
     In conclusion, Tolkien's "The Lord of the Rings" is a profound meditation on the nature of power. Through the symbol of the Ring and the trials of its characters, Tolkien illustrates that true strength lies in humility, selflessness, and the courage to resist the corrupting allure of absolute power. The series serves as a timeless reminder of the complex dynamics of power and the moral integrity required to wield it responsibly.
     """
-
-    # Timing mutate_1_step
+    quality_oracle = Oracle(query=None, response=original_text, use_query=True, check_quality=True, use_chat_arena_prompt=True)
+    # Timing mutate_with_quality_control
     start_time = time.time()
-    mutated_1_step_text = text_mutator.mutate_1_step(original_text)
+    mutated_text = text_mutator.mutate_with_quality_control(original_text, quality_oracle)
     end_time = time.time()
-    print("mutate_1_step " + "=" * 100)
-    print(mutated_1_step_text)
-    print("Execution time for mutate_1_step: {:.2f} seconds".format(end_time - start_time))
-
-    # Timing mutate_2_step
-    start_time = time.time()
-    mutated_2_step_text = text_mutator.mutate_2_step(original_text)
-    end_time = time.time()
-    print("mutate_2_step "  + "=" * 100)
-    print(mutated_2_step_text)
-    print("Execution time for mutate_2_step: {:.2f} seconds".format(end_time - start_time))
+    print("mutated_text"  + "=" * 100)
+    print(mutated_text)
+    print("Execution time for mutate_with_quality_control: {:.2f} seconds".format(end_time - start_time))

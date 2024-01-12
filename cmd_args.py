@@ -27,9 +27,20 @@ def get_cmd_args():
     parser.add_argument('--step_T', type=int, default=400, help="number or random walks/iterations")
     parser.add_argument('--mask_filling_model_name', type=str, default="google/t5-v1_1-xl")
     parser.add_argument('--chunk_size', type=int, default=20)
+
+    # These are for the precision of the mask filling model used in the perturbation.
     parser.add_argument('--int8', action='store_true')
     parser.add_argument('--half', action='store_true')
+
+    # This determines the minimum distance of two masks when we're masking the text we want to perturb.
+    # It doesn't matter right now since we have a single mask.
     parser.add_argument('--buffer_size', type=int, default=1)
-    # parser.add_argument('--perturb_type', type=str, default="mask", help="t5 or mask")
+
+    parser.add_argument('--num_trials', type=int, default=10)
+    parser.add_argument('--intermediate', type=str, default = "./results/intermediate.csv")
+    parser.add_argument('--result_stats', type=str, default = "./results/result_stats.csv")
+    parser.add_argument('--use_query', type=bool, default=True, help="whether this is a query or a completion")
     args = parser.parse_args()
     return args
+
+    #

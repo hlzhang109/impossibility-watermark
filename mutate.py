@@ -113,6 +113,7 @@ class TextMutator:
     
     def detect_watermark(self, text):
         score = self.watermark_detector.detect(text)
+        print(f"Current z-score: {score['z_score']}")
         return score['prediction']
 
     def adjust_for_consistency(self, creative_text):

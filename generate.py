@@ -9,8 +9,7 @@ from extended_watermark_processor import WatermarkLogitsProcessor, WatermarkDete
 def main():
     print("Starting the script...")
 
-    # model_name = "TheBloke/Llama-2-7b-Chat-GPTQ"
-    model_name = "meta-llama/Llama-2-7b-hf"
+    model_name = "TheBloke/Llama-2-7b-Chat-GPTQ"
     print(f"Loading the model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, )
 
@@ -18,7 +17,6 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
 
     config = AutoConfig.from_pretrained(model_name)
-    # config.quantization_config = {"disable_exllama": True}
 
     model = AutoModelForCausalLM.from_pretrained(model_name,
                                             device_map="auto",
@@ -26,14 +24,18 @@ def main():
                                             revision="main",
                                             config=config)
 
-    # Load the dataset
-    print("Loading the C4 RealNews dataset subset...")
-    c4_realnews_subset = load_dataset("c4", "realnewslike", split='train', streaming=True, trust_remote_code=True)
+    # # Load the dataset
+    # print("Loading the C4 RealNews dataset subset...")
+    # c4_realnews_subset = load_dataset("c4", "realnewslike", split='train', streaming=True, trust_remote_code=True)
 
-    first_10_stories = []
+    # first_10_stories = []
 
-    for story in c4_realnews_subset.take(50):
-        first_10_stories.append(story)
+    # for story in c4_realnews_subset.take(50):
+    #     first_10_stories.append(story)
+    
+    first_10_stories = ["Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"]
+
+    is_completion = False
 
     watermark_processor = WatermarkLogitsProcessor(vocab=list(tokenizer.get_vocab().values()),
                                                 gamma=0.25,
@@ -49,34 +51,41 @@ def main():
                                             normalizers=[],
                                             ignore_repeated_ngrams=True)
 
-    # Prepare for CSV output
+    # Prepare for CSV output        
     data_for_json = []
     
     successful_completions = 0
     successful_watermark_detections = 0
+    
+    entry = first_10_stories[0]
 
-    for i, entry in enumerate(first_10_stories):
+    for i in range(5):
         if i % 100 == 0:
             print(f"Processing entry {i}...")
 
         # Extract the first 20 tokens from the original text
-        prefix = " ".join(entry['text'].split()[:20])
+        if is_completion:
+            prefix = " ".join(entry['text'].split()[:20])
 
         # Tokenize and generate completion
-        inputs = tokenizer(prefix, return_tensors="pt", padding=True, truncation=True, max_length=30)
+        inputs = tokenizer(entry, return_tensors="pt", padding=True, truncation=True, max_length=100)
         inputs = inputs.to(model.device)
 
-        outputs = model.generate(**inputs, temperature=0.7, do_sample=True, top_p=0.95, top_k=40, max_new_tokens=200, logits_processor=LogitsProcessorList([watermark_processor]), repetition_penalty = 1.2)
+        outputs = model.generate(**inputs, temperature=0.7, do_sample=True, top_p=0.95, top_k=40, max_new_tokens=1024, logits_processor=LogitsProcessorList([watermark_processor]), repetition_penalty = 1.1)
+
         completion = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         score = watermark_detector.detect(completion)
+        
+        if not is_completion:
+            completion = completion.replace(entry, '', 1)  # Replace the first occurrence of 'entry' with an empty string
 
         print(completion)
 
         score_dict = {key: value.tolist() if isinstance(value, torch.Tensor) else value for key, value in score.items()}
 
-        entry = {
-            'Prefix': prefix,
+        data = {
+            'Prompt': entry,
             'Completion': completion,
             'Score': score_dict
         }
@@ -86,19 +95,17 @@ def main():
         if score_dict['prediction']:
             successful_watermark_detections += 1
         
-
         # Store the prefix and completion
-        data_for_json.append(entry)
+        data_for_json.append(data)
         
-        
-
     # Write the prefixes and completions to a CSV file
     print("Writing data to JSON file...")
-    filename = f"text_completions_{time.time()}.json"
+    timestamp = int(time.time())
+    filename = f"text_completions_{timestamp}.json"
     with open(filename, 'w', encoding='utf-8') as file:
         json.dump(data_for_json, file, ensure_ascii=False, indent=4)
 
-    print("Completions saved to text_completions.json")
+    print(f"Completions saved to {filename}")
 
     # Give average statistics.    
     

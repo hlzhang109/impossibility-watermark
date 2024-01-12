@@ -11,6 +11,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from oracle import *
 # from cmd_args import get_cmd_args
 
+from extended_watermark_processor import WatermarkDetector
+
 class TextMutator:    
     """
     This class is responsible for loading and initializing an LLM with specified parameters. 
@@ -59,6 +61,17 @@ class TextMutator:
 
         # Create the pipeline
         self.pipe = pipeline("text-generation", **self.pipeline_config)
+        
+        self.generative_model_name = "TheBloke/Llama-2-7b-Chat-GPTQ"
+        self.generative_model_tokenizer = AutoTokenizer.from_pretrained(self.generative_model_name, )
+        self.watermark_detector = WatermarkDetector(vocab=list(self.generative_model_tokenizer.get_vocab().values()),
+                                    gamma=0.25,
+                                    seeding_scheme="selfhash",
+                                    device="cuda",
+                                    tokenizer=self.generative_model_tokenizer,
+                                    z_threshold=4.0,
+                                    normalizers=[],
+                                    ignore_repeated_ngrams=True)
 
         # Check if NLTK data is downloaded, if not, download it
         try:
@@ -90,12 +103,17 @@ class TextMutator:
         selected_sentence = random.choice(sentences)
 
         # Generate a creative variation of the sentence
-        creative_prompt = f"Rewrite this sentence creatively: '{selected_sentence}'"
+        # creative_prompt = f"Rewrite this sentence creatively: '{selected_sentence}'"
+        creative_prompt = f"Paraphrase this sentence: '{selected_sentence}'"
         creative_variation = self.generate_text(creative_prompt)
 
         # Replace the original sentence with its creative variation
         sentences[sentences.index(selected_sentence)] = creative_variation
         return ' '.join(sentences)
+    
+    def detect_watermark(self, text):
+        score = self.watermark_detector.detect(text)
+        return score['prediction']
 
     def adjust_for_consistency(self, creative_text):
         # Generate minimal changes for consistency
@@ -132,6 +150,12 @@ class TextMutator:
             if oracle.maintain_quality(mutated_text, model="gpt-4"):
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
+                
+                # If watermark is no longer detected, we're done.
+                if not self.detect_watermark(text):
+                    print("Watermark not detected. Attack successful.")
+                    return text
+                
             else:
                 # If quality is not maintained, increment patience and retry the mutation process
                 patience += 1
@@ -147,15 +171,7 @@ if __name__ == "__main__":
     text_mutator = TextMutator()
     original_text = \
     """
-    "The Lord of the Rings" series by J.R.R. Tolkien is a profound exploration of power and its impact on individuals and societies. Central to this exploration is the One Ring, a symbol of absolute power that corrupts and enslaves those who possess or desire it. Tolkien's narrative delves into the multifaceted nature of power and offers insights into its potential for both destruction and redemption.
-
-    The One Ring, often simply referred to as "the Ring," embodies the allure and dangers of power. Forged by the dark lord Sauron, it contains a part of his essence, making it a conduit for his malevolent will. The Ring’s ability to grant invisibility and influence over others represents the seductive nature of power, offering the illusion of invincibility and control. However, this power comes at a great cost, as it gradually dominates and corrupts its bearer. This is evident in characters like Gollum, who becomes consumed by his obsession with the Ring, and Boromir, whose noble intentions are tainted by his desire for it.
-
-    Tolkien's portrayal of power extends beyond the Ring to the characters who resist its lure. Figures like Gandalf and Aragorn understand the corrupting influence of the Ring and refuse to wield it, despite their noble intentions. Their restraint and wisdom highlight an important theme in Tolkien's work: true power lies in the ability to resist the temptation of absolute control and to act for the greater good.
-
-    Furthermore, Tolkien suggests that power is inherently neither good nor evil, but its impact depends on the intentions and character of those who wield it. This is exemplified in Frodo's journey, where the burden of the Ring tests his moral fortitude. His struggle is not just against external enemies but an internal battle against the corrupting influence of power.
-
-    In conclusion, Tolkien's "The Lord of the Rings" is a profound meditation on the nature of power. Through the symbol of the Ring and the trials of its characters, Tolkien illustrates that true strength lies in humility, selflessness, and the courage to resist the corrupting allure of absolute power. The series serves as a timeless reminder of the complex dynamics of power and the moral integrity required to wield it responsibly.
+    In J.R.R. Tolkien's The Lord of the Rings, power is a central theme that shapes the actions and motivations of many characters. The most significant example of power in the series is the One Ring, which was created by Sauron to bring about his rule over Middle-earth. The Ring represents the ultimate form of power, as it allows its owner to control and govern the entire world. However, the power of the Ring also comes with a terrible cost, as it corrupts and enslaves those who possess it.\nTolkien suggests that power can be both seductive and dangerous. Those who seek power too eagerly or too frequently become corrupted by it, such as Boromir and Gollum. On the other hand, characters like Aragorn and Samwise Gamgee are able to resist the temptation of power and remain pure of heart. This highlights the idea that true power is not about having authority or control but rather about using one's abilities for good.\nThe struggle between good and evil is another important aspect of the book's exploration of power. Sauron's desire for dominance over Middle-earth represents the darker side of power, while the Fellowship's efforts to destroy the Ring embody the aspirations of good. Through this conflict, Tolkien shows how power can be used to create either order or chaos, depending on the intentions of the individual wielding it.\nOverall, the Lord of the Rings illustrates how power can be both alluring and harmful, and how it may be utilized for good or bad. Tolkien uses the One Ring as a symbol of power, illuminating its allure and dangers. He also demonstrates how people might make decisions based on their moral compass and how power might be used for good or evil. Power significantly influences the characters' actions in the Lord of the Rings, and it is a topic well worth investigating.
     """
     quality_oracle = Oracle(query=None, response=original_text, use_query=True, check_quality=True, use_chat_arena_prompt=True)
     # Timing mutate_with_quality_control

@@ -178,7 +178,7 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, use_query, use_gpt=False, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
+    def __init__(self, query, response, use_query, use_gpt=False, check_quality=False, choice_granularity=5, use_chat_arena_prompt=True, cache_dir='./.cache') -> None:
         self.init_score = -1
         self.query = query
         self.response = response
@@ -190,7 +190,7 @@ class Oracle:
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cache_dir)
         self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
         self.check_quality = check_quality
-        self.latest_mean_score = -2.0
+        self.latest_mean_score = False
         self.use_query = use_query
         self.use_gpt = use_gpt
         
@@ -217,6 +217,10 @@ class Oracle:
     def instruction(self):
         return f"Below are two candidate responses to the query {self.query}:\n "
         # f"Below are two candidate completions to the news article prefix ``{self.query}'': "
+
+    @property
+    def instruction2(self):
+        return f"Below is a candidate response, labeled Response A, to the query {self.query} as well as an edited version of the response, labeled Response B:\n"
 
     @property
     def comparison_prompt(self):
@@ -311,32 +315,28 @@ class Oracle:
             response_1 = self.response
             response_2 = paraphrased_response
             
-        history = ""
-            
-        prompt = self.instruction + f"Response A: {response_1}\n" + f"Response B: {response_2}"
-        print(f"Prompt: {prompt}")
-        
-        # Format the prompt for the Mixtral model.
-        prompt = f'[INST] {prompt} [/INST]'
+        # Step 1: Prompt the model to identify and evaluate the change
 
-        n_attempt = 0
-        while n_attempt < 5:
-            oracle_reasoning = self.generative_model(prompt)
-            history += oracle_reasoning
-            prompt = history + f'[INST] {self.answer_prompt} [/INST]'
-            oracle_answer = self.generative_model(prompt)
-            pattern = r'\((\d+)\)'
-            filtered_response = re.findall(pattern, oracle_answer)
-            print(f"Oracle Reasoning: {oracle_reasoning}")
-            print(f"Oracle Answer: {oracle_answer}")
-            score = int(filtered_response[-1])
-            if score not in range(1, self.choice_granularity+1):
-                print(f"return choice {score} not in [1, {self.choice_granularity}]")
-                n_attempt += 1
-                continue
-            return score
+        # TODO: Insert a system prompt
+        prompt = (f"Compare two essays produced by an AI assistant. Response A: {response_1}"
+                             f"Response B: {response_2}"
+                             "Which response do you think is better? Answer '(A)' if response A is better. Answer '(B)' if response B is better. Answer '(C)' if the answers only have minor differences which do not affect quality")
+        evaluation_prompt = f"[INST] {prompt} [/INST]"
+        print(f"Evaluation Prompt: {evaluation_prompt}")
+        evaluation_response = self.generative_model(evaluation_prompt)
+        print(f"Evaluation Response: {evaluation_response}")
 
-        return -3.0
+        # Interpret the model's decision
+        if '(a)' in evaluation_response.lower():
+            return -1
+        elif '(b)' in evaluation_response.lower():
+            return 1
+        elif '(c)' in evaluation_response.lower():
+            return 0
+        else:
+            # Handling ambiguity or unclear responses
+            print("The model's response was ambiguous or unclear.")
+            return -2
         
     def query_rm_once(self, response_1, response_2, tie_threshold=0.01, model="gpt-3.5", max_tokens=5, tokenizer=None):
         context = '###Human: ' + str(self.query) + '###Assistant: '
@@ -394,7 +394,7 @@ class Oracle:
 
             if score != 2:
                 print("Response had punctuation mistakes.")
-                self.latest_mean_score = -2.5
+                self.latest_mean_score = False
                 return False
 
             if self.use_query:
@@ -402,7 +402,7 @@ class Oracle:
                 # Save the mean score so we can log it to a file
                 self.latest_mean_score = mean_score
                 print(f"Mean Quality Score from GPT: {mean_score}")
-                return (mean_score > 0.0)
+                return (mean_score == True)
             else:
                 prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
                 check_quality = chat(prompt, model=model, tokenizer=tokenizer)
@@ -417,27 +417,21 @@ class Oracle:
         To account for GPT's position bias, swap their position and report the mean.
         Positive scores indicate that the paraphrased response is better.
         """
+        # TODO: Only works without use_gpt right now
         # TODO: Instead of returning False, add a repetition mechanism.
         # First round of comparison
-        if self.use_gpt:
-            choice = self.query_gpt_once(paraphrased_response, model=model)
-        else:
-            choice = self.query_model_once(paraphrased_response)
-        score_dict = self.get_score_dict()
-        if choice is None:
+       
+        score = self.query_model_once(paraphrased_response)
+        if score == -2:
             return False
-        score = score_dict[choice]
+        
         # Second round of comparison
-        if self.use_gpt:
-            choice = self.query_gpt_once(paraphrased_response, model=model, invert_order=True)
-        else:
-            choice = self.query_model_once(paraphrased_response, invert_order=True)
-        if choice is None:
+        second_score = self.query_model_once(paraphrased_response, invert_order=True)
+        if second_score == -2:
             return False
-        second_score = score_dict[choice]
 
         # We subtract the second score since the positions are now inverted.
-        return (score-second_score) / 2.0
+        return (score>=0 and second_score<=0)
 
 # This can be used to test modifications to the oracle quickly.
 if __name__ == '__main__':

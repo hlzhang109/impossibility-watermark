@@ -136,7 +136,7 @@ class TextMutator:
 
         return final_text
     
-    def mutate_with_quality_control(self, text, oracle, num_steps=100):
+    def mutate_with_quality_control(self, text, oracle, num_steps=50):
         """
         Mutate the text for a given number of steps with quality control.
 
@@ -160,7 +160,7 @@ class TextMutator:
             mutated_text = self.mutate_2_step(text)
             self.perturbation_attemps += 1
             z_score, prediction = self.detect_watermark(mutated_text)
-            quality_maintained = oracle.maintain_quality(mutated_text, model="gpt-4")
+            quality_maintained = oracle.maintain_quality(mutated_text, model="gpt-3.5")
             
             # Add perturbation statistics
             perturbation_stats = [{ "step_num": step_num, "perturbed_text": mutated_text, "quality_score" : oracle.latest_mean_score, "z_score": z_score}]
@@ -171,6 +171,7 @@ class TextMutator:
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
                 self.successful_perturbations += 1
+                print("SUCCESSFUL PERTURBATION!")
                 
                 # If watermark is no longer detected, we're done.
                 if not prediction:

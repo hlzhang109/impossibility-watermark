@@ -1,5 +1,5 @@
 from datasets import load_dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList, AutoConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList, pipeline
 
 # UMD
 from extended_watermark_processor import WatermarkLogitsProcessor
@@ -9,71 +9,55 @@ from gptwm import GPTWatermarkLogitsWarper
 class TextGenerator:
     # TODO: Add C4 dataset support.
     # TODO: Add EXP scheme.
-    def __init__(self, args):
-        self.watermarking_scheme = args.watermarking_scheme
-        
-        self.model_name = args.model_name
-        
-        print(f"Text Generation Model: {self.model_name}")
+    def __init__(self, cfg):
+        self.watermarking_scheme = cfg.name
+                
+        print(f"Text Generation Model: {self.model_name_or_path}")
         print(f"Watermarking Scheme: {self.watermarking_scheme}")
         
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        # Initialize and load the model and tokenizer
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_name_or_path=cfg.model_name_or_path,
+            cache_dir=cfg.model_cache_dir,
+            device_map=cfg.device_map,
+            trust_remote_code=False,
+            revision=cfg.revision) 
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            cfg.model_name_or_path, use_fast=True, cache_dir=cfg.model_cache_dir)
         
-        if self.tokenizer.pad_token is None:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
-            
-        self.config = AutoConfig.from_pretrained(self.model_name)
+        # Store the pipeline configuration
+        self.generation_config = {
+            "model": self.model,
+            "tokenizer": self.tokenizer,
+            "max_new_tokens": cfg.max_new_tokens,
+            "do_sample": cfg.do_sample,
+            "temperature": cfg.temperature,
+            "top_p": cfg.top_p,
+            "top_k": cfg.top_k,
+            "repetition_penalty": cfg.repetition_penalty
+        }
 
-        self.model = AutoModelForCausalLM.from_pretrained(self.model_name,
-                                            device_map="auto",
-                                            trust_remote_code=False,
-                                            revision="main",
-                                            config=self.config)
+        # Additional parameters based on watermarking scheme
+        if self.watermarking_scheme == "umd":
+            self.generation_config["logits_processor"] = LogitsProcessorList([self.watermark_processor])
+        elif self.watermarking_scheme == "unigram":
+            self.generation_config["logits_processor"] = self.watermark_processor
+            self.generation_config["output_scores"] = True
+
+        # Create the pipeline
+        self.pipe = pipeline("text-generation", **self.pipeline_config)
+        
         # TODO: Add completion vs. prompt generation.
         self.is_completion = False
     
-        if self.watermarking_scheme == "umd": 
-            self.watermark_processor = WatermarkLogitsProcessor(vocab=list(self.tokenizer.get_vocab().values()),
-                                                        gamma=0.25,
-                                                        delta=2.0,
-                                                        seeding_scheme="selfhash")
-        elif self.watermarking_scheme == "unigram":
-            # TODO: Make the arguments to Unigram more systematic.
-            wm_key = 0
-            self.watermark_processor = LogitsProcessorList([GPTWatermarkLogitsWarper(fraction=0.5,
-                                                                        strength=2.0,
-                                                                        vocab_size=self.tokenizer.vocab_size,
-                                                                        watermark_key=wm_key)])
-
-    def generate(self, prompt, num_samples, temperature=0.7, do_sample=True, top_p=0.95, top_k=40, max_new_tokens=1024):
+    def generate(self, prompt, num_samples):
         results = []
-        gen_kwargs = {
-            "temperature": temperature, 
-            "do_sample": do_sample, 
-            "top_p": top_p, 
-            "top_k": top_k, 
-            "max_new_tokens": max_new_tokens
-        }
-        
-        # Additional parameters based on watermarking scheme
-        if self.watermarking_scheme == "umd":
-            gen_kwargs["logits_processor"] = LogitsProcessorList([self.watermark_processor])
-        elif self.watermarking_scheme == "unigram":
-            gen_kwargs["logits_processor"] = self.watermark_processor
-            gen_kwargs["output_scores"] = True
-            
         successful_generations = 0
         while successful_generations < num_samples:
-            inputs = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=100).to(self.model.device)
-            
-            outputs = self.model.generate(**inputs, **gen_kwargs)
-            
-            print(len(outputs))
-            
-            completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-            
+            completion = self.pipe(prompt)[0]['generated_text']
+
             if not self.is_completion:
-                completion = completion.replace(prompt, '', 1)
+                completion = completion.replace(prompt, '', 1).strip()
             
             results.append(completion)
             successful_generations += 1

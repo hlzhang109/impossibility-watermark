@@ -1,10 +1,21 @@
-results_dir: "./eval/results"
+defaults:
+    - _self_
+    - watermark_args: umd
 
-watermark_args:
-    watermarking_scheme: "umd"
-    generative_model_name: "TheBloke/Llama-2-7B-Chat-GPTQ"
-    generative_model_device: "auto"
-    z_threshold: 0.5
+results_dir: "./eval/results"
+model_cache_dir: "./.cache"
+
+generator_args:
+    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ"
+    revision: "main"
+    device_map: "cuda"
+    trust_remote_code: False
+    max_new_tokens: 1024
+    do_sample: True 
+    temperature: 0.7 
+    top_p: 0.95 
+    top_k: 40
+    repetition_penalty: 1.1
 
 oracle_args:
     use_query: True
@@ -13,15 +24,16 @@ oracle_args:
     choice_granularity: 5
     use_chat_arena_prompt: False
     reward_model: "OpenAssistant/reward-model-deberta-v3-large-v2"
-    model_cache_dir: "./.cache"
+    model_cache_dir: "${model_cache_dir}"
 
 mutator_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
-    max_new_tokens: 1024
-    do_sample: True 
-    temperature: 0.7 
-    top_p: 0.95 
-    top_k: 40
-    repetition_penalty: 1.1
-    model_cache_dir: "./.cache/"
+    device_map: "${generator_args.device_map}"
+    max_new_tokens: "${generator_args.max_new_tokens}"
+    do_sample: "${generator_args.do_sample}" 
+    temperature: "${generator_args.temperature}"
+    top_p: "${generator_args.top_p}"
+    top_k: "${generator_args.top_k}"
+    repetition_penalty: "${generator_args.repetition_penalty}"
+    model_cache_dir: "${model_cache_dir}"

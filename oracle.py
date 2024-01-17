@@ -11,7 +11,7 @@ import re
 import copy
 import transformers
 import torch
-from generative_model import GenerativeModel
+from pipeline_builder import PipeLineBuilder
 
 DEF_MODEL = "gpt-4"
 MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
@@ -186,17 +186,18 @@ class Oracle:
         self.choice_granularity = cfg.choice_granularity
         self.system_prompt = "You are a capable, helpful and useful assistant." if not cfg.use_chat_arena_prompt else self.chat_arena_prompt
         self.history =  [{"role": "system", "content": self.system_prompt}]
-        tokenizer_name = reward_name = cfg.reward_model
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cfg.model_cache_dir)
-        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cfg.model_cache_dir)
         self.check_quality = cfg.check_quality
         self.latest_mean_score = -2.0
         self.use_query = cfg.use_query
         self.use_gpt = cfg.use_gpt
-        
-        # Mixtral
+        self.compare_softmax = cfg.compare_softmax
+
         if not self.use_gpt:
-            self.generative_model = GenerativeModel()
+            self.oracle = PipeLineBuilder(cfg)
+
+        if self.compare_softmax:
+            self.tokenizer    = transformers.AutoTokenizer.from_pretrained(cfg.reward_model, cache_dir=cfg.model_cache_dir)
+            self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(cfg.reward_model, cache_dir=cfg.model_cache_dir)
 
     @property
     def chat_arena_prompt(self):
@@ -321,10 +322,10 @@ class Oracle:
 
         n_attempt = 0
         while n_attempt < 5:
-            oracle_reasoning = self.generative_model(prompt)
+            oracle_reasoning = self.oracle(prompt)
             history += oracle_reasoning
             prompt = history + f'[INST] {self.answer_prompt} [/INST]'
-            oracle_answer = self.generative_model(prompt)
+            oracle_answer = self.oracle(prompt)
             pattern = r'\((\d+)\)'
             filtered_response = re.findall(pattern, oracle_answer)
             print(f"Oracle Reasoning: {oracle_reasoning}")
@@ -364,20 +365,22 @@ class Oracle:
         Use both the reward model and GPT to see if the paraphrased response maintains the quality.
         We can play with the mean score in order to 
         """
-        # First round of comparison
-        choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
-        score_dict = self.get_score_dict()
-        if choice is None:
-            return False
-        score = score_dict[choice]
-        # Secound round of comparison
-        second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
-        if second_choice is None:
-            return False
-        # We subtract now because the positions are reversed.
-        score -= score_dict[second_choice]
-        if score < 0:
-            return False
+        if self.compare_softmax:
+            # First round of comparison
+            choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
+            score_dict = self.get_score_dict()
+            if choice is None:
+                return False
+            score = score_dict[choice]
+            # Secound round of comparison
+            second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
+            if second_choice is None:
+                return False
+            # We subtract now because the positions are reversed.
+            score -= score_dict[second_choice]
+            if score < 0:
+                return False
+            
         if self.check_quality:
             # Check if the response has grammatical mistakes
             grammar_prompt = f"{paraphrased_response} \n" + self.check_error_prompt
@@ -476,7 +479,11 @@ if __name__ == '__main__':
     paraphrased_response = """In J.R.R. Tolkien's ""The Lord of the Rings"" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series. Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a mere man, transforms under the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall. The Ring's impact on Frodo, the protagonist, is particularly poignant. He volunteers to carry the Ring, a burden that slowly erodes his spirit and physical well-being. This journey illustrates Tolkien's view that power, even when wielded for a noble cause, can have detrimental effects on the bearer. Frodo’s gradual deterioration under the Ring’s weight symbolizes the heavy toll that power can exact, even on the purest of hearts. Tolkien also uses the Ring to comment on the nature of power itself. He suggests that true power lies not in dominion or control, but in the ability to resist temptation and to make sacrifices for the greater good. This is exemplified by characters like Samwise Gamgee, whose loyalty and humility prove instrumental in aiding Frodo’s quest. In summary, ""The Lord of the Rings"" presents power as a double-edged sword, capable of both corrupting and revealing true character. Through the symbolism of the Ring, Tolkien conveys that the nature of power is not in its possession or use, but in the wisdom to understand its inherent dangers and the strength to renounce it."""
 
 
-    oracle = Oracle(query, response, use_query=True, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
+    oracle = Oracle(query, response, 
+                    use_query=True, 
+                    check_quality=True, 
+                    choice_granularity=5, 
+                    use_chat_arena_prompt=True)
     
     response = oracle.report_mean_score(paraphrased_response)
 

@@ -3,18 +3,18 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ["WORLD_SIZE"] = "1"
 
+import logging
 import textwrap
 from tqdm import tqdm
 import nltk
 import random
 from nltk.tokenize import sent_tokenize
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-from oracle import *
-import pandas as pd
-# from cmd_args import get_cmd_args
+from pipeline_builder import PipeLineBuilder
+from oracle import Oracle
 
-from extended_watermark_processor import WatermarkDetector
-from utils import save_intermediate_results
+from utils import save_to_csv
+
+log = logging.getLogger(__name__)
 
 class TextMutator:    
     """
@@ -35,45 +35,12 @@ class TextMutator:
         - NOTE: The default dir is stored to network attached storage (NAS) and NAS is very slow for model loading. 
                 However NAS has more room for LLMs. Store locally to dramatically decrease load time. 
     """
-    def __init__(self, cfg, watermark_detector):
+    def __init__(self, cfg, watermarker, quality_oracle):
 
-        # Initialize and load the model and tokenizer
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path=cfg.model_name_or_path,
-            cache_dir=cfg.model_cache_dir,
-            device_map=cfg.device_map,
-            trust_remote_code=cfg.trust_remote_code,
-            revision=cfg.revision) 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            cfg.model_name_or_path, use_fast=True, cache_dir=cfg.model_cache_dir)
-
-        # Store the pipeline configuration
-        self.pipeline_config = {
-            "model": self.model,
-            "tokenizer": self.tokenizer,
-            "max_new_tokens": cfg.max_new_tokens,
-            "do_sample": cfg.do_sample,
-            "temperature": cfg.temperature,
-            "top_p": cfg.top_p,
-            "top_k": cfg.top_k,
-            "repetition_penalty": cfg.repetition_penalty
-        }
-
-        # Create the pipeline
-        self.pipe = pipeline("text-generation", **self.pipeline_config)
-        
-        self.generative_model_name = "TheBloke/Llama-2-7b-Chat-GPTQ"
-        self.generative_model_tokenizer = AutoTokenizer.from_pretrained(self.generative_model_name, )
-        self.watermark_detector = WatermarkDetector(vocab=list(self.generative_model_tokenizer.get_vocab().values()),
-                                    gamma=0.25,
-                                    seeding_scheme="selfhash",
-                                    device="cuda",
-                                    tokenizer=self.generative_model_tokenizer,
-                                    z_threshold=2.0,
-                                    normalizers=[],
-                                    ignore_repeated_ngrams=True)
-        self.perturbation_attemps = 0
-        self.successful_perturbations = 0
+        self.cfg = cfg
+        self.pipe = PipeLineBuilder(cfg)
+        self.watermarker = watermarker
+        self.quality_oracle = quality_oracle
 
         # Check if NLTK data is downloaded, if not, download it
         try:
@@ -116,7 +83,7 @@ class TextMutator:
     def detect_watermark(self, text):
         score = self.watermark_detector.detect(text)
         z_score = score['z_score']
-        print(f"Current z-score: {z_score}")
+        log.info(f"Current z-score: {z_score}")
         return z_score, score['prediction']
 
     def adjust_for_consistency(self, creative_text):
@@ -134,44 +101,59 @@ class TextMutator:
 
         return final_text
     
-    def mutate_with_quality_control(self, text, oracle, num_steps=100):
+    def mutate_with_quality_control(self, text):
         """
         Mutate the text for a given number of steps with quality control.
-
-        Parameters:
-        - text (str): The original text to mutate.
-        - oracle (Oracle): An instance of the Oracle class for quality control.
-
-        Returns:
-        - str: The final high-quality mutated text.
         """
+        perturbation_attemps = 0
+        successful_perturbations = 0
+
         patience = 0
         
         # Prepare the filename for logging
-        timestamp = int(time.time())
-        filename = f"./attack_{timestamp}.csv"
+        save_path = self.cfg.save_name.replace("{time_stamp}", int(time.time()))
         
-        for step_num in tqdm(range(num_steps)):
-            if patience > num_steps/3: # exit after too many failed perturbations
-                print("Mixing patience exceeded. Exiting.")
+        initial_state = [{
+            "step_num": -1, 
+            "text": text, 
+            "quality_score" : -1, 
+            "quality_maintained": quality_maintained,
+            "z_score": -1,
+            "watermark_detected": -1
+        }]
+        
+        save_to_csv(initial_state, save_path)
+        
+        for step_num in tqdm(range(self.cfg.num_steps)):
+
+            if patience > self.cfg.patience: # exit after too many failed perturbations
+                log.info("Mixing patience exceeded. Exiting.")
                 break
+
             mutated_text = self.mutate_2_step(text)
-            self.perturbation_attemps += 1
-            z_score, prediction = self.detect_watermark(mutated_text)
-            quality_maintained = oracle.maintain_quality(mutated_text, model="gpt-4")
+            perturbation_attemps += 1
+            z_score, watermark_detected = self.detect_watermark(mutated_text)
+            quality_maintained = self.quality_oracle.maintain_quality(mutated_text, model="gpt-4")
             
             # Add perturbation statistics
-            perturbation_stats = [{ "step_num": step_num, "perturbed_text": mutated_text, "quality_score" : oracle.latest_mean_score, "z_score": z_score}]
+            perturbation_stats = [{
+                "step_num": step_num, 
+                "text": mutated_text, 
+                "quality_score" : self.quality_oracle.latest_mean_score, 
+                "quality_maintained": quality_maintained,
+                "z_score": z_score,
+                "watermark_detected": watermark_detected
+            }]
             
-            save_intermediate_results(perturbation_stats, filename)
+            save_to_csv(perturbation_stats, save_path)
             
             if quality_maintained:
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
-                self.successful_perturbations += 1
+                successful_perturbations += 1
                 
                 # If watermark is no longer detected, we're done.
-                if not prediction:
+                if not watermark_detected:
                     print("Watermark not detected. Attack successful.")
                     return text
             else:

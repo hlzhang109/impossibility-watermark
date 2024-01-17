@@ -34,31 +34,28 @@ class TextMutator:
         - NOTE: The default dir is stored to network attached storage (NAS) and NAS is very slow for model loading. 
                 However NAS has more room for LLMs. Store locally to dramatically decrease load time. 
     """
-    def __init__(self, model_name_or_path="TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ", 
-                 revision="main", # "gptq-3bit-128g-actorder_True" for 3-bit version
-                 max_new_tokens=1024, do_sample=True, temperature=0.7, top_p=0.95, 
-                 top_k=40, repetition_penalty=1.1, cache_dir="./.cache/", watermark_detector):
+    def __init__(self, cfg, watermark_detector):
 
         # Initialize and load the model and tokenizer
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path,
-            cache_dir=cache_dir,
+            model_name_or_path=cfg.model_name_or_path,
+            cache_dir=cfg.model_cache_dir,
             device_map="cuda",
             trust_remote_code=False,
-            revision=revision) 
+            revision=cfg.revision) 
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name_or_path, use_fast=True, cache_dir=cache_dir)
+            cfg.model_name_or_path, use_fast=True, cache_dir=cfg.model_cache_dir)
 
         # Store the pipeline configuration
         self.pipeline_config = {
             "model": self.model,
             "tokenizer": self.tokenizer,
-            "max_new_tokens": max_new_tokens,
-            "do_sample": do_sample,
-            "temperature": temperature,
-            "top_p": top_p,
-            "top_k": top_k,
-            "repetition_penalty": repetition_penalty
+            "max_new_tokens": cfg.max_new_tokens,
+            "do_sample": cfg.do_sample,
+            "temperature": cfg.temperature,
+            "top_p": cfg.top_p,
+            "top_k": cfg.top_k,
+            "repetition_penalty": cfg.repetition_penalty
         }
 
         # Create the pipeline

@@ -178,21 +178,21 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, use_query, use_gpt=False, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
+    def __init__(self, query, response, cfg) -> None:
         self.init_score = -1
         self.query = query
         self.response = response
         self.detailed_prompt = "" 
-        self.choice_granularity = choice_granularity
-        self.system_prompt = "You are a capable, helpful and useful assistant." if not use_chat_arena_prompt else self.chat_arena_prompt
+        self.choice_granularity = cfg.choice_granularity
+        self.system_prompt = "You are a capable, helpful and useful assistant." if not cfg.use_chat_arena_prompt else self.chat_arena_prompt
         self.history =  [{"role": "system", "content": self.system_prompt}]
-        tokenizer_name = reward_name = "OpenAssistant/reward-model-deberta-v3-large-v2"
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cache_dir)
-        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
-        self.check_quality = check_quality
+        tokenizer_name = reward_name = cfg.reward_model
+        self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cfg.model_cache_dir)
+        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cfg.model_cache_dir)
+        self.check_quality = cfg.check_quality
         self.latest_mean_score = -2.0
-        self.use_query = use_query
-        self.use_gpt = use_gpt
+        self.use_query = cfg.use_query
+        self.use_gpt = cfg.use_gpt
         
         # Mixtral
         if not self.use_gpt:

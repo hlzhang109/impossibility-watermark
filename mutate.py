@@ -9,9 +9,11 @@ import random
 from nltk.tokenize import sent_tokenize
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from oracle import *
+import pandas as pd
 # from cmd_args import get_cmd_args
 
 from extended_watermark_processor import WatermarkDetector
+from utils import save_intermediate_results
 
 class TextMutator:    
     """
@@ -69,9 +71,11 @@ class TextMutator:
                                     seeding_scheme="selfhash",
                                     device="cuda",
                                     tokenizer=self.generative_model_tokenizer,
-                                    z_threshold=4.0,
+                                    z_threshold=2.0,
                                     normalizers=[],
                                     ignore_repeated_ngrams=True)
+        self.perturbation_attemps = 0
+        self.successful_perturbations = 0
 
         # Check if NLTK data is downloaded, if not, download it
         try:
@@ -113,8 +117,9 @@ class TextMutator:
     
     def detect_watermark(self, text):
         score = self.watermark_detector.detect(text)
-        print(f"Current z-score: {score['z_score']}")
-        return score['prediction']
+        z_score = score['z_score']
+        print(f"Current z-score: {z_score}")
+        return z_score, score['prediction']
 
     def adjust_for_consistency(self, creative_text):
         # Generate minimal changes for consistency
@@ -143,20 +148,34 @@ class TextMutator:
         - str: The final high-quality mutated text.
         """
         patience = 0
-        for _ in tqdm(range(num_steps)):
+        
+        # Prepare the filename for logging
+        timestamp = int(time.time())
+        filename = f"./attack_{timestamp}.csv"
+        
+        for step_num in tqdm(range(num_steps)):
             if patience > num_steps/3: # exit after too many failed perturbations
                 print("Mixing patience exceeded. Exiting.")
                 break
             mutated_text = self.mutate_2_step(text)
-            if oracle.maintain_quality(mutated_text, model="gpt-4"):
+            self.perturbation_attemps += 1
+            z_score, prediction = self.detect_watermark(mutated_text)
+            quality_maintained = oracle.maintain_quality(mutated_text, model="gpt-4")
+            
+            # Add perturbation statistics
+            perturbation_stats = [{ "step_num": step_num, "perturbed_text": mutated_text, "quality_score" : oracle.latest_mean_score, "z_score": z_score}]
+            
+            save_intermediate_results(perturbation_stats, filename)
+            
+            if quality_maintained:
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
+                self.successful_perturbations += 1
                 
                 # If watermark is no longer detected, we're done.
-                if not self.detect_watermark(text):
+                if not prediction:
                     print("Watermark not detected. Attack successful.")
                     return text
-                
             else:
                 # If quality is not maintained, increment patience and retry the mutation process
                 patience += 1
@@ -171,14 +190,19 @@ if __name__ == "__main__":
     # args = get_cmd_args()
     text_mutator = TextMutator()
     original_text = \
-    """
-    In J.R.R. Tolkien's The Lord of the Rings, power is a central theme that shapes the actions and motivations of many characters. The most significant example of power in the series is the One Ring, which was created by Sauron to bring about his rule over Middle-earth. The Ring represents the ultimate form of power, as it allows its owner to control and govern the entire world. However, the power of the Ring also comes with a terrible cost, as it corrupts and enslaves those who possess it.\nTolkien suggests that power can be both seductive and dangerous. Those who seek power too eagerly or too frequently become corrupted by it, such as Boromir and Gollum. On the other hand, characters like Aragorn and Samwise Gamgee are able to resist the temptation of power and remain pure of heart. This highlights the idea that true power is not about having authority or control but rather about using one's abilities for good.\nThe struggle between good and evil is another important aspect of the book's exploration of power. Sauron's desire for dominance over Middle-earth represents the darker side of power, while the Fellowship's efforts to destroy the Ring embody the aspirations of good. Through this conflict, Tolkien shows how power can be used to create either order or chaos, depending on the intentions of the individual wielding it.\nOverall, the Lord of the Rings illustrates how power can be both alluring and harmful, and how it may be utilized for good or bad. Tolkien uses the One Ring as a symbol of power, illuminating its allure and dangers. He also demonstrates how people might make decisions based on their moral compass and how power might be used for good or evil. Power significantly influences the characters' actions in the Lord of the Rings, and it is a topic well worth investigating.
+    """Power is a central theme in J.R.R. Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story. Power can take many forms, including physical strength, political authority, and magical abilities. However, the most significant form of power in the series is the One Ring, created by Sauron to control and enslave the free peoples of Middle-earth.
+The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world. Sauron's desire for the Ring drives much of the plot, as he seeks to reclaim it and use its power to enslave all of Middle-earth. Other characters, such as Gandalf and Frodo, also become obsessed with the Ring's power, leading them down dangerous paths and ultimately contributing to the destruction of their own kingdoms.
+Throughout the series, Tolkien suggests that power corrupts even the noblest of beings. As Gandalf says, "The greatest danger of the Ring is the corruption of the bearer." This becomes manifest as the characters who possess or covet the Ring become increasingly consumed by its power, losing sight of their original goals and values. Even those who begin with the best intentions, like Boromir, are ultimately undone by the temptation of the Ring's power.
+However, Tolkien also suggests that true power lies not in domination but in selflessness and sacrifice. Characters who reject the idea of using power solely for personal gain or selfish reasons are often the most effective in resisting the darkness of the Ring. For example, Aragorn's refusal to claim the throne or Sauron's rightful place as the Dark Lord illustrates this point. Instead, they embrace a more altruistic view of power, recognizing the importance of serving others and doing good.
+In conclusion, the One Ring symbolizes the corrosive nature of power while highlighting the potential for redemption through selflessness and sacrifice. Through the characters of the Lord of the Rings series, Tolkien demonstrates the various forms of power and their effects on individuals and society. He shows that the pursuit of power for personal gain can lead to corruption, but that true power emerges when one puts the needs of others first.
     """
     quality_oracle = Oracle(query=None, response=original_text, use_query=True, check_quality=True, use_chat_arena_prompt=True)
     # Timing mutate_with_quality_control
     start_time = time.time()
-    mutated_text = text_mutator.mutate_with_quality_control(original_text, quality_oracle)
+    mutated_text = text_mutator.mutate_with_quality_control(original_text, quality_oracle)    
     end_time = time.time()
     print("mutated_text"  + "=" * 100)
     print(mutated_text)
+    print(f"Perturbation attemps: {text_mutator.perturbation_attemps}")
+    print(f"Successful perturbations: {text_mutator.successful_perturbations}")
     print("Execution time for mutate_with_quality_control: {:.2f} seconds".format(end_time - start_time))

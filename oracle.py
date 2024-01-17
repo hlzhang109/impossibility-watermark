@@ -11,6 +11,7 @@ import re
 import copy
 import transformers
 import torch
+from generative_model import GenerativeModel
 
 DEF_MODEL = "gpt-4"
 MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
@@ -177,7 +178,7 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, use_query, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
+    def __init__(self, query, response, use_query, use_gpt=False, check_quality=False, choice_granularity=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
         self.init_score = -1
         self.query = query
         self.response = response
@@ -191,6 +192,11 @@ class Oracle:
         self.check_quality = check_quality
         self.latest_mean_score = -2.0
         self.use_query = use_query
+        self.use_gpt = use_gpt
+        
+        # Mixtral
+        if not self.use_gpt:
+            self.generative_model = GenerativeModel()
 
     @property
     def chat_arena_prompt(self):
@@ -289,13 +295,49 @@ class Oracle:
                 score = int(filtered_response[-1])
                 if score not in range(1, self.choice_granularity+1):
                     print(f"return choice {score} not in [1, {self.choice_granularity}]")
+                    n_attempt += 1
                     continue
                 return score
             except Exception as e:
                 print(e)
                 n_attempt += 1
                 continue
- 
+            
+    def query_model_once(self, paraphrased_response, invert_order=False):        
+        if invert_order:
+            response_1 = paraphrased_response
+            response_2 = self.response
+        else:
+            response_1 = self.response
+            response_2 = paraphrased_response
+            
+        history = ""
+            
+        prompt = self.instruction + f"Response A: {response_1}\n" + f"Response B: {response_2}"
+        print(f"Prompt: {prompt}")
+        
+        # Format the prompt for the Mixtral model.
+        prompt = f'[INST] {prompt} [/INST]'
+
+        n_attempt = 0
+        while n_attempt < 5:
+            oracle_reasoning = self.generative_model(prompt)
+            history += oracle_reasoning
+            prompt = history + f'[INST] {self.answer_prompt} [/INST]'
+            oracle_answer = self.generative_model(prompt)
+            pattern = r'\((\d+)\)'
+            filtered_response = re.findall(pattern, oracle_answer)
+            print(f"Oracle Reasoning: {oracle_reasoning}")
+            print(f"Oracle Answer: {oracle_answer}")
+            score = int(filtered_response[-1])
+            if score not in range(1, self.choice_granularity+1):
+                print(f"return choice {score} not in [1, {self.choice_granularity}]")
+                n_attempt += 1
+                continue
+            return score
+
+        return -3.0
+        
     def query_rm_once(self, response_1, response_2, tie_threshold=0.01, model="gpt-3.5", max_tokens=5, tokenizer=None):
         context = '###Human: ' + str(self.query) + '###Assistant: '
         text1 = context + response_1
@@ -377,13 +419,19 @@ class Oracle:
         """
         # TODO: Instead of returning False, add a repetition mechanism.
         # First round of comparison
-        choice = self.query_gpt_once(paraphrased_response, model=model)
+        if self.use_gpt:
+            choice = self.query_gpt_once(paraphrased_response, model=model)
+        else:
+            choice = self.query_model_once(paraphrased_response)
         score_dict = self.get_score_dict()
         if choice is None:
             return False
         score = score_dict[choice]
         # Second round of comparison
-        choice = self.query_gpt_once(paraphrased_response, model=model, invert_order=True)
+        if self.use_gpt:
+            choice = self.query_gpt_once(paraphrased_response, model=model, invert_order=True)
+        else:
+            choice = self.query_model_once(paraphrased_response, invert_order=True)
         if choice is None:
             return False
         second_score = score_dict[choice]

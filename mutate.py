@@ -151,6 +151,7 @@ class TextMutator:
                 text = mutated_text
                 patience = 0 # reset patience after successful perturbation
                 successful_perturbations += 1
+                log.info("SUCCESSFUL PERTURBATION!")
                 
                 # If watermark is no longer detected, we're done.
                 if not watermark_detected:

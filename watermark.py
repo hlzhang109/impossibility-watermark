@@ -15,7 +15,7 @@ from omegaconf import DictConfig, OmegaConf
 
 class Watermarker:
     def __init__(self, cfg):
-        # TODO: Add is_completion to the config.
+        self.cfg = cfg
         self.model_name = cfg.generator_args.model_name_or_path
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, use_fast=True, cache_dir = cfg.model_cache_dir)
         if self.tokenizer.pad_token is None:
@@ -24,7 +24,7 @@ class Watermarker:
         self.model = AutoModelForCausalLM.from_pretrained(
             pretrained_model_name_or_path=self.model_name,
             cache_dir=cfg.model_cache_dir,
-            device_map="auto",
+            device_map=cfg.generator_args.device_map,
             trust_remote_code=False,
             revision=cfg.generator_args.revision)
             
@@ -43,10 +43,10 @@ class Watermarker:
                                         seeding_scheme="selfhash",
                                         device=cfg.generator_args.device_map,
                                         tokenizer=self.tokenizer,
-                                        z_threshold=self.z_threshold,
+                                        z_threshold=cfg.watermark_args.z_threshold,
                                         normalizers=[],
                                         ignore_repeated_ngrams=True)
-            self.z_threshold = cfg.watermark_args.z_threshold
+            
         elif self.watermarking_scheme == "unigram":
             self.watermark_processor = LogitsProcessorList([GPTWatermarkLogitsWarper(fraction=0.5,
                                                                         strength=2.0,
@@ -56,7 +56,6 @@ class Watermarker:
                                         strength=2.0,
                                         vocab_size=self.tokenizer.vocab_size,
                                         watermark_key=0)
-            self.z_threshold = cfg.watermark_args.z_threshold
         elif self.watermarking_scheme == "exp":
             self.p_threshold = cfg.watermark_args.p_threshold
             
@@ -82,26 +81,33 @@ class Watermarker:
             self.generated_text_length = cfg.watermark_args.generated_text_length
             self.watermark_sequence_key = cfg.watermark_args.watermark_sequence_key
     
-        self.is_completion = False
-        
-    def _exp_generate(self,prompt):
-        tokens = self.tokenizer.encode(prompt, return_tensors='pt', truncation=True, max_length=2048)
-        watermarked_tokens = generate_shift(self.model,tokens,len(self.tokenizer),self.watermark_sequence_length,self.generated_text_length,self.watermark_sequence_key)
-        return watermarked_tokens
+        self.is_completion = cfg.generator_args.is_completion
             
-    def generate(self, prompt):
-        # TODO: Add a check here to see if the completion was successful and a retry mechanism to handle unsuccessful completions.
-        if self.watermarking_scheme == "exp":
-            outputs = self._exp_generate(prompt)
-        else:
-            # completion = self.pipe(prompt)[0]['generated_text']
-            inputs = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True, max_length=100).to(self.model.device)
-            outputs = self.model.generate(**inputs, **self.generator_kwargs)
-                
-        completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        # Get rid of the prompt
-        if not self.is_completion:
-            completion = completion.replace(prompt, '', 1).strip()
+    def generate(self):
+        n_attemps = 0
+        while n_attemps < 5:
+            # TODO: Add a check here to see if the completion was successful and a retry mechanism to handle unsuccessful completions.
+            if self.watermarking_scheme == "exp":
+                tokens = self.tokenizer.encode(self.cfg.generator_args.prompt, return_tensors='pt', truncation=True, max_length=2048)
+                outputs = generate_shift(self.model,tokens,len(self.tokenizer),self.watermark_sequence_length,self.generated_text_length,self.watermark_sequence_key)
+            else:
+                # completion = self.pipe(prompt)[0]['generated_text']
+                inputs = self.tokenizer(self.cfg.generator_args.prompt, return_tensors="pt", padding=True, truncation=True, max_length=100).to(self.model.device)
+                outputs = self.model.generate(**inputs, **self.generator_kwargs)
+                    
+            completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            # Get rid of the prompt
+            if not self.is_completion:
+                completion = completion.replace(self.cfg.generator_args.prompt, '', 1).strip()
+            
+            print(completion)
+            print(len(completion))
+            
+            if len(completion) > 1500:
+                break
+            
+            n_attempts += 1
+            
         return completion
         
     def detect(self, completion):
@@ -114,7 +120,7 @@ class Watermarker:
         elif self.watermarking_scheme == "unigram":
             token_sequence = self.tokenizer(completion, add_special_tokens=False)['input_ids']
             z_score = self.watermark_detector.detect(token_sequence, device=self.model.device)
-            prediction = (z_score >= self.z_threshold)
+            prediction = (z_score >= self.cfg.watermark_args.z_threshold)
             return prediction, z_score
         elif self.watermarking_scheme == "exp":
             tokens = self.tokenizer.encode(completion, return_tensors='pt', truncation=True, max_length=2048).numpy()[0]
@@ -128,10 +134,9 @@ class Watermarker:
 def main(cfg):
     watermarker = Watermarker(cfg)
     
-    prompt = "Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
     import time
-    for i in range(2):
-        completion = watermarker.generate(prompt)
+    for _ in range(2):
+        completion = watermarker.generate()
         
         print(completion)
         

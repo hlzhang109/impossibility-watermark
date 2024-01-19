@@ -1,13 +1,13 @@
 defaults:
     - _self_
-    - watermark_args: unigram
+    - watermark_args: umd
 
 results_dir: "./eval/results"
 model_cache_dir: "./.cache"
 
-prompt: "Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
 
 generator_args:
+    prompt: "Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
     model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ"
     revision: "main"
     device_map: "cuda"
@@ -18,6 +18,7 @@ generator_args:
     top_p: 0.95 
     top_k: 40
     repetition_penalty: 1.1
+    is_completion: False
 
 oracle_args:
     use_query: True
@@ -38,8 +39,6 @@ oracle_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     model_cache_dir: "${model_cache_dir}"
-<<<<<<< HEAD
-=======
 
 mutator_args:
     model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
@@ -52,7 +51,6 @@ mutator_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     model_cache_dir: "${model_cache_dir}"
->>>>>>> 1b8fbae0f1a6703d5530b7d3d5d54cc89e7e9e34
     num_steps: 100
     patience: 25
     save_name: "${results_dir}/attack_{time_stamp}.csv"

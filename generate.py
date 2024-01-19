@@ -1,3 +1,5 @@
+import argparse
+import torch
 from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList, pipeline
 
@@ -50,7 +52,30 @@ class TextGenerator:
         # TODO: Add completion vs. prompt generation.
         self.is_completion = False
     
-    def generate(self, prompt, num_samples):
+        if self.watermarking_scheme == "umd": 
+            self.watermark_processor = WatermarkLogitsProcessor(vocab=list(self.tokenizer.get_vocab().values()),
+                                                        gamma=0.25,
+                                                        delta=2.0,
+                                                        seeding_scheme="selfhash")
+        elif self.watermarking_scheme == "unigram":
+            # TODO: Make the arguments to Unigram more systematic.
+            wm_key = 0
+            self.watermark_processor = LogitsProcessorList([GPTWatermarkLogitsWarper(fraction=0.5,
+                                                                        strength=2.0,
+                                                                        vocab_size=self.tokenizer.vocab_size,
+                                                                        watermark_key=cfg.watermark_args.watermark_key)])
+        elif self.watermarking_scheme == "exp":
+            torch.manual_seed(args.seed)
+            
+    def generate_exp(self):
+        pass
+            
+
+    def generate(self, prompt, num_samples, temperature=0.7, do_sample=True, top_p=0.95, top_k=40, max_new_tokens=1024):
+        # EXP is weird, so it gets its own function
+        if self.watermarking_scheme == "exp":
+            return self.generate(exp)
+        
         results = []
         successful_generations = 0
         while successful_generations < num_samples:
@@ -65,3 +90,7 @@ class TextGenerator:
         return results
             
         
+if __name__ == "__main":
+    parser = argparse.ArgumentParser()
+    
+    

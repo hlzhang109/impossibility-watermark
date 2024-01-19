@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-def save_intermediate_results(data, filename):
+def save_to_csv(data, filename):
     df_out = pd.DataFrame(data)
     if os.path.exists(filename):
         df_out.to_csv(filename, mode='a', header=False, index=False)  # Append without writing headers

@@ -5,7 +5,7 @@ class PipeLineBuilder:
 
         # Initialize and load the model and tokenizer
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path=cfg.model_name_or_path,
+            pretrained_model_name_or_path=cfg.model_name_or_path,
             cache_dir=cfg.model_cache_dir,
             device_map=cfg.device_map,
             trust_remote_code=cfg.trust_remote_code,

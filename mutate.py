@@ -9,6 +9,7 @@ from tqdm import tqdm
 import nltk
 import random
 import logging
+import time
 from nltk.tokenize import sent_tokenize
 from pipeline_builder import PipeLineBuilder
 from oracle import Oracle
@@ -22,7 +23,7 @@ class TextMutator:
     This class is responsible for loading and initializing an LLM with specified parameters. 
     It also provides methods for mutating a text in a 1- or 2-step process.
     """
-    def __init__(self, cfg, watermarker, quality_oracle):
+    def __init__(self, cfg, quality_oracle, watermarker):
 
         self.cfg = cfg
         self.pipe = PipeLineBuilder(cfg)
@@ -35,11 +36,6 @@ class TextMutator:
         except LookupError:
             nltk.download('punkt')
 
-    def generate_text(self, prompt):
-        # Process the input text
-        prompt_template = f'[INST] {prompt} [/INST]'
-        return self.pipe(prompt_template)[0]['generated_text'].replace(prompt_template, "").strip()
-
     def mutate_1_step(self, text):
         # Combined prompt for creative alteration and consistency adjustment
         combined_prompt = (
@@ -49,19 +45,25 @@ class TextMutator:
         )
 
         # Generate the modified text
-        modified_text = self.generate_text(combined_prompt)
-        return modified_text
+        return self.pipe(combined_prompt)
 
     def creatively_alter_sentence(self, text):
         # Use NLTK to split the text into sentences
         sentences = sent_tokenize(text)
         # Randomly select a sentence
         selected_sentence = random.choice(sentences)
+        log.info(f"Sentence to paraphrase: {selected_sentence}")
 
         # Generate a creative variation of the sentence
         # creative_prompt = f"Rewrite this sentence creatively: '{selected_sentence}'"
         creative_prompt = f"Paraphrase this sentence: '{selected_sentence}'"
-        creative_variation = self.generate_text(creative_prompt)
+        creative_variation = self.pipe(creative_prompt)
+        
+        creative_sentences = sent_tokenize(creative_variation)
+        creative_variation = creative_sentences[0]
+        
+        log.info(f"Paraphrased version: {creative_variation}")
+        
 
         # Replace the original sentence with its creative variation
         sentences[sentences.index(selected_sentence)] = creative_variation
@@ -70,7 +72,8 @@ class TextMutator:
     def adjust_for_consistency(self, creative_text):
         # Generate minimal changes for consistency
         consistency_prompt = f"Make minimal edits to this text for consistency and quality: '{creative_text}'"
-        adjusted_text = self.generate_text(consistency_prompt)
+        log.info(f"Making consistency edits to the following text:\n {creative_text}")
+        adjusted_text = self.pipe(consistency_prompt)
         return adjusted_text
 
     def mutate_2_step(self, text):
@@ -79,20 +82,22 @@ class TextMutator:
 
         # Step 2: Adjust the rest of the text for consistency
         final_text = self.adjust_for_consistency(text_with_creative_sentence)
-
         return final_text
     
     def mutate_with_quality_control(self, text):
         """
         Mutate the text for a given number of steps with quality control.
         """
+        watermarked_response = text
         perturbation_attemps = 0
         successful_perturbations = 0
 
         patience = 0
         
         # Prepare the filename for logging
-        save_path = self.cfg.save_name.replace("{time_stamp}", int(time.time()))
+        save_path = self.cfg.save_name.replace("{time_stamp}", str(int(time.time())))
+        
+        quality_maintained = -1
         
         initial_state = [{
             "step_num": -1, 
@@ -112,9 +117,10 @@ class TextMutator:
                 break
 
             mutated_text = self.mutate_2_step(text)
+            log.info(f"Mutated text: {mutated_text}")
             perturbation_attemps += 1
             z_score, watermark_detected = self.watermarker.detect(mutated_text)
-            quality_maintained = self.quality_oracle.maintain_quality(mutated_text, model="gpt-4")
+            quality_maintained = self.quality_oracle.maintain_quality(watermarked_response, mutated_text, model="gpt-4")
             
             # Add perturbation statistics
             perturbation_stats = [{

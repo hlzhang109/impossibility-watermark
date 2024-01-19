@@ -8,13 +8,13 @@ from oracle import Oracle
 from mutate import TextMutator
 
 log = logging.getLogger(__name__)
-
+logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 class AttackTester:
     def __init__(self, cfg):
         self.cfg = cfg
         self.watermarker    = Watermarker(cfg)
-        self.quality_oracle = Oracle(cfg.oracle_args) # expand to incorporate Mixtral
+        self.quality_oracle = Oracle(cfg.generator_args.prompt, cfg.oracle_args)
         self.mutator        = TextMutator(cfg.mutator_args, 
                                           self.quality_oracle, 
                                           self.watermarker)

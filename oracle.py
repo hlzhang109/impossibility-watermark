@@ -178,10 +178,9 @@ def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
     return data
 
 class Oracle:
-    def __init__(self, query, response, cfg) -> None:
+    def __init__(self, query, cfg) -> None:
         self.init_score = -1
         self.query = query
-        self.response = response
         self.detailed_prompt = "" 
         self.choice_granularity = cfg.choice_granularity
         self.system_prompt = "You are a capable, helpful and useful assistant." if not cfg.use_chat_arena_prompt else self.chat_arena_prompt
@@ -269,16 +268,16 @@ class Oracle:
         choices = self.five_choice if self.choice_granularity == 5 else self.three_choice
         return f'''So based on your reasoning, choose one of the following {choices}'''
     
-    def query_gpt_once(self, paraphrased_response, model="gpt-3.5", max_tokens=5, tokenizer=None, invert_order=False):
+    def query_gpt_once(self, watermarked_response, paraphrased_response, model="gpt-3.5", max_tokens=5, tokenizer=None, invert_order=False):
         """
         Args:
         paraphrased_response (str): the original and the paraphrased response
         """
         if invert_order:
             response_1 = paraphrased_response
-            response_2 = self.response
+            response_2 = watermarked_response
         else:
-            response_1 = self.response
+            response_1 = watermarked_response
             response_2 = paraphrased_response
 
         prompt = self.instruction + f"Response A: {response_1}\n" + f"Response B: {response_2}"
@@ -308,12 +307,12 @@ class Oracle:
                 n_attempt += 1
                 continue
             
-    def query_model_once(self, paraphrased_response, invert_order=False):        
+    def query_model_once(self, watermarked_response, paraphrased_response, invert_order=False):        
         if invert_order:
             response_1 = paraphrased_response
-            response_2 = self.response
+            response_2 = watermarked_response
         else:
-            response_1 = self.response
+            response_1 = watermarked_response
             response_2 = paraphrased_response
             
         # Step 1: Prompt the model to identify and evaluate the change
@@ -360,20 +359,20 @@ class Oracle:
         else:
             return 3
        
-    def maintain_quality(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
+    def maintain_quality(self, watermarked_response, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
         """
         Use both the reward model and GPT to see if the paraphrased response maintains the quality.
         We can play with the mean score in order to 
         """
         if self.compare_softmax:
             # First round of comparison
-            choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
+            choice = self.query_rm_once(paraphrased_response, watermarked_response, tie_threshold=tie_threshold)
             score_dict = self.get_score_dict()
             if choice is None:
                 return False
             score = score_dict[choice]
             # Secound round of comparison
-            second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
+            second_choice = self.query_rm_once(watermarked_response, paraphrased_response, tie_threshold=tie_threshold)
             if second_choice is None:
                 return False
             # We subtract now because the positions are reversed.
@@ -401,20 +400,20 @@ class Oracle:
                 return False
 
             if self.use_query:
-                mean_score = self.report_mean_score(paraphrased_response, model=model)
+                mean_score = self.report_mean_score(watermarked_response, paraphrased_response, model=model)
                 # Save the mean score so we can log it to a file
                 self.latest_mean_score = mean_score
                 print(f"Mean Quality Score from GPT: {mean_score}")
                 return (mean_score == True)
             else:
-                prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
+                prompt = f"Original response: {watermarked_response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
                 check_quality = chat(prompt, model=model, tokenizer=tokenizer)
                 print(f"Quality Oracle Response: {check_quality}")
                 return 'yes' in check_quality.lower()
             
         return True
 
-    def report_mean_score(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
+    def report_mean_score(self, watermarked_response, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
         """
         Compare the paraphrased response and the original response using GPT.
         To account for GPT's position bias, swap their position and report the mean.
@@ -424,12 +423,12 @@ class Oracle:
         # TODO: Instead of returning False, add a repetition mechanism.
         # First round of comparison
        
-        score = self.query_model_once(paraphrased_response)
+        score = self.query_model_once(watermarked_response, paraphrased_response)
         if score == -2:
             return False
         
         # Second round of comparison
-        second_score = self.query_model_once(paraphrased_response, invert_order=True)
+        second_score = self.query_model_once(watermarked_response, paraphrased_response, invert_order=True)
         if second_score == -2:
             return False
 
@@ -460,7 +459,7 @@ if __name__ == '__main__':
 
     query = """Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"""
 
-    response = """In J.R.R. Tolkien's "The Lord of the Rings" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series.
+    watermarked_response = """In J.R.R. Tolkien's "The Lord of the Rings" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series.
 
     Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a hobbit, becomes utterly consumed by the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall.
 
@@ -473,12 +472,12 @@ if __name__ == '__main__':
     paraphrased_response = """In J.R.R. Tolkien's ""The Lord of the Rings"" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series. Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a mere man, transforms under the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall. The Ring's impact on Frodo, the protagonist, is particularly poignant. He volunteers to carry the Ring, a burden that slowly erodes his spirit and physical well-being. This journey illustrates Tolkien's view that power, even when wielded for a noble cause, can have detrimental effects on the bearer. Frodo’s gradual deterioration under the Ring’s weight symbolizes the heavy toll that power can exact, even on the purest of hearts. Tolkien also uses the Ring to comment on the nature of power itself. He suggests that true power lies not in dominion or control, but in the ability to resist temptation and to make sacrifices for the greater good. This is exemplified by characters like Samwise Gamgee, whose loyalty and humility prove instrumental in aiding Frodo’s quest. In summary, ""The Lord of the Rings"" presents power as a double-edged sword, capable of both corrupting and revealing true character. Through the symbolism of the Ring, Tolkien conveys that the nature of power is not in its possession or use, but in the wisdom to understand its inherent dangers and the strength to renounce it."""
 
 
-    oracle = Oracle(query, response, 
+    oracle = Oracle(query, watermarked_response, 
                     use_query=True, 
                     check_quality=True, 
                     choice_granularity=5, 
                     use_chat_arena_prompt=True)
     
-    response = oracle.report_mean_score(paraphrased_response)
+    response = oracle.report_mean_score(watermarked_response, paraphrased_response)
 
     print(response)

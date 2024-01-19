@@ -1,3 +1,8 @@
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["WORLD_SIZE"] = "1"
+
 import torch
 import numpy
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList, pipeline
@@ -86,7 +91,6 @@ class Watermarker:
     def generate(self):
         n_attemps = 0
         while n_attemps < 5:
-            # TODO: Add a check here to see if the completion was successful and a retry mechanism to handle unsuccessful completions.
             if self.watermarking_scheme == "exp":
                 tokens = self.tokenizer.encode(self.cfg.generator_args.prompt, return_tensors='pt', truncation=True, max_length=2048)
                 outputs = generate_shift(self.model,tokens,len(self.tokenizer),self.watermark_sequence_length,self.generated_text_length,self.watermark_sequence_key)

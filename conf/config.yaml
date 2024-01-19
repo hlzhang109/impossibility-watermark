@@ -22,13 +22,12 @@ generator_args:
 oracle_args:
     use_query: True
     use_gpt: False
-    check_quality: False
+    compare_softmax: False # uses smaller reward_model
+    check_quality: True
     choice_granularity: 5
     use_chat_arena_prompt: False
     reward_model: "OpenAssistant/reward-model-deberta-v3-large-v2"
-    model_cache_dir: "${model_cache_dir}"
 
-mutator_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
     device_map: "${generator_args.device_map}"
@@ -39,6 +38,21 @@ mutator_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     model_cache_dir: "${model_cache_dir}"
+<<<<<<< HEAD
+=======
+
+mutator_args:
+    model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+    revision: "main" 
+    device_map: "${generator_args.device_map}"
+    max_new_tokens: "${generator_args.max_new_tokens}"
+    do_sample: "${generator_args.do_sample}" 
+    temperature: "${generator_args.temperature}"
+    top_p: "${generator_args.top_p}"
+    top_k: "${generator_args.top_k}"
+    repetition_penalty: "${generator_args.repetition_penalty}"
+    model_cache_dir: "${model_cache_dir}"
+>>>>>>> 1b8fbae0f1a6703d5530b7d3d5d54cc89e7e9e34
     num_steps: 100
     patience: 25
     save_name: "${results_dir}/attack_{time_stamp}.csv"

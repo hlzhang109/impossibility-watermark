@@ -3,15 +3,15 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ["WORLD_SIZE"] = "1"
 
+import logging
 import textwrap
 from tqdm import tqdm
 import nltk
 import random
 import logging
 from nltk.tokenize import sent_tokenize
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-from oracle import *
-import pandas as pd
+from pipeline_builder import PipeLineBuilder
+from oracle import Oracle
 
 from utils import save_to_csv
 
@@ -22,40 +22,12 @@ class TextMutator:
     This class is responsible for loading and initializing an LLM with specified parameters. 
     It also provides methods for mutating a text in a 1- or 2-step process.
     """
-    def __init__(self, cfg, quality_oracle, watermarker):
+    def __init__(self, cfg, watermarker, quality_oracle):
 
-        # Initialize and load the model and tokenizer
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path=cfg.model_name_or_path,
-            cache_dir=cfg.model_cache_dir,
-            device_map=cfg.device_map,
-            trust_remote_code=cfg.trust_remote_code,
-            revision=cfg.revision) 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            cfg.model_name_or_path, use_fast=True, cache_dir=cfg.model_cache_dir)
-
-        # Store the pipeline configuration
-        self.pipeline_config = {
-            "model": self.model,
-            "tokenizer": self.tokenizer,
-            "max_new_tokens": cfg.max_new_tokens,
-            "do_sample": cfg.do_sample,
-            "temperature": cfg.temperature,
-            "top_p": cfg.top_p,
-            "top_k": cfg.top_k,
-            "repetition_penalty": cfg.repetition_penalty
-        }
-
-        # Create the pipeline
-        self.pipe = pipeline("text-generation", **self.pipeline_config)
-        
-        self.quality_oracle = quality_oracle
+        self.cfg = cfg
+        self.pipe = PipeLineBuilder(cfg)
         self.watermarker = watermarker
-        
-        self.perturbation_attemps = 0
-        self.successful_perturbations = 0
-        
-        self.num_steps = cfg.max_steps
+        self.quality_oracle = quality_oracle
 
         # Check if NLTK data is downloaded, if not, download it
         try:
@@ -141,7 +113,7 @@ class TextMutator:
 
             mutated_text = self.mutate_2_step(text)
             perturbation_attemps += 1
-            z_score, watermark_detected = self.detect_watermark(mutated_text)
+            z_score, watermark_detected = self.watermarker.detect(mutated_text)
             quality_maintained = self.quality_oracle.maintain_quality(mutated_text, model="gpt-4")
             
             # Add perturbation statistics

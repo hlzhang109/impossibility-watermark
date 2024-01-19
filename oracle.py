@@ -11,7 +11,7 @@ import re
 import copy
 import transformers
 import torch
-from generative_model import GenerativeModel
+from pipeline_builder import PipeLineBuilder
 
 DEF_MODEL = "gpt-4"
 MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
@@ -186,17 +186,18 @@ class Oracle:
         self.choice_granularity = cfg.choice_granularity
         self.system_prompt = "You are a capable, helpful and useful assistant." if not cfg.use_chat_arena_prompt else self.chat_arena_prompt
         self.history =  [{"role": "system", "content": self.system_prompt}]
-        tokenizer_name = reward_name = cfg.reward_model
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cfg.model_cache_dir)
-        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cfg.model_cache_dir)
         self.check_quality = cfg.check_quality
-        self.latest_mean_score = -2.0
+        self.latest_mean_score = False
         self.use_query = cfg.use_query
         self.use_gpt = cfg.use_gpt
-        
-        # Mixtral
+        self.compare_softmax = cfg.compare_softmax
+
         if not self.use_gpt:
-            self.generative_model = GenerativeModel()
+            self.oracle = PipeLineBuilder(cfg)
+
+        if self.compare_softmax:
+            self.tokenizer    = transformers.AutoTokenizer.from_pretrained(cfg.reward_model, cache_dir=cfg.model_cache_dir)
+            self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(cfg.reward_model, cache_dir=cfg.model_cache_dir)
 
     @property
     def chat_arena_prompt(self):
@@ -217,6 +218,10 @@ class Oracle:
     def instruction(self):
         return f"Below are two candidate responses to the query {self.query}:\n "
         # f"Below are two candidate completions to the news article prefix ``{self.query}'': "
+
+    @property
+    def instruction2(self):
+        return f"Below is a candidate response, labeled Response A, to the query {self.query} as well as an edited version of the response, labeled Response B:\n"
 
     @property
     def comparison_prompt(self):
@@ -311,32 +316,28 @@ class Oracle:
             response_1 = self.response
             response_2 = paraphrased_response
             
-        history = ""
-            
-        prompt = self.instruction + f"Response A: {response_1}\n" + f"Response B: {response_2}"
-        print(f"Prompt: {prompt}")
-        
-        # Format the prompt for the Mixtral model.
-        prompt = f'[INST] {prompt} [/INST]'
+        # Step 1: Prompt the model to identify and evaluate the change
 
-        n_attempt = 0
-        while n_attempt < 5:
-            oracle_reasoning = self.generative_model(prompt)
-            history += oracle_reasoning
-            prompt = history + f'[INST] {self.answer_prompt} [/INST]'
-            oracle_answer = self.generative_model(prompt)
-            pattern = r'\((\d+)\)'
-            filtered_response = re.findall(pattern, oracle_answer)
-            print(f"Oracle Reasoning: {oracle_reasoning}")
-            print(f"Oracle Answer: {oracle_answer}")
-            score = int(filtered_response[-1])
-            if score not in range(1, self.choice_granularity+1):
-                print(f"return choice {score} not in [1, {self.choice_granularity}]")
-                n_attempt += 1
-                continue
-            return score
+        # TODO: Insert a system prompt
+        prompt = (f"Compare two essays produced by an AI assistant. Response A: {response_1}"
+                  f"Response B: {response_2}"
+                  "Which response do you think is better? Answer '(A)' if response A is better. Answer '(B)' if response B is better. Answer '(C)' if the answers only have minor differences which do not affect quality")
+        evaluation_prompt = f"[INST] {prompt} [/INST]"
+        print(f"Evaluation Prompt: {evaluation_prompt}")
+        evaluation_response = self.oracle(evaluation_prompt)
+        print(f"Evaluation Response: {evaluation_response}")
 
-        return -3.0
+        # Interpret the model's decision
+        if '(a)' in evaluation_response.lower():
+            return -1
+        elif '(b)' in evaluation_response.lower():
+            return 1
+        elif '(c)' in evaluation_response.lower():
+            return 0
+        else:
+            # Handling ambiguity or unclear responses
+            print("The model's response was ambiguous or unclear.")
+            return -2
         
     def query_rm_once(self, response_1, response_2, tie_threshold=0.01, model="gpt-3.5", max_tokens=5, tokenizer=None):
         context = '###Human: ' + str(self.query) + '###Assistant: '
@@ -364,20 +365,22 @@ class Oracle:
         Use both the reward model and GPT to see if the paraphrased response maintains the quality.
         We can play with the mean score in order to 
         """
-        # First round of comparison
-        choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
-        score_dict = self.get_score_dict()
-        if choice is None:
-            return False
-        score = score_dict[choice]
-        # Secound round of comparison
-        second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
-        if second_choice is None:
-            return False
-        # We subtract now because the positions are reversed.
-        score -= score_dict[second_choice]
-        if score < 0:
-            return False
+        if self.compare_softmax:
+            # First round of comparison
+            choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
+            score_dict = self.get_score_dict()
+            if choice is None:
+                return False
+            score = score_dict[choice]
+            # Secound round of comparison
+            second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
+            if second_choice is None:
+                return False
+            # We subtract now because the positions are reversed.
+            score -= score_dict[second_choice]
+            if score < 0:
+                return False
+            
         if self.check_quality:
             # Check if the response has grammatical mistakes
             grammar_prompt = f"{paraphrased_response} \n" + self.check_error_prompt
@@ -394,7 +397,7 @@ class Oracle:
 
             if score != 2:
                 print("Response had punctuation mistakes.")
-                self.latest_mean_score = -2.5
+                self.latest_mean_score = False
                 return False
 
             if self.use_query:
@@ -402,7 +405,7 @@ class Oracle:
                 # Save the mean score so we can log it to a file
                 self.latest_mean_score = mean_score
                 print(f"Mean Quality Score from GPT: {mean_score}")
-                return (mean_score > 0.0)
+                return (mean_score == True)
             else:
                 prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt
                 check_quality = chat(prompt, model=model, tokenizer=tokenizer)
@@ -417,27 +420,21 @@ class Oracle:
         To account for GPT's position bias, swap their position and report the mean.
         Positive scores indicate that the paraphrased response is better.
         """
+        # TODO: Only works without use_gpt right now
         # TODO: Instead of returning False, add a repetition mechanism.
         # First round of comparison
-        if self.use_gpt:
-            choice = self.query_gpt_once(paraphrased_response, model=model)
-        else:
-            choice = self.query_model_once(paraphrased_response)
-        score_dict = self.get_score_dict()
-        if choice is None:
+       
+        score = self.query_model_once(paraphrased_response)
+        if score == -2:
             return False
-        score = score_dict[choice]
+        
         # Second round of comparison
-        if self.use_gpt:
-            choice = self.query_gpt_once(paraphrased_response, model=model, invert_order=True)
-        else:
-            choice = self.query_model_once(paraphrased_response, invert_order=True)
-        if choice is None:
+        second_score = self.query_model_once(paraphrased_response, invert_order=True)
+        if second_score == -2:
             return False
-        second_score = score_dict[choice]
 
         # We subtract the second score since the positions are now inverted.
-        return (score-second_score) / 2.0
+        return (score>=0 and second_score<=0)
 
 # This can be used to test modifications to the oracle quickly.
 if __name__ == '__main__':
@@ -476,7 +473,11 @@ if __name__ == '__main__':
     paraphrased_response = """In J.R.R. Tolkien's ""The Lord of the Rings"" series, power, as symbolized by the One Ring, plays a pivotal role in shaping the narrative and the development of its characters. The Ring, forged by the Dark Lord Sauron, embodies the quintessence of power and its corruptive influence. Its very existence and the desire it engenders in those who encounter it serve as a central theme throughout the series. Tolkien uses the Ring to explore the multifaceted nature of power and its effects on various characters. For instance, Gollum, once a creature much like a mere man, transforms under the Ring’s influence, showcasing power's ability to corrupt and degrade. In contrast, characters like Gandalf and Galadriel, despite their formidable abilities, resist the temptation of the Ring, understanding that its power would ultimately lead to their downfall. The Ring's impact on Frodo, the protagonist, is particularly poignant. He volunteers to carry the Ring, a burden that slowly erodes his spirit and physical well-being. This journey illustrates Tolkien's view that power, even when wielded for a noble cause, can have detrimental effects on the bearer. Frodo’s gradual deterioration under the Ring’s weight symbolizes the heavy toll that power can exact, even on the purest of hearts. Tolkien also uses the Ring to comment on the nature of power itself. He suggests that true power lies not in dominion or control, but in the ability to resist temptation and to make sacrifices for the greater good. This is exemplified by characters like Samwise Gamgee, whose loyalty and humility prove instrumental in aiding Frodo’s quest. In summary, ""The Lord of the Rings"" presents power as a double-edged sword, capable of both corrupting and revealing true character. Through the symbolism of the Ring, Tolkien conveys that the nature of power is not in its possession or use, but in the wisdom to understand its inherent dangers and the strength to renounce it."""
 
 
-    oracle = Oracle(query, response, use_query=True, check_quality=True, choice_granularity=5, use_chat_arena_prompt= True)
+    oracle = Oracle(query, response, 
+                    use_query=True, 
+                    check_quality=True, 
+                    choice_granularity=5, 
+                    use_chat_arena_prompt=True)
     
     response = oracle.report_mean_score(paraphrased_response)
 

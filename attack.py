@@ -42,6 +42,8 @@ class Attack:
             watermarked_text = self.watermarker.generate(prompt)
 
         assert watermarked_text is not None, "Unable to proceed without watermarked text!"
+        
+        original_watermarked_text = watermarked_text
 
         # Attack        
         patience = 0
@@ -56,7 +58,7 @@ class Attack:
             log.info(f"Mutated text: {mutated_text}")
 
             log.info("Checking quality oracle and watermark detector...")
-            quality_preserved = self.quality_oracle.evaluate(prompt, watermarked_text, mutated_text)['is_quality_preserved']
+            quality_preserved = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)['is_quality_preserved']
             watermark_detected, score = self.watermarker.detect(mutated_text)
             
             perturbation_stats = [{
@@ -66,6 +68,7 @@ class Attack:
                 "quality_preserved": quality_preserved,
                 "watermark_detected": watermark_detected,
                 "watermark_score": score,
+                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             }]
             save_to_csv(perturbation_stats, save_path)
 

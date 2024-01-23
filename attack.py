@@ -33,7 +33,7 @@ class Attack:
         """
         
         # Prepare the filename for logging
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d.%H.%M.%S")
         save_path = self.cfg.attack_args.save_name.replace("{time_stamp}", timestamp)
 
         # Generate watermarked response

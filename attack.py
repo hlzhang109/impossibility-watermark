@@ -27,6 +27,9 @@ class Attack:
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.generator.pipeline)
         self.mutator        = TextMutator(cfg.mutator_args, pipeline=self.generator.pipeline)
 
+    def count_words(self, text):
+        return len(text.split())
+
     def attack(self, prompt=None, watermarked_text=None):
         """
         Mutate the text for a given number of steps with quality control and watermark checking.
@@ -57,14 +60,25 @@ class Attack:
             mutated_text = self.mutator.mutate(watermarked_text)
             log.info(f"Mutated text: {mutated_text}")
 
-            log.info("Checking quality oracle and watermark detector...")
-            quality_preserved = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)['is_quality_preserved']
-            watermark_detected, score = self.watermarker.detect(mutated_text)
+            current_text_len = self.count_words(watermarked_text)
+            mutated_text_len = self.count_words(mutated_text)
+
+            if mutated_text_len / current_text_len < 0.95:
+                log.info("Mutation failed to preserve text length requirement...")
+                quality_preserved = False
+                watermark_detected = True
+                score = -1
+            else:
+                log.info("Checking quality oracle and watermark detector...")
+                quality_preserved = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)['is_quality_preserved']
+                watermark_detected, score = self.watermarker.detect(mutated_text)
             
             perturbation_stats = [{
                 "step_num": step_num, 
                 "current_text": watermarked_text,
                 "mutated_text": mutated_text, 
+                "current_text_len": self.count_words(watermarked_text),
+                "mutated_text_len": self.count_words(mutated_text), 
                 "quality_preserved": quality_preserved,
                 "watermark_detected": watermark_detected,
                 "watermark_score": score,

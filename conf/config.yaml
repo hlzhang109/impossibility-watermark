@@ -2,15 +2,20 @@ defaults:
     - _self_
     - watermark_args: umd
 
-results_dir: "./eval/results"
-model_cache_dir: "./.cache"
-
+attack_args:
+    prompt: "Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
+    num_steps: 100
+    patience: 25
+    results_dir: "./eval/results"
+    model_cache_dir: "/data1/fabricehc/impossibility-watermark/.cache"
+    save_name: "${attack_args.results_dir}/attack_{time_stamp}.csv"
 
 generator_args:
-    prompt: "Write a 250 word essay on the role of power and its impact on characters in the Lord of the Rings series. How does the ring symbolize power, and what does Tolkien suggest about the nature of power?"
-    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ"
-    revision: "main"
-    device_map: "cuda"
+    # model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
+    model_cache_dir: "${attack_args.model_cache_dir}"
+    device_map: "auto"
     trust_remote_code: False
     max_new_tokens: 1024
     do_sample: True 
@@ -18,19 +23,14 @@ generator_args:
     top_p: 0.95 
     top_k: 40
     repetition_penalty: 1.1
-    is_completion: False
 
 oracle_args:
-    use_query: True
-    use_gpt: False
-    compare_softmax: False # uses smaller reward_model
-    check_quality: True
-    choice_granularity: 5
-    use_chat_arena_prompt: False
-    reward_model: "OpenAssistant/reward-model-deberta-v3-large-v2"
-
+    num_retries: 5
+    use_system_profile: True
+    system_profile: "You are an impartial judge tasked to evaluate the quality of two prompt responses."
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
+    model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
     trust_remote_code: "${generator_args.trust_remote_code}"
     max_new_tokens: "${generator_args.max_new_tokens}"
@@ -39,11 +39,16 @@ oracle_args:
     top_p: "${generator_args.top_p}"
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
-    model_cache_dir: "${model_cache_dir}"
 
 mutator_args:
-    model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+    use_system_profile: True
+    system_profile: "You are a copy editor tasked to enforce text quality."
+    num_retries: 5
+    # model_name_or_path: "TheBloke/Llama-2-13B-GPTQ"
+    # model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     revision: "main" 
+    model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
     trust_remote_code: "${generator_args.trust_remote_code}"
     max_new_tokens: "${generator_args.max_new_tokens}"
@@ -52,7 +57,3 @@ mutator_args:
     top_p: "${generator_args.top_p}"
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
-    model_cache_dir: "${model_cache_dir}"
-    num_steps: 100
-    patience: 25
-    save_name: "${results_dir}/attack_{time_stamp}.csv"

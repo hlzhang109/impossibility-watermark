@@ -48,7 +48,7 @@ class PipeLineBuilder:
         """
         This function expects a formatted prompt and returns the generated text.
         """
-        if "gpt" in cfg.model_name_or_path:
+        if "gpt" in self.cfg.model_name_or_path:
             return self.pipeline(prompt)
         return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
         

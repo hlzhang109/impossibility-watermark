@@ -1,6 +1,6 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ['CUDA_VISIBLE_DEVICES'] = "0,1,2"
 os.environ["WORLD_SIZE"] = "1"
 
 import datetime
@@ -21,13 +21,29 @@ logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 class Attack:
     def __init__(self, cfg):
         self.cfg = cfg
+        
+        self.pipeline_builders = {}
 
-        self.generator      = PipeLineBuilder(cfg.generator_args)
-        self.watermarker    = Watermarker(cfg, pipeline=self.generator)
-        self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.generator.pipeline)
-        self.mutator        = TextMutator(cfg.mutator_args, pipeline=self.generator.pipeline)
+        # Helper function to create or reuse pipeline builders.
+        def get_or_create_pipeline_builder(model_name_or_path, args):
+            if model_name_or_path not in self.pipeline_builders:
+                self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+            return self.pipeline_builders[model_name_or_path]
+
+        # Create or get existing pipeline builders for generator, oracle, and mutator.
+        self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+        self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
+        self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
+        
+        # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
+        self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder)
+        self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
+        self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
+                     
 
     def count_words(self, text):
+        if text is None:
+            return 0
         return len(text.split())
 
     def attack(self, prompt=None, watermarked_text=None):
@@ -47,9 +63,26 @@ class Attack:
         assert watermarked_text is not None, "Unable to proceed without watermarked text!"
         
         original_watermarked_text = watermarked_text
+        
+        watermark_detected, score = self.watermarker.detect(original_watermarked_text)
+        
+        # Log the original watermarked text
+        perturbation_stats = [{
+            "step_num": -1,
+            "current_text": original_watermarked_text,
+            "mutated_text": original_watermarked_text, 
+            "current_text_len": self.count_words(original_watermarked_text),
+            "mutated_text_len": self.count_words(original_watermarked_text), 
+            "quality_preserved": True,
+            "watermark_detected": watermark_detected,
+            "watermark_score": score,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }]
+        save_to_csv(perturbation_stats, save_path)
 
         # Attack        
         patience = 0
+        successful_perturbations = 0
         for step_num in tqdm(range(self.cfg.attack_args.num_steps)):
 
             if patience > self.cfg.attack_args.patience: # exit after too many failed perturbations
@@ -71,7 +104,10 @@ class Attack:
             else:
                 log.info("Checking quality oracle and watermark detector...")
                 quality_preserved = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)['is_quality_preserved']
-                watermark_detected, score = self.watermarker.detect(mutated_text)
+                if self.cfg.use_watermark:
+                    watermark_detected, score = self.watermarker.detect(mutated_text)
+                else:
+                    watermark_detected, score = False, False
             
             perturbation_stats = [{
                 "step_num": step_num, 
@@ -85,30 +121,35 @@ class Attack:
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             }]
             save_to_csv(perturbation_stats, save_path)
-
-            if quality_preserved and watermark_detected:
-                log.info("Successul mutation, but watermark still intact. Taking another mutation step..")
-                patience = 0 # reset patience
-                watermarked_text = mutated_text
-                continue
             
-            if not quality_preserved:
+            if quality_preserved:
+                log.info(f"Mutation successful. This was the {successful_perturbations}th successful perturbation.")
+                patience = 0
+                successful_perturbations += 1
+                watermarked_text = mutated_text
+            else:
                 # If quality is not maintained, increment patience and retry the mutation process
                 log.info("Low quality mutation. Retrying step...")
                 patience += 1
                 continue
-                
-            if quality_preserved and not watermark_detected:
-                log.info("Watermark not detected. Attack successful.")
-                break
+
+            if watermark_detected:
+                log.info("Successul mutation, but watermark still intact. Taking another mutation step..")
+                continue
+            else:
+                log.info("Watermark not detected.")
+                if (self.cfg.use_watermark and self.cfg.attack_args.stop_at_removal) or successful_perturbations >= self.cfg.attack_args.num_successful_steps:
+                    log.info("Attack successful.")
+                    break
         
         return mutated_text
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
+    os.environ["CUDA_VISIBLE_DEVICES"] = cfg.attack_args.cuda
     
     attacker = Attack(cfg)
-    attacked_text = attacker.attack(cfg.attack_args.prompt)
+    attacked_text = attacker.attack(cfg.attack_args.prompt, cfg.attack_args.watermarked_text)
                 
     log.info(f"Prompt: {cfg.attack_args.prompt}")
     log.info(f"Attacked Response: {attacked_text}")

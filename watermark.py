@@ -25,7 +25,7 @@ from omegaconf import DictConfig, OmegaConf
 log = logging.getLogger(__name__)
 
 class Watermarker:
-    def __init__(self, cfg, pipeline=None, n_attempts=5):
+    def __init__(self, cfg, pipeline=None, n_attempts=10):
         self.cfg = cfg # config.watermark_args
         self.n_attempts = n_attempts
         self.pipeline = pipeline
@@ -129,8 +129,8 @@ class Watermarker:
             completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded
-            is_detected, _ = self.detect(completion)
-            if is_detected:
+            _, watermark_score = self.detect(completion)
+            if watermark_score >= self.cfg.generator_args.watermark_score_threshold:
                 return completion
             else:
                 log.info("Failed to watermark, trying again...")

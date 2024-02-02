@@ -6,6 +6,7 @@ os.environ["WORLD_SIZE"] = "1"
 # from langchain.globals import set_debug
 # set_debug(True)
 
+import traceback
 import datetime
 import textwrap
 import random
@@ -80,9 +81,9 @@ class TextMutator:
         self.step_2_template = textwrap.dedent("""
             [INST]
 
-            ** Task **: 
+            ** Task **:
 
-            Make minimal edits to this text for consistency and quality. 
+            Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter.
 
             ** Text **: 
 
@@ -158,6 +159,8 @@ class TextMutator:
             try:
                 # Step 1: Creatively alter a random sentence
                 mutated_text = self.creatively_alter_sentence(text)
+                # # Step 1.5: Creatively alter another random sentence
+                # mutated_text = self.creatively_alter_sentence(mutated_text)
                 # Step 2: Adjust the rest of the text for consistency
                 final_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"]
                 return final_text

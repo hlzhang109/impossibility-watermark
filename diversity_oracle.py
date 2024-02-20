@@ -7,6 +7,7 @@ from textdiversity import (
 from lexical_diversity import lex_div as ld
 from nltk import ngrams
 from nltk.tokenize import word_tokenize
+import pandas as pd
 
 class DiversityOracle:
     def __init__(self, metrics: dict = {}, verbose=False):
@@ -42,13 +43,13 @@ class DiversityOracle:
                 'trigrams': unhelper.trigrams,
             }
 
-    def __call__(self, texts):
+    def __call__(self, corpus):
         results = []
         for metric_name, metric_fn in self.metrics.items():
             if self.verbose:
                 print(f"Evaluating {metric_name}...")
             try:
-                diversity_score = metric_fn(texts)
+                diversity_score = metric_fn(corpus)
             except Exception as e:
                 print(e)
                 diversity_score = -1
@@ -58,6 +59,13 @@ class DiversityOracle:
             })
         return results
 
+    def compare(self, corpus1, corpus2):
+        d1 = pd.DataFrame(self(corpus1))
+        d2 = pd.DataFrame(self(corpus2))
+        df = pd.merge(d1, d2, on="metric_name").rename(
+            columns={"diversity_score_x": "corpus1_diversity_scores", 
+                     "diversity_score_y": "corpus2_diversity_scores"})
+        return df
 
 class LDHelper:
 
@@ -127,7 +135,6 @@ class UniqueNgramHelper:
 if __name__ == "__main__":
     
     from datasets import load_dataset
-    import pandas as pd
 
     dataset = load_dataset("chansung/llama2-stories", split="train")
     texts = [s for s in dataset["story"] if s.strip() != "" and type(s) == str]
@@ -138,13 +145,17 @@ if __name__ == "__main__":
     corpus1 = texts[:mid_point][:max_stories]
     corpus2 = texts[mid_point:][:max_stories]
 
-    d_evaluator = DiversityOracle(verbose=True)
+    div_oracle = DiversityOracle(verbose=True)
 
-    d_scores1 = d_evaluator(corpus1)
-    d_scores2 = d_evaluator(corpus2)
+    # d_scores1 = div_oracle(corpus1)
+    # d_scores2 = div_oracle(corpus2)
 
-    print(f"corpus1: {corpus1}")
-    print(pd.DataFrame(d_scores1))
+    # print(f"corpus1: {corpus1}")
+    # print(pd.DataFrame(d_scores1))
     
-    print(f"corpus2: {corpus2}")
-    print(pd.DataFrame(d_scores2))
+    # print(f"corpus2: {corpus2}")
+    # print(pd.DataFrame(d_scores2))
+
+    df = div_oracle.compare(corpus1, corpus2)
+
+    print(df)

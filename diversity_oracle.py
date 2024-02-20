@@ -127,6 +127,7 @@ class UniqueNgramHelper:
 if __name__ == "__main__":
     
     from datasets import load_dataset
+    import pandas as pd
 
     dataset = load_dataset("chansung/llama2-stories", split="train")
     texts = [s for s in dataset["story"] if s.strip() != "" and type(s) == str]
@@ -142,5 +143,8 @@ if __name__ == "__main__":
     d_scores1 = d_evaluator(corpus1)
     d_scores2 = d_evaluator(corpus2)
 
-    print(d_scores1)
-    print(d_scores2)
+    print(f"corpus1: {corpus1}")
+    print(pd.DataFrame(d_scores1))
+    
+    print(f"corpus2: {corpus2}")
+    print(pd.DataFrame(d_scores2))

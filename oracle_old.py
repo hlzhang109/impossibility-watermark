@@ -1,5 +1,6 @@
 import json
 import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import numpy as np
@@ -20,10 +21,11 @@ log = logging.getLogger(__name__)
 DEF_MODEL = "gpt-4"
 MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
 TOKENIZERS  = {model : tiktoken.encoding_for_model(MODELS[model]) for model in MODELS }
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 load_dotenv(dotenv_path='./.env') # take environment variables from .env with OPENAI_API_TOKEN=<your_key_here>
 if os.getenv("OPENAI_API_ENDPOINT"):
-    openai.api_base = os.getenv("OPENAI_API_ENDPOINT")
-openai.api_key = os.getenv("OPENAI_API_KEY")
+    # TODO: The 'openai.api_base' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(base_url=os.getenv("OPENAI_API_ENDPOINT"))'
+    # openai.api_base = os.getenv("OPENAI_API_ENDPOINT")
 
 def set_seed(seed):
    random.seed(seed)
@@ -69,16 +71,13 @@ def read_jsonl(file: str):
 
 def query_openai(prompt, model="text-davinci-003", max_tokens=512):
     # prompt = instruction+"\n"+query
-    response = openai.Completion.create(
-        engine=model, # "gpt-3.5-turbo-instruct"
-        prompt=prompt,
-        temperature=.2,
-        max_tokens=max_tokens,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        # stop=["\n"]
-    )
+    response = client.completions.create(engine=model, # "gpt-3.5-turbo-instruct"
+    prompt=prompt,
+    temperature=.2,
+    max_tokens=max_tokens,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0)
     return response.choices[0].text
 
 def chopped(s,k=30):
@@ -118,7 +117,7 @@ def chat(message, history = [{"role": "system", "content": "You are a research a
             presence_penalty=0,
             )
       params.update(extra_params) # update based on any extra parameters to add
-      response = openai.ChatCompletion.create(**params)
+      response = client.chat.completions.create(**params)
       break
     except Exception as e:
       log.info(f"Error!:\n{e}")
@@ -131,7 +130,7 @@ def chat(message, history = [{"role": "system", "content": "You are a research a
       else:
         return None
 
-  text_response =  response.choices[0]['message']['content']
+  text_response =  response.choices[0].message.content
   if debug: log.info(f"Response:\n {chopped(text_response)} ({count_tokens(text_response, tokenizer)} tokens)", flush=True)
   if return_more:
     return text_response, history + [{"role": "assistant", "content": text_response}], response

@@ -13,12 +13,14 @@ if __name__ == '__main__':
     argparser.add_argument('--save_fp', type=str, default='eval/results/one_time.json')
     argparser.add_argument('--summeval_fp', type=str, default='eval/data/mini_summeval.json')
     argparser.add_argument('--model', type=str, default='gpt-4')
+    argparser.add_argument('--num_reps', type=int, default=5)
     args = argparser.parse_args()
 
     summeval = json.load(open(args.summeval_fp))
     prompt = open(args.prompt_fp).read()
     load_dotenv()
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    num_reps=args.num_reps
 
     ct, ignore = 0, 0
 
@@ -39,7 +41,7 @@ if __name__ == '__main__':
                 presence_penalty=0,
                 stop=None,
                 # logprobs=40,
-                n=5)
+                n=num_reps)
                 time.sleep(0.5)
 
                 all_responses = [_response.choices[i].message.content for i in

@@ -38,9 +38,9 @@ class DiversityOracle:
                 'mtld': ldhelper.mtld,
                 'mtld_ma_bid': ldhelper.mtld_ma_bid,
                 'mtld_ma_wrap': ldhelper.mtld_ma_wrap,
-                'unigrams': unhelper.unigrams,
-                'bigrams': unhelper.bigrams,
-                'trigrams': unhelper.trigrams,
+                'normalized_unique_unigrams': unhelper.unigrams,
+                'normalized_unique_bigrams': unhelper.bigrams,
+                'normalized_unique_trigrams': unhelper.trigrams,
             }
 
     def __call__(self, corpus):
@@ -121,32 +121,29 @@ class UniqueNgramHelper:
             tokens.extend(word_tokenize(doc))
         return tokens
 
-    def _make_unique(self, n_gram_generator):
-        return len(set(list(n_gram_generator)))
-
     def unigrams(self, corpus):
         tokens = self._tokenize(corpus)
-        n_gram_generator = ngrams(tokens, 1)
-        unique_n_grams = self._make_unique(n_gram_generator)
+        n_grams = list(ngrams(tokens, 1))
+        unique_n_grams = set(n_grams)
         if self.config["normalize"]:
-            return unique_n_grams / len(list(n_gram_generator))
-        return unique_n_grams
+            return len(unique_n_grams) / len(n_grams)
+        return len(unique_n_grams)
 
     def bigrams(self, corpus):
         tokens = self._tokenize(corpus)
-        n_gram_generator = ngrams(tokens, 2)
-        unique_n_grams = self._make_unique(n_gram_generator)
+        n_grams = list(ngrams(tokens, 2))
+        unique_n_grams = set(n_grams)
         if self.config["normalize"]:
-            return unique_n_grams / len(list(n_gram_generator))
-        return unique_n_grams
+            return len(unique_n_grams) / len(n_grams)
+        return len(unique_n_grams)
 
     def trigrams(self, corpus):
         tokens = self._tokenize(corpus)
-        n_gram_generator = ngrams(tokens, 3)
-        unique_n_grams = self._make_unique(n_gram_generator)
+        n_grams = list(ngrams(tokens, 3))
+        unique_n_grams = set(n_grams)
         if self.config["normalize"]:
-            return unique_n_grams / len(list(n_gram_generator))
-        return unique_n_grams
+            return len(unique_n_grams) / len(n_grams)
+        return len(unique_n_grams)
     
 if __name__ == "__main__":
     

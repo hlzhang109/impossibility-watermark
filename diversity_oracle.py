@@ -17,12 +17,12 @@ class DiversityOracle:
         if not metrics:
             if self.verbose:
                 print("Initializing default metrics...")
+            config = {"normalize": True, "split_sentences": True}
             ldhelper = LDHelper()
-            unhelper = UniqueNgramHelper()
-            config = {"normalize": False}
+            unhelper = UniqueNgramHelper(config)
             self.metrics = {
                 'TokenSemantics': TokenSemantics(config), 
-                'DocumentSemantics': DocumentSemantics(config), 
+                # 'DocumentSemantics': DocumentSemantics(config), 
                 # 'AMR': AMR(config),
                 'DependencyParse': DependencyParse(config), 
                 'ConstituencyParse': ConstituencyParse(config),
@@ -108,6 +108,13 @@ class LDHelper:
 
 class UniqueNgramHelper:
 
+    default_config = {
+        'normalize': False,
+    }
+
+    def __init__(self, config={}):
+        self.config = {**self.default_config, **config} 
+
     def _tokenize(self, corpus):
         tokens = []
         for doc in corpus:
@@ -120,17 +127,26 @@ class UniqueNgramHelper:
     def unigrams(self, corpus):
         tokens = self._tokenize(corpus)
         n_gram_generator = ngrams(tokens, 1)
-        return self._make_unique(n_gram_generator)
+        unique_n_grams = self._make_unique(n_gram_generator)
+        if self.config["normalize"]:
+            return unique_n_grams / len(list(n_gram_generator))
+        return unique_n_grams
 
     def bigrams(self, corpus):
         tokens = self._tokenize(corpus)
         n_gram_generator = ngrams(tokens, 2)
-        return self._make_unique(n_gram_generator)
+        unique_n_grams = self._make_unique(n_gram_generator)
+        if self.config["normalize"]:
+            return unique_n_grams / len(list(n_gram_generator))
+        return unique_n_grams
 
     def trigrams(self, corpus):
         tokens = self._tokenize(corpus)
         n_gram_generator = ngrams(tokens, 3)
-        return self._make_unique(n_gram_generator)
+        unique_n_grams = self._make_unique(n_gram_generator)
+        if self.config["normalize"]:
+            return unique_n_grams / len(list(n_gram_generator))
+        return unique_n_grams
     
 if __name__ == "__main__":
     

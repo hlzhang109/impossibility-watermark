@@ -1,7 +1,6 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-os.environ["WORLD_SIZE"] = "1"
+# os.environ["WORLD_SIZE"] = "1"
 
 # from langchain.globals import set_debug
 # set_debug(True)
@@ -14,7 +13,6 @@ import difflib
 import time
 import nltk
 from nltk.tokenize import sent_tokenize
-
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -26,6 +24,7 @@ from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 
 from pipeline_builder import PipeLineBuilder
+# from prompt_templates import get_prompt_template
 
 import hydra
 import logging
@@ -41,11 +40,12 @@ class TextMutator:
     It also provides methods for mutating a text in a 1- or 2-step process.
     """
     def __init__(self, cfg, pipeline=None):
-
+        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
+        
         self.cfg = cfg # config.mutator_args
         self.pipeline = pipeline
         
-        # Model Piepline
+        # Model Pipeline
         if not isinstance(self.pipeline, HuggingFacePipeline):
             log.info("Initializing a new Text Mutator pipeline from cfg...")
             self.pipeline = PipeLineBuilder(cfg).pipeline
@@ -58,45 +58,54 @@ class TextMutator:
             nltk.data.find('tokenizers/punkt')
         except LookupError:
             nltk.download('punkt')
-
+            
         # Initialize chains 
         
         # Step 1 - Localize Creativity Injection
+                
         self.step_1_template = textwrap.dedent(
             """
-            [INST] 
-            Rewrite this sentence creatively: {sentence} 
-            [/INST]
+            [INST]
+            Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
+            [\INST]
             """
         )
+                
         self.step_1_prompt = PromptTemplate(
             template=self.step_1_template,
             input_variables=["sentence"],
         )
+        
         self.step_1_chain = self.step_1_prompt | self.pipeline
 
         # Step 2 - Global Consistency Edit
         self.step_2_profile = """{system_profile}"""
 
-        self.step_2_template = textwrap.dedent("""
-            [INST]
-
-            ** Task **:
-
-            Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter.
-
-            ** Text **: 
-
-            {original_text} 
-
+        # Determine the format instructions section based on the condition
+        format_instructions_section = (
+            textwrap.dedent("""
             ** Format Instructions **: 
-        
-            {format_instructions} 
 
-            [/INST]
-            """
+            {format_instructions} 
+            """) if self.cfg.use_pydantic_parser else ""
         )
 
+        # Use a single template with the conditional section
+        self.step_2_template = textwrap.dedent(f"""
+            [INST]
+            ** Task **:
+
+            Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
+
+            ** Text **:
+
+            {{original_text}} 
+
+            {format_instructions_section}
+            [\INST]
+            """
+        )
+        
         self.system_prompt = PromptTemplate(
             template=self.step_2_profile,
             input_variables=["system_profile"],
@@ -105,7 +114,7 @@ class TextMutator:
         self.user_prompt = PromptTemplate(
             template=self.step_2_template,
             input_variables=["original_text"],
-            partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
+            partial_variables={"format_instructions": self.output_parser.get_format_instructions()} if self.cfg.use_pydantic_parser else {},
         )
 
         if self.cfg.use_system_profile:
@@ -115,7 +124,11 @@ class TextMutator:
         else:
             self.step_2_prompt = self.user_prompt
 
-        self.step_2_chain = self.step_2_prompt | self.pipeline | self.output_parser
+        # Initial chain setup without the output parser
+        self.step_2_chain = self.step_2_prompt | self.pipeline
+        # Conditionally add the output parser if self.cfg.use_pydantic_parser is True
+        if self.cfg.use_pydantic_parser:
+            self.step_2_chain = self.step_2_chain | self.output_parser
 
     def creatively_alter_sentence(self, text):
         # Use NLTK to split the text into sentences
@@ -142,16 +155,64 @@ class TextMutator:
             dict_input.update({"system_profile": self.cfg.system_profile})
 
         # Run Chain
-        pydantic_output = self.step_2_chain.invoke(dict_input)
-
-        # Prepare Output
-        dict_output = pydantic_output.model_dump()
+        chain_output = self.step_2_chain.invoke(dict_input)
+        if self.cfg.use_pydantic_parser:
+            dict_output = chain_output.model_dump()
+        else:
+            dict_output = {"text" : chain_output}
+        
         dict_output.update({
             **dict_input,
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             **kwargs
         })
         return dict_output
+
+    def random_walk_attack(self, text):
+        
+        """
+        replace this with the logic of attack_old.py
+        the pseudocode is as follows
+
+        follow perturb_texts and funcs it references (use the parameters they have like pct):
+        - tokenize words
+        - randomly mask tokens
+        - replace masks with perturbations. for this, I could use a chain like step_2_template
+          and ask it to replace <MASK> with words that fit. not sure if this is what they did with t5, need to recheck
+        - join tokens
+        """
+
+        # Use NLTK to split the text into sentences
+        sentences = sent_tokenize(text)
+        # Randomly select a sentence
+        selected_sentence = random.choice(sentences)
+        # log.info(f"Sentence to rephrase: {selected_sentence}")
+
+        # Generate a creative variation of the sentence
+        rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
+        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        
+        creative_sentences = sent_tokenize(rephrased_sentence)
+        rephrased_sentence = creative_sentences[0]
+        
+        # Replace the original sentence with its creative variation
+        sentences[sentences.index(selected_sentence)] = rephrased_sentence
+        return ' '.join(sentences)
+
+    def old_mutate(self, text, **kwargs):
+        retry_count = 0
+        while retry_count < self.cfg.num_retries:
+            try:
+                
+                final_text = self.random_walk_attack(text)
+                
+                return final_text
+            except Exception:
+                retry_count += 1
+                log.info(f"Failed to produce a valid generation, trying again...")
+                if retry_count >= self.cfg.num_retries:
+                    log.info(f"Failed to produce a valid generation after {retry_count} tries.")
+                    log.info(traceback.format_exc())
 
     def mutate(self, text, **kwargs):
         retry_count = 0

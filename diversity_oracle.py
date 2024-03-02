@@ -147,20 +147,29 @@ class UniqueNgramHelper:
     
 if __name__ == "__main__":
     
-    from datasets import load_dataset
+    # from datasets import load_dataset
 
-    dataset = load_dataset("chansung/llama2-stories", split="train")
-    texts = [s for s in dataset["story"] if s.strip() != "" and type(s) == str]
+    # dataset = load_dataset("chansung/llama2-stories", split="train")
+    # texts = [s for s in dataset["story"] if s.strip() != "" and type(s) == str]
     
-    mid_point = len(texts) // 2
-    max_stories = 10
+    # mid_point = len(texts) // 2
+    # max_stories = 10
 
-    corpus1 = texts[:mid_point][:max_stories]
-    corpus2 = texts[mid_point:][:max_stories]
-
+    # corpus1 = texts[:mid_point][:max_stories]
+    # corpus2 = texts[mid_point:][:max_stories]
+    
+    corpus1_path = './inputs/lotr_gollum_watermarked_attacks_1.csv'
+    corpus2_path = './inputs/lotr_gollum_watermarked_attacks_3.csv'
+    
+    corpus1 = pd.read_csv(corpus1_path)['text'].tolist()
+    corpus2 = pd.read_csv(corpus2_path)['text'].tolist()
+    
     div_oracle = DiversityOracle(verbose=True)
 
-    # d_scores1 = div_oracle(corpus1)
+    d_scores1 = div_oracle(corpus1)
+    
+    print(d_scores1)
+    print(type(d_scores1))
     # d_scores2 = div_oracle(corpus2)
 
     # print(f"corpus1: {corpus1}")
@@ -169,6 +178,6 @@ if __name__ == "__main__":
     # print(f"corpus2: {corpus2}")
     # print(pd.DataFrame(d_scores2))
 
-    df = div_oracle.compare(corpus1, corpus2)
+    # df = div_oracle.compare(corpus1, corpus2)
 
-    print(df)
+    # print(df)

@@ -1,13 +1,22 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import os
+import torch
+from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 
 from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
+import logging
+
+log = logging.getLogger(__name__)
+logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 class PipeLineBuilder:
     def __init__(self, cfg):
-
         self.cfg = cfg
+        
+        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
+        
+        log.info(f"Initializing {cfg.model_name_or_path}")
 
         # NOTE: Using openai is incompatible with watermarking. 
         if "gpt" in cfg.model_name_or_path:
@@ -15,14 +24,32 @@ class PipeLineBuilder:
             self.pipeline = ChatOpenAI(model_name=cfg.model_name_or_path)
         
         else: # Using locally hosted model
+            if 'gemma' in cfg.model_name_or_path:
+                quantization_config = BitsAndBytesConfig(
+                    load_in_4bit=True,
+                    bnb_4bit_use_double_quant=True,
+                    bnb_4bit_quant_type="nf4",
+                    bnb_4bit_compute_dtype=torch.bfloat16
+                    )
 
-            # Initialize and load the model and tokenizer
-            self.model = AutoModelForCausalLM.from_pretrained(
-                cfg.model_name_or_path,
-                revision=cfg.revision,
-                cache_dir=cfg.model_cache_dir,
-                device_map=cfg.device_map,
-                trust_remote_code=cfg.trust_remote_code) 
+                # Initialize and load the model and tokenizer
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    cfg.model_name_or_path,
+                    revision=cfg.revision,
+                    cache_dir=cfg.model_cache_dir,
+                    device_map=cfg.device_map,
+                    trust_remote_code=cfg.trust_remote_code,
+                    quantization_config=quantization_config)           
+
+            else:
+                # Initialize and load the model and tokenizer
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    cfg.model_name_or_path,
+                    revision=cfg.revision,
+                    cache_dir=cfg.model_cache_dir,
+                    device_map=cfg.device_map,
+                    trust_remote_code=cfg.trust_remote_code)
+             
             self.tokenizer = AutoTokenizer.from_pretrained(
                 cfg.model_name_or_path, 
                 use_fast=True, 

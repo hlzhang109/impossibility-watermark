@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Check if two arguments were provided
+# Check if one argument was provided
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <N>"
     exit 1

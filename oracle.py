@@ -132,7 +132,7 @@ class Oracle:
         self.profile_background = """{system_profile}"""
 
         # Removed Creativity
-        self.eval_background = get_eval_background(self.is_completion)
+        self.eval_background = get_eval_background(self.cfg.is_completion)
 
         self.system_prompt = PromptTemplate(
             template=self.profile_background,

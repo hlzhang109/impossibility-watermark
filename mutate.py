@@ -12,7 +12,7 @@ import random
 import difflib
 import time
 import nltk
-from nltk.tokenize import sent_tokenize
+from nltk.tokenize import sent_tokenize, word_tokenize
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -168,36 +168,24 @@ class TextMutator:
         })
         return dict_output
 
-    def random_walk_attack(self, text):
-        
-        """
-        replace this with the logic of attack_old.py
-        the pseudocode is as follows
+    def random_walk_attack(self, text, span_len):
 
-        follow perturb_texts and funcs it references (use the parameters they have like pct):
-        - tokenize words
-        - randomly mask tokens
-        - replace masks with perturbations. for this, I could use a chain like step_2_template
-          and ask it to replace <MASK> with words that fit. not sure if this is what they did with t5, need to recheck
-        - join tokens
-        """
-
-        # Use NLTK to split the text into sentences
-        sentences = sent_tokenize(text)
-        # Randomly select a sentence
-        selected_sentence = random.choice(sentences)
-        # log.info(f"Sentence to rephrase: {selected_sentence}")
-
-        # Generate a creative variation of the sentence
-        rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
-        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        words = word_tokenize(text)
+        if len(words) < span_len:
+            return text  # Return the original text if it's too short
         
-        creative_sentences = sent_tokenize(rephrased_sentence)
-        rephrased_sentence = creative_sentences[0]
-        
-        # Replace the original sentence with its creative variation
-        sentences[sentences.index(selected_sentence)] = rephrased_sentence
-        return ' '.join(sentences)
+        start = np.random.randint(0, len(words) - span_len)
+        end = start + span_len
+
+        for i in range(start, end):
+            words[i] = '<<<MASK>>>'
+
+        # filled_words = ? Going to use Flan T5. I can either understand its interface and incorporate it here
+        # or go back to attack_old and just change the model... will probably do the latter
+
+        recombined_text = ' '.join(filled_words)
+        return recombined_text
+
 
     def old_mutate(self, text, **kwargs):
         retry_count = 0

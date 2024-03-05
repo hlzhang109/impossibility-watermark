@@ -21,7 +21,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 from langchain.output_parsers import PydanticOutputParser
-from pydantic import BaseModel, Field
+from langchain_core.pydantic_v1 import BaseModel, Field
 
 from pipeline_builder import PipeLineBuilder
 # from prompt_templates import get_prompt_template
@@ -157,7 +157,7 @@ class TextMutator:
         # Run Chain
         chain_output = self.step_2_chain.invoke(dict_input)
         if self.cfg.use_pydantic_parser:
-            dict_output = chain_output.model_dump()
+            dict_output = chain_output.dict()
         else:
             dict_output = {"text" : chain_output}
         

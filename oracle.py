@@ -18,7 +18,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 from langchain.output_parsers import PydanticOutputParser
-from pydantic import BaseModel, Field
+from langchain_core.pydantic_v1 import BaseModel, Field
 
 import logging
 import hydra
@@ -169,7 +169,7 @@ class Oracle:
         pydantic_output = self.chain.invoke(dict_input)
 
         # Prepare Output
-        dict_output = pydantic_output.model_dump()
+        dict_output = pydantic_output.dict()
         dict_output.update({
             **dict_input,
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),

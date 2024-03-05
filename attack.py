@@ -1,27 +1,25 @@
 import os
-
-# os.environ["WORLD_SIZE"] = "1"
-
 import datetime
 import hydra
-from omegaconf import DictConfig, OmegaConf
-
-import logging
-from tqdm import tqdm
-from pipeline_builder import PipeLineBuilder
-from watermark import Watermarker
-from oracle import Oracle
-from mutate import TextMutator
-from utils import save_to_csv
-import re
 import json
+from omegaconf import DictConfig, OmegaConf
 import pandas as pd
+import re
+from tqdm import tqdm
+import logging
+from utils import save_to_csv
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 class Attack:
     def __init__(self, cfg):
+        
+        from pipeline_builder import PipeLineBuilder
+        from watermark import Watermarker
+        from oracle import Oracle
+        from mutate import TextMutator
+
         self.cfg = cfg
         
         self.pipeline_builders = {}
@@ -218,7 +216,9 @@ def get_mutated_text(txt_file_path):
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
-    # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.attack_args.cuda
+    
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
+    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
     
     # Load prompt and watermarked text from JSON
     

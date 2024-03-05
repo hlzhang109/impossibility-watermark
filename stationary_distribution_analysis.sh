@@ -19,7 +19,7 @@ for ((i=1; i<=N; i++)); do
     tmux send-keys -t "session_$i" "conda activate $CondaEnv" C-m
     tmux send-keys -t "session_$i" "python -m attack attack_args.cuda=\'$cuda\' &> 4_evan_2_${i}.txt" C-m
 
-    # Increment cuda for the next iteration, and ensure it loops through 4-7
+    # Increment cuda for the next iteration, and ensure it loops through the gpus
     ((cuda++))
     if [ $cuda -gt 3 ]; then
         cuda=0

@@ -1,7 +1,5 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-os.environ["WORLD_SIZE"] = "1"
 
 import logging
 import torch
@@ -25,10 +23,11 @@ from omegaconf import DictConfig, OmegaConf
 log = logging.getLogger(__name__)
 
 class Watermarker:
-    def __init__(self, cfg, pipeline=None, n_attempts=10):
+    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         self.cfg = cfg # config.watermark_args
         self.n_attempts = n_attempts
         self.pipeline = pipeline
+        self.is_completion = is_completion
         
         if not isinstance(self.pipeline, PipeLineBuilder):
             log.info("Initializing a new Watermarker pipeline from cfg...")
@@ -126,7 +125,8 @@ class Watermarker:
                 outputs = self.model.generate(**inputs, **self.generator_kwargs)
                 
             completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-            completion = completion.replace(prompt, '', 1).strip()
+            if not self.is_completion:
+                completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded
             _, watermark_score = self.detect(completion)

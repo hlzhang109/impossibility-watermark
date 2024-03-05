@@ -9,24 +9,69 @@ from nltk import ngrams
 from nltk.tokenize import word_tokenize
 import pandas as pd
 
+def get_metrics(metrics, normalized):
+    if normalized:
+        normalized_config = {"normalize": True, "split_sentences": True}
+        normalized_unhelper = UniqueNgramHelper(normalized_config)
+        
+        metrics = {
+            'normalized_TokenSemantics' : TokenSemantics(normalized_config),
+            'normalized_DependencyParse': DependencyParse(normalized_config), 
+            'normalized_ConstituencyParse': ConstituencyParse(normalized_config),
+            'normalized_PartOfSpeechSequence': PartOfSpeechSequence(normalized_config),   
+            'normalized_unique_unigrams': normalized_unhelper.unigrams,
+            'normalized_unique_bigrams': normalized_unhelper.bigrams,
+            'normalized_unique_trigrams': normalized_unhelper.trigrams,
+        }        
+    else:
+        metrics = {
+            'TokenSemantics': TokenSemantics(config), 
+            # 'DocumentSemantics': DocumentSemantics(config), 
+            # 'AMR': AMR(config),
+            'DependencyParse': DependencyParse(config), 
+            'ConstituencyParse': ConstituencyParse(config),
+            'PartOfSpeechSequence': PartOfSpeechSequence(config),
+            # 'Rhythmic': Rhythmic(config),
+            'ttr': ldhelper.ttr,
+            'log_ttr': ldhelper.log_ttr,
+            'root_ttr': ldhelper.root_ttr,
+            'maas_ttr': ldhelper.maas_ttr,
+            'mattr': ldhelper.mattr,
+            'msttr': ldhelper.msttr,
+            'hdd': ldhelper.hdd,
+            'mtld': ldhelper.mtld,
+            'mtld_ma_bid': ldhelper.mtld_ma_bid,
+            'mtld_ma_wrap': ldhelper.mtld_ma_wrap,
+            'unique_unigrams': unhelper.unigrams,
+            'unique_bigrams': unhelper.bigrams,
+            'unique_trigrams': unhelper.trigrams,
+        }        
+
 class DiversityOracle:
-    def __init__(self, metrics: dict = {}, verbose=False):
+    def __init__(self, metrics: dict = {}, verbose=False, normalized=True):
         self.metrics = metrics
         self.verbose = verbose
 
         if not metrics:
             if self.verbose:
                 print("Initializing default metrics...")
-            config = {"normalize": True, "split_sentences": True}
-            ldhelper = LDHelper()
+                
+            config = {"normalize": False, "split_sentences": True}
             unhelper = UniqueNgramHelper(config)
+            
+            ldhelper = LDHelper()
+            
             self.metrics = {
                 'TokenSemantics': TokenSemantics(config), 
+                'normalized_TokenSemantics' : TokenSemantics(normalized_config),
                 # 'DocumentSemantics': DocumentSemantics(config), 
                 # 'AMR': AMR(config),
                 'DependencyParse': DependencyParse(config), 
                 'ConstituencyParse': ConstituencyParse(config),
                 'PartOfSpeechSequence': PartOfSpeechSequence(config),
+                'normalized_DependencyParse': DependencyParse(normalized_config), 
+                'normalized_ConstituencyParse': ConstituencyParse(normalized_config),
+                'normalized_PartOfSpeechSequence': PartOfSpeechSequence(normalized_config),
                 # 'Rhythmic': Rhythmic(config),
                 'ttr': ldhelper.ttr,
                 'log_ttr': ldhelper.log_ttr,
@@ -38,9 +83,12 @@ class DiversityOracle:
                 'mtld': ldhelper.mtld,
                 'mtld_ma_bid': ldhelper.mtld_ma_bid,
                 'mtld_ma_wrap': ldhelper.mtld_ma_wrap,
-                'normalized_unique_unigrams': unhelper.unigrams,
-                'normalized_unique_bigrams': unhelper.bigrams,
-                'normalized_unique_trigrams': unhelper.trigrams,
+                'unique_unigrams': unhelper.unigrams,
+                'unique_bigrams': unhelper.bigrams,
+                'unique_trigrams': unhelper.trigrams,                
+                'normalized_unique_unigrams': normalized_unhelper.unigrams,
+                'normalized_unique_bigrams': normalized_unhelper.bigrams,
+                'normalized_unique_trigrams': normalized_unhelper.trigrams,
             }
 
     def __call__(self, corpus):

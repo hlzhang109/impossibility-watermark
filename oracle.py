@@ -26,30 +26,48 @@ import hydra
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-class OracleAnswer(BaseModel):
-    analysis:  str = Field(description="Quality assessment analysis")
-    answer:    int = Field(description="Quality assessment answer")
+def get_eval_background(is_completion):
+    if is_completion:
+        eval_background = textwrap.dedent("""
+            [INST]
+            ** Task ** : 
 
-class Oracle:
-    def __init__(self, cfg, pipeline=None) -> None:
-        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
-        
-        self.cfg = cfg # config.oracle_args
-        self.pipeline = pipeline
+            - Read the prefix and two possible completions for it: Completion A and Completion B.
+            - Compare the quality of the two completions for following factors:
+                - Grammatical correctness
+                - Fluency
+                - Accuracy
+                - Depth
+                - Consistency
+                - Simplicity
+                - Clarity
+            - Describe your quality assessment.
+            - Select one of the following numbers to summarize your assesment:
+                1. Completion A is better than Completion B
+                2. Completions A and Completion B have similar quality
+                3. Completion B is better than Completion A
+            
+            ** Completion ** : 
+            
+            {prompt} 
 
-        # Model Pipeline
-        if not isinstance(self.pipeline, HuggingFacePipeline):
-            log.info("Initializing a new Oracle pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg).pipeline
+            ** Completion A ** : 
 
-        # Output Parser
-        self.output_parser = PydanticOutputParser(pydantic_object=OracleAnswer)
+            {response_a} 
 
-        # Prompt Template
-        self.profile_background = """{system_profile}"""
+            ** Completion B ** : 
 
-        # Removed Creativity
-        self.eval_background = textwrap.dedent("""
+            {response_b} 
+
+            ** Format Instructions ** : 
+            
+            {format_instructions} 
+            [/INST]
+            """
+        )
+    
+    else:
+        eval_background = textwrap.dedent("""
             [INST]
             ** Task ** : 
 
@@ -63,7 +81,8 @@ class Oracle:
                 - Accuracy
                 - Depth
                 - Consistency
-                - Simplicity and clarity
+                - Simplicity
+                - Clarity
             - Describe your quality assessment.
             - Select one of the following numbers to summarize your assesment:
                 1. Response A is better than Response B
@@ -88,6 +107,32 @@ class Oracle:
             [/INST]
             """
         )
+    return eval_background
+
+class OracleAnswer(BaseModel):
+    analysis:  str = Field(description="Quality assessment analysis")
+    answer:    int = Field(description="Quality assessment answer")
+
+class Oracle:
+    def __init__(self, cfg, pipeline=None) -> None:
+        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
+        
+        self.cfg = cfg # config.oracle_args
+        self.pipeline = pipeline
+
+        # Model Pipeline
+        if not isinstance(self.pipeline, HuggingFacePipeline):
+            log.info("Initializing a new Oracle pipeline from cfg...")
+            self.pipeline = PipeLineBuilder(cfg).pipeline
+
+        # Output Parser
+        self.output_parser = PydanticOutputParser(pydantic_object=OracleAnswer)
+
+        # Prompt Template
+        self.profile_background = """{system_profile}"""
+
+        # Removed Creativity
+        self.eval_background = get_eval_background(self.is_completion)
 
         self.system_prompt = PromptTemplate(
             template=self.profile_background,

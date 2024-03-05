@@ -14,7 +14,7 @@ from oracle import Oracle
 from mutate import TextMutator
 from utils import save_to_csv
 import re
-
+import json
 import pandas as pd
 
 log = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class Attack:
         self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder)
+        self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
@@ -237,11 +237,11 @@ def main(cfg):
     # watermarked_text = """"Evan, an advocate for 'flânerie,' eagerly sought the excitement of a spring festival in Paris, savoring its thrill and profound symbolic significance. Upon entering the lively marketplace, throbbing with festive music, he was quickly drawn to Émilie, the captivating barista, whose radiant energy mirrored the vibrant essence of the city. During their initial encounter over casual drinks, they delved into various shared memories, strengthening their relationship and revealing their mutual admiration for modern art and the allure of Paris. Walking lazily along the Seine, they basked in the jubilant ambiance, discovering inspiration and tranquility within the vivid urban landscape. Deeper into their exploration, they stumbled upon concealed gems, forming lasting memories and solidifying their connection. At the core of Paris, her feelings became entwined with the city's intricate tapestry, weaving a distinctive love story distinct from any other. As dusk settled and the city's reflection shimmered on the river's surface, a pivotal choice came to light, surpassing temporal bounds. Beneath the starlit sky, amidst the soft whispers of Paris, Evan articulated his deepest sentiments to Émilie, pledging to uphold and cherish the genuineness of their relationship as they embarked on their transient voyage together. Their escapade embodied life itself, powered by fervent dialogues and fervent affection, driven by evolutionary forces."""
     # watermarked_text = """Evan, an American tourist, found himself captivated by the vibrant spirit of Paris during a spring festival. Amidst the lively streets adorned with blossoms and the air filled with joyous melodies, he stumbled upon a quaint café where Emilie, a barista with an infectious smile, brewed magic in a cup. Their initial exchange over a love for art and the city's undying charm quickly blossomed into a series of adventures along the Seine, where the festival's exuberance seemed to mirror their growing affection.\nTheir walks were filled with shared laughter and endless conversations, as they explored the city's quaint streets and hidden gems. Paris, in its festival attire, provided the perfect backdrop for their budding connection, with its cobbled lanes and the Seine's banks lit by the festival lights, dancing on the water like fireflies under the starlit sky.\nOne evening, as they found themselves under the canopy of stars, with the city's lights reflecting in their eyes, Evan shared his feelings with Emilie. The joy and sincerity in his voice resonated with the genuine emotions that had taken root in their hearts. He promised to cherish the moments they had shared, acknowledging the special bond they had formed. In the heart of Paris, amidst the spring festival's enchantment, Evan and Emilie discovered a connection that transcended the ordinary, marked by sincere emotions and joyful adventures, forever etched in their memories."""
     # watermarked_text = """Evan, an American tourist, found himself captivated not just by the allure of Paris in spring but by Emilie, a lively barista with a smile that mirrored the city's charm. Their connection sparked during a bustling spring festival, where art and joy intertwined, drawing them closer over shared passions.\n\nTheir days were filled with wanderings along the Seine, where the festival's exuberance seemed to overflow, blending seamlessly with the serene flow of the river. Laughter became their shared language as they explored the city's quaint streets and hidden gems, with Emilie introducing Evan to the true essence of Paris beyond the postcards.\n\nArt, a mutual love, allowed them to see the world through each other's eyes. They lost themselves in galleries and street art, finding pieces of themselves in the colors and shapes. The city, with its endless charm, became the backdrop for their growing connection, a testament to the unexpected paths of the heart.\n\nAs the festival lights danced on the river's surface, Evan found the courage under the starlit sky to share his feelings with Emilie. Amid the magic of the moment, he spoke of the joy she had brought into his life, promising to cherish the memories they had created together. Their story, though fleeting, was a vivid tapestry of laughter, exploration, and sincere emotions, a reminder of the beauty found in shared experiences and the unpredictable journey of the heart."""
-    txt_file_directory = "./first_round/"
-    txt_file_name = "evan_1_4.txt"
-    txt_file_path = os.path.join(txt_file_directory, txt_file_name)
+    # txt_file_directory = "./first_round/"
+    # txt_file_name = "evan_1_4.txt"
+    # txt_file_path = os.path.join(txt_file_directory, txt_file_name)
     
-    watermarked_text = get_mutated_text(txt_file_path)
+    # watermarked_text = get_mutated_text(txt_file_path)
     
     attacker = Attack(cfg)
     attacked_text = attacker.attack(cfg, prompt, watermarked_text)

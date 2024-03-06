@@ -1,7 +1,3 @@
-import os
-
-# os.environ["WORLD_SIZE"] = "1"
-
 # from langchain.globals import set_debug
 # set_debug(True)
 
@@ -10,7 +6,6 @@ import datetime
 import textwrap
 import random
 import difflib
-import time
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline

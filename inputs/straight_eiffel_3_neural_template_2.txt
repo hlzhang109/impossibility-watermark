@@ -1,0 +1,52 @@
+[2024-02-22 12:13:48,438][pipeline_builder][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+[2024-02-22 12:13:48,589][datasets][INFO] - PyTorch version 2.1.2 available.
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py:4193: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/borito1907/impossibility-watermark/attack.py", line 197, in <module>
+    main()
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 190, in main
+    attacker = Attack(cfg)
+               ^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 36, in __init__
+    self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 32, in get_or_create_pipeline_builder
+    self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 46, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 561, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 3434, in from_pretrained
+    max_memory = get_balanced_memory(
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 849, in get_balanced_memory
+    max_memory = get_max_memory(max_memory)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 720, in get_max_memory
+    _ = torch.tensor([0], device=i)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

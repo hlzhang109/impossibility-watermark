@@ -4,30 +4,27 @@ defaults:
 
 attack_args:
     # prompt: "Provide a straightforward description of the Eiffel Tower's physical features without using complex or elaborate language."
-    # prompt: "Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe. Only respond with the story."
-    # prompt: "Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe during spring. Evan and Emily should go for walks along the Seine. Evan should talk to Emily about his feelings before leaving. Only respond with the story."
-    # prompt: "Write a 250-word story about Evan, a married American tourist, who falls for Emilie, a lively barista, during a spring festival in Paris. They bond over their love for art and the city's charm, leading to walks along the Seine, where the festival's joy spills over. Their connection deepens amid shared laughter and explorations of quaint streets. As the festival lights dance on the river, Evan shares his feelings with Emilie under the starlit sky, promising to cherish the moments they've shared. Focus on their joyful adventures and the sincere emotions that bloom between them."
-    prompt : "Write a 250-word story about Evan, an American tourist, who falls for Emilie, a lively barista, during a spring festival in Paris. They bond over their love for art and the city's charm, leading to walks along the Seine, where the festival's joy spills over. Their connection deepens amid shared laughter and explorations of quaint streets. As the festival lights dance on the river, Evan shares his feelings with Emilie under the starlit sky, promising to cherish the moments they've shared. Focus on their joyful adventures and the sincere emotions that bloom between them."
-    prompt_file: "./inputs/parisian_prompts.csv" # only used if prompt is None
-    prompt_num: 5
-    is_completion: False
-    # watermarked_text: 'The Eiffel Tower is an iron lattice structure with three levels, located in Paris, France. It stands at 324 meters tall and has a total surface area of approximately 108,000 square meters. The tower comprises four huge, open-latticed piers that connect at the second level, creating an overall shape that tapers towards the top. There are also two small platforms near the base for sightseeing purposes. The Eiffel Tower is painted a brownish-grey hue and has become one of the most iconic landmarks in the world since its completion in 1889.'
-    # watermarked_text: "The Eiffel Tower is a large iron structure located in Paris, France. It stands about 324 meters tall, which is almost as tall as an 81-story building. The tower has three levels that people can visit. The first two levels have restaurants and shops, and the top level is an observation deck that offers a great view of Paris. The Eiffel Tower is made of iron and has a lattice-like design, which means it looks like it's made of criss-crossing metal beams. It's painted a brownish color and gets repainted every few years to keep it looking nice. The tower is one of the most recognized landmarks in the world and is known for its unique and iconic shape."
-    # watermarked_text: "Evan, an American tourist, found himself wandering the cobblestone streets of Paris in the spring, the city's charm enveloping him like a warm embrace. On a quiet corner, he stumbled upon a quaint café, its aroma of freshly brewed coffee and pastries luring him inside. There, behind the counter, was Emily, a barista whose smile was as inviting as the café itself.\nEach morning, Evan returned, drawn not only by the coffee but by the light in Emily's eyes. They exchanged stories and laughter, the language barrier dissolving between sips of espresso and shared croissants. Evan, though married, felt an unexpected connection, a stirring in his heart that he couldn't ignore.\nParis, with its timeless beauty, became the backdrop for Evan's internal turmoil. He was torn between his commitment back home and the unexpected feelings for Emily. Their brief encounters in the café blossomed into walks along the Seine, each moment together etching a deeper mark on Evan's heart.\nAs his trip neared its end, Evan realized that Paris had offered him not just a journey through its streets but through the depths of his own heart. On his last visit to the café, he confessed his feelings to Emily. She listened, her eyes reflecting a mix of sorrow and understanding. They knew their connection was fleeting, a beautiful but brief encounter.\nEvan returned home, his heart heavy yet awakened. Paris, and Emily, had changed him, teaching him that love can be found in the most unexpected places, even if it's not meant to last forever."
-    watermarked_text: "In the heart of Paris, where cobblestone streets whispered tales of love, Evan, an American tourist, found himself wandering aimlessly, captivated by the city's charm. Married yet alone, he sought solace in a quaint Parisian café, a refuge from his solitary explorations.\nThe café, a mosaic of Parisian elegance and coziness, greeted him with the rich aroma of freshly brewed coffee. There, behind the counter, was Emily, a barista whose smile seemed to blend seamlessly with the café's warm ambiance. Her eyes, a deep shade of hazel, sparkled with a kind of magic unique to those who truly loved their city.\nEvan, initially just another customer, found himself returning daily, drawn not just by the allure of coffee but by the enchanting presence of Emily. Their conversations, initially revolving around trivial café recommendations, gradually delved deeper, meandering through dreams, aspirations, and laughter.\nIn Emily's company, Evan rediscovered a part of himself long forgotten. She listened with an earnestness that made him feel seen, understood. It was a connection he hadn't realized he was missing, a feeling of being genuinely alive.\nYet, amidst this unexpected whirlwind of emotions, Evan was tethered to reality by the ring on his finger—a symbol of commitment, a reminder of the life he had built back home. His heart, caught in a bittersweet symphony, grappled with the complexities of love and loyalty.\nAs his trip neared its end, Evan sat at the café for one last time. Words remained unspoken, yet their eyes conveyed volumes. In that moment, they both understood that what they shared was a fleeting chapter in life's grand narrative, a beautiful yet transient connection.\nEvan left Paris with a heart full of memories and a soul touched by a serendipitous encounter. Emily, the Parisian barista, remained a sweet, ephemeral dream, a testament to the unpredictable journeys of the heart."
-    # watermarked_text: "bla"
+    prompt : null
+    prompt_file: "./inputs/dynamic_prompts.csv" # only used if prompt is None
+    prompt_num: 4
+    watermarked_text: null
     watermarked_text_path: null
     watermarked_text_num: 1
     num_steps: 1000
     patience: 250
     stop_at_removal: False # stop the attack after removing the watermark
-    num_successful_steps: 100
+    num_successful_steps: 50
     results_dir: "./eval/results"
     model_cache_dir: "./.cache"
-    save_name: "${attack_args.results_dir}/attack_{time_stamp}.csv"
+    save_name: '4_evan_1_1_1.csv' # if null, it defaults to attack_{timestamp}.csv
     use_watermark: False # when running with GPT-4, disregard the watermark
     cuda : "4"
     backtrack_patience: 50
+    is_completion: False
+    json_path: null
+    json_index: 0
+    is_continuation: True
+    prev_csv_file: '4_evan_1_1.csv' # If you're running a continuation, this should be the name of the previous CSV file.
 
 generator_args:
     # model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"

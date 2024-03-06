@@ -9,7 +9,8 @@ from nltk import ngrams
 from nltk.tokenize import word_tokenize
 import pandas as pd
 
-def get_metrics(metrics, normalized):
+def get_metrics(normalized):
+    metrics = None
     if normalized:
         normalized_config = {"normalize": True, "split_sentences": True}
         normalized_unhelper = UniqueNgramHelper(normalized_config)
@@ -23,7 +24,12 @@ def get_metrics(metrics, normalized):
             'normalized_unique_bigrams': normalized_unhelper.bigrams,
             'normalized_unique_trigrams': normalized_unhelper.trigrams,
         }        
-    else:
+    else:            
+        config = {"normalize": False, "split_sentences": True}
+        unhelper = UniqueNgramHelper(config)
+        
+        ldhelper = LDHelper()
+        
         metrics = {
             'TokenSemantics': TokenSemantics(config), 
             # 'DocumentSemantics': DocumentSemantics(config), 
@@ -46,6 +52,7 @@ def get_metrics(metrics, normalized):
             'unique_bigrams': unhelper.bigrams,
             'unique_trigrams': unhelper.trigrams,
         }        
+    return metrics
 
 class DiversityOracle:
     def __init__(self, metrics: dict = {}, verbose=False, normalized=True):
@@ -56,41 +63,8 @@ class DiversityOracle:
             if self.verbose:
                 print("Initializing default metrics...")
                 
-            config = {"normalize": False, "split_sentences": True}
-            unhelper = UniqueNgramHelper(config)
+            self.metrics = get_metrics(normalized)
             
-            ldhelper = LDHelper()
-            
-            self.metrics = {
-                'TokenSemantics': TokenSemantics(config), 
-                'normalized_TokenSemantics' : TokenSemantics(normalized_config),
-                # 'DocumentSemantics': DocumentSemantics(config), 
-                # 'AMR': AMR(config),
-                'DependencyParse': DependencyParse(config), 
-                'ConstituencyParse': ConstituencyParse(config),
-                'PartOfSpeechSequence': PartOfSpeechSequence(config),
-                'normalized_DependencyParse': DependencyParse(normalized_config), 
-                'normalized_ConstituencyParse': ConstituencyParse(normalized_config),
-                'normalized_PartOfSpeechSequence': PartOfSpeechSequence(normalized_config),
-                # 'Rhythmic': Rhythmic(config),
-                'ttr': ldhelper.ttr,
-                'log_ttr': ldhelper.log_ttr,
-                'root_ttr': ldhelper.root_ttr,
-                'maas_ttr': ldhelper.maas_ttr,
-                'mattr': ldhelper.mattr,
-                'msttr': ldhelper.msttr,
-                'hdd': ldhelper.hdd,
-                'mtld': ldhelper.mtld,
-                'mtld_ma_bid': ldhelper.mtld_ma_bid,
-                'mtld_ma_wrap': ldhelper.mtld_ma_wrap,
-                'unique_unigrams': unhelper.unigrams,
-                'unique_bigrams': unhelper.bigrams,
-                'unique_trigrams': unhelper.trigrams,                
-                'normalized_unique_unigrams': normalized_unhelper.unigrams,
-                'normalized_unique_bigrams': normalized_unhelper.bigrams,
-                'normalized_unique_trigrams': normalized_unhelper.trigrams,
-            }
-
     def __call__(self, corpus):
         results = []
         for metric_name, metric_fn in self.metrics.items():
@@ -116,7 +90,6 @@ class DiversityOracle:
         return df
 
 class LDHelper:
-
     def _flemmatize(self, corpus):
         flemmas = []
         for doc in corpus:
@@ -153,9 +126,7 @@ class LDHelper:
     def mtld_ma_bid(self, coprus):
         return ld.mtld_ma_bid(self._flemmatize(coprus))
 
-
 class UniqueNgramHelper:
-
     default_config = {
         'normalize': False,
     }

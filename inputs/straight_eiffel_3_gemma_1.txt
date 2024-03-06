@@ -1,0 +1,162 @@
+[2024-02-21 21:54:19,917][datasets][INFO] - PyTorch version 2.1.2 available.
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py:4193: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-02-21 21:54:29,009][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-02-21 21:54:53,733][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:07<00:22,  7.49s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:15<00:15,  7.84s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:20<00:06,  6.44s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:20<00:00,  4.03s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:20<00:00,  5.17s/it]
+[2024-02-21 21:55:14,609][root][WARNING] - Some parameters are on the meta device device because they were offloaded to the cpu.
+Data appended to ./eval/results/attack_2024-02-21.21.55.15.csv
+  0%|          | 0/500 [00:00<?, ?it/s][2024-02-21 21:55:15,454][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 21:55:21,606][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:24,643][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:31,906][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:37,194][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:40,338][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:40,338][mutate][INFO] - Failed to produce a valid generation after 5 tries.
+[2024-02-21 21:55:40,339][mutate][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 174, in mutate
+    mutated_text = self.creatively_alter_sentence(text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 143, in creatively_alter_sentence
+    rephrased_sentence = creative_sentences[0]
+                         ~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+[2024-02-21 21:55:40,339][__main__][INFO] - Mutated text: None
+[2024-02-21 21:55:40,339][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.21.55.15.csv
+[2024-02-21 21:55:40,340][__main__][INFO] - Low quality mutation. Retrying step...
+  0%|          | 1/500 [00:24<3:26:58, 24.89s/it][2024-02-21 21:55:40,341][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 21:55:47,802][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:52,648][mutate][INFO] - Failed to produce a valid generation, trying again...
+[2024-02-21 21:55:55,836][mutate][INFO] - Failed to produce a valid generation, trying again...
+  0%|          | 1/500 [00:41<5:47:24, 41.77s/it]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/borito1907/impossibility-watermark/attack.py", line 197, in <module>
+    main()
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 191, in main
+    attacked_text = attacker.attack(prompt, watermarked_text)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 96, in attack
+    mutated_text = self.mutator.mutate(watermarked_text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 174, in mutate
+    mutated_text = self.creatively_alter_sentence(text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 139, in creatively_alter_sentence
+    rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 241, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1177, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1102, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 328, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1592, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2696, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py", line 1067, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py", line 905, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py", line 625, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py", line 534, in forward
+    past_key_value = getattr(self, "past_key_value", past_key_value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1682, in __getattr__
+    def __getattr__(self, name: str) -> Any:
+
+KeyboardInterrupt

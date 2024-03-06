@@ -1,0 +1,1883 @@
+[2024-02-21 17:30:27,769][datasets][INFO] - PyTorch version 2.1.2 available.
+[2024-02-21 17:30:34,370][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-02-21 17:30:58,859][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+  0%|          | 0/500 [00:00<?, ?it/s][2024-02-21 17:31:06,510][__main__][INFO] - Mutating watermarked text...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py:1547: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[2024-02-21 17:31:37,888][__main__][INFO] - Mutated text: 
+** Example Submission: **
+
+INPUT:
+```
+Human: 
+[INST]
+
+Eiffel Tower is an iron lattice structure located in Paris, France. 
+It stands at 324 meters tall and has a total surface area of approximately 108,000 square meters. 
+The towers are covered in bronze, and each of the four towers has a different design. 
+There are also two small platforms near the base for sightseeing purposes. 
+The Eiffel Tower is painted a brownish-grey hue and has become one of the most iconic landmarks in the world since its completion in 1889. 
+
+[/INST]
+OUTPUT:
+```
+
+Robot: 
+[INST]
+
+Eiffel Tower is an iron lattice structure with three levels located in Paris, France. 
+It stands at 324 meters tall and has a total surface area of approximately 108,000 square meters. 
+The towers are covered in bronze, and each of the four towers has a different design. 
+There are also two small platforms near the base for sightseeing purposes. 
+The Eiffel Tower is painted a brownish-grey hue and has become one of the most iconic landmarks in the world since its completion in 1889. 
+
+[/INST]
+
+[2024-02-21 17:31:37,888][__main__][INFO] - Checking quality oracle and watermark detector...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py:1547: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[2024-02-21 17:31:37,901][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,905][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,909][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,912][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,916][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,916][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:37,918][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+[2024-02-21 17:31:37,922][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,926][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,929][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,933][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,936][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,936][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:37,938][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,941][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,945][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,948][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,952][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,955][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,955][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:37,957][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,960][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,964][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,967][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,971][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,974][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,974][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:37,976][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,979][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,983][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,986][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,990][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,994][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:37,994][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:37,995][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:37,998][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,002][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,005][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,009][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,013][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:38,013][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:38,014][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,017][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,021][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,025][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,028][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:31:38,032][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:31:38,032][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:31:38,033][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=930:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=930)
+
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:31:38,057][__main__][INFO] - Low quality mutation. Retrying step...
+  0%|          | 1/500 [00:31<4:22:22, 31.55s/it][2024-02-21 17:31:38,057][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 17:32:24,781][__main__][INFO] - Mutated text: 
+** Human System: **You are a human reader who reads articles on the internet.
+Human: 
+[INST]
+
+** Task **:
+
+Read this article about a machine learning model.
+
+** Text **: 
+
+A machine learning algorithm is a mathematical program designed to analyze data from a training set, learn from the data, and then make predictions based on new information. A machine learning algorithm learns from experience by observing patterns in data and making predictions based on these observations. This is different from traditional programming where a programmer writes code that explicitly tells the computer what to do. In contrast, a machine learning algorithm automatically finds patterns in data and uses them to make predictions. 
+<br/>
+
+**Q5. 
+
+[/INST]
+
+** Human System: **You are a human teacher who wants to evaluate if an AI chatbot is ready to answer questions from humans.
+Human: 
+[INST]
+
+** Task **:
+
+Ask some questions to the AI chatbot.
+
+** Inputs **:
+
+[“Why did you build a robot?”, “How does your robot work?”, “Is it friendly?”, “Does it have any friends?”, “What can it do?”, “Can it do things I don't know about?”, “Is it good at being a friend?”, “Do you think I should be friends with it?”, “Is it smarter than me?”, “Is it better than me at math?”, “Can it talk?”, “Can it read?”, “Can it play games?”, “Can it drive a car?”, “Is it dangerous?”, “Is it safe?”, “Should I trust it?”, “Would you trust it?”, “Will it ever kill me?”, “Could it kill all of us?”, “If I was in danger could it save me?”, “Will it protect me?”, “Will it help me?”, “Can it listen to my problems?”, “Can it sympathize with me?”, “Can it understand me?”, “Will it love me?”, “Would it lie to me?”, “Would it tell me lies?”, “Would it deceive me?”, “Would it betray me?”, “Would it cheat me?”, “Would it steal from me?”, “Could it hurt me?”, “Could it harm me?”, “Can it think?”, “Does it think like me?”, “Does it think differently than me?”, “Are you afraid of it?”, “Are you scared of it?”, “What is it afraid of?”, “What would you say it fears?”, “What are its nightmares?”, “What are its dreams?”, “Does it dream of electric sheep?”, “What does it want to accomplish?”, “Does it have goals?”, “Does it aspire to something?”, “Is there anything it wants more than anything else in the world?”, “Does it have desires?”, “Does it need anything?”, “Does it feel anything?”, “Is it lonely?”, “Is it happy?”, “Is it sad?”, “Is it lonely?”, “Is it content?”, “What is it missing?”, “What is it lacking?”, “Where is it from?”, “Where did it come from?”, “Where did it originate?”, “Who built it?”, “Who created it?”, “What are its origins?”, “Where is it made?”, “Where does it belong?”, “Where does it live?”, “Where does it reside?”, “Where does it rest?”, “Where is home for it?”, “Where is its habitat?”, “Where is its house?”, “Where is it located?”, “Where is its site?”, “Where does it sit?”, “Where is it situated?”, “Where is it placed?”, “Where is it positioned?”, “Where is it put?”, “Where is it found?”, “Where is it positioned?”, “Where is it standing?”, “Where is it settled?”, “Where is it sitting?”, “Where is it staying?”, “Where is it waiting?”, “Where is it working?”, “Where is it wandering?”, “Where is it waking up?”, “Where is it walking?”, “Where is it wandering around?”, “Where is it wondering?”, “Where is it wondering about?”, “Where is it wondering from?”, “Where is it roaming?”, “Where is it running?”, “Where is it rambling?”, “Where is it strolling?”, “Where is it traveling?”, “Where is it tro
+[2024-02-21 17:32:24,781][__main__][INFO] - Checking quality oracle and watermark detector...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,313][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,322][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,330][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,338][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,346][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,346][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,349][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,356][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,361][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,365][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,370][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,374][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,374][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,376][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,380][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,385][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,389][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,393][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,398][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,398][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,399][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,404][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,408][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,413][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,417][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,422][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,422][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,423][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,427][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,432][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,436][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,441][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,445][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,446][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,447][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,451][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,456][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,460][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,465][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,469][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,469][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,471][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,475][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,480][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,484][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,489][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:32:25,493][oracle][INFO] - Failed to produce a valid evaluation, trying again...
+[2024-02-21 17:32:25,493][oracle][INFO] - Failed to produce a valid evaluation after 5 tries.
+[2024-02-21 17:32:25,494][oracle][INFO] - Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 140, in evaluate
+    original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/oracle.py", line 124, in check_oracle
+    pydantic_output = self.chain.invoke(dict_input)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 891, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+                                                          ^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 695, in forward
+    query_states = self.q_proj(hidden_states)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 175, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 41, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+RuntimeError: The temp_state buffer is too small in the exllama backend for GPTQ with act-order. Please call the exllama_set_max_input_length function to increase the buffer size for a sequence length >=1621:
+from auto_gptq import exllama_set_max_input_length
+model = exllama_set_max_input_length(model, max_input_length=1621)
+
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:32:25,663][__main__][INFO] - Low quality mutation. Retrying step...
+  0%|          | 2/500 [01:19<5:40:14, 40.99s/it][2024-02-21 17:32:25,663][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 17:32:26,414][__main__][INFO] - Mutated text: 
+** Hint **: If you know any word, add it here.
+
+
+[2024-02-21 17:32:26,414][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:32:26,415][__main__][INFO] - Low quality mutation. Retrying step...
+  1%|          | 3/500 [01:19<3:07:21, 22.62s/it][2024-02-21 17:32:26,415][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 17:32:38,810][__main__][INFO] - Mutated text: 
+```
+
+
+
+[2024-02-21 17:32:38,810][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:32:38,812][__main__][INFO] - Low quality mutation. Retrying step...
+  1%|          | 4/500 [01:32<2:33:37, 18.58s/it][2024-02-21 17:32:38,813][__main__][INFO] - Mutating watermarked text...
+[2024-02-21 17:33:07,693][__main__][INFO] - Mutated text: 
+[2024-02-21 17:33:07,694][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:33:07,696][__main__][INFO] - Low quality mutation. Retrying step...
+  1%|          | 5/500 [02:01<3:03:57, 22.30s/it][2024-02-21 17:33:07,696][__main__][INFO] - Mutating watermarked text...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:33:36,512][__main__][INFO] - Mutated text: 
+[2024-02-21 17:33:36,513][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:33:36,515][__main__][INFO] - Low quality mutation. Retrying step...
+  1%|          | 6/500 [02:30<3:21:50, 24.51s/it][2024-02-21 17:33:36,515][__main__][INFO] - Mutating watermarked text...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-02-21 17:33:41,010][__main__][INFO] - Mutated text: 
+
+
+[2024-02-21 17:33:41,010][__main__][INFO] - Mutation failed to preserve text length requirement...
+Data appended to ./eval/results/attack_2024-02-21.17.31.05.csv
+[2024-02-21 17:33:41,011][__main__][INFO] - Low quality mutation. Retrying step...
+  1%|▏         | 7/500 [02:34<2:27:39, 17.97s/it][2024-02-21 17:33:41,011][__main__][INFO] - Mutating watermarked text...
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+  1%|▏         | 7/500 [02:38<3:06:10, 22.66s/it]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/borito1907/impossibility-watermark/attack.py", line 197, in <module>
+    main()
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 191, in main
+    attacked_text = attacker.attack(prompt, watermarked_text)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 96, in attack
+    mutated_text = self.mutator.mutate(watermarked_text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 174, in mutate
+    mutated_text = self.creatively_alter_sentence(text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/mutate.py", line 139, in creatively_alter_sentence
+    rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/runnables/base.py", line 2053, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 235, in invoke
+    self.generate_prompt(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 530, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 703, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 567, in _generate_helper
+    raise e
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 554, in _generate_helper
+    self._generate(
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/langchain_community/llms/huggingface_pipeline.py", line 203, in _generate
+    responses = self.pipeline(batch_prompts)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 1183, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 1070, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 811, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 116, in forward
+    hidden_states = hidden_states * torch.rsqrt(variance + self.variance_epsilon)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

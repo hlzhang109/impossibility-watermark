@@ -67,7 +67,6 @@ def get_last_step_num(csv_file_path):
     
     return last_step_num
     
-
 def get_prompt_and_completion_from_json(file_path, index):
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -80,8 +79,6 @@ def get_prompt_and_completion_from_json(file_path, index):
     for item in data:
         prefixes.append(item['Prefix'])
         completions.append(item['Completion'])
-    
-    index = 0
         
     prompt = prefixes[index]
     watermarked_text = completions[index] 
@@ -125,7 +122,6 @@ def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-0
     completion = client.chat.completions.create(
     model=model,
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": initial_prompt},
         # {'role': "assistant", "content": first_response},
         {"role": "user", "content": follow_up_prompt},

@@ -1,7 +1,6 @@
 import os
-from openai import OpenAI
 import random
-from utils import find_csv, get_mutated_text, query_openai_with_history
+from utils import get_mutated_text, query_openai_with_history
 
 # Set your OpenAI API key here
 from dotenv import load_dotenv, find_dotenv
@@ -40,7 +39,7 @@ Response B
 
 {perturbed_2}"""
     
-    first_response, second_response = query_gpt4_with_history(initial_prompt, follow_up_prompt)
+    first_response, second_response = query_openai_with_history(initial_prompt, follow_up_prompt)
     print("First Response:", first_response)
     print("Second Response:", second_response)
     print("---------------------------------------------------------------")

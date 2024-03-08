@@ -3,7 +3,7 @@ from tqdm import tqdm
 import textwrap
 import traceback
 
-from pipeline_builder import PipeLineBuilder
+from model_builders import PipeLineBuilder, ServerBuilder
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -114,10 +114,10 @@ class Oracle:
         self.cfg = cfg # config.oracle_args
         self.pipeline = pipeline
 
-        # Model Pipeline
-        if not isinstance(self.pipeline, HuggingFacePipeline):
-            log.info("Initializing a new Oracle pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg).pipeline
+        # # Model Pipeline
+        # if not isinstance(self.pipeline, (PipeLineBuilder, ServerBuilder)):
+        #     log.info("Initializing a new Oracle pipeline from cfg...")
+        #     self.pipeline = PipeLineBuilder(cfg)
 
         # Output Parser
         self.output_parser = PydanticOutputParser(pydantic_object=OracleAnswer)

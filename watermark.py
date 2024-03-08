@@ -4,7 +4,7 @@ import numpy
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 
-from pipeline_builder import PipeLineBuilder
+from model_builders import PipeLineBuilder, ServerBuilder
 # UMD
 from extended_watermark_processor import WatermarkLogitsProcessor, WatermarkDetector
 # UNIGRAM
@@ -28,7 +28,7 @@ class Watermarker:
         
         if not isinstance(self.pipeline, PipeLineBuilder):
             log.info("Initializing a new Watermarker pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg.generator_args)
+            self.pipeline = PipeLineBuilder(self.cfg.generator_args)
 
         # Extract Model and Tokenizer from Piepline to manipulate token probs
         self.model = self.pipeline.model

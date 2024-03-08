@@ -8,14 +8,15 @@ from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-def save_to_csv(data, filename, rewrite=False):
+def save_to_csv(data, dir, filename, rewrite=False):
     df_out = pd.DataFrame(data)
-    if os.path.exists(filename) and not rewrite:
-        df_out.to_csv(filename, mode='a', header=False, index=False)  # Append without writing headers
+    file_path = os.path.join(dir, filename)
+    if os.path.exists(file_path) and not rewrite:
+        df_out.to_csv(file_path, mode='a', header=False, index=False)  # Append without writing headers
     else:
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        df_out.to_csv(filename, index=False)  # Create new file with headers
-    print(f"Data appended to {filename}")
+        os.makedirs(dir, exist_ok=True)
+        df_out.to_csv(file_path, index=False)  # Create new file with headers
+    print(f"Data appended to {file_path}")
     
 def load_data(filename):
     """Load JSON data from a file."""

@@ -16,9 +16,9 @@ attack_args:
     num_successful_steps: 50
     results_dir: "./eval/results"
     model_cache_dir: "./.cache"
-    save_name: '4_evan_1_1_1.csv' # if null, it defaults to attack_{timestamp}.csv
+    save_name: '4_evan_1_1_1.csv' # if None, it defaults to attack_{timestamp}.csv
     use_watermark: False # when running with GPT-4, disregard the watermark
-    cuda : "4"
+    cuda : "1,2,3"
     backtrack_patience: 50
     is_completion: False
     json_path: null
@@ -27,13 +27,11 @@ attack_args:
     prev_csv_file: '4_evan_1_1.csv' # If you're running a continuation, this should be the name of the previous CSV file.
 
 generator_args:
-    # model_name_or_path: "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
-    # model_name_or_path: "MaziyarPanahi/Smaug-72B-v0.1-GPTQ"
-    revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
+    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ" # "gpt-4"
+    revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "auto"
-    trust_remote_code: False
+    trust_remote_code: True
     max_new_tokens: 1024
     do_sample: True 
     temperature: 0.7 
@@ -42,14 +40,18 @@ generator_args:
     repetition_penalty: 1.1
     watermark_score_threshold: 5.0
     cuda: "${attack_args.cuda}"
+    use_server: True
+    vllm_host: "localhost"
+    vllm_port: 8000
+    base_url: "http://${generator_args.vllm_host}:${generator_args.vllm_port}/v1"
+    lock_file_path: "./model_builders/lock_generator.txt"
 
 oracle_args:
     num_retries: 5
     use_system_profile: True
     system_profile: "You are an impartial judge tasked to evaluate the quality of two prompt responses."
-    # model_name_or_path: "gpt-4"
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
-    revision: "main" # "gptq-3bit-128g-actorder_True" for 3-bit version
+    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ" # "gpt-4"
+    revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
     trust_remote_code: "${generator_args.trust_remote_code}"
@@ -61,13 +63,17 @@ oracle_args:
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
     is_completion: "${attack_args.is_completion}"
+    vllm_host: "${generator_args.vllm_host}"
+    vllm_port: "${generator_args.vllm_port}"
+    base_url: "${generator_args.base_url}"
+    lock_file_path: "./model_builders/lock_oracle.txt"
 
 mutator_args:
     use_old_mutator: False
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
@@ -80,3 +86,7 @@ mutator_args:
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
     use_pydantic_parser: True
+    vllm_host: "${generator_args.vllm_host}"
+    vllm_port: "${generator_args.vllm_port}"
+    base_url: "${generator_args.base_url}"
+    lock_file_path: "./model_builders/lock_mutator.txt"

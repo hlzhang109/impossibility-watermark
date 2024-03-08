@@ -18,7 +18,7 @@ from langchain_core.prompts import (
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 
-from pipeline_builder import PipeLineBuilder
+from model_builders import PipeLineBuilder, ServerBuilder
 # from prompt_templates import get_prompt_template
 
 import hydra
@@ -40,10 +40,10 @@ class TextMutator:
         self.cfg = cfg # config.mutator_args
         self.pipeline = pipeline
         
-        # Model Pipeline
-        if not isinstance(self.pipeline, HuggingFacePipeline):
-            log.info("Initializing a new Text Mutator pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg).pipeline
+        # # Model Pipeline
+        # if not isinstance(self.pipeline, HuggingFacePipeline):
+        #     log.info("Initializing a new Text Mutator pipeline from cfg...")
+        #     self.pipeline = PipeLineBuilder(cfg).pipeline
 
         # Output Parser
         self.output_parser = PydanticOutputParser(pydantic_object=Mutation)

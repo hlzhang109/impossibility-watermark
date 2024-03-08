@@ -1,4 +1,3 @@
-import os
 import torch
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
@@ -13,13 +12,11 @@ logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 class PipeLineBuilder:
     def __init__(self, cfg):
         self.cfg = cfg
-        
-        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
-        
+                
         log.info(f"Initializing {cfg.model_name_or_path}")
 
         # NOTE: Using openai is incompatible with watermarking. 
-        if "gpt" in cfg.model_name_or_path:
+        if "gpt-" in cfg.model_name_or_path:
             load_dotenv(find_dotenv()) # load openai api key from ./.env
             self.pipeline = ChatOpenAI(model_name=cfg.model_name_or_path)
         

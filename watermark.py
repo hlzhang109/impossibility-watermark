@@ -1,10 +1,8 @@
 import logging
 import torch
-import numpy
-from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList
-from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
+from transformers import LogitsProcessorList
 
-from model_builders import PipeLineBuilder, ServerBuilder
+from model_builders import PipeLineBuilder
 # UMD
 from extended_watermark_processor import WatermarkLogitsProcessor, WatermarkDetector
 # UNIGRAM
@@ -15,7 +13,6 @@ from exp_detect import permutation_test
 
 # For testing
 import hydra
-from omegaconf import DictConfig, OmegaConf
 
 log = logging.getLogger(__name__)
 
@@ -29,9 +26,12 @@ class Watermarker:
         if not isinstance(self.pipeline, PipeLineBuilder):
             log.info("Initializing a new Watermarker pipeline from cfg...")
             self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+            
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        log.info(f"Using device: {self.device}")
 
         # Extract Model and Tokenizer from Piepline to manipulate token probs
-        self.model = self.pipeline.model
+        self.model = self.pipeline.model.to(self.device)
         self.tokenizer = self.pipeline.tokenizer        
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -102,7 +102,7 @@ class Watermarker:
                     prompt, 
                     return_tensors='pt', 
                     truncation=True, 
-                    max_length=self.cfg.generator_args.max_new_tokens)
+                    max_length=self.cfg.generator_args.max_new_tokens).to(self.device)
                 outputs = generate_shift(
                     model=self.model,
                     prompt=tokens,

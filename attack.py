@@ -1,39 +1,34 @@
 import os
 import datetime
 import hydra
-import json
-from omegaconf import DictConfig, OmegaConf
-import pandas as pd
-import re
-from tqdm import tqdm
 import logging
 import shutil
-import logging
 from tqdm import tqdm
-from utils import save_to_csv, find_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num
+from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
+from model_builders import PipeLineBuilder, ServerBuilder
+from watermark import Watermarker
+from oracle import Oracle
+from mutate import TextMutator
+
 class Attack:
     def __init__(self, cfg):
-        
-        from model_builders import PipeLineBuilder, ServerBuilder
-        from watermark import Watermarker
-        from oracle import Oracle
-        from mutate import TextMutator
-
         self.cfg = cfg
         self.models = {}
         self.model_builder = ServerBuilder if self.cfg.generator_args.use_server else PipeLineBuilder
   
         # Create or get existing pipeline builders for generator, oracle, and mutator.
-        self.watermark_model = self.get_or_create_model(cfg.generator_args)
+        if not self.cfg.attack_args.watermarked_text and not self.cfg.attack_args.watermarked_text_path:
+            self.watermark_model = self.get_or_create_model(cfg.generator_args)
         self.oracle_model    = self.get_or_create_model(cfg.oracle_args)
         self.mutator_model   = self.get_or_create_model(cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        self.watermarker = Watermarker(cfg, pipeline=self.watermark_model, is_completion=cfg.attack_args.is_completion)
+        if not self.cfg.attack_args.watermarked_text and not self.cfg.attack_args.watermarked_text_path:
+            self.watermarker = Watermarker(cfg, pipeline=self.watermark_model, is_completion=cfg.attack_args.is_completion)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_model)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_model)
 
@@ -77,7 +72,10 @@ class Attack:
         
         original_watermarked_text = watermarked_text
         
-        watermark_detected, score = self.watermarker.detect(original_watermarked_text)
+        if self.cfg.attack_args.use_watermark:
+            watermark_detected, score = self.watermarker.detect(original_watermarked_text)
+        else:
+            watermark_detected, score = False, False
         
         log.info(f"Original Watermarked Text: {original_watermarked_text}")
         
@@ -175,8 +173,8 @@ class Attack:
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
     
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
-    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
+    # os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
     
     # Read the prompt and the watermarked text from the input files
     prompt = cfg.attack_args.prompt

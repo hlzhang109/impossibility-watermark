@@ -3,6 +3,7 @@ import time
 import requests
 import subprocess
 import logging
+import signal
 
 from langchain_community.llms import VLLMOpenAI
 
@@ -20,6 +21,7 @@ class ServerBuilder:
             top_p=self.cfg.top_p,
             max_tokens=self.cfg.max_new_tokens,
         )
+        self.cuda_device = cfg.cuda
                     
     def acquire_lock(self):
         """Attempt to acquire the lock by creating a lock file. Returns True if successful, False otherwise."""
@@ -48,6 +50,7 @@ class ServerBuilder:
             "--host", self.cfg.vllm_host,
             "--port", str(self.cfg.vllm_port),
             "--download-dir", self.cfg.model_cache_dir,
+            "--dtype", "float16",
         ]
 
         if self.cfg.trust_remote_code:
@@ -60,7 +63,9 @@ class ServerBuilder:
             server_command.extend(["--quantization", "gptq"])
             
         log.info(f"Initializing vLLM api server:\n{server_command}")
-        self.server_process = subprocess.Popen(server_command)
+        env = os.environ.copy()
+        env['CUDA_VISIBLE_DEVICES'] = f"{self.cuda_device}"
+        self.server_process = subprocess.Popen(server_command, env=env)
         self.server_pid = self.server_process.pid  # Store the server's PID
         log.info(f"Server process started with PID: {self.server_pid}")
         self.wait_for_server_to_load()

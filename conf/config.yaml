@@ -18,16 +18,16 @@ attack_args:
     model_cache_dir: "./.cache"
     save_name: '4_evan_1_1_1.csv' # if None, it defaults to attack_{timestamp}.csv
     use_watermark: False # when running with GPT-4, disregard the watermark
-    cuda : "1,2,3"
     backtrack_patience: 50
     is_completion: False
     json_path: null
     json_index: 0
     is_continuation: False
     prev_csv_file: '4_evan_1_1.csv' # If you're running a continuation, this should be the name of the previous CSV file.
+    cuda: "1"
 
 generator_args:
-    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ" # "gpt-4"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "auto"
@@ -44,13 +44,13 @@ generator_args:
     vllm_host: "localhost"
     vllm_port: 8000
     base_url: "http://${generator_args.vllm_host}:${generator_args.vllm_port}/v1"
-    lock_file_path: "./model_builders/lock_generator.txt"
+    lock_file_path: "./model_builders/lock_generator_${generator_args.vllm_port}.txt"
 
 oracle_args:
     num_retries: 5
     use_system_profile: True
     system_profile: "You are an impartial judge tasked to evaluate the quality of two prompt responses."
-    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ" # "gpt-4"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
@@ -66,14 +66,14 @@ oracle_args:
     vllm_host: "${generator_args.vllm_host}"
     vllm_port: "${generator_args.vllm_port}"
     base_url: "${generator_args.base_url}"
-    lock_file_path: "./model_builders/lock_oracle.txt"
+    lock_file_path: "./model_builders/lock_oracle_${oracle_args.vllm_port}.txt"
 
 mutator_args:
     use_old_mutator: False
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Llama-2-7B-Chat-GPTQ"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
@@ -89,4 +89,4 @@ mutator_args:
     vllm_host: "${generator_args.vllm_host}"
     vllm_port: "${generator_args.vllm_port}"
     base_url: "${generator_args.base_url}"
-    lock_file_path: "./model_builders/lock_mutator.txt"
+    lock_file_path: "./model_builders/lock_mutator_${mutator_args.vllm_port}.txt"

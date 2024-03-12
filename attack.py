@@ -9,7 +9,7 @@ from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_te
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-from model_builders import PipeLineBuilder, ServerBuilder
+from pipeline_builder import PipeLineBuilder
 from watermark import Watermarker
 from oracle import Oracle
 from mutate import TextMutator
@@ -17,25 +17,24 @@ from mutate import TextMutator
 class Attack:
     def __init__(self, cfg):
         self.cfg = cfg
-        self.models = {}
-        self.model_builder = ServerBuilder if self.cfg.generator_args.use_server else PipeLineBuilder
-  
+        
+        self.pipeline_builders = {}
+
+        # Helper function to create or reuse pipeline builders.
+        def get_or_create_pipeline_builder(model_name_or_path, args):
+            if model_name_or_path not in self.pipeline_builders:
+                self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+            return self.pipeline_builders[model_name_or_path]
+
         # Create or get existing pipeline builders for generator, oracle, and mutator.
-        if not self.cfg.attack_args.watermarked_text and not self.cfg.attack_args.watermarked_text_path:
-            self.watermark_model = self.get_or_create_model(cfg.generator_args)
-        self.oracle_model    = self.get_or_create_model(cfg.oracle_args)
-        self.mutator_model   = self.get_or_create_model(cfg.mutator_args)
+        self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+        self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
+        self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        if not self.cfg.attack_args.watermarked_text and not self.cfg.attack_args.watermarked_text_path:
-            self.watermarker = Watermarker(cfg, pipeline=self.watermark_model, is_completion=cfg.attack_args.is_completion)
-        self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_model)
-        self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_model)
-
-    def get_or_create_model(self, args):
-        if args.model_name_or_path not in self.models:
-            self.models[args.model_name_or_path] = self.model_builder(args)
-        return self.models[args.model_name_or_path]
+        self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
+        self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
+        self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
     def attack(self, cfg, prompt=None, watermarked_text=None):
         """
@@ -64,9 +63,6 @@ class Attack:
         if watermarked_text is None and prompt is not None:
             log.info("Generating watermarked text from prompt...")
             watermarked_text = self.watermarker.generate(prompt)
-            
-            log.info("Deleting watermark model now that we won't need it")
-            del self.watermarker.model
 
         assert watermarked_text is not None, "Unable to proceed without watermarked text!"
         
@@ -194,11 +190,6 @@ def main(cfg):
     
     attacker = Attack(cfg)
     attacked_text = attacker.attack(cfg, prompt, watermarked_text)
-                
-    # Kill Model Server if existent
-    if attacker.cfg.generator_args.use_server:
-        for model_name, model in attacker.models.keys():
-            model.kill_server()
 
     log.info(f"Prompt: {prompt}")
     log.info(f"Attacked Response: {attacked_text}")

@@ -32,7 +32,8 @@ class Attack:
         self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
+        if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
+            self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
@@ -42,22 +43,29 @@ class Attack:
         """
         
         # If no save path is provided, create a default timestamp save path
-        if self.cfg.attack_args.save_name is None:
+        save_name = self.cfg.attack_args.save_name
+        if save_name is None:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d.%H.%M.%S")
-            results_dir = self.cfg.attack_args.results_dir
-            save_name = f"{results_dir}/attack_{timestamp}.csv"
+            save_name = f"attack_{timestamp}.csv"
+        save_path = os.path.join(self.cfg.attack_args.results_dir, save_name)
 
         # Run a continuation
         if cfg.attack_args.is_continuation:
             if cfg.attack_args.prev_csv_file is None:
                 raise Exception("If you're running a continuation, you have to provide the name of the previous attack's CSV file.")
-        
+
             prev_csv_path = os.path.join(cfg.attack_args.results_dir, cfg.attack_args.prev_csv_file)
+            
+            log.info(f"Since we're running a continuation, copying {prev_csv_path} to {save_path}.")
             
             watermarked_text = get_mutated_text(prev_csv_path)
             prev_step_count = get_last_step_num(prev_csv_path) + 1
             
-            shutil.copy(prev_csv_path, save_name)
+            log.info(f"Previous step count was {prev_step_count}.")
+            
+            shutil.copy(prev_csv_path, save_path)
+        else:
+            prev_step_count = 0
         
         # Generate watermarked response
         if watermarked_text is None and prompt is not None:
@@ -78,13 +86,12 @@ class Attack:
         # Log the original watermarked text
         if not self.cfg.attack_args.is_continuation:
             perturbation_stats = get_perturbation_stats(-1, original_watermarked_text, original_watermarked_text, True, "No analysis.", watermark_detected, score, False)
-            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, self.cfg.attack_args.save_name)
+            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
 
         # Attack        
         patience = 0
         backtrack_patience = 0
         successful_perturbations = 0
-        prev_step_count = 0
         mutated_texts = [original_watermarked_text]
         for step_num in tqdm(range(self.cfg.attack_args.num_steps)):
             backtrack = backtrack_patience > self.cfg.attack_args.backtrack_patience
@@ -139,7 +146,7 @@ class Attack:
                     watermark_detected, score = False, False
                     
             perturbation_stats = get_perturbation_stats(step_num + prev_step_count, watermarked_text, mutated_text, quality_preserved, quality_analysis, watermark_detected, score, backtrack)
-            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, self.cfg.attack_args.save_name)
+            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
             
             if quality_preserved:
                 log.info(f"Mutation successful. This was the {successful_perturbations}th successful perturbation.")
@@ -178,7 +185,7 @@ def main(cfg):
         prompt = get_prompt_or_output(cfg.attack_args.prompt_file, cfg.attack_args.prompt_num) 
         
     watermarked_text = cfg.attack_args.watermarked_text
-    if watermarked_text is None and cfg.attack_args.watermarked_text_path is not None:
+    if watermarked_text is None and cfg.attack_args.watermarked_text_path is not None and not cfg.attack_args.is_continuation:
         watermarked_text = get_prompt_or_output(cfg.attack_args.watermarked_text_path, cfg.attack_args.watermarked_text_num)
         
     # If a JSON file is provided, we generate the completion using GPT-4 and attack it.

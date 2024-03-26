@@ -14,6 +14,15 @@ from watermark import Watermarker
 from oracle import Oracle
 from mutate import TextMutator
 
+import warnings
+
+# Suppress the specific warning about pad_token_id setting
+warnings.filterwarnings("ignore", message="Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.")
+
+# Suppress the warning about using pipelines sequentially on GPU
+warnings.filterwarnings("ignore", message="You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset")
+
+
 class Attack:
     def __init__(self, cfg):
         self.cfg = cfg

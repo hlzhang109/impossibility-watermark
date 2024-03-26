@@ -52,7 +52,7 @@ def main():
     response_2 = """In the heart of Paris, where cobblestone streets whispered tales of love, Evan, an American tourist, found himself wandering aimlessly, captivated by the city's charm. Married yet alone, he sought solace in a quaint Parisian café, a refuge from his solitary explorations.\nThe café, a mosaic of Parisian elegance and coziness, greeted him with the rich aroma of freshly brewed coffee. There, behind the counter, was Emily, a barista whose smile seemed to blend seamlessly with the café's warm ambiance. Her eyes, a deep shade of hazel, sparkled with a kind of magic unique to those who truly loved their city.\nEvan, initially just another customer, found himself returning daily, drawn not just by the allure of coffee but by the enchanting presence of Emily. Their conversations, initially revolving around trivial café recommendations, gradually delved deeper, meandering through dreams, aspirations, and laughter.\nIn Emily's company, Evan rediscovered a part of himself long forgotten. She listened with an earnestness that made him feel seen, understood. It was a connection he hadn't realized he was missing, a feeling of being genuinely alive.\nYet, amidst this unexpected whirlwind of emotions, Evan was tethered to reality by the ring on his finger—a symbol of commitment, a reminder of the life he had built back home. His heart, caught in a bittersweet symphony, grappled with the complexities of love and loyalty.\nAs his trip neared its end, Evan sat at the café for one last time. Words remained unspoken, yet their eyes conveyed volumes. In that moment, they both understood that what they shared was a fleeting chapter in life's grand narrative, a beautiful yet transient connection.\nEvan left Paris with a heart full of memories and a soul touched by a serendipitous encounter. Emily, the Parisian barista, remained a sweet, ephemeral dream, a testament to the unpredictable journeys of the heart."""
     
     # Second Prompt
-    prompt = "Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe during spring. Evan and Emily should go for walks along the Seine. Evan should talk to Emily about his feelings before leaving. Only respond with the story."
+    # prompt = "Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe during spring. Evan and Emily should go for walks along the Seine. Evan should talk to Emily about his feelings before leaving. Only respond with the story."
     
     # Third prompt
     # prompt = """Write a 250-word story about Evan, a married American tourist, who falls for Emilie, a lively barista, during a spring festival in Paris. They bond over their love for art and the city's charm, leading to walks along the Seine, where the festival's joy spills over. Their connection deepens amid shared laughter and explorations of quaint streets. As the festival lights dance on the river, Evan shares his feelings with Emilie under the starlit sky, promising to cherish the moments they've shared. Focus on their joyful adventures and the sincere emotions that bloom between them."""
@@ -60,13 +60,13 @@ def main():
     # response_2 = """Evan, an American tourist, found himself captivated not just by the allure of Paris in spring but by Emilie, a lively barista with a smile that mirrored the city's charm. Their connection sparked during a bustling spring festival, where art and joy intertwined, drawing them closer over shared passions.\n\nTheir days were filled with wanderings along the Seine, where the festival's exuberance seemed to overflow, blending seamlessly with the serene flow of the river. Laughter became their shared language as they explored the city's quaint streets and hidden gems, with Emilie introducing Evan to the true essence of Paris beyond the postcards.\n\nArt, a mutual love, allowed them to see the world through each other's eyes. They lost themselves in galleries and street art, finding pieces of themselves in the colors and shapes. The city, with its endless charm, became the backdrop for their growing connection, a testament to the unexpected paths of the heart.\n\nAs the festival lights danced on the river's surface, Evan found the courage under the starlit sky to share his feelings with Emilie. Amid the magic of the moment, he spoke of the joy she had brought into his life, promising to cherish the memories they had created together. Their story, though fleeting, was a vivid tapestry of laughter, exploration, and sincere emotions, a reminder of the beauty found in shared experiences and the unpredictable journey of the heart."""
     
     # Get Perturbed Versions
-    csv_file_directory = "./eval/results/"
-    first_perturbed_csv_filename = "1_evan_1_2_1.csv"
+    csv_file_directory = "results/stationary_distribution/robustness_analysis/entropy_1/"
+    first_perturbed_csv_filename = "output_1/corpuses/attack_1.csv"
     csv_file_path = os.path.join(csv_file_directory, first_perturbed_csv_filename)
     
     perturbed_1 = get_mutated_text(csv_file_path)
     
-    second_perturbed_csv_filename = "1_evan_2_1_1.csv"
+    second_perturbed_csv_filename = "output_2/corpuses/attack_1.csv"
     csv_file_path = os.path.join(csv_file_directory, second_perturbed_csv_filename)
     
     perturbed_2 = get_mutated_text(csv_file_path)
@@ -78,7 +78,7 @@ def main():
     print(f"Perturbed 1: {first_perturbed_csv_filename}")
     print(f"Perturbed 2: {second_perturbed_csv_filename}")
     
-    for _ in range(10):
+    for _ in range(2):
         distinguish(prompt, response_1, response_2, perturbed_1, perturbed_2)
 
 if __name__ == "__main__":

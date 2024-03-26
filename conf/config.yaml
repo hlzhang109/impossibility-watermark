@@ -13,7 +13,7 @@ attack_args:
     num_steps: 1000
     patience: 250
     stop_at_removal: False # stop the attack after removing the watermark
-    num_successful_steps: 50
+    num_successful_steps: 100
     results_dir: null
     model_cache_dir: "./.cache"
     save_name: null # if None, it defaults to attack_{timestamp}.csv
@@ -40,11 +40,6 @@ generator_args:
     repetition_penalty: 1.1
     watermark_score_threshold: 5.0
     cuda: "${attack_args.cuda}"
-    use_server: True
-    vllm_host: "localhost"
-    vllm_port: 8000
-    base_url: "http://${generator_args.vllm_host}:${generator_args.vllm_port}/v1"
-    lock_file_path: "./model_builders/lock_generator_${generator_args.vllm_port}.txt"
 
 oracle_args:
     num_retries: 5
@@ -62,18 +57,15 @@ oracle_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
-    is_completion: "${attack_args.is_completion}"
-    vllm_host: "${generator_args.vllm_host}"
-    vllm_port: "${generator_args.vllm_port}"
-    base_url: "${generator_args.base_url}"
-    lock_file_path: "./model_builders/lock_oracle_${oracle_args.vllm_port}.txt"
+    is_completion: ${attack_args.is_completion}
 
 mutator_args:
     use_old_mutator: False
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    model_name_or_path: "grammarly/coedit-xl-composite"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"
@@ -85,8 +77,4 @@ mutator_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
-    use_pydantic_parser: True
-    vllm_host: "${generator_args.vllm_host}"
-    vllm_port: "${generator_args.vllm_port}"
-    base_url: "${generator_args.base_url}"
-    lock_file_path: "./model_builders/lock_mutator_${mutator_args.vllm_port}.txt"
+    use_pydantic_parser: False

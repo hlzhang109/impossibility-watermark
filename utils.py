@@ -52,6 +52,10 @@ def get_prompt_or_output(csv_path, num):
     
     return story
 
+def get_watermarked_text(csv_file_path):
+    df = pd.read_csv(csv_file_path)
+    return df['current_text'].iloc[0]
+
 def get_mutated_text(csv_file_path):
     df = pd.read_csv(csv_file_path)
     

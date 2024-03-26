@@ -53,14 +53,21 @@ class TextMutator:
         # Initialize chains 
         
         # Step 1 - Localize Creativity Injection
-                
-        self.step_1_template = textwrap.dedent(
-            """
-            [INST]
-            Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
-            [\INST]
-            """
-        )
+        
+        if 'Mixtral' in cfg.model_name_or_path:
+            self.step_1_template = textwrap.dedent(
+                """
+                [INST]
+                Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
+                [\INST]
+                """
+            )
+        else:
+            self.step_1_template = textwrap.dedent(
+                """
+                Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
+                """
+            )            
                 
         self.step_1_prompt = PromptTemplate(
             template=self.step_1_template,
@@ -82,20 +89,34 @@ class TextMutator:
         )
 
         # Use a single template with the conditional section
-        self.step_2_template = textwrap.dedent(f"""
-            [INST]
-            ** Task **:
+        if 'Mixtral' in cfg.model_name_or_path:
+            self.step_2_template = textwrap.dedent(f"""
+                [INST]
+                ** Task **:
 
-            Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
+                Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
 
-            ** Text **:
+                ** Text **:
 
-            {{original_text}} 
+                {{original_text}} 
 
-            {format_instructions_section}
-            [\INST]
-            """
-        )
+                {format_instructions_section}
+                [\INST]
+                """
+            )
+        else:
+            self.step_2_template = textwrap.dedent(f"""
+                ** Task **:
+
+                Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
+
+                ** Text **:
+
+                {{original_text}} 
+
+                {format_instructions_section}
+                """
+            )            
         
         self.system_prompt = PromptTemplate(
             template=self.step_2_profile,
@@ -126,11 +147,11 @@ class TextMutator:
         sentences = sent_tokenize(text)
         # Randomly select a sentence
         selected_sentence = random.choice(sentences)
-        # log.info(f"Sentence to rephrase: {selected_sentence}")
+        log.info(f"Sentence to rephrase: {selected_sentence}")
 
         # Generate a creative variation of the sentence
         rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
-        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        log.info(f"Rephrased sentence: {rephrased_sentence}")
         
         creative_sentences = sent_tokenize(rephrased_sentence)
         rephrased_sentence = creative_sentences[0]

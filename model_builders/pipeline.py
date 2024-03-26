@@ -1,5 +1,6 @@
+import os
 import torch
-from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline
+from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration, AutoModel
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 
 from dotenv import load_dotenv, find_dotenv
@@ -12,32 +13,23 @@ logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 class PipeLineBuilder:
     def __init__(self, cfg):
         self.cfg = cfg
-                
+        
         log.info(f"Initializing {cfg.model_name_or_path}")
 
         # NOTE: Using openai is incompatible with watermarking. 
-        if "gpt-" in cfg.model_name_or_path:
+        if "gpt" in cfg.model_name_or_path:
             load_dotenv(find_dotenv()) # load openai api key from ./.env
             self.pipeline = ChatOpenAI(model_name=cfg.model_name_or_path)
         
         else: # Using locally hosted model
-            if 'gemma' in cfg.model_name_or_path:
-                quantization_config = BitsAndBytesConfig(
-                    load_in_4bit=True,
-                    bnb_4bit_use_double_quant=True,
-                    bnb_4bit_quant_type="nf4",
-                    bnb_4bit_compute_dtype=torch.bfloat16
-                    )
-
+            if 'grammarly' in cfg.model_name_or_path:
                 # Initialize and load the model and tokenizer
-                self.model = AutoModelForCausalLM.from_pretrained(
+                self.model = T5ForConditionalGeneration.from_pretrained(
                     cfg.model_name_or_path,
                     revision=cfg.revision,
                     cache_dir=cfg.model_cache_dir,
                     device_map=cfg.device_map,
-                    trust_remote_code=cfg.trust_remote_code,
-                    quantization_config=quantization_config)           
-
+                    trust_remote_code=cfg.trust_remote_code)      
             else:
                 # Initialize and load the model and tokenizer
                 self.model = AutoModelForCausalLM.from_pretrained(
@@ -65,16 +57,23 @@ class PipeLineBuilder:
             }
 
             # Create the pipeline
-            self.pipeline_base = pipeline("text-generation", **self.pipeline_config)
-            self.pipeline = HuggingFacePipeline(pipeline=self.pipeline_base)            
+            if "grammarly" in cfg.model_name_or_path:
+                self.pipeline_base = pipeline("text2text-generation", **self.pipeline_config)
+                self.pipeline = HuggingFacePipeline(pipeline=self.pipeline_base)                 
+            else:
+                self.pipeline_base = pipeline("text-generation", **self.pipeline_config)
+                self.pipeline = HuggingFacePipeline(pipeline=self.pipeline_base) 
     
     def generate_text(self, prompt):
         """
         This function expects a formatted prompt and returns the generated text.
         """
-        if "gpt" in self.cfg.model_name_or_path:
-            return self.pipeline(prompt)
-        return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
+        # if "gpt" in self.cfg.model_name_or_path:
+        #     return self.pipeline(prompt)
+        # return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
+        prompt = prompt.to_string()
+        return self.pipeline(prompt)
+
         
     def __call__(self, prompt):
         return self.generate_text(prompt)

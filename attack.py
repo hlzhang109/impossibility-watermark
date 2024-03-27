@@ -9,7 +9,7 @@ from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_te
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-from pipeline_builder import PipeLineBuilder
+from model_builders.pipeline import PipeLineBuilder
 from watermark import Watermarker
 from oracle import Oracle
 from mutate import TextMutator

@@ -6,6 +6,7 @@ from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
 import logging
+import hydra
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
@@ -53,7 +54,8 @@ class PipeLineBuilder:
                 "temperature": cfg.temperature,
                 "top_p": cfg.top_p,
                 "top_k": cfg.top_k,
-                "repetition_penalty": cfg.repetition_penalty
+                "repetition_penalty": cfg.repetition_penalty,
+                "return_full_text" : False,
             }
 
             # Create the pipeline
@@ -68,12 +70,25 @@ class PipeLineBuilder:
         """
         This function expects a formatted prompt and returns the generated text.
         """
-        # if "gpt" in self.cfg.model_name_or_path:
-        #     return self.pipeline(prompt)
+        if "gpt" in self.cfg.model_name_or_path:
+            return self.pipeline(prompt)
         # return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
-        prompt = prompt.to_string()
-        return self.pipeline(prompt)
+        # prompt = prompt.to_string()
+        response = self.pipeline(prompt)
+        return response
 
         
     def __call__(self, prompt):
         return self.generate_text(prompt)
+
+
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def main(cfg):
+    # Create or get existing pipeline builders for generator, oracle, and mutator.
+    mutator_pipeline_builder = PipeLineBuilder(cfg.mutator_args)
+    prompt = "Who's the current president of the US?"
+    response = mutator_pipeline_builder(prompt)
+    print(response)
+
+if __name__ == "__main__":
+    main()

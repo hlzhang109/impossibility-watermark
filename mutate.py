@@ -1,6 +1,7 @@
 # from langchain.globals import set_debug
 # set_debug(True)
 
+import numpy as np
 import traceback
 import datetime
 import textwrap
@@ -59,7 +60,7 @@ class TextMutator:
                 """
                 [INST]
                 Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
-                [\INST]
+                [/INST]
                 """
             )
         else:
@@ -92,25 +93,21 @@ class TextMutator:
         if 'Mixtral' in cfg.model_name_or_path:
             self.step_2_template = textwrap.dedent(f"""
                 [INST]
-                ** Task **:
+                Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
 
-                Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
-
-                ** Text **:
+                Text:
 
                 {{original_text}} 
 
                 {format_instructions_section}
-                [\INST]
+                [/INST]
                 """
             )
         else:
             self.step_2_template = textwrap.dedent(f"""
-                ** Task **:
+                Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
 
-                Make minimal edits to this text for consistency and quality. Make sure the text doesn’t get shorter. Only respond with edited text.
-
-                ** Text **:
+                Text:
 
                 {{original_text}} 
 
@@ -151,11 +148,13 @@ class TextMutator:
 
         # Generate a creative variation of the sentence
         rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
-        log.info(f"Rephrased sentence: {rephrased_sentence}")
+        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        # rephrased_sentence = rephrased_sentence.split("[/INST]",1)[1].strip()
         
         creative_sentences = sent_tokenize(rephrased_sentence)
         rephrased_sentence = creative_sentences[0]
         
+        log.info(f"Rephrased sentence: {rephrased_sentence}")
         # Replace the original sentence with its creative variation
         sentences[sentences.index(selected_sentence)] = rephrased_sentence
         return ' '.join(sentences)
@@ -168,6 +167,7 @@ class TextMutator:
 
         # Run Chain
         chain_output = self.step_2_chain.invoke(dict_input)
+        
         if self.cfg.use_pydantic_parser:
             dict_output = chain_output.dict()
         else:
@@ -197,7 +197,6 @@ class TextMutator:
 
         recombined_text = ' '.join(filled_words)
         return recombined_text
-
 
     def old_mutate(self, text, **kwargs):
         retry_count = 0

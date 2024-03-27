@@ -22,19 +22,6 @@ def load_data(filename):
     """Load JSON data from a file."""
     with open(filename, 'r', encoding='utf-8') as file:
         return json.load(file)
-    
-# Read the content of the text file
-def find_csv(txt_file_path):
-    with open(txt_file_path, 'r') as file:
-        content = file.read()
-
-    # Search for the first occurrence of 'attack_*.csv' pattern
-    match = re.search(r'attack_.*\.csv', content)
-
-    if match:
-        csv_filename = match.group(0)
-        return csv_filename
-    return None
 
 def count_words(text):
     if text is None:

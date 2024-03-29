@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -72,9 +73,21 @@ def save_plots(df, folder):
         plt.clf()  # Use plt.close() if you want to close the figure completely
 
 
-def main(rewrite=False):
-    entropy = 5
-    output = 1
+def main(rewrite=True):
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Process diversity analysis parameters.')
+    parser.add_argument('entropy', type=int, help='Entropy value for analysis.')
+    parser.add_argument('output', type=int, help='Output value for analysis.')
+    # Add rewrite as a keyword argument, defaulting to False
+    parser.add_argument('--rewrite', action='store_true', help='Enable rewriting existing files.')
+    
+    # Parse command-line arguments
+    args = parser.parse_args()
+    
+    # Use arguments
+    entropy = args.entropy
+    output = args.output
+    rewrite = args.rewrite
     
     root_dir = f"results/stationary_distribution/robustness_analysis/entropy_{entropy}/output_{output}"
     csv_file_directory = f"{root_dir}/corpuses"
@@ -84,29 +97,26 @@ def main(rewrite=False):
         print(f"Filename: {csv_filename}")
         csv_filepath = os.path.join(csv_file_directory, csv_filename)
         # Remove the .csv at the end of the filename
-        attack_id = csv_filename[:-3]
-        diversity_folder = f"{diversity_directory}/{attack_id}"
-    
-        individual_csv_path = os.path.join(diversity_directory, 'individual.csv')
-        corpus_csv_path = os.path.join(diversity_directory, 'corpus.csv')
-        
+        attack_id = csv_filename[:-4]
+        attack_diversity_folder = f"{diversity_directory}/{attack_id}"
+
         # Check if the CSV file already exists
-        if not rewrite and os.path.exists(diversity_folder):
+        if not rewrite and os.path.exists(attack_diversity_folder):
             print(f"The folder for {attack_id} already exists. Skipping.")
             continue
         
-        os.makedirs(diversity_folder, exist_ok=True)
+        os.makedirs(attack_diversity_folder, exist_ok=True)
         
         csv_files = [csv_filepath]
         
         corpus_df = get_diversity_df(csv_files, normalized=False)
         individual_df = get_diversity_df(csv_files, normalized=True)  
         
-        save_to_csv(individual_df, individual_csv_path, rewrite=True)  
-        save_plots(individual_df, individual_csv_path, diversity_folder)  
+        save_to_csv(individual_df, attack_diversity_folder, 'individual.csv', rewrite=True)  
+        save_plots(individual_df, attack_diversity_folder)  
 
-        save_to_csv(corpus_df, corpus_csv_path, rewrite=True)  
-        save_plots(corpus_df, corpus_csv_path, diversity_folder)  
+        save_to_csv(corpus_df, attack_diversity_folder, 'corpus.csv', rewrite=True)  
+        save_plots(corpus_df, attack_diversity_folder)  
         
         
 if __name__ == "__main__":

@@ -55,20 +55,14 @@ class TextMutator:
         
         # Step 1 - Localize Creativity Injection
         
+        self.step_1_template = textwrap.dedent(
+            """
+            Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
+            """
+        )
+        
         if 'Mixtral' in cfg.model_name_or_path:
-            self.step_1_template = textwrap.dedent(
-                """
-                [INST]
-                Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
-                [/INST]
-                """
-            )
-        else:
-            self.step_1_template = textwrap.dedent(
-                """
-                Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
-                """
-            )            
+            self.step_1_template = '[INST]\n' + self.step_1_template + '\n[/INST]'
                 
         self.step_1_prompt = PromptTemplate(
             template=self.step_1_template,
@@ -89,31 +83,19 @@ class TextMutator:
             """) if self.cfg.use_pydantic_parser else ""
         )
 
-        # Use a single template with the conditional section
+        self.step_2_template = textwrap.dedent(f"""
+            Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
+
+            Text:
+
+            {{original_text}} 
+
+            {format_instructions_section}
+            """
+        )
+            
         if 'Mixtral' in cfg.model_name_or_path:
-            self.step_2_template = textwrap.dedent(f"""
-                [INST]
-                Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
-
-                Text:
-
-                {{original_text}} 
-
-                {format_instructions_section}
-                [/INST]
-                """
-            )
-        else:
-            self.step_2_template = textwrap.dedent(f"""
-                Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
-
-                Text:
-
-                {{original_text}} 
-
-                {format_instructions_section}
-                """
-            )            
+            self.step_2_template = '[INST]\n' + self.step_2_template + '\n[/INST]'          
         
         self.system_prompt = PromptTemplate(
             template=self.step_2_profile,
@@ -222,7 +204,7 @@ class TextMutator:
                 # # Step 1.5: Creatively alter another random sentence
                 # mutated_text = self.creatively_alter_sentence(mutated_text)
                 # Step 2: Adjust the rest of the text for consistency
-                final_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"]
+                final_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"].strip()
                 return final_text
             except Exception:
                 retry_count += 1

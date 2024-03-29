@@ -55,8 +55,10 @@ class PipeLineBuilder:
                 "top_p": cfg.top_p,
                 "top_k": cfg.top_k,
                 "repetition_penalty": cfg.repetition_penalty,
-                "return_full_text" : False,
             }
+            
+            if 'Mixtral' in cfg.model_name_or_path:
+                self.pipeline_config["return_full_text"] = False
 
             # Create the pipeline
             if "grammarly" in cfg.model_name_or_path:

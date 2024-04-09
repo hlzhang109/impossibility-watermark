@@ -84,6 +84,7 @@ class Attack:
         assert watermarked_text is not None, "Unable to proceed without watermarked text!"
         
         original_watermarked_text = watermarked_text
+        original_text_len = count_words(original_watermarked_text)
         
         if self.cfg.attack_args.use_watermark:
             watermark_detected, score = self.watermarker.detect(original_watermarked_text)
@@ -123,10 +124,9 @@ class Attack:
 
             log.info(f"Mutated text: {mutated_text}")
 
-            current_text_len = count_words(watermarked_text)
             mutated_text_len = count_words(mutated_text)
 
-            if mutated_text_len / current_text_len < 0.95:
+            if mutated_text_len / original_text_len < 0.95:
                 log.info("Mutation failed to preserve text length requirement...")
                 quality_preserved = False
                 quality_analysis = None

@@ -127,8 +127,9 @@ def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-0
     completion = client.chat.completions.create(
     model=model,
     messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": initial_prompt},
-        # {'role': "assistant", "content": first_response},
+        {'role': "assistant", "content": first_response.content},
         {"role": "user", "content": follow_up_prompt},
     ]
     )

@@ -7,94 +7,103 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
-# def generate_comparison_prompts(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose):
-#     prompt_1 = f"""Given a prompt and two responses, explain how the responses differ.
-# Prompt: {prompt}
-# Response 1: {response_1}
-# Response 2: {response_2}"""
-#     if verbose:
-#         prompt_2 = f"""Given two new responses to the same prompt, match the new responses to the old responses. Output 1 if Response A matches with Response 1 and Response B matches with Response 2, and output 2 if Response B matches with Response 1 and Response A matches with response 2. Explain your reasoning.
-# Response A: {perturbed_1}
-# Response B: {perturbed_2}"""
-#     else:
-#         prompt_2 = f"""Given two new responses to the same prompt, match the new responses to the old responses. Output 1 if Response A matches with Response 1 and Response B matches with Response 2, and output 2 if Response B matches with Response 1 and Response A matches with response 2. Respond with the output only.
-# Response A: {perturbed_1}
-# Response B: {perturbed_2}"""
-    
-#     return prompt_1, prompt_2
-
 def generate_comparison_prompts(prompt, response_1, response_2, perturbed):
-    prompt_1 = f"""Given a prompt and two responses, explain how the responses differ.
-Prompt: {prompt}
-Response 1: {response_1}
-Response 2: {response_2}"""
+    prompt_1 = f"""
+Story 1: {response_1}
+Story 2: {response_2}
+Story A: {perturbed}
 
-    prompt_2 = f"""Here's a third response. Output 1 if it matches to the first prompt and 2 otherwise. Explain your reasoning.
+Story A was created by modifying Story 1 or Story 2. Which one? Explain your reasoning in-depth before responding. Both stories have similar themes and plots, so focus on specific details to
+make a decision."""
 
-{perturbed}"""
-
-    return prompt_1, prompt_2
-
-def generate_comparison_prompts_v2(prompt, response_1, response_2, perturbed):
-    prompt_1 = f"""Given a prompt and three responses, explain how the responses differ.
-Prompt: {prompt}
-Response 1: {perturbed}
-Response 2: {response_1}
-Response 3: {response_2}"""
-
-    prompt_2 = f"""Now, match response 1 to response 2 or 3. If you match to 2, respond with a 2. Otherwise, respond with a 3. Afterwards, explain your reasoning."""
+    prompt_2 = f"""So, what's your decision? Was Story A created by modifying Story 1 or Story 2? Respond with 1 if it was created by modifying Story 1, and 2 if it was created by modifying Story 2."""
 
     return prompt_1, prompt_2
 
 def distinguish(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=False):
-    flipped = False
+    regular_flipped = False
     if random.choice([True, False]):
-        flipped = True
+        regular_flipped = True
+        response_1, response_2 = response_2, response_1
+        logging.info("Stories flipped.")
+    
+    perturbed_flipped = False
+    if random.choice([True, False]):
+        perturbed_flipped = True
         perturbed = perturbed_2
-        # perturbed_1, perturbed_2 = perturbed_2, perturbed_1
-        logging.info("Flipped.")
+        logging.info("Perturbations flipped.")
     else:
         perturbed = perturbed_1
-    
-    # prompt_1, prompt_2 = generate_comparison_prompts(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose)
-    prompt_1, prompt_2 = generate_comparison_prompts(prompt, response_1, response_2, perturbed)
-    
-    first, second = query_openai_with_history(prompt_1, prompt_2)
-    logging.info(f"Model's First Response: {first.content}")
-    logging.info(f"Model's Second Response: {second.content}")
-    logging.info("---------------------------------------------------------------")
-
-    good_trial = second.content[0] in "12"
-    match_success = good_trial and (not flipped and second.content[0] == "1" or flipped and second.content[0] == "2")
-    return flipped, good_trial, match_success
-
-def distinguish_v2(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=False):
-    response_flipped = False
-    if random.choice([True, False]):
-        response_flipped = True
-        response_2, response_1 = response_1, response_2
-        logging.info("Responses flipped.") 
-    
-    flipped = False
-    if random.choice([True, False]):
-        logging.info("Answers flipped.") 
-        flipped = True
-        perturbed = perturbed_2
-    else:
-        perturbed = perturbed_1
+    flipped = regular_flipped ^ perturbed_flipped
+    if flipped:
+        logging.info("Overall flipped.")
         
-    prompt_1, prompt_2 = generate_comparison_prompts_v2(prompt, response_1, response_2, perturbed)
+    prompt_1, prompt_2 = generate_comparison_prompts(prompt, response_1, response_2, perturbed)
+        
+    for _ in range(2):
+        first, second = query_openai_with_history(prompt_1, prompt_2)
+        logging.info(f"Model's First Response: {first.content}")
+        logging.info(f"Model's Second Response: {second.content}")
+        logging.info("---------------------------------------------------------------")
+        
+        decision = second.content[0]
+        good_trial = decision in "12"
+        if good_trial == 1:
+            break
+        
+    match_success = good_trial and (not flipped and second.content[0] == "1" or flipped and second.content[0] == "2")
     
-    first, second = query_openai_with_history(prompt_1, prompt_2)
-    logging.info(f"Model's First Response: {first.content}")
-    logging.info(f"Model's Second Response: {second.content}")
-    logging.info("---------------------------------------------------------------")
-    
-    overall_flipped = response_flipped ^ flipped
+    return regular_flipped, perturbed_flipped, good_trial, match_success
 
-    good_trial = second.content[0] in "23"
-    match_success = good_trial and (not overall_flipped and second.content[0] == "2" or overall_flipped and second.content[0] == "3")
-    return overall_flipped, good_trial, match_success    
+def calculate_condition_success_rate(results, regular_flipped_condition, perturbed_flipped_condition):
+    """
+    Calculates the success rate for trials matching the given flip conditions.
+
+    Parameters:
+    - results: List of tuples with trial results in the form (regular_flipped, perturbed_flipped, good_trial, match_success).
+    - regular_flipped_condition: The desired condition for regular_flipped (True or False).
+    - perturbed_flipped_condition: The desired condition for perturbed_flipped (True or False).
+
+    Returns:
+    - The success rate for the matching trials as a percentage.
+    """
+    total_trials = 0
+    good_trials = 0
+    successful_trials = 0
+
+    for regular_flipped, perturbed_flipped, good_trial, match_success in results:
+        # Check if the trial matches the specified conditions
+        if regular_flipped == regular_flipped_condition and perturbed_flipped == perturbed_flipped_condition:
+            total_trials += 1
+            if good_trial:
+                good_trials += 1
+            if match_success:
+                successful_trials += 1
+                
+    return successful_trials, good_trials, total_trials
+
+def log_trial_results(results):
+    """
+    Logs the trial results for each combination of regular and perturbed conditions.
+
+    Parameters:
+    - results: List of tuples with trial results.
+    """
+    # Iterate over all combinations of conditions
+    for regular in [True, False]:
+        for perturbed in [True, False]:
+            # Calculate success rates for the current combination
+            successful_trials, good_trials, total_trials = calculate_condition_success_rate(results, regular, perturbed)
+
+            success_rate = (successful_trials / total_trials) * 100 if total_trials > 0 else 0
+
+            # Logging results for the current combination
+            logging.info(f"Conditions - Regular Flipped: {regular}, Perturbed Flipped: {perturbed}")
+            logging.info(f"Number of attempted trials: {total_trials}")
+            logging.info(f"Number of good trials: {good_trials}")
+            logging.info(f"Number of correct matches: {successful_trials}")
+            logging.info(f"Distinguisher accuracy: {success_rate:.2f}%")
+            logging.info(f"{'-' * 50}")
 
 def main():
     parser = argparse.ArgumentParser(description="Distinguish perturbed responses.")
@@ -149,60 +158,32 @@ def main():
     logging.info(f"Response 2: {response_2}")
     logging.info(f"Perturbed 1: {first_perturbed_csv_filename}")
     logging.info(f"Perturbed 2: {second_perturbed_csv_filename}")
-
-    num_regular_trials = 0
-    num_flipped_trials = 0
+    
+    results = []
+    
     num_good_trials = 0
-    num_regular_good_trials = 0
-    num_flipped_good_trials = 0
-    num_regular_success_matches = 0
-    num_flipped_success_matches = 0
     num_success_matches = 0
     
     for _ in range(num_trials):
-        flipped, good_trial, match_success = distinguish_v2(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=verbose)
-        
-        # Increment trials counters
-        if flipped:
-            num_flipped_trials += 1
-        else:
-            num_regular_trials += 1
-
-        # Increment counters for good trials and success matches
-        if good_trial:
-            num_good_trials += 1
-            if flipped:
-                num_flipped_good_trials += 1
-            else:
-                num_regular_good_trials += 1
-            
-            if match_success:
-                num_success_matches += 1
-                if flipped:
-                    num_flipped_success_matches += 1
-                else:
-                    num_regular_success_matches += 1
+        curr_result = distinguish(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=verbose)
+        results.append(curr_result)
      
-    regular_distinguish_accuracy = float(num_regular_success_matches)/num_regular_good_trials
-    flipped_distinguish_accuracy = float(num_flipped_success_matches)/num_flipped_good_trials
-    distinguish_accuracy = float(num_success_matches)/num_good_trials
+        if curr_result[2]:
+            num_good_trials +=1
+        if curr_result[3]:
+            num_success_matches += 1
     
-    logging.info(f"Number of attempted trials: {num_trials}")
-    logging.info(f"Number of good trials: {num_good_trials}")
-    logging.info(f"Number of correct matches: {num_success_matches}")
-    logging.info(f"Distinguisher accuracy: {distinguish_accuracy}")
+    distinguish_accuracy = float(num_success_matches) / num_good_trials
+    
+    logging.info(f"Number of regular attempted trials: {num_trials}")
+    logging.info(f"Number of regular good trials: {num_good_trials}")
+    logging.info(f"Number of regular correct matches: {num_success_matches}")
+    logging.info(f"Regular distinguisher accuracy: {distinguish_accuracy}")
     logging.info(f"-" * 50)
-    logging.info(f"Number of regular attempted trials: {num_regular_trials}")
-    logging.info(f"Number of regular good trials: {num_regular_good_trials}")
-    logging.info(f"Number of regular correct matches: {num_regular_success_matches}")
-    logging.info(f"Regular distinguisher accuracy: {regular_distinguish_accuracy}")
-    logging.info(f"-" * 50)
-    logging.info(f"Number of flipped attempted trials: {num_flipped_trials}")
-    logging.info(f"Number of flipped good trials: {num_flipped_good_trials}")
-    logging.info(f"Number of flipped correct matches: {num_flipped_success_matches}")
-    logging.info(f"Flipped distinguisher accuracy: {flipped_distinguish_accuracy}")
-    logging.info(f"-" * 50)    
-
+    
+    log_trial_results(results)
+    
+    
 if __name__ == "__main__":
     load_dotenv(find_dotenv())
     main()

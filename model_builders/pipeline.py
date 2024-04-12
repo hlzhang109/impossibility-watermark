@@ -75,7 +75,7 @@ class PipeLineBuilder:
         if "gpt" in self.cfg.model_name_or_path:
             return self.pipeline(prompt)
         # return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
-        # prompt = prompt.to_string()
+        prompt = prompt.to_string()
         response = self.pipeline(prompt)
         return response
 

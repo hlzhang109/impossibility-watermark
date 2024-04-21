@@ -54,10 +54,9 @@ def distinguish(response_1, response_2, perturbed, num_repetitions):
     decision_count = Counter(decisions)
     logging.info("Decision count: %s", decision_count)
 
-    majority_vote = decision_count.most_common(1)[0][0]
-    logging.info("Majority vote determined: %s", majority_vote)
+    threshold = int(num_repetitions * 0.3)
     
-    return majority_vote
+    return 1 if decision_count[1] >= threshold else 2
 
 def main():
     parser = argparse.ArgumentParser(description="Distinguish perturbed responses.")

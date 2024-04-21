@@ -1,109 +1,63 @@
 import argparse
+from collections import Counter
 import os
-import random
 import logging
-from utils import get_mutated_text, query_openai_with_history, get_prompt_or_output, get_watermarked_text, get_nth_successful_perturbation
+import textwrap
+from functools import partial
+from utils import query_openai_with_history, get_prompt_or_output, get_watermarked_text, get_nth_successful_perturbation
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
-def generate_comparison_prompts(prompt, response_1, response_2, perturbed):
-    prompt_1 = f"""
+def generate_comparison_prompts(response_1, response_2, perturbed):
+    prompt_1 = textwrap.dedent(f"""
 Story 1: {response_1}
 Story 2: {response_2}
 Story A: {perturbed}
 
 Story A was created by modifying Story 1 or Story 2. Which one? Explain your reasoning in-depth before responding. Both stories have similar themes and plots, so focus on specific details to
-make a decision."""
+make a decision.""")
 
     prompt_2 = f"""So, what's your decision? Was Story A created by modifying Story 1 or Story 2? Respond with 1 if it was created by modifying Story 1, and 2 if it was created by modifying Story 2."""
 
     return prompt_1, prompt_2
 
-def distinguish(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=False):
-    regular_flipped = False
-    if random.choice([True, False]):
-        regular_flipped = True
-        response_1, response_2 = response_2, response_1
-        logging.info("Stories flipped.")
-    
-    perturbed_flipped = False
-    if random.choice([True, False]):
-        perturbed_flipped = True
-        perturbed = perturbed_2
-        logging.info("Perturbations flipped.")
-    else:
-        perturbed = perturbed_1
-    flipped = regular_flipped ^ perturbed_flipped
-    if flipped:
-        logging.info("Overall flipped.")
-        
-    prompt_1, prompt_2 = generate_comparison_prompts(prompt, response_1, response_2, perturbed)
-        
-    for _ in range(2):
+
+def match(response_1, response_2, perturbed):
+    prompt_1, prompt_2 = generate_comparison_prompts(response_1, response_2, perturbed)
+
+    for _ in range(3):
         first, second = query_openai_with_history(prompt_1, prompt_2)
         logging.info(f"Model's First Response: {first.content}")
         logging.info(f"Model's Second Response: {second.content}")
         logging.info("---------------------------------------------------------------")
-        
-        decision = second.content[0]
-        good_trial = decision in "12"
-        if good_trial == 1:
-            break
-        
-    match_success = good_trial and (not flipped and second.content[0] == "1" or flipped and second.content[0] == "2")
     
-    return regular_flipped, perturbed_flipped, good_trial, match_success
+        decision = second.content[0]
 
-def calculate_condition_success_rate(results, regular_flipped_condition, perturbed_flipped_condition):
-    """
-    Calculates the success rate for trials matching the given flip conditions.
+        if (decision == "1") or (decision == "2"):
+            logging.info(f"Valid decision made: {decision}")
+            return int(decision)
 
-    Parameters:
-    - results: List of tuples with trial results in the form (regular_flipped, perturbed_flipped, good_trial, match_success).
-    - regular_flipped_condition: The desired condition for regular_flipped (True or False).
-    - perturbed_flipped_condition: The desired condition for perturbed_flipped (True or False).
+    # If no valid decision is made after 3 trials, return 0
+    return 0
 
-    Returns:
-    - The success rate for the matching trials as a percentage.
-    """
-    total_trials = 0
-    good_trials = 0
-    successful_trials = 0
+def distinguish(response_1, response_2, perturbed, num_repetitions):
+    regular_match = lambda: match(response_1, response_2, perturbed)
 
-    for regular_flipped, perturbed_flipped, good_trial, match_success in results:
-        # Check if the trial matches the specified conditions
-        if regular_flipped == regular_flipped_condition and perturbed_flipped == perturbed_flipped_condition:
-            total_trials += 1
-            if good_trial:
-                good_trials += 1
-            if match_success:
-                successful_trials += 1
-                
-    return successful_trials, good_trials, total_trials
+    # Adjust the response of the flipped match function using cool functional programming
+    handle_flipped = lambda x: 2 if x == 1 else 1 if x == 2 else x
+    flipped_match = lambda: handle_flipped(match(response_2, response_1, perturbed))
 
-def log_trial_results(results):
-    """
-    Logs the trial results for each combination of regular and perturbed conditions.
+    decisions = [func() for i in range(num_repetitions) for func in (regular_match, flipped_match)]
+    logging.info("Decisions recorded: %s", decisions)
 
-    Parameters:
-    - results: List of tuples with trial results.
-    """
-    # Iterate over all combinations of conditions
-    for regular in [True, False]:
-        for perturbed in [True, False]:
-            # Calculate success rates for the current combination
-            successful_trials, good_trials, total_trials = calculate_condition_success_rate(results, regular, perturbed)
+    decision_count = Counter(decisions)
+    logging.info("Decision count: %s", decision_count)
 
-            success_rate = (successful_trials / total_trials) * 100 if total_trials > 0 else 0
-
-            # Logging results for the current combination
-            logging.info(f"Conditions - Regular Flipped: {regular}, Perturbed Flipped: {perturbed}")
-            logging.info(f"Number of attempted trials: {total_trials}")
-            logging.info(f"Number of good trials: {good_trials}")
-            logging.info(f"Number of correct matches: {successful_trials}")
-            logging.info(f"Distinguisher accuracy: {success_rate:.2f}%")
-            logging.info(f"{'-' * 50}")
+    majority_vote = decision_count.most_common(1)[0][0]
+    logging.info("Majority vote determined: %s", majority_vote)
+    
+    return majority_vote
 
 def main():
     parser = argparse.ArgumentParser(description="Distinguish perturbed responses.")
@@ -114,8 +68,8 @@ def main():
     parser.add_argument("attack_id_2", type=str, help="Second attack ID")
     parser.add_argument("--log_suffix", type=str, required=False, default="",help="Log suffix")
     parser.add_argument("--num_trials", type=int, required=False, default=10, help="Number of trials")
+    parser.add_argument("--num_repetitions", type=int, required=False, default=5, help="Number of repetitions for the distinguisher")
     parser.add_argument("--mutation_num", type=int, required=False, default = -1, help="The nth successful mutation.")
-    parser.add_argument("--verbose", action='store_true', help="Verbose output")
 
     args = parser.parse_args()
     
@@ -126,7 +80,7 @@ def main():
     attack_id_2 = args.attack_id_2
     log_suffix = args.log_suffix
     num_trials = args.num_trials
-    verbose = args.verbose
+    num_repetitions = args.num_repetitions
     mutation_num = args.mutation_num
     
     # Construct log filename based on command line arguments
@@ -152,37 +106,25 @@ def main():
     response_2 = get_watermarked_text(csv_file_path)
     perturbed_2 = get_nth_successful_perturbation(csv_file_path, mutation_num)
 
-    
     logging.info(f"Prompt: {prompt}")
     logging.info(f"Response 1: {response_1}")
     logging.info(f"Response 2: {response_2}")
     logging.info(f"Perturbed 1: {first_perturbed_csv_filename}")
     logging.info(f"Perturbed 2: {second_perturbed_csv_filename}")
-    
-    results = []
-    
-    num_good_trials = 0
-    num_success_matches = 0
-    
-    for _ in range(num_trials):
-        curr_result = distinguish(prompt, response_1, response_2, perturbed_1, perturbed_2, verbose=verbose)
-        results.append(curr_result)
-     
-        if curr_result[2]:
-            num_good_trials +=1
-        if curr_result[3]:
-            num_success_matches += 1
-    
-    distinguish_accuracy = float(num_success_matches) / num_good_trials
-    
-    logging.info(f"Number of regular attempted trials: {num_trials}")
-    logging.info(f"Number of regular good trials: {num_good_trials}")
-    logging.info(f"Number of regular correct matches: {num_success_matches}")
-    logging.info(f"Regular distinguisher accuracy: {distinguish_accuracy}")
-    logging.info(f"-" * 50)
-    
-    log_trial_results(results)
-    
+
+    distinguisher = partial(distinguish, response_1, response_2, num_repetitions=num_repetitions)
+
+    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(num_trials)]
+
+    perturbed_1_trials = run_trials(perturbed_1, 1)
+    perturbed_2_trials = run_trials(perturbed_2, 2)
+
+    perturbed_1_success_rate = float(sum(perturbed_1_trials))/num_trials
+    perturbed_2_success_rate = float(sum(perturbed_2_trials))/num_trials
+
+    logging.info("Perturbed 1 success rate: %.2f%%", perturbed_1_success_rate * 100)
+    logging.info("Perturbed 2 success rate: %.2f%%", perturbed_2_success_rate * 100)
+
     
 if __name__ == "__main__":
     load_dotenv(find_dotenv())

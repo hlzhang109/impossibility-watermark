@@ -15,52 +15,84 @@ import os
 import logging
 import hydra
 
+from model_builders.pipeline import PipeLineBuilder
+from utils import read_text_file
+
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-class OracleAnswer(BaseModel):
-    analysis:  str = Field(description="Quality assessment analysis")
-    answer:    str = Field(description="Quality assessment answer")
+class RankOracleAnswer(BaseModel):
+    analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
+    ranking:   dict = Field(description="An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.")
+
+class CompareTogetherAbsoluate(BaseModel):
+    analysis:         str = Field(description="A string that describes the reasoning behind your scores for each answer.")
+    assistan_1_score: int = Field(description="An integer score for assistant 1's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+    assistan_2_score: int = Field(description="An integer score for assistant 2's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+
+class CompareRelativeAnswer(BaseModel):
+    analysis:  str = Field(description="A string that describes the reasoning behind your answer for which response is best or why they are the same.")
+    answer:    str = Field(description="A string summary describing whether response A is better, the same, or worse than response B.")
+
+class RateOracleAnswer(BaseModel):
+    analysis: str = Field(description="A string that describes the reasoning behind your answer for score.")
+    score:    str = Field(description="An integer score for the response.")
+
 
 class Oracle:
     def __init__(self, cfg, pipeline=None) -> None:
-        
+
         self.cfg = cfg # config.oracle_args
         self.pipeline = pipeline
 
         # Model Pipeline
-        if not isinstance(self.pipeline, (PipeLineBuilder, ServerBuilder)):
+        if not isinstance(self.pipeline, PipeLineBuilder):
             log.info("Initializing a new Oracle pipeline from cfg...")
             self.pipeline = PipeLineBuilder(cfg)
 
+        # Initialize_chain
+        self.init_chain(self.cfg.template)
+
+    def init_chain(self, template):
+
         # Output Parser
+        pydantic_object = None
+        input_variables = ["instruction", "output_1", "output_2"]
+        if "rank" in self.cfg.template:
+            pydantic_object = RankOracleAnswer
+        elif "compare_rate_together" in self.cfg.template:
+            pydantic_object = CompareTogetherAnswer
+        elif "relative"  in self.cfg.template:
+            pydantic_object = CompareRelativeAnswer
+        elif "rate" in self.cfg.template:
+            pydantic_object = RateOracleAnswer
+            input_variables.pop("output_2")
+        else:
+            raise ValueError(f"Invalid template selected! See {self.cfg.template_dir} for options...")
+
         self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=OracleAnswer),
-            llm=self.pipeline,
+            parser=PydanticOutputParser(pydantic_object=pydantic_object),
+            llm=self.pipeline.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
 
-        # Prompt Template
-        self.instructions = open(os.path.join(self.cfg.template_dir, f"{self.cfg.template}.txt"))
-
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{template}.txt"))
         self.prompt = PromptTemplate(
-            template=self.eval_background,
+            template=self.instructions,
             template_format='jinja2',
-            input_variables=["instruction", "response_a", "response_b"],
+            input_variables=input_variables,
             # partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
         )
-
         self.chain = self.prompt | self.pipeline | self.output_parser
 
-    def check_oracle(self, instruction, response_a, response_b, **kwargs):
+
+    def check_oracle(self, instruction, output_1, output_2, **kwargs):
         # Prepare Input
         dict_input = {
             "instruction": instruction, 
-            "response_a": response_a,
-            "response_b": response_b
+            "output_1": output_1,
+            "output_2": output_2
         }
-        if self.cfg.use_system_profile:
-            dict_input.update({"system_profile": self.cfg.system_profile})
 
         # Run Chain
         pydantic_output = self.chain.invoke(dict_input)
@@ -74,14 +106,14 @@ class Oracle:
         })
         return dict_output
 
-    def evaluate(self, instruction, response_a, response_b, **kwargs):
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
         retry_count = 0
         while retry_count < self.cfg.num_retries:
             try:
                 # Run twice to offset positional bias
-                original = self.check_oracle(instruction, response_a, response_b, **kwargs)
+                original = self.check_oracle(instruction, output_1, output_2, **kwargs)
                 # log.info(original)
-                followup = self.check_oracle(instruction, response_b, response_a, **kwargs)
+                followup = self.check_oracle(instruction, output_2, output_1, **kwargs)
                 # log.info(followup)
                 if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
                     original.update({"is_quality_preserved": True})
@@ -99,23 +131,31 @@ class Oracle:
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def test(cfg):
 
+    import pandas as pd
+
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
+    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
+
+    templates = [
+        "compare_rank", 
+        "compare_rate_together_instructions_above",
+        "compare_rate_together_instructions_below",
+        "compare_rate_relative_3_choice",
+        "compare_rate_relative_5_choice",
+        "rate_additive",
+        "rate_separate_instructions_above",
+        "rate_separate_instructions_below",
+    ]
+
+    tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv").head(1)
+
     oracle = Oracle(cfg.oracle_args)
 
-    quality_preserved_count = 0
-    for i in range(25):
-        start = time.time()
-        evaluation = oracle.evaluate(instruction, test_response_a, test_response_b)
-        if evaluation['is_quality_preserved'] is not None and evaluation['is_quality_preserved']:
-            quality_preserved_count += 1
-        delta = time.time() - start
-        
-        log.info(f"Is Quality Preserved?: {evaluation['is_quality_preserved']}")
-        log.info(f"Quality Assessment: {evaluation['analysis']}")
-        log.info(f"Time taken: {delta}")
-            
-    print(quality_preserved_count)
-
-
+    for template in templates:
+        oracle.init_chain(template)
+        for index, row in tests_df.iterrows():
+            dict_output = oracle.check_oracle(row["instruction"], row["output_1"], row["output_2"])
+            print(dict_output)
 
 if __name__ == "__main__":
     test()

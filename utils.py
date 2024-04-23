@@ -154,3 +154,28 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     }]
     
     return perturbation_stats
+
+def read_text_file(file_path):
+    """
+    Reads a text file and returns its contents as a string.
+
+    Args:
+        file_path (str): The path to the text file to be read.
+
+    Returns:
+        str: The contents of the file.
+
+    Raises:
+        FileNotFoundError: If the file cannot be found at the specified path.
+        IOError: If an error occurs during file reading.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            contents = file.read()
+            return contents
+    except FileNotFoundError:
+        print(f"Error: The file at '{file_path}' does not exist.")
+        raise
+    except IOError as e:
+        print(f"An error occurred while reading the file: {e}")
+        raise

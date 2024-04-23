@@ -43,8 +43,6 @@ generator_args:
 
 oracle_args:
     num_retries: 5
-    use_system_profile: True
-    system_profile: "You are an impartial judge tasked to evaluate the quality of two prompt responses."
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
@@ -58,6 +56,8 @@ oracle_args:
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
     is_completion: ${attack_args.is_completion}
+    num_formatting_retries: 3 
+    template: "compare_relative_5_choice"
 
 mutator_args:
     use_old_mutator: False

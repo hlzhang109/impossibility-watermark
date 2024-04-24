@@ -14,6 +14,7 @@ logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 class PipeLineBuilder:
     def __init__(self, cfg):
         self.cfg = cfg
+        self.requires_INST_tokens = False
         
         log.info(f"Initializing {cfg.model_name_or_path}")
 
@@ -59,6 +60,7 @@ class PipeLineBuilder:
             
             if 'Mixtral' in cfg.model_name_or_path:
                 self.pipeline_config["return_full_text"] = False
+                self.requires_INST_tokens = True
 
             # Create the pipeline
             if "grammarly" in cfg.model_name_or_path:

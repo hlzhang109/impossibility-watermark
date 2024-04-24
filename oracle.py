@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 import datetime
 import textwrap
 import traceback
@@ -26,10 +27,10 @@ class CompareRankAnswer(BaseModel):
     analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
     ranking:   dict = Field(description="An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.")
 
-class CompareTogetherAbsoluate(BaseModel):
-    analysis:         str = Field(description="A string that describes the reasoning behind your scores for each answer.")
-    assistan_1_score: int = Field(description="An integer score for assistant 1's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
-    assistan_2_score: int = Field(description="An integer score for assistant 2's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+class CompareTogetherAnswer(BaseModel):
+    analysis:          str = Field(description="A string that describes the reasoning behind your scores for each answer.")
+    assistant_1_score: int = Field(description="An integer score for assistant 1's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+    assistant_2_score: int = Field(description="An integer score for assistant 2's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
 
 class CompareRelativeAnswer(BaseModel):
     analysis:  str = Field(description="A string that describes the reasoning behind your answer for which response is best or why they are the same.")
@@ -39,9 +40,73 @@ class RateSoloAnswer(BaseModel):
     analysis: str = Field(description="A string that describes the reasoning behind your answer for score.")
     score:    str = Field(description="An integer score for the response.")
 
+def numerize_label(label):
+    """
+    Converts label description into numbers for easy comparison. 
+
+    Parameters:
+    label (str): The label description. 
+
+    Returns:
+    str: The corresponding numerized label. 
+    """
+    if "output_1 is much better than output_2" in label:
+        return 1
+    elif "output_1 is slightly better than output_2" in label:
+        return 2
+    elif "output_1 is about the same as output_2" in label:
+        return 3
+    elif "output_1 is slightly worse than output_2" in label:
+        return 4
+    elif "output_1 is much worse than output_2" in label:
+        return 5
+    else:
+        raise ValueError("Invalid label provided.")
+
+def downscale_label(label):
+    """
+    Converts a 5-point scale label to a 3-point scale.
+
+    Parameters:
+    label (str): The label on the 5-point scale. 
+
+    Returns:
+    str: The corresponding response on the 3-point scale.
+    """
+    if "better" in label:
+        return "output_1 is much better than output_2"
+    elif "same" in label:
+        return label # leave the same
+    elif "worse" in label:
+        return "output_1 is much worse than output_2"
+    else:
+        raise ValueError("Invalid label provided.")
+
+def invert_label(label):
+    """
+    Inverts a 5-point scale label. Useful for positional tests. 
+    
+    E.g. invert_label("output_1 is much better than output_2")
+         > "output_1 is much worse than output_2"
+
+    Parameters:
+    label (str): The label on the 5-point scale. 
+
+    Returns:
+    str: The corresponding inverted response.
+    """
+    if "better" in label:
+        return label.replace("better", "worse")
+    elif "same" in label:
+        return label # no change required. 
+    elif "worse" in label:
+        return label.replace("worse", "better")
+    else:
+        raise ValueError("Invalid label provided.")
+
 # Abstract base class for all oracles
 class Oracle(ABC):
-    def __init__(self, cfgpipeline=None) -> None:
+    def __init__(self, cfg, pipeline=None) -> None:
 
         self.cfg = cfg # config.oracle_args
         self.pipeline = pipeline
@@ -49,21 +114,224 @@ class Oracle(ABC):
             log.info("Initializing a new Oracle pipeline from cfg...")
             self.pipeline = PipeLineBuilder(cfg)
 
-
     @abstractmethod
     def evaluate(self, instruction, output_1, output_2, **kwargs):
         pass
 
-# Concrete implementations for different evaluation strategies
-class RankOracle(Oracle):
-    def evaluate(self, instruction, output_1, output_2, **kwargs):
-        # Implementation specific to ranking evaluation
+    @abstractmethod
+    def extract_label(self, evaluation):
         pass
 
-class TogetherOracle(Oracle):
-    def evaluate(self, instruction, output_1, output_2, **kwargs):
-        # Implementation specific to combined evaluation
+    @abstractmethod
+    def test(self, instruction, output_1, output_2, label, **kwargs):
         pass
+
+
+class RankOracle(Oracle):
+    
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=CompareRankAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized RankOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1,
+            "output_2": output_2
+        }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+    def extract_label(self, evaluation):
+        eval_key = "ranking"
+        ranking = list(evaluation[eval_key].values())
+        eval_label = 1 # output_1 is better (default)
+        if ranking[1] == 1: 
+            eval_label = 5 # output_2 is better
+        return eval_label
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        original_label = numerize_label(downscale_label(label))
+        followup_label = numerize_label(downscale_label(invert_label(label)))
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        original.update({
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
+
+
+class TogetherOracle(Oracle):
+
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=CompareTogetherAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized RankOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1,
+            "output_2": output_2
+        }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+    def extract_label(self, evaluation):
+        eval_key_1 = "assistant_1_score"
+        eval_key_2 = "assistant_2_score"
+        output_1_score = int(evaluation[eval_key_1])
+        output_2_score = int(evaluation[eval_key_2])
+        diff = output_1_score - output_2_score 
+        if 5 <= diff <= 10: # output 1 is much better than output_2
+            return 1
+        elif 2 <= diff <= 5: # output 1 is slightly better than output_2
+            return 2
+        elif -2 <= diff <= 2:  # output 1 is about the same as output_2
+            return 3
+        elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
+            return 4
+        elif -5 <= diff <= -10: # output 1 is much worse than output_2
+            return 5
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        original_label = numerize_label(label)
+        followup_label = numerize_label(invert_label(label))
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        original.update({
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
 
 class RelativeOracle(Oracle):
     def evaluate(self, instruction, output_1, output_2, **kwargs):
@@ -218,24 +486,29 @@ def test(cfg):
 
     templates = [
         "rate_additive",
-        "rate_separate_instructions_above",
-        "rate_separate_instructions_below",
-        "compare_rank", 
-        "compare_rate_together_instructions_above",
-        "compare_rate_together_instructions_below",
-        "compare_rate_relative_3_choice",
-        "compare_rate_relative_5_choice",
+        "rate.lmsys.ia",
+        "rate.lmsys.ib",
+        "rank.alpaca_eval", 
+        "compare.lmsys.ia",
+        "compare.lmsys.ib",
+        "compare.sandpaper.3",
+        "compare.sandpaper.5",
     ]
 
     tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv").head(1)
 
-    oracle = Oracle(cfg.oracle_args)
+    # oracle = RankOracle(cfg.oracle_args)
+    oracle = TogetherOracle(cfg.oracle_args)
 
-    for template in templates:
-        oracle.init_chain(template)
-        for index, row in tests_df.iterrows():
-            dict_output = oracle.check_oracle(row["instruction"], row["output_1"], row["output_2"])
-            print(dict_output)
+    for index, row in tests_df.iterrows():
+        dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
+        print(dict_output)
+    
+    # for template in templates:
+    #     oracle.init_chain(template)
+    #     for index, row in tests_df.iterrows():
+    #         dict_output = oracle.check_oracle(row["instruction"], row["output_1"], row["output_2"])
+    #         print(dict_output)
 
 if __name__ == "__main__":
     test()

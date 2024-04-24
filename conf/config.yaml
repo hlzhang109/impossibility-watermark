@@ -56,9 +56,10 @@ oracle_args:
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda: "${attack_args.cuda}"
     is_completion: ${attack_args.is_completion}
-    num_formatting_retries: 3 
-    template: "compare_relative_5_choice"
+    num_formatting_retries: 1
+    system_profile: "You are a helpful and precise assistant for checking the quality of the answer."
     template_dir: "./prompt_templates/quality_oracle/"
+    template: "compare_relative_5_choice"
 
 mutator_args:
     use_old_mutator: False

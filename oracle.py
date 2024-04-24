@@ -10,6 +10,7 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain.globals import set_debug; set_debug(True)
 
 import os
 import logging
@@ -21,7 +22,7 @@ from utils import read_text_file
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-class RankOracleAnswer(BaseModel):
+class CompareRankAnswer(BaseModel):
     analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
     ranking:   dict = Field(description="An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.")
 
@@ -34,16 +35,53 @@ class CompareRelativeAnswer(BaseModel):
     analysis:  str = Field(description="A string that describes the reasoning behind your answer for which response is best or why they are the same.")
     answer:    str = Field(description="A string summary describing whether response A is better, the same, or worse than response B.")
 
-class RateOracleAnswer(BaseModel):
+class RateSoloAnswer(BaseModel):
     analysis: str = Field(description="A string that describes the reasoning behind your answer for score.")
     score:    str = Field(description="An integer score for the response.")
 
+# Abstract base class for all oracles
+class Oracle(ABC):
+    def __init__(self, cfgpipeline=None) -> None:
 
+        self.cfg = cfg # config.oracle_args
+        self.pipeline = pipeline
+        if not isinstance(self.pipeline, PipeLineBuilder):
+            log.info("Initializing a new Oracle pipeline from cfg...")
+            self.pipeline = PipeLineBuilder(cfg)
+
+
+    @abstractmethod
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        pass
+
+# Concrete implementations for different evaluation strategies
+class RankOracle(Oracle):
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Implementation specific to ranking evaluation
+        pass
+
+class TogetherOracle(Oracle):
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Implementation specific to combined evaluation
+        pass
+
+class RelativeOracle(Oracle):
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Implementation specific to relative evaluation
+        pass
+
+class SoloOracle(Oracle):
+    def evaluate(self, instruction, output_1, output_2=None, **kwargs):
+        # Implementation specific to solo evaluation
+        pass
+
+    
 class Oracle:
     def __init__(self, cfg, pipeline=None) -> None:
 
         self.cfg = cfg # config.oracle_args
         self.pipeline = pipeline
+        self.template = self.cfg.template
 
         # Model Pipeline
         if not isinstance(self.pipeline, PipeLineBuilder):
@@ -51,42 +89,83 @@ class Oracle:
             self.pipeline = PipeLineBuilder(cfg)
 
         # Initialize_chain
-        self.init_chain(self.cfg.template)
+        self.init_chain(self.template)
 
     def init_chain(self, template):
 
+        # (Re)Set template
+        self.template = template
+
+        # Variables that change depdending on the type of template
+        self.pydantic_object = None
+        self.answer_key = []
+        self.eval_separate = False
+        self.input_variables = ["instruction", "output_1", "output_2"]
+
         # Output Parser
-        pydantic_object = None
-        input_variables = ["instruction", "output_1", "output_2"]
         if "rank" in self.cfg.template:
-            pydantic_object = RankOracleAnswer
+            self.pydantic_object = CompareRankAnswer
+
         elif "compare_rate_together" in self.cfg.template:
-            pydantic_object = CompareTogetherAnswer
+            self.pydantic_object = CompareTogetherAnswer
+            self.answer_key = ["assistan_1_score", "assistan_2_score"]
         elif "relative"  in self.cfg.template:
-            pydantic_object = CompareRelativeAnswer
+            self.pydantic_object = CompareRelativeAnswer
+            self.answer_key = ["answer"]
         elif "rate" in self.cfg.template:
-            pydantic_object = RateOracleAnswer
-            input_variables.pop("output_2")
+            self.pydantic_object = RateSoloAnswer
+            self.answer_key = ["score"]
+            self.eval_separate = True
+            self.input_variables.pop("output_2")
         else:
             raise ValueError(f"Invalid template selected! See {self.cfg.template_dir} for options...")
 
         self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=pydantic_object),
+            parser=PydanticOutputParser(pydantic_object=self.pydantic_object),
             llm=self.pipeline.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
 
+        # Prompt 
         self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{template}.txt"))
         self.prompt = PromptTemplate(
             template=self.instructions,
             template_format='jinja2',
-            input_variables=input_variables,
+            input_variables=self.input_variables,
             # partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
         )
+
+        # Chain
         self.chain = self.prompt | self.pipeline | self.output_parser
 
 
+    def compare_solo(self, instruction, output_1, output_2, **kwargs):
+        out_1 = self.invoke_solo(instruction, output_1)
+        out_2 = self.invoke_solo(instruction, output_2)
+        return out_1, out_2
+
+    def invoke_solo(self, instruction, output_1, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1
+        }
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+
     def check_oracle(self, instruction, output_1, output_2, **kwargs):
+
         # Prepare Input
         dict_input = {
             "instruction": instruction, 
@@ -128,6 +207,7 @@ class Oracle:
                     log.info(traceback.format_exc())
 
 
+
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def test(cfg):
 
@@ -137,14 +217,14 @@ def test(cfg):
     os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
+        "rate_additive",
+        "rate_separate_instructions_above",
+        "rate_separate_instructions_below",
         "compare_rank", 
         "compare_rate_together_instructions_above",
         "compare_rate_together_instructions_below",
         "compare_rate_relative_3_choice",
         "compare_rate_relative_5_choice",
-        "rate_additive",
-        "rate_separate_instructions_above",
-        "rate_separate_instructions_below",
     ]
 
     tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv").head(1)

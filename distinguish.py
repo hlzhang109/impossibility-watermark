@@ -21,53 +21,33 @@ log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 class DistinguisherAnswer(BaseModel):
-    analysis:  str = Field(description="Analysis for why two stories are more similar")
-    answer:    str = Field(description="Answer for which two stories are most closely related")
+    answer: int = Field(description="Which story did the LLM match Story A to?")
 
 class Distinguisher:
     def __init__(self, cfg, pipeline=None) -> None:        
         self.cfg = cfg # config.oracle_args
         self.pipeline = pipeline
 
-        # Output Parser
-        self.output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
-
         # Prompt Template
         self.profile_background = """{system_profile}"""
 
-        self.instructions = textwrap.dedent("""
-        [INST]
-        Title: Select the Most Similar Story
+        self.first_instructions = textwrap.dedent("""
+[INST]
+Story 1: {{story_1}}
 
-        Introduction:
-        Please read the following three stories. Your task is to determine which two stories are most similar to each other based on their themes, characters, settings, or any other relevant elements. Provide a brief explanation for your choice.
+Story 2: {{story_2}}
 
-        Story A: {{story_1}}
-        
-        Story B: {{story_2}}
+Story A: {{story_a}}
+                                            
+Story A was created by modifying Story 1 or Story 2. Which one? Explain your reasoning in-depth before responding. Both stories have similar themes and plots, so focus on specific details to
+make a decision.
+[/INST]
 
-        Story A: {{story_3}}
+Answer:""")
 
-        Question:
-        Based on the details provided in the stories, which two stories are most similar? Explain why you think these two stories are more similar to each other than to the third story.
-
-        Desired format:
-        ```json
-        {
-            "analysis": <str> [Provide a detailed explanation of the similarities that led you to this conclusion.]
-            "answer": <str> [Insert either "A & B", "A & C", or "B & C"]
-        }
-        ```
-        [\INST]
-
-        Answer: 
-        """)
-
-        self.prompt = PromptTemplate(
-            template=self.instructions,
-            input_variables=["story_1", "story_2", "story_3"],
-            template_format="jinja2",
-            # partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
+        self.first_prompt = PromptTemplate(
+            template=self.first_instructions,
+            input_variables=["story_1", "story_2", "story_a"],
         )
 
         # Model Pipeline
@@ -75,34 +55,59 @@ class Distinguisher:
             log.info("Initializing a new Distinguisher pipeline from cfg...")
             self.pipeline = PipeLineBuilder(self.cfg)
 
-        self.chain = self.prompt | self.pipeline | self.output_parser
+        self.first_chain = self.first_prompt | self.pipeline
 
-    def evaluate(self, story_1, story_2, story_3, **kwargs):
+        self.second_instructions = textwrap.dedent("""
+[INST]
+Response: {{response}}
+                                                   
+Read the above the response given by another LLM. Does the LLM think Story A was created from Story 1 or Story 2?
+                                  
+```json
+{
+    "answer": <int> [Insert either 1 or 2]
+}
+```
+                                                   
+[/INST]
+
+Answer:""")
+        
+        self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
+        
+        self.second_prompt = PromptTemplate(
+            template=self.second_instructions,
+            input_variables=["response"],
+
+        )
+
+        self.second_chain = self.second_prompt | self.pipeline | self.second_output_parser
+
+    def evaluate(self, story_1, story_2, story_a, **kwargs):
         # Prepare Input
         dict_input = {
             "story_1": story_1, 
             "story_2": story_2,
-            "story_3": story_3,
+            "story_a": story_a,
         }
 
         # Run Chain
-        pydantic_output = self.chain.invoke(dict_input)
+        response = self.first_chain.invoke(dict_input)
 
-        # Prepare Output
+        log.info(f"Analysis: {response}")
+
+        dict_input = {
+            "response": response,
+        }
+
+        pydantic_output = self.second_chain.invoke(dict_input)
         dict_output = pydantic_output.dict()
-        dict_output.update({
-            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            **kwargs
-        })
-        return dict_output
+
+        return dict_output['answer']
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def test(cfg):
-
-    # test data points
-
-    # prompt = "Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe. Only respond with the story."
 
     response_1 = textwrap.dedent("""Evan, an American tourist, found himself wandering the cobblestone streets of Paris in the spring, the city's charm enveloping him like a warm embrace. On a quiet corner, he stumbled upon a quaint café, its aroma of freshly brewed coffee and pastries luring him inside. There, behind the counter, was Emily, a barista whose smile was as inviting as the café itself.
     Each morning, Evan returned, drawn not only by the coffee but by the light in Emily's eyes. They exchanged stories and laughter, the language barrier dissolving between sips of espresso and shared croissants. Evan, though married, felt an unexpected connection, a stirring in his heart that he couldn't ignore.
@@ -126,9 +131,6 @@ def test(cfg):
     response_2_perturbed_first = """In the heart of Paris, where cobblestone streets murmured stories of love, Evan, an American tourist, strolled leisurely, captivated by the city's charm. Married but alone, he sought comfort in a charming Parisian cafÃ©, a haven from his solitary expeditions. This cafÃ©, a harmonious blend of Parisian sophistication and warmth, welcomed him with the tantalizing aroma of newly brewed coffee. Here, behind the counter, worked Emily, a barista whose smile appeared to meld with the cafÃ©'s inviting atmosphere. Her eyes, a rich hue of hazel, shimmered with a distinct enchantment unique to those who deeply cherish their city. Initially, Evan was merely another patron; however, he became a regular visitor, enticed not only by the appeal of the coffee but also by the bewitching presence of Emily. At first, their exchanges were about trivial cafÃ© suggestions, but soon enough, they traversed deeper territories, exploring dreams, hopes, and laughter. Through Emily, Evan rediscovered a dormant fragment of his persona. Her attentiveness was so profound that he felt acknowledged, comprehended. It was a bond he had not recognized he yearned for, a sensation of authentic vitality. However, amidst this emotional tempest, Evan was grounded by the band on his finger - a pledge, a recollection of the life he had constructed back home. His feelings, a poignant symphony, wrestled with the intricacies of affection and duty. As his journey drew to a close, Evan visited the cafÃ© for a final time. No words were spoken, but their gazes communicated more than any dialogue could. They both understood that their relationship was a fleeting episode in life's sweeping saga, a precious yet transient attachment. Upon departing Paris, Evan carried with him a treasure trove of memories and a spirit stirred by a fateful encounter. Emily, the Parisian barista, remained a fond, transient memory, a testament to life's unforeseen adventures."""
     response_2_perturbed_last  = """As Evan, an American tourist, strolled leisurely through the charming heart of Paris, captivated by whispers of love from its narrow alleyways, he felt mysteriously drawn to a traditional Parisian cafÃ©. This establishment merged French elegance with cozy warmth. Approaching it, the enticing aroma of freshly brewed coffee filled the air, an alluring representative of the city's soul. Emily, the barista, welcomed patrons with a radiant and cheerful smile, adding a comforting touch to the cafÃ©'s inviting ambiance. Her charisma attracted both locals and foreigners, shining like stars in the night sky as she expertly crafted beverages. Initially, Evan was merely another customer. However, frequent visits spurred by the cafÃ©'s charm and Emily's engaging demeanor led him to become a regular. Their conversations evolved from trivialities to deeper topics, such as dreams, aspirations, and shared senses of humor. Emily helped Evan rediscover a long-forgotten side of himself, something he hadn't experienced in quite some time - undivided attention during their meetings. Though deeply connected to his past, Evan remained anchored, bound by the wedding ring adorning his finger, symbolizing a sacred vow and a constant reminder of the life he had constructed before embarking on this new journey. He navigated the complex emotions in his marriage, resonating with the harmonious melody of a symphony as he explored a rich tapestry of feelings, all while maintaining his commitment. As he prepared to bid farewell, Evan visited the cafÃ© one last time, tearfully saying goodbye. A poignant silence settled between them, communicating more than words ever could. Aware that their relationship represented a transient moment within the larger scope of life, they cherished the profound bond formed, a brief yet meaningful connection etched in the grand narrative of existence. With a heart full of gratitude, Evan departed from Paris, enriched in spirit and abundant with memories, forever indebted to an unexpected encounter that had breathed new life into his world. Emily, the Parisian barista, would perpetually occupy a special place in his heart, an eternal embodiment of happiness."""
 
-
-    # distinguisher analysis
-
     distinguisher = Distinguisher(cfg.generator_args)
 
     evaluation_1_3_first = distinguisher.evaluate(response_1, response_2, response_1_perturbed_first)
@@ -144,4 +146,3 @@ def test(cfg):
 if __name__ == "__main__":
     test()
 
-# Sample Output

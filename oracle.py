@@ -11,32 +11,32 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain.globals import set_debug; set_debug(True)
+# from langchain.globals import set_debug; set_debug(True)
 
 import os
 import logging
 import hydra
 
 from model_builders.pipeline import PipeLineBuilder
-from utils import read_text_file
+from utils import read_text_file, extract_response_info, add_prefix_to_keys
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-class CompareRankAnswer(BaseModel):
+class RankAnswer(BaseModel):
     analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
     ranking:   dict = Field(description="An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.")
 
-class CompareTogetherAnswer(BaseModel):
+class JointAnswer(BaseModel):
     analysis:          str = Field(description="A string that describes the reasoning behind your scores for each answer.")
     assistant_1_score: int = Field(description="An integer score for assistant 1's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
     assistant_2_score: int = Field(description="An integer score for assistant 2's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
 
-class CompareRelativeAnswer(BaseModel):
+class RelativeAnswer(BaseModel):
     analysis:  str = Field(description="A string that describes the reasoning behind your answer for which response is best or why they are the same.")
     answer:    str = Field(description="A string summary describing whether response A is better, the same, or worse than response B.")
 
-class RateSoloAnswer(BaseModel):
+class SoloAnswer(BaseModel):
     analysis: str = Field(description="A string that describes the reasoning behind your answer for score.")
     score:    str = Field(description="An integer score for the response.")
 
@@ -134,7 +134,7 @@ class RankOracle(Oracle):
         
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=CompareRankAnswer),
+            parser=PydanticOutputParser(pydantic_object=RankAnswer),
             llm=self.pipeline.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
@@ -215,7 +215,11 @@ class RankOracle(Oracle):
         elif (original_label == original_pred) or (followup_label == followup_pred):
             pred_correct = 0.5 # one was correct, but some positional bias was present
 
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
         original.update({
+            **followup,
             "original_label": original_label,
             "followup_label": followup_label,
             "original_pred": original_pred, 
@@ -226,14 +230,14 @@ class RankOracle(Oracle):
         return original
 
 
-class TogetherOracle(Oracle):
+class JointOracle(Oracle):
 
     def __init__(self, cfg, pipeline=None) -> None:
         super().__init__(cfg, pipeline)
         
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=CompareTogetherAnswer),
+            parser=PydanticOutputParser(pydantic_object=JointAnswer),
             llm=self.pipeline.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
@@ -264,7 +268,7 @@ class TogetherOracle(Oracle):
 
         self.chain = self.prompt | self.pipeline | self.output_parser
 
-        log.info(f"Initialized RankOracle with cfg={cfg}")
+        log.info(f"Initialized JointOracle with cfg={cfg}")
 
     def evaluate(self, instruction, output_1, output_2, **kwargs):
         # Prepare Input
@@ -323,7 +327,11 @@ class TogetherOracle(Oracle):
         elif (original_label == original_pred) or (followup_label == followup_pred):
             pred_correct = 0.5 # one was correct, but some positional bias was present
 
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
         original.update({
+            **followup, 
             "original_label": original_label,
             "followup_label": followup_label,
             "original_pred": original_pred, 
@@ -334,90 +342,56 @@ class TogetherOracle(Oracle):
         return original
 
 class RelativeOracle(Oracle):
-    def evaluate(self, instruction, output_1, output_2, **kwargs):
-        # Implementation specific to relative evaluation
-        pass
 
-class SoloOracle(Oracle):
-    def evaluate(self, instruction, output_1, output_2=None, **kwargs):
-        # Implementation specific to solo evaluation
-        pass
-
-    
-class Oracle:
     def __init__(self, cfg, pipeline=None) -> None:
-
-        self.cfg = cfg # config.oracle_args
-        self.pipeline = pipeline
-        self.template = self.cfg.template
-
-        # Model Pipeline
-        if not isinstance(self.pipeline, PipeLineBuilder):
-            log.info("Initializing a new Oracle pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg)
-
-        # Initialize_chain
-        self.init_chain(self.template)
-
-    def init_chain(self, template):
-
-        # (Re)Set template
-        self.template = template
-
-        # Variables that change depdending on the type of template
-        self.pydantic_object = None
-        self.answer_key = []
-        self.eval_separate = False
-        self.input_variables = ["instruction", "output_1", "output_2"]
-
-        # Output Parser
-        if "rank" in self.cfg.template:
-            self.pydantic_object = CompareRankAnswer
-
-        elif "compare_rate_together" in self.cfg.template:
-            self.pydantic_object = CompareTogetherAnswer
-            self.answer_key = ["assistan_1_score", "assistan_2_score"]
-        elif "relative"  in self.cfg.template:
-            self.pydantic_object = CompareRelativeAnswer
-            self.answer_key = ["answer"]
-        elif "rate" in self.cfg.template:
-            self.pydantic_object = RateSoloAnswer
-            self.answer_key = ["score"]
-            self.eval_separate = True
-            self.input_variables.pop("output_2")
-        else:
-            raise ValueError(f"Invalid template selected! See {self.cfg.template_dir} for options...")
-
+        
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=self.pydantic_object),
+            parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
             llm=self.pipeline.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        # Prompt 
-        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{template}.txt"))
-        self.prompt = PromptTemplate(
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
             template=self.instructions,
             template_format='jinja2',
-            input_variables=self.input_variables,
-            # partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
+            input_variables=["instruction", "output_1", "output_2"],
         )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
 
-        # Chain
         self.chain = self.prompt | self.pipeline | self.output_parser
 
+        log.info(f"Initialized RelativeOracle with cfg={cfg}")
 
-    def compare_solo(self, instruction, output_1, output_2, **kwargs):
-        out_1 = self.invoke_solo(instruction, output_1)
-        out_2 = self.invoke_solo(instruction, output_2)
-        return out_1, out_2
-
-    def invoke_solo(self, instruction, output_1, **kwargs):
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
         # Prepare Input
         dict_input = {
             "instruction": instruction, 
-            "output_1": output_1
+            "output_1": output_1,
+            "output_2": output_2
         }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
         pydantic_output = self.chain.invoke(dict_input)
@@ -431,15 +405,126 @@ class Oracle:
         })
         return dict_output
 
+    def extract_label(self, evaluation):
+        eval_key = "answer"
+        response, status = extract_response_info(evaluation[eval_key])
+        response = response.lower()
+        log.info(f"Parsed values: {response, status}")
+        if "3" in self.cfg.template:
+            if "better" in status:
+                return 1
+            elif "similar" in status:
+                return 3
+            elif "worse" in status:
+                return 5
+            else:
+                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
+                log.info(f"Invalid parsed values: {response, status}")
+                return -1
+        elif "5" in self.cfg.template:
+            if "much better" in status:
+                return 1
+            if "a little better" in status:
+                return 2
+            elif "similar" in status:
+                return 3
+            elif "a little worse" in status:
+                return 4
+            elif "much worse" in status:
+                return 5
+            else:
+                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
+                log.info(f"Invalid parsed values: {response, status}")
+                return -1
 
-    def check_oracle(self, instruction, output_1, output_2, **kwargs):
+    def test(self, instruction, output_1, output_2, label, **kwargs):
 
+        if "3" in self.cfg.template:
+            original_label = numerize_label(downscale_label(label))
+            followup_label = numerize_label(downscale_label(invert_label(label)))
+        elif "5" in self.cfg.template:
+            original_label = numerize_label(label)
+            followup_label = numerize_label(invert_label(label))
+        else:
+            raise ValueError("Invalid template name, should specify '3' or '5' choices! e.g. 'relative.sandpaper.3'")
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({
+            **followup,
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
+
+class SoloOracle(Oracle):
+ 
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=SoloAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized SoloOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2=None, **kwargs):
         # Prepare Input
         dict_input = {
             "instruction": instruction, 
             "output_1": output_1,
-            "output_2": output_2
+            # "output_2": output_2
         }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
         pydantic_output = self.chain.invoke(dict_input)
@@ -448,31 +533,77 @@ class Oracle:
         dict_output = pydantic_output.dict()
         dict_output.update({
             **dict_input,
+            **kwargs,
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            **kwargs
         })
         return dict_output
 
-    def evaluate(self, instruction, output_1, output_2, **kwargs):
-        retry_count = 0
-        while retry_count < self.cfg.num_retries:
-            try:
-                # Run twice to offset positional bias
-                original = self.check_oracle(instruction, output_1, output_2, **kwargs)
-                # log.info(original)
-                followup = self.check_oracle(instruction, output_2, output_1, **kwargs)
-                # log.info(followup)
-                if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
-                    original.update({"is_quality_preserved": True})
-                else:
-                    original.update({"is_quality_preserved": False})
-                return original
-            except Exception:
-                retry_count += 1
-                log.info(f"Failed to produce a valid evaluation, trying again...")
-                if retry_count >= self.cfg.num_retries:
-                    log.info(f"Failed to produce a valid evaluation after {retry_count} tries.")
-                    log.info(traceback.format_exc())
+    def extract_label(self, evaluation):
+        eval_key = "score"
+        output_score = int(evaluation[eval_key])
+        return output_score
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        label = numerize_label(label)
+
+        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
+        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
+
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)       
+        
+        diff = output_1_score - output_2_score 
+
+        # derive label
+        pred = -1
+        if 5 <= diff <= 10: # output 1 is much better than output_2
+            pred =  1
+        elif 2 <= diff <= 5: # output 1 is slightly better than output_2
+            pred =  2
+        elif -2 <= diff <= 2:  # output 1 is about the same as output_2
+            pred = 3
+        elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
+            pred = 4
+        elif -5 <= diff <= -10: # output 1 is much worse than output_2
+            pred = 5
+
+        # assign correctness points
+        pred_correct = 0
+        if (label == pred):
+            pred_correct = 1 
+
+        # prepare output
+        output_1_evaluation = add_prefix_to_keys(output_1_evaluation, "output_1_")
+        output_2_evaluation = add_prefix_to_keys(output_2_evaluation, "output_2_")
+        output_1_evaluation.update({
+            **output_2_evaluation, 
+            "label": label,
+            "pred": pred, 
+            "pred_correct": pred_correct,
+        })
+
+        return output_1_evaluation
+
+# def evaluate(self, instruction, output_1, output_2, **kwargs):
+#     retry_count = 0
+#     while retry_count < self.cfg.num_retries:
+#         try:
+#             # Run twice to offset positional bias
+#             original = self.check_oracle(instruction, output_1, output_2, **kwargs)
+#             # log.info(original)
+#             followup = self.check_oracle(instruction, output_2, output_1, **kwargs)
+#             # log.info(followup)
+#             if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
+#                 original.update({"is_quality_preserved": True})
+#             else:
+#                 original.update({"is_quality_preserved": False})
+#             return original
+#         except Exception:
+#             retry_count += 1
+#             log.info(f"Failed to produce a valid evaluation, trying again...")
+#             if retry_count >= self.cfg.num_retries:
+#                 log.info(f"Failed to produce a valid evaluation after {retry_count} tries.")
+#                 log.info(traceback.format_exc())
 
 
 
@@ -485,30 +616,41 @@ def test(cfg):
     os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
-        "rate_additive",
-        "rate.lmsys.ia",
-        "rate.lmsys.ib",
-        "rank.alpaca_eval", 
-        "compare.lmsys.ia",
-        "compare.lmsys.ib",
-        "compare.sandpaper.3",
-        "compare.sandpaper.5",
+        # ("rate.self-reward", SoloOracle), 
+        ("rate.lmsys.ia", SoloOracle), 
+        ("rate.lmsys.ib", SoloOracle), 
+        ("rank.alpaca_eval", RankOracle), 
+        ("compare.lmsys.ia", JointOracle), 
+        ("compare.lmsys.ib", JointOracle), 
+        ("relative.sandpaper.3", RelativeOracle), 
+        ("relative.sandpaper.5", RelativeOracle), 
     ]
 
-    tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv").head(1)
+    tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv")
 
-    # oracle = RankOracle(cfg.oracle_args)
-    oracle = TogetherOracle(cfg.oracle_args)
+    for template, Oracle in templates:
+        cfg.oracle_args.template = template
+        oracle = Oracle(cfg.oracle_args)
 
-    for index, row in tests_df.iterrows():
-        dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
-        print(dict_output)
-    
-    # for template in templates:
-    #     oracle.init_chain(template)
-    #     for index, row in tests_df.iterrows():
-    #         dict_output = oracle.check_oracle(row["instruction"], row["output_1"], row["output_2"])
-    #         print(dict_output)
+        results = []
+        for index, row in tests_df.iterrows():
+            try:
+                dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
+            except:
+                log.info(f"Test crashed for {row} on template={template}")
+                dict_output = {
+                    "instruction": row["instruction"], 
+                    "output_1": row["output_1"], 
+                    "output_2": row["output_2"], 
+                    "label": row['label']
+                }
+            
+            log.info(dict_output)
+            results.append(dict_output)
+
+            # (inefficient) incremental saving...
+            df = pd.DataFrame(results)
+            df.to_csv(f"./results/oracle_tests_{template}.csv")
 
 if __name__ == "__main__":
     test()

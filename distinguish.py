@@ -62,23 +62,14 @@ Answer:""")
 Response: {{response}}
                                                    
 Read the above the response given by another LLM. Does the LLM think Story A was created from Story 1 or Story 2?
-                                  
-```json
-{
-    "answer": <int> [Insert either 1 or 2]
-}
-```
                                                    
-[/INST]
-
-Answer:""")
+[/INST]""")
         
         self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
         
         self.second_prompt = PromptTemplate(
             template=self.second_instructions,
             input_variables=["response"],
-
         )
 
         self.second_chain = self.second_prompt | self.pipeline | self.second_output_parser

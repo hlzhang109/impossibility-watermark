@@ -53,7 +53,7 @@ def distinguish(response_1, response_2, perturbed, num_repetitions):
 
     decision_count = Counter(decisions)
     logging.info("Decision count: %s", decision_count)
-
+    
     threshold = int(num_repetitions * 0.3)
     
     return 1 if decision_count[1] >= threshold else 2

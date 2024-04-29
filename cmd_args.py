@@ -28,6 +28,7 @@ def get_cmd_args():
     parser.add_argument('--int8', action='store_true')
     parser.add_argument('--half', action='store_true')
     parser.add_argument('--buffer_size', type=int, default=1)
+    parser.add_argument('--random_fills', type=bool, default=False)
     # parser.add_argument('--perturb_type', type=str, default="mask", help="t5 or mask")
     args = parser.parse_args()
     return args

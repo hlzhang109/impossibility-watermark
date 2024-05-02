@@ -106,7 +106,11 @@ def main():
     response_1, perturbed_1 = get_response_and_perturbed(args.entropy, args.output_1, args.attack_id_1, args.mutation_num)
     response_2, perturbed_2 = get_response_and_perturbed(args.entropy, args.output_2, args.attack_id_2, args.mutation_num)
 
+<<<<<<< HEAD
     distinguisher = partial(distinguish, match, response_1, response_2, num_repetitions=args.num_repetitions)
+=======
+    distinguisher = partial(distinguish, response_1, response_2, num_repetitions=args.num_repetitions)
+>>>>>>> 18d33bfeda8e55bdfc61aa63a6f1b788a6a821ea
 
     run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(args.num_trials)]
 

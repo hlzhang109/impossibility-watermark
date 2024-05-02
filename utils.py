@@ -154,3 +154,5 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     }]
     
     return perturbation_stats
+
+

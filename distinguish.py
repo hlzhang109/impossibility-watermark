@@ -65,14 +65,14 @@ Read the above the response given by another LLM. Does the LLM think Story A was
                                                    
 [/INST]""")
         
-        self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
+        # self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
         
         self.second_prompt = PromptTemplate(
             template=self.second_instructions,
             input_variables=["response"],
         )
 
-        self.second_chain = self.second_prompt | self.pipeline | self.second_output_parser
+        self.second_chain = self.second_prompt | self.pipeline
 
     def evaluate(self, story_1, story_2, story_a, **kwargs):
         # Prepare Input
@@ -91,10 +91,11 @@ Read the above the response given by another LLM. Does the LLM think Story A was
             "response": response,
         }
 
-        pydantic_output = self.second_chain.invoke(dict_input)
-        dict_output = pydantic_output.dict()
+        output = self.second_chain.invoke(dict_input)
 
-        return dict_output['answer']
+        log.info(f"Final Output: {output}")
+
+        return output
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")

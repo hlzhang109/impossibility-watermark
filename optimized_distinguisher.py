@@ -6,6 +6,9 @@ import textwrap
 from functools import partial
 from utils import query_openai_with_history, get_prompt_or_output, get_watermarked_text, get_nth_successful_perturbation
 from dotenv import load_dotenv, find_dotenv
+from distinguish import Distinguisher
+import hydra
+from omegaconf import DictConfig, OmegaConf
 
 load_dotenv(find_dotenv())
 
@@ -22,7 +25,7 @@ make a decision.""")
 
     return prompt_1, prompt_2
 
-def match(response_1, response_2, perturbed):
+def gpt4matcher(response_1, response_2, perturbed):
     prompt_1, prompt_2 = generate_comparison_prompts(response_1, response_2, perturbed)
 
     for _ in range(3):
@@ -40,7 +43,7 @@ def match(response_1, response_2, perturbed):
     # If no valid decision is made after 3 trials, return 0
     return 0
 
-def distinguish(match ,response_1, response_2, perturbed, num_repetitions):
+def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
     regular_match = lambda: match(response_1, response_2, perturbed)
 
     # Adjust the response of the flipped match function using cool functional programming
@@ -72,53 +75,45 @@ def get_response_and_perturbed(entropy, output_num, attack_id, mutation_num):
 
     return response, perturbed
 
-def main():
-    parser = argparse.ArgumentParser(description="Distinguish perturbed responses.")
-    parser.add_argument("entropy", type=int, help="Entropy value")
-    parser.add_argument("output_1", type=int, help="First output number")
-    parser.add_argument("attack_id_1", type=str, help="First attack ID")
-    parser.add_argument("output_2", type=int, help="Second output number")
-    parser.add_argument("attack_id_2", type=str, help="Second attack ID")
-    parser.add_argument("--log_suffix", type=str, required=False, default="",help="Log suffix")
-    parser.add_argument("--num_trials", type=int, required=False, default=10, help="Number of trials")
-    parser.add_argument("--num_repetitions", type=int, required=False, default=5, help="Number of repetitions for the distinguisher")
-    parser.add_argument("--mutation_num", type=int, required=False, default = -1, help="The nth successful mutation.")
-
-    args = parser.parse_args()
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def main(cfg):
+    print(OmegaConf.to_yaml(cfg))
 
     # Construct log filename based on command line arguments
-    log_filename = f"./results/stationary_distribution/robustness_analysis/entropy_{args.entropy}/distinguisher_results/{args.output_1}_{args.attack_id_1}-{args.output_2}_{args.attack_id_2}{args.log_suffix}.log"
+    log_filename = f"./results/stationary_distribution/robustness_analysis/entropy_{cfg.entropy}/distinguisher_results/{cfg.output_1}_{cfg.attack_id_1}-{cfg.output_2}_{cfg.attack_id_2}{cfg.log_suffix}.log"
 
     # Configure logging to dynamically created filename
     logging.basicConfig(filename=log_filename, level=logging.INFO, 
                         format='%(asctime)s:%(levelname)s:%(message)s')
 
     # Log script arguments
-    args_dict = vars(args)
-    args_str = ', '.join(f"{key}={value}" for key, value in args_dict.items())
-    logging.info(f"Script arguments: {args_str}")
+    cfg_dict = vars(cfg)
+    cfg_str = ', '.join(f"{key}={value}" for key, value in cfg_dict.items())
+    logging.info(f"Configuration: {cfg_str}")
     
     # Old distinguisher used the prompt, so these are here.
     # prompts_file_path = './inputs/dynamic_prompts.csv'
     # prompt = get_prompt_or_output(prompts_file_path, args.entropy) 
     
     # Get Perturbed Versions
-    response_1, perturbed_1 = get_response_and_perturbed(args.entropy, args.output_1, args.attack_id_1, args.mutation_num)
-    response_2, perturbed_2 = get_response_and_perturbed(args.entropy, args.output_2, args.attack_id_2, args.mutation_num)
+    response_1, perturbed_1 = get_response_and_perturbed(cfg.entropy, cfg.output_1, cfg.attack_id_1, cfg.mutation_num)
+    response_2, perturbed_2 = get_response_and_perturbed(cfg.entropy, cfg.output_2, cfg.attack_id_2, cfg.mutation_num)
 
-<<<<<<< HEAD
-    distinguisher = partial(distinguish, match, response_1, response_2, num_repetitions=args.num_repetitions)
-=======
-    distinguisher = partial(distinguish, response_1, response_2, num_repetitions=args.num_repetitions)
->>>>>>> 18d33bfeda8e55bdfc61aa63a6f1b788a6a821ea
+    if cfg.matcher == "gpt4":
+        matcher = gpt4matcher
+    elif cfg.matcher == "local":
+        distinguisher = Distinguisher(cfg.generator_args)
+        matcher = distinguisher.match
 
-    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(args.num_trials)]
+    distinguish = partial(distinguish, matcher, response_1, response_2, num_repetitions=cfg.num_repetitions)
+
+    run_trials = lambda perturbed, answer: [distinguish(perturbed) == answer for _ in range(cfg.num_trials)]
 
     perturbed_1_trials = run_trials(perturbed_1, 1)
     perturbed_2_trials = run_trials(perturbed_2, 2)
 
-    perturbed_1_success_rate = float(sum(perturbed_1_trials))/args.num_trials
-    perturbed_2_success_rate = float(sum(perturbed_2_trials))/args.num_trials
+    perturbed_1_success_rate = float(sum(perturbed_1_trials))/cfg.num_trials
+    perturbed_2_success_rate = float(sum(perturbed_2_trials))/cfg.num_trials
 
     logging.info("Perturbed 1 success rate: %.2f%%", perturbed_1_success_rate * 100)
     logging.info("Perturbed 2 success rate: %.2f%%", perturbed_2_success_rate * 100)

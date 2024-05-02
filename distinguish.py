@@ -63,6 +63,8 @@ Response: {{response}}
                                                    
 Read the above the response given by another LLM. Does the LLM think Story A was created from Story 1 or Story 2?
                                                    
+If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story 2, respond with a 2.
+                                                   
 [/INST]""")
         
         # self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)

@@ -90,7 +90,7 @@ def get_prompt_and_completion_from_json(file_path, index):
     
     return prompt, watermarked_text
 
-def query_openai(prompt, model = "gpt-4-0125-preview", max_tokens = None):
+def query_openai(prompt, model = "gpt-4-turbo-2024-04-09", max_tokens = None):
     client = OpenAI()
 
     completion = client.chat.completions.create(
@@ -111,7 +111,7 @@ def get_completion_from_openai(prefix, max_tokens = None):
     completion = prefix + " " + completion
     return completion
 
-def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-0125-preview"):
+def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-turbo-2024-04-09"):
     client = OpenAI()
 
     completion = client.chat.completions.create(

@@ -22,7 +22,6 @@ make a decision.""")
 
     return prompt_1, prompt_2
 
-
 def match(response_1, response_2, perturbed):
     prompt_1, prompt_2 = generate_comparison_prompts(response_1, response_2, perturbed)
 

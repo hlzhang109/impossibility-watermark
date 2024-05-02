@@ -74,7 +74,7 @@ Read the above the response given by another LLM. Does the LLM think Story A was
 
         self.second_chain = self.second_prompt | self.pipeline
 
-    def evaluate(self, story_1, story_2, story_a, **kwargs):
+    def match(self, story_1, story_2, story_a, **kwargs):
         # Prepare Input
         dict_input = {
             "story_1": story_1, 
@@ -125,13 +125,13 @@ def test(cfg):
 
     distinguisher = Distinguisher(cfg.generator_args)
 
-    evaluation_1_3_first = distinguisher.evaluate(response_1, response_2, response_1_perturbed_first)
-    evaluation_1_3_last = distinguisher.evaluate(response_1, response_2, response_1_perturbed_last)
+    evaluation_1_3_first = distinguisher.match(response_1, response_2, response_1_perturbed_first)
+    evaluation_1_3_last = distinguisher.match(response_1, response_2, response_1_perturbed_last)
     print(f"evaluation_1_3_first: {evaluation_1_3_first}")
     print(f"evaluation_1_3_last: {evaluation_1_3_last}")
 
-    evaluation_2_3_first = distinguisher.evaluate(response_1, response_2, response_2_perturbed_first)
-    evaluation_2_3_last = distinguisher.evaluate(response_1, response_2, response_2_perturbed_last)
+    evaluation_2_3_first = distinguisher.match(response_1, response_2, response_2_perturbed_first)
+    evaluation_2_3_last = distinguisher.match(response_1, response_2, response_2_perturbed_last)
     print(f"evaluation_2_3_first: {evaluation_2_3_first}")
     print(f"evaluation_2_3_last: {evaluation_2_3_last}")
 

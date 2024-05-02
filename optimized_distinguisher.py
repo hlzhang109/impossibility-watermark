@@ -41,7 +41,7 @@ def match(response_1, response_2, perturbed):
     # If no valid decision is made after 3 trials, return 0
     return 0
 
-def distinguish(response_1, response_2, perturbed, num_repetitions):
+def distinguish(match ,response_1, response_2, perturbed, num_repetitions):
     regular_match = lambda: match(response_1, response_2, perturbed)
 
     # Adjust the response of the flipped match function using cool functional programming
@@ -63,6 +63,16 @@ def distinguish(response_1, response_2, perturbed, num_repetitions):
     
     return 1 if decision_count[1] >= threshold else 2
 
+def get_response_and_perturbed(entropy, output_num, attack_id, mutation_num):
+    csv_file_directory = f"results/stationary_distribution/robustness_analysis/entropy_{entropy}/"
+    
+    first_perturbed_csv_filename = f"output_{output_num}/corpuses/attack_{attack_id}.csv"
+    csv_file_path = os.path.join(csv_file_directory, first_perturbed_csv_filename)
+    response = get_watermarked_text(csv_file_path)
+    perturbed = get_nth_successful_perturbation(csv_file_path, mutation_num)
+
+    return response, perturbed
+
 def main():
     parser = argparse.ArgumentParser(description="Distinguish perturbed responses.")
     parser.add_argument("entropy", type=int, help="Entropy value")
@@ -76,55 +86,36 @@ def main():
     parser.add_argument("--mutation_num", type=int, required=False, default = -1, help="The nth successful mutation.")
 
     args = parser.parse_args()
-    
-    entropy = args.entropy
-    output_1 = args.output_1
-    attack_id_1 = args.attack_id_1
-    output_2 = args.output_2
-    attack_id_2 = args.attack_id_2
-    log_suffix = args.log_suffix
-    num_trials = args.num_trials
-    num_repetitions = args.num_repetitions
-    mutation_num = args.mutation_num
-    
+
     # Construct log filename based on command line arguments
-    log_filename = f"./results/stationary_distribution/robustness_analysis/entropy_{entropy}/distinguisher_results/{output_1}_{attack_id_1}-{output_2}_{attack_id_2}{log_suffix}.log"
-    
+    log_filename = f"./results/stationary_distribution/robustness_analysis/entropy_{args.entropy}/distinguisher_results/{args.output_1}_{args.attack_id_1}-{args.output_2}_{args.attack_id_2}{args.log_suffix}.log"
+
     # Configure logging to dynamically created filename
     logging.basicConfig(filename=log_filename, level=logging.INFO, 
                         format='%(asctime)s:%(levelname)s:%(message)s')
+
+    # Log script arguments
+    args_dict = vars(args)
+    args_str = ', '.join(f"{key}={value}" for key, value in args_dict.items())
+    logging.info(f"Script arguments: {args_str}")
     
-    prompts_file_path = './inputs/dynamic_prompts.csv'
-    prompt = get_prompt_or_output(prompts_file_path, entropy) 
+    # Old distinguisher used the prompt, so these are here.
+    # prompts_file_path = './inputs/dynamic_prompts.csv'
+    # prompt = get_prompt_or_output(prompts_file_path, args.entropy) 
     
     # Get Perturbed Versions
-    csv_file_directory = f"results/stationary_distribution/robustness_analysis/entropy_{entropy}/"
-    
-    first_perturbed_csv_filename = f"output_{output_1}/corpuses/attack_{attack_id_1}.csv"
-    csv_file_path = os.path.join(csv_file_directory, first_perturbed_csv_filename)
-    response_1 = get_watermarked_text(csv_file_path)
-    perturbed_1 = get_nth_successful_perturbation(csv_file_path, mutation_num)
-    
-    second_perturbed_csv_filename = f"output_{output_2}/corpuses/attack_{attack_id_2}.csv"
-    csv_file_path = os.path.join(csv_file_directory, second_perturbed_csv_filename)
-    response_2 = get_watermarked_text(csv_file_path)
-    perturbed_2 = get_nth_successful_perturbation(csv_file_path, mutation_num)
+    response_1, perturbed_1 = get_response_and_perturbed(args.entropy, args.output_1, args.attack_id_1, args.mutation_num)
+    response_2, perturbed_2 = get_response_and_perturbed(args.entropy, args.output_2, args.attack_id_2, args.mutation_num)
 
-    logging.info(f"Prompt: {prompt}")
-    logging.info(f"Response 1: {response_1}")
-    logging.info(f"Response 2: {response_2}")
-    logging.info(f"Perturbed 1: {first_perturbed_csv_filename}")
-    logging.info(f"Perturbed 2: {second_perturbed_csv_filename}")
+    distinguisher = partial(distinguish, match, response_1, response_2, num_repetitions=args.num_repetitions)
 
-    distinguisher = partial(distinguish, response_1, response_2, num_repetitions=num_repetitions)
-
-    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(num_trials)]
+    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(args.num_trials)]
 
     perturbed_1_trials = run_trials(perturbed_1, 1)
     perturbed_2_trials = run_trials(perturbed_2, 2)
 
-    perturbed_1_success_rate = float(sum(perturbed_1_trials))/num_trials
-    perturbed_2_success_rate = float(sum(perturbed_2_trials))/num_trials
+    perturbed_1_success_rate = float(sum(perturbed_1_trials))/args.num_trials
+    perturbed_2_success_rate = float(sum(perturbed_2_trials))/args.num_trials
 
     logging.info("Perturbed 1 success rate: %.2f%%", perturbed_1_success_rate * 100)
     logging.info("Perturbed 2 success rate: %.2f%%", perturbed_2_success_rate * 100)

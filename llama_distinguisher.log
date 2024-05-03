@@ -1,4 +1,7 @@
-[2024-05-02 17:19:43,295][root][INFO] - Configuration: attack_args:
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain/_api/module_import.py:87: LangChainDeprecationWarning: Importing GuardrailsOutputParser from langchain.output_parsers is deprecated. Please replace the import with the following:
+from langchain_community.output_parsers.rail_parser import GuardrailsOutputParser
+  warnings.warn(
+[2024-05-02 23:28:21,198][root][INFO] - Configuration: attack_args:
   prompt: null
   prompt_file: ./inputs/dynamic_prompts.csv
   prompt_num: 6
@@ -92,30 +95,20 @@ distinguisher:
   mutation_num: -1
   matcher: local
 
-[2024-05-02 17:19:43,432][distinguish][INFO] - Initializing a new Distinguisher pipeline from cfg...
-[2024-05-02 17:19:43,432][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
-[2024-05-02 17:19:43,591][datasets][INFO] - PyTorch version 2.2.1 available.
+[2024-05-02 23:28:21,353][distinguish][INFO] - Initializing a new Distinguisher pipeline from cfg...
+[2024-05-02 23:28:21,354][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Error executing job with overrides: ['+distinguisher=local_distinguisher']
 Traceback (most recent call last):
-  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 114, in <module>
-    main()
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/main.py", line 94, in decorated_main
-    _run_hydra(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
-    _run_app(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 457, in _run_app
-    run_and_report(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
-    return func()
-           ^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
-    lambda: hydra.run(
-            ^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/hydra.py", line 119, in run
-    ret = run_job(
-          ^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/core/utils.py", line 186, in run_job
-    ret.return_value = task_function(task_cfg)
-                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/importlib/metadata/__init__.py", line 397, in from_name
+    return next(cls.discover(name=name))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 95, in main
     distinguisher_object = Distinguisher(cfg.generator_args)
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -128,15 +121,17 @@ Traceback (most recent call last):
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 566, in from_pretrained
     return model_class.from_pretrained(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modeling_utils.py", line 3751, in from_pretrained
-    ) = cls._load_pretrained_model(
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4185, in _load_pretrained_model
-    new_error_msgs, offload_index, state_dict_index = _load_state_dict_into_meta_model(
-                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modeling_utils.py", line 792, in _load_state_dict_into_meta_model
-    set_module_tensor_to_device(model, param_name, param_device, **set_module_kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/utils/modeling.py", line 387, in set_module_tensor_to_device
-    new_value = value.to(device)
-                ^^^^^^^^^^^^^^^^
-KeyboardInterrupt
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modeling_utils.py", line 3055, in from_pretrained
+    gptq_supports_cpu = version.parse(importlib.metadata.version("auto-gptq")) > version.parse("0.4.2")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/importlib/metadata/__init__.py", line 888, in version
+    return distribution(distribution_name).version
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/importlib/metadata/__init__.py", line 861, in distribution
+    return Distribution.from_name(distribution_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/importlib/metadata/__init__.py", line 399, in from_name
+    raise PackageNotFoundError(name)
+importlib.metadata.PackageNotFoundError: No package metadata was found for auto-gptq
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

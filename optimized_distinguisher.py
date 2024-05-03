@@ -44,11 +44,11 @@ def gpt4matcher(response_1, response_2, perturbed):
     return 0
 
 def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
-    regular_match = lambda: match(response_1, response_2, perturbed)
+    regular_match = lambda: matcher(response_1, response_2, perturbed)
 
     # Adjust the response of the flipped match function using cool functional programming
     handle_flipped = lambda x: 2 if x == 1 else 1 if x == 2 else x
-    flipped_match = lambda: handle_flipped(match(response_2, response_1, perturbed))
+    flipped_match = lambda: handle_flipped(matcher(response_2, response_1, perturbed))
 
     decisions = [func() for i in range(num_repetitions) for func in (regular_match, flipped_match)]
     logging.info("Decisions recorded: %s", decisions)
@@ -77,43 +77,33 @@ def get_response_and_perturbed(entropy, output_num, attack_id, mutation_num):
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
-    print(OmegaConf.to_yaml(cfg))
-
-    # Construct log filename based on command line arguments
-    log_filename = f"./results/stationary_distribution/robustness_analysis/entropy_{cfg.entropy}/distinguisher_results/{cfg.output_1}_{cfg.attack_id_1}-{cfg.output_2}_{cfg.attack_id_2}{cfg.log_suffix}.log"
-
-    # Configure logging to dynamically created filename
-    logging.basicConfig(filename=log_filename, level=logging.INFO, 
-                        format='%(asctime)s:%(levelname)s:%(message)s')
-
     # Log script arguments
-    cfg_dict = vars(cfg)
-    cfg_str = ', '.join(f"{key}={value}" for key, value in cfg_dict.items())
-    logging.info(f"Configuration: {cfg_str}")
+    # TODO: You can already read this from Hydra actually.
+    logging.info(f"Configuration: {OmegaConf.to_yaml(cfg)}")
     
     # Old distinguisher used the prompt, so these are here.
     # prompts_file_path = './inputs/dynamic_prompts.csv'
     # prompt = get_prompt_or_output(prompts_file_path, args.entropy) 
     
     # Get Perturbed Versions
-    response_1, perturbed_1 = get_response_and_perturbed(cfg.entropy, cfg.output_1, cfg.attack_id_1, cfg.mutation_num)
-    response_2, perturbed_2 = get_response_and_perturbed(cfg.entropy, cfg.output_2, cfg.attack_id_2, cfg.mutation_num)
+    response_1, perturbed_1 = get_response_and_perturbed(cfg.distinguisher.entropy, cfg.distinguisher.output_1, cfg.distinguisher.attack_id_1, cfg.distinguisher.mutation_num)
+    response_2, perturbed_2 = get_response_and_perturbed(cfg.distinguisher.entropy, cfg.distinguisher.output_2, cfg.distinguisher.attack_id_2, cfg.distinguisher.mutation_num)
 
-    if cfg.matcher == "gpt4":
+    if cfg.distinguisher.matcher == "gpt4":
         matcher = gpt4matcher
-    elif cfg.matcher == "local":
-        distinguisher = Distinguisher(cfg.generator_args)
-        matcher = distinguisher.match
+    elif cfg.distinguisher.matcher == "local":
+        distinguisher_object = Distinguisher(cfg.generator_args)
+        matcher = distinguisher_object.match
 
-    distinguish = partial(distinguish, matcher, response_1, response_2, num_repetitions=cfg.num_repetitions)
+    distinguisher = partial(distinguish, matcher, response_1, response_2, num_repetitions=cfg.distinguisher.num_repetitions)
 
-    run_trials = lambda perturbed, answer: [distinguish(perturbed) == answer for _ in range(cfg.num_trials)]
+    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(cfg.distinguisher.num_trials)]
 
     perturbed_1_trials = run_trials(perturbed_1, 1)
     perturbed_2_trials = run_trials(perturbed_2, 2)
 
-    perturbed_1_success_rate = float(sum(perturbed_1_trials))/cfg.num_trials
-    perturbed_2_success_rate = float(sum(perturbed_2_trials))/cfg.num_trials
+    perturbed_1_success_rate = float(sum(perturbed_1_trials))/cfg.distinguisher.num_trials
+    perturbed_2_success_rate = float(sum(perturbed_2_trials))/cfg.distinguisher.num_trials
 
     logging.info("Perturbed 1 success rate: %.2f%%", perturbed_1_success_rate * 100)
     logging.info("Perturbed 2 success rate: %.2f%%", perturbed_2_success_rate * 100)

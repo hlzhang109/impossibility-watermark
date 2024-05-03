@@ -1,7 +1,10 @@
 defaults:
     - _self_
-    - distinguish: distinguish
+    - distinguisher: distinguisher
     - watermark_args: umd
+    - attack_args: mixtral_regular_attack
+    - generator_args: llama3_gptq
+    - oracle_args: llama3_gptq
 
 attack_args:
     # prompt: "Provide a straightforward description of the Eiffel Tower's physical features without using complex or elaborate language."
@@ -20,9 +23,11 @@ attack_args:
     save_name: null # if None, it defaults to attack_{timestamp}.csv
     use_watermark: False # when running with GPT-4, disregard the watermark
     backtrack_patience: 50
+    # For completions
     is_completion: False
     json_path: null
     json_index: 0
+    # For continuations
     is_continuation: False
     prev_csv_file: null # If you're running a continuation, this should be the name of the previous CSV file.
     cuda: "1"

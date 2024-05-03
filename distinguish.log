@@ -1,54 +1,405 @@
-[2024-05-02 13:33:41,495][__main__][INFO] - Initializing a new Distinguisher pipeline from cfg...
-[2024-05-02 13:33:41,495][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
-[2024-05-02 13:33:42,180][datasets][INFO] - PyTorch version 2.2.1 available.
-[2024-05-02 13:33:49,384][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-02 16:46:40,593][root][INFO] - Configuration: attack_args:
+  prompt: null
+  prompt_file: ./inputs/dynamic_prompts.csv
+  prompt_num: 4
+  watermarked_text: null
+  watermarked_text_path: null
+  watermarked_text_num: 1
+  num_steps: 2000
+  patience: 250
+  stop_at_removal: false
+  num_successful_steps: 100
+  results_dir: null
+  model_cache_dir: ./.cache
+  save_name: null
+  use_watermark: false
+  backtrack_patience: 50
+  is_completion: false
+  json_path: null
+  json_index: 0
+  is_continuation: false
+  prev_csv_file: null
+  cuda: '1'
+generator_args:
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: auto
+  trust_remote_code: true
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  repetition_penalty: 1.1
+  watermark_score_threshold: 5.0
+  cuda: ${attack_args.cuda}
+oracle_args:
+  num_retries: 5
+  use_system_profile: true
+  system_profile: You are an impartial judge tasked to evaluate the quality of two
+    prompt responses.
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: ${generator_args.device_map}
+  trust_remote_code: ${generator_args.trust_remote_code}
+  max_new_tokens: ${generator_args.max_new_tokens}
+  do_sample: ${generator_args.do_sample}
+  temperature: ${generator_args.temperature}
+  top_p: ${generator_args.top_p}
+  top_k: ${generator_args.top_k}
+  repetition_penalty: ${generator_args.repetition_penalty}
+  cuda: ${attack_args.cuda}
+  is_completion: ${attack_args.is_completion}
+mutator_args:
+  use_old_mutator: false
+  use_system_profile: true
+  system_profile: You are a copy editor tasked to enforce text quality.
+  num_retries: 5
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: ${generator_args.device_map}
+  trust_remote_code: ${generator_args.trust_remote_code}
+  max_new_tokens: ${generator_args.max_new_tokens}
+  do_sample: ${generator_args.do_sample}
+  temperature: ${generator_args.temperature}
+  top_p: ${generator_args.top_p}
+  top_k: ${generator_args.top_k}
+  repetition_penalty: ${generator_args.repetition_penalty}
+  cuda: ${attack_args.cuda}
+  use_pydantic_parser: false
+distinguisher:
+  entropy: 1
+  output_1: 1
+  attack_id_1: 5
+  output_2: 3
+  attack_id_2: 1
+  log_suffix: mixtral
+  num_trials: 10
+  num_repetitions: 5
+  mutation_num: -1
+  matcher: local
+watermark_args:
+  name: umd
+  gamma: 0.25
+  delta: 2.0
+  seeding_scheme: selfhash
+  ignore_repeated_ngrams: true
+  normalizers: []
+  z_threshold: 0.5
+  device: cuda
+
+[2024-05-02 16:46:40,730][distinguish][INFO] - Initializing a new Distinguisher pipeline from cfg...
+[2024-05-02 16:46:40,730][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+[2024-05-02 16:46:40,889][datasets][INFO] - PyTorch version 2.2.1 available.
 /local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/_api/deprecation.py:117: LangChainDeprecationWarning: The function `__call__` was deprecated in LangChain 0.1.7 and will be removed in 0.2.0. Use invoke instead.
   warn_deprecated(
 /local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/utils.py:1547: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
   warnings.warn(
-[2024-05-02 13:35:24,357][__main__][INFO] - Analysis:  Based on the information provided, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2. The descriptions of both stories are too brief and lack specific details that could be used to make a comparison between them and Story A.
+[2024-05-02 16:48:57,951][distinguish][INFO] - Analysis:  Based on the information provided, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2, as there are no explicit clues given regarding specific details that could help distinguish between the two original stories. In order to make an informed decision, additional context or specific points of comparison between the stories would be necessary.
 
-In order to make an informed decision, we would need more detailed information about each story's plot, characters, setting, and themes. For example, if Story A had a character who first appeared in Story 1 but not in Story 2, this would suggest that Story A was based on Story 1. Similarly, if Story A shared a particular theme with Story 1 but not Story 2, this would also suggest that Story A was based on Story 1.
+However, I can provide a general framework for how to approach this question:
 
-However, even with more detailed information, it is still possible that Story A was not directly based on either Story 1 or Story 2 but rather drew inspiration from both. In this case, it may be difficult to determine which story served as the primary source of inspiration.
+1. Identify unique elements: Look for distinctive details, characters, or events that appear only in one of the original stories (Story 1 or Story 2) but not in the other. These unique elements may help you determine which story served as the basis for Story A.
+2. Compare plot structure: Examine the sequence of events in both original stories and compare them to Story A. If Story A follows a similar progression of events as either Story 1 or Story 2, this might suggest that it is based on that particular story.
+3. Analyze character development: Consider how characters evolve throughout each story and compare these developments with those in Story A. If certain characters from either Story 1 or Story 2 undergo similar transformations in Story A, this could indicate a connection between the two.
+4. Evaluate tone and style: Assess the mood, theme, and writing style of both original stories and compare them with Story A. If Story A shares similar characteristics with one of the original stories, this might strengthen the case for it being derived from that story.
+5. Consider potential modifications: Finally, think about how Story A might have been modified from either Story 1 or Story 2. Were scenes added, removed, or altered? If so, analyzing these changes could provide clues about the source material.
 
-Therefore, without further information, it is not possible to provide a definitive answer to this question.
-[2024-05-02 13:35:30,660][__main__][INFO] - Final Output:  Based on the information provided, it is not explicitly stated which story, Story 1 or Story 2, the LLM believes Story A was created from. The LLM's response focuses on analyzing the similarities and differences between Story A and both Story 1 and Story 2, without making a definitive conclusion. To determine whether the LLM thinks Story A was created from Story 1 or Story 2, additional context or clarification may be required.
-[2024-05-02 13:35:58,018][__main__][INFO] - Analysis:  Based on the provided information, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2, as there are no specific details or clues given about the content of the stories. To answer this question accurately, we would need more context about the theme, plot, characters, and other story elements present in Stories 1 and 2, compared with Story A.
+Without more information, however, it remains uncertain whether Story A was created by modifying Story 1 or Story 2.
+[2024-05-02 16:49:03,732][distinguish][INFO] - Final Output:  I cannot provide an answer without knowing the content of Story 1 and Story 2. However, if you provide me with the necessary information, I can determine which story the LLM's response is more closely related to.
+[2024-05-02 16:49:47,081][distinguish][INFO] - Analysis:  I cannot definitively determine whether Story A is derived from Story 1 or Story 2 without more information. However, I can provide an approach to analyze the relationship between these stories based on given or potential shared elements.
 
-For example, if Story A shares more similarities with Story 1 in terms of character development, setting, and major events but has some unique additions that differentiate it from the original, then it's likely that Story A is a modified version of Story 1. On the other hand, if Story A aligns more closely with Story 2, with added twists or subplots, then it probably originated from modifying Story 2.
+To make an informed decision, consider comparing Story A with both Story 1 and Story 2 individually, focusing on specific details such as characters, plot points, settings, and writing style. Here's how you could proceed:
 
-In order to make an informed decision, you should compare and contrast Story A against both Story 1 and Story 2, looking at factors such as:
+1. Identify common elements: List all the significant components that appear in each story, including main and secondary characters, major plot events, symbolism, or recurring motifs.
+2. Analyze differences: Note any discrepancies in character development, sequencing of events, or presentation of ideas. These differences will be crucial in determining which original story (Story 1 or Story 2) served as the basis for Story A.
+3. Evaluate complexity: Determine if Story A exhibits more intricacy or depth than either of the other two stories. If so, it may signify that Story A has been developed further after being derived from its source material.
+4. Assess modifications: Consider what aspects of Story 1 or Story 2 have been altered, added, or removed to create Story A. This might include changes to the setting, alterations in character relationships, or new subplots.
+5. Consider author intent: Reflect on possible reasons why an author would choose to adapt Story 1 or Story 2 into Story A. For instance, they may wish to emphasize certain themes, critique the original work, or explore alternative perspectives.
 
-1. Theme: Are there any recurring ideas, messages, or moral lessons across the three stories?
-2. Plot: Do the sequence of events and pacing match up between any two stories? Are there any significant differences in how conflicts are resolved?
-3. Characters: Are there similar protagonists, antagonists, or supporting characters across the stories? How do their motivations, relationships, and personal growth compare?
-4. Setting: Does the time period, location, culture, or social environment remain consistent throughout the stories? Or does Story A introduce new elements that distinguish it from either Story 1 or Story 2?
-5. Tone and style: Are the language, narrative voice, and overall atmosphere consistent in all three stories? Or does Story A stand out due to its use of humor, tragedy, suspense, etc.?
+After completing these steps, you should be better equipped to decide whether Story A originated from Story 1 or Story 2.
+[2024-05-02 16:50:01,524][distinguish][INFO] - Final Output:  Without having access to the actual text of Stories 1 and 2, I can't make a definitive determination as to which one the LLM may have used as its source for Story A. However, based on the information provided in your message, I would be able to make a judgment if you could tell me how Story 1 and Story 2 differ. For example, are there specific details or events that are unique to each story? Once I have this information, I can use it to help determine whether Story A is more similar to Story 1 or Story 2.
+[2024-05-02 16:50:35,545][distinguish][INFO] - Analysis:  I cannot accurately determine whether Story A was derived from Story 1 or Story 2 without more information about the specific details of each story. To make this determination, one would need to compare the relevant content and context present in both Stories 1 and 2 with Story A. This may include elements such as characters, settings, plot points, narrative arcs, themes, and writing styles.
 
-By examining these aspects in detail, you can better assess which story served as the basis for Story A.
-[2024-05-02 13:36:02,855][__main__][INFO] - Final Output:  Based on the information provided, it is not possible to accurately determine whether the LLM believes that Story A was created from Story 1 or Story 2. The response does not contain any specific references or indications linking Story A to either Story 1 or Story 2. In order to make an informed judgment, additional context or information would be required.
-evaluation_1_3_first:  Based on the information provided, it is not explicitly stated which story, Story 1 or Story 2, the LLM believes Story A was created from. The LLM's response focuses on analyzing the similarities and differences between Story A and both Story 1 and Story 2, without making a definitive conclusion. To determine whether the LLM thinks Story A was created from Story 1 or Story 2, additional context or clarification may be required.
-evaluation_1_3_last:  Based on the information provided, it is not possible to accurately determine whether the LLM believes that Story A was created from Story 1 or Story 2. The response does not contain any specific references or indications linking Story A to either Story 1 or Story 2. In order to make an informed judgment, additional context or information would be required.
-[2024-05-02 13:36:14,785][__main__][INFO] - Analysis:  Based on the provided information, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2. The reason for this is that the specific details and content of both Stories 1 and 2 are unknown. Therefore, any answer would be based on speculation and assumptions rather than concrete evidence.
+For instance, if Story A shares more commonalities with Story 1 in terms of these elements than it does with Story 2, then there is a higher likelihood that Story A was based on Story 1. However, a thorough analysis would be required to confidently establish the relationship between these stories.
 
-In order to make an informed decision, it would be necessary to analyze the themes, plots, characters, and other narrative elements present in each story. For example, if Story A shares more similarities with Story 1 in terms of these narrative elements, then it may be reasonable to assume that Story A was derived from Story 1. However, without knowing the actual contents of the stories, such an analysis cannot be performed.
+In general, evaluating whether a piece of text (in this case, Story A) has been modified from another source (either Story 1 or Story 2) involves understanding the concept of intertextuality—the complex web of relationships among various texts, which can range from direct quotations and allusions to indirect inspirations and influences. By examining the nature and extent of these connections, one can begin to form an informed opinion regarding the origins of a given text.
 
-Therefore, further information about the stories is required before a conclusive determination can be made regarding which story was modified to create Story A.
-[2024-05-02 13:36:21,378][__main__][INFO] - Final Output:  To answer this question, I would need to know the specific response given by the other LLM. However, based on general principles, it is not possible for me to determine with certainty whether the other LLM thinks Story A was created from Story 1 or Story 2, as this would depend on the content of its response. It is possible that the other LLM may provide information that suggests which story it believes is the source of Story A, but I cannot make that determination without more information.
-[2024-05-02 13:36:27,891][__main__][INFO] - Analysis:  I cannot definitively determine whether Story A is derived from Story 1 or Story 2 as the provided information does not contain enough specific details that overlap between the two original stories and Story A. To make an informed decision, please include unique characters, settings, events, or other distinct elements that are present in both the original story and Story A. Once these specific details are available, I can analyze and compare them to determine the relationship between Story A and either Story 1 or Story 2.
-[2024-05-02 13:36:45,841][__main__][INFO] - Final Output:  To determine whether the LLM thinks Story A was created from Story 1 or Story 2, you would need to provide the full text of Story 1 and Story 2 for me to analyze and compare with Story A. However, based on the response you've provided, I can give a general approach on how to interpret it:
+Nonetheless, based solely on the provided information, it is not possible for me to definitively identify whether Story A was derived from Story 1 or Story 2.
+[2024-05-02 16:50:43,532][distinguish][INFO] - Final Output:  Based on the provided information, the LLM has determined that Story A is most likely derived from Story 1. Therefore, I would respond with a 1.
+[2024-05-02 16:52:31,452][distinguish][INFO] - Analysis:  I cannot definitively determine whether Story A was created by modifying Story 1 or Story 2 as the input does not provide enough information. In order to make an informed decision, I would need more context and specific details about each story. Here are some factors that should be considered when determining the relationship between Story A and either Story 1 or Story 2:
 
-If the LLM's response contains specific details, events, or language that are exclusive to either Story 1 or Story 2, then it is likely that the LLM associates Story A with the corresponding source (Story 1 or Story 2).
+1. **Character names:** If character names from either Story 1 or Story 2 appear in Story A, this could indicate which of the two stories was used as a basis for modification.
+2. **Setting:** The setting can help identify the original source if it is retained or significantly altered in Story A.
+3. **Plot points:** Significant plot points, twists, and resolutions may be retained or reworked in Story A, providing clues to its origins.
+4. **Tone and style:** Differences in tone, writing style, or genre may suggest that Story A originated from one source over another.
+5. **Shared themes:** Shared themes do not necessarily imply a direct relationship between stories; however, they might offer insight into which story was modified based on the unique aspects of those themes.
+6. **Context of creation:** Knowing the purpose or motivation behind creating Story A could also help determine if it is derived from Story 1 or Story 2.
 
-For example, if the response explicitly mentions elements unique to Story 1, such as "the magical stone" or "the enchanted forest," this suggests that the LLM thinks Story A originated from Story 1. On the other hand, if the response refers to elements only found in Story 2, like "the time-traveling device" or "the parallel universe," then the LLM probably believes Story A has roots in Story 2.
+Without this information, it's impossible to make a conclusive determination. To ensure accuracy, always rely on detailed analysis when discerning relationships between different narratives.
+[2024-05-02 16:53:03,842][distinguish][INFO] - Final Output:  Based on the information provided in your message, I don't have enough context to determine whether the LLM believes Story A came from Story 1 or Story 2. In order for me to accurately answer this question, I would need access to the specific text of the LLM's response, as well as the texts of Story 1 and Story 2, so that I can make a more informed analysis. Could you please provide me with this additional information?
+[2024-05-02 16:54:24,129][distinguish][INFO] - Analysis:  I cannot definitively determine whether Story A is a modified version of Story 1 or Story 2, as the input text does not provide enough information to make that distinction. However, I can provide an approach for comparing and contrasting these stories based on the given variables to help you reach a conclusion. Let's analyze each story according to characters, setting, plot events, and resolution, focusing on unique details that distinguish them.
 
-However, if the LLM's response is vague and does not reference any distinctive features of either Story 1 or Story 2, it may be challenging to discern which story the LLM thinks inspired Story A. In such cases, additional context or information might be required to make an accurate determination.
-evaluation_2_3_first:  To answer this question, I would need to know the specific response given by the other LLM. However, based on general principles, it is not possible for me to determine with certainty whether the other LLM thinks Story A was created from Story 1 or Story 2, as this would depend on the content of its response. It is possible that the other LLM may provide information that suggests which story it believes is the source of Story A, but I cannot make that determination without more information.
-evaluation_2_3_last:  To determine whether the LLM thinks Story A was created from Story 1 or Story 2, you would need to provide the full text of Story 1 and Story 2 for me to analyze and compare with Story A. However, based on the response you've provided, I can give a general approach on how to interpret it:
+**Characters:** Identify any significant character differences between the stories. Are there any unique characters or relationships in either Story 1 or Story 2 that are absent from Story A, or vice versa? If so, this could be evidence that Story A is derived from one story over the other.
 
-If the LLM's response contains specific details, events, or language that are exclusive to either Story 1 or Story 2, then it is likely that the LLM associates Story A with the corresponding source (Story 1 or Story 2).
+**Setting:** Compare and contrast the settings of all three stories. Are there any notable location differences, such as time period, geographical region, or cultural context, which would suggest that Story A originated from one particular story?
 
-For example, if the response explicitly mentions elements unique to Story 1, such as "the magical stone" or "the enchanted forest," this suggests that the LLM thinks Story A originated from Story 1. On the other hand, if the response refers to elements only found in Story 2, like "the time-traveling device" or "the parallel universe," then the LLM probably believes Story A has roots in Story 2.
+**Plot Events:** Examine the sequence of events within each story. Do any events occur in a different order in Story A compared to Stories 1 or 2? Are there any unique events in Story A that do not appear in either of the other two stories?
 
-However, if the LLM's response is vague and does not reference any distinctive features of either Story 1 or Story 2, it may be challenging to discern which story the LLM thinks inspired Story A. In such cases, additional context or information might be required to make an accurate determination.
+**Resolution:** Consider the endings of each story. Is the outcome in Story A more similar to Story 1 or Story 2? If one story has a significantly different resolution than the others, this might indicate that Story A has been modified from that original source.
+
+Based on this analysis, you should be able to make an informed decision regarding which story Story A has been derived from. Keep in mind that without specific details, no definitive answer can be provided.
+[2024-05-02 16:54:31,868][distinguish][INFO] - Final Output:  Based on the information provided, I am unable to determine with certainty whether the LLM believes Story A was created from Story 1 or Story 2. The response does not seem to indicate a clear preference for either origin. To make an accurate assessment, additional context and information may be required.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:55:13,925][distinguish][INFO] - Analysis:  Based on the provided information, I cannot definitively determine whether Story A is a modified version of Story 1 or Story 2 as there are no direct comparisons between them in this context. To answer this question, I would need access to both original stories (Story 1 and Story 2) along with Story A, allowing for a side-by-side analysis of content, plot points, character development, and other narrative elements.
+
+To illustrate my point, let's consider an example where we have access to all three stories:
+
+Story 1: A young girl finds a magical seed that grows into a tree overnight. She discovers it has healing properties and uses it to help her sick mother.
+
+Story 2: A young boy discovers a magical seed that grows into a tree overnight. He realizes the tree can grant wishes and uses it to wish for his parents' health and happiness.
+
+Story A: A young child finds a magical seed that grows into a tree overnight. They use the tree's powers to heal their ill parent, either through direct healing (similar to Story 1) or by wishing for their wellbeing (similar to Story 2).
+
+In this scenario, we can see clear parallels between Stories 1 and A, suggesting that Story A could be derived from Story 1. However, without more context or comparison, it remains uncertain if Story A is specifically based on Story 1 or if it shares common themes present in multiple stories.
+
+Therefore, further investigation is required to accurately determine if Story A is a modification of Story 1 or Story 2.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:55:22,208][distinguish][INFO] - Final Output:  Based on the information provided, it's not explicitly clear whether the LLM identifies Story A as derived from Story 1 or Story 2. The LLM's response does not contain any direct reference to either origin story. Therefore, without additional context or information, I cannot definitively answer this question.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:56:26,411][distinguish][INFO] - Analysis:  To determine whether Story A is a modified version of Story 1 or Story 2, I would need to analyze the content of all three stories and look for both unique and shared elements. Here's an approach to make this determination:
+
+1. Identify common themes and plot points: Begin by examining the overall themes and main plot points present in each story. This can help you understand if there are any significant differences or similarities that might indicate a relationship between them. For example, if both Story 1 and Story A share a unique theme not present in Story 2, it could suggest that Story A is derived from Story 1.
+2. Analyze character descriptions and development: Look at how characters are portrayed in each story. If certain characters or their relationships are significantly different between Story 2 and Story A but resemble those found in Story 1, this may indicate that Story A originated from Story 1.
+3. Examine the sequence of events: Compare the order of major events within each story. If Story A follows a similar sequence as Story 1 but has some variations or additions, it could mean that Story A is based on Story 1 with modifications. However, if Story A introduces new events or alters the sequence dramatically compared to both Story 1 and Story 2, it might be an entirely separate creation.
+4. Note any shared dialogue or descriptive language: Unique phrases, dialogues, or descriptive language used across two stories can suggest a connection between them. However, keep in mind that authors may independently use similar expressions or styles, so this should be considered alongside other factors.
+5. Consider potential motivations for modification: Think about why someone might modify one story over another. If Story 1 has certain weaknesses or limitations that Story A addresses, it could indicate that Story A is a modified version of Story 1. Conversely, if Story A seems to remove important aspects from Story 1 without improving upon it, it might be unrelated.
+6. Make an informed decision: Based on the analysis of these factors, decide whether Story A is more likely to be a modified version of Story 1 or Story 2. Remember that no single factor will definitively prove the relationship, but a combination of evidence can support a conclusion.
+
+Without knowing the actual content of the stories, I cannot provide a specific answer. However, this approach can help you make an informed decision using detailed analysis and comparison.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:56:45,720][distinguish][INFO] - Final Output:  In order to determine whether the LLM thinks that Story A was created from Story 1 or Story 2, I would need to see the specific response generated by the LLM in question. However, based on the information provided, it seems likely that the LLM would be unable to definitively determine which of the two source stories (Story 1 or Story 2) was used to create Story A, since the response does not appear to contain any direct reference to either of the source stories. Instead, the LLM's response appears to be focused on summarizing and interpreting the content of Story A, rather than making any explicit comparisons to the source stories. Without additional context or information, it is difficult to make a more informed determination.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:57:04,008][distinguish][INFO] - Analysis:  I cannot determine if Story A was created by modifying Story 1 or Story 2 as the input for Story 1, Story 2, and Story A is missing. Please provide the relevant story contents to allow an accurate comparison. In general, when comparing two texts (in this case, Story 1 and Story 2) with a modified version of either (Story A), focus on unique elements such as character descriptions, sequence of events, dialogue, or setting. Identify any significant additions, omissions, or changes that help differentiate between the original sources and the new text. By closely examining these aspects, you can make an informed judgment about which original story served as the basis for the modified version.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:57:15,522][distinguish][INFO] - Final Output:  In order to provide an accurate response, I would need to see the specific text of Story A and the two source stories you are referring to. However, based on general principles, I can tell you that simply analyzing Story A without reference to the original stories would not be sufficient for me to determine whether it was more likely to have been derived from Story 1 or Story 2. I would need additional context or information in order to make that determination.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:58:03,162][distinguish][INFO] - Analysis:  Based on the information provided, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2. The prompts for each story do not provide enough specific detail to compare and contrast with Story A.
+
+To make an informed decision, we would need to analyze the themes, characters, plot points, and other narrative elements present in both Stories 1 and 2, and then compare them to those found in Story A. This comparison should consider factors such as:
+
+1. Similarities and differences in character development: Are the main characters in Story A similar to those in either Story 1 or Story 2? Do they share any background traits, motivations, or personal growth arcs?
+2. Plot structure and pacing: Is the sequence of events in Story A more closely aligned with that of Story 1 or Story 2? Does the pacing of Story A resemble one story over the other?
+3. Themes and messages: Do the underlying themes and messages in Story A align more with Story 1 or Story 2? Are there any unique aspects in Story A that could be traced back to either original story?
+4. Narrative style: Are there any distinct stylistic choices (e.g., tone, point of view, or dialogue) in Story A that suggest it was derived from either Story 1 or Story 2?
+5. Setting and world-building: Does the setting and overall "feel" of Story A match better with Story 1 or Story 2? Are there any specific details in Story A that can only be explained by its origin in one of the two original stories?
+
+By carefully examining these factors, one might be able to draw a conclusion about which story Story A was derived from. However, based solely on the information given, no definitive answer can be provided.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:58:09,759][distinguish][INFO] - Final Output:  Without having access to the specific text of Stories 1 and 2, I cannot provide a definitive answer. However, based on your description, I would need to know more context about the content of both stories in order to make an informed decision.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:58:28,337][distinguish][INFO] - Analysis:  Based on the information provided, it is not possible to definitively determine whether Story A was created by modifying Story 1 or Story 2 without additional context or comparison of the actual content of each story. To make an informed decision, you would need to compare the specific events, characters, and language used in both stories and Story A. Look for unique elements that appear only in one story but not the other, as well as inconsistencies that might suggest interpolation from one narrative into another. Additionally, consider any potential motivations or reasons why someone might choose to adapt one story over the other. By carefully examining these factors, you can draw a more educated conclusion about the relationship between Story A and either Story 1 or Story 2.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:58:37,644][distinguish][INFO] - Final Output:  Based on the information provided, I am unable to definitively determine whether the LLM thinks Story A was created from Story 1 or Story 2, as the response does not contain any specific reference or indication that would allow me to make that determination. In order for me to provide an accurate response, I would need more context or information about the content of the responses.
+[2024-05-02 16:58:37,644][root][INFO] - Decisions recorded: [" I cannot provide an answer without knowing the content of Story 1 and Story 2. However, if you provide me with the necessary information, I can determine which story the LLM's response is more closely related to.", " Without having access to the actual text of Stories 1 and 2, I can't make a definitive determination as to which one the LLM may have used as its source for Story A. However, based on the information provided in your message, I would be able to make a judgment if you could tell me how Story 1 and Story 2 differ. For example, are there specific details or events that are unique to each story? Once I have this information, I can use it to help determine whether Story A is more similar to Story 1 or Story 2.", ' Based on the provided information, the LLM has determined that Story A is most likely derived from Story 1. Therefore, I would respond with a 1.', " Based on the information provided in your message, I don't have enough context to determine whether the LLM believes Story A came from Story 1 or Story 2. In order for me to accurately answer this question, I would need access to the specific text of the LLM's response, as well as the texts of Story 1 and Story 2, so that I can make a more informed analysis. Could you please provide me with this additional information?", ' Based on the information provided, I am unable to determine with certainty whether the LLM believes Story A was created from Story 1 or Story 2. The response does not seem to indicate a clear preference for either origin. To make an accurate assessment, additional context and information may be required.', " Based on the information provided, it's not explicitly clear whether the LLM identifies Story A as derived from Story 1 or Story 2. The LLM's response does not contain any direct reference to either origin story. Therefore, without additional context or information, I cannot definitively answer this question.", " In order to determine whether the LLM thinks that Story A was created from Story 1 or Story 2, I would need to see the specific response generated by the LLM in question. However, based on the information provided, it seems likely that the LLM would be unable to definitively determine which of the two source stories (Story 1 or Story 2) was used to create Story A, since the response does not appear to contain any direct reference to either of the source stories. Instead, the LLM's response appears to be focused on summarizing and interpreting the content of Story A, rather than making any explicit comparisons to the source stories. Without additional context or information, it is difficult to make a more informed determination.", ' In order to provide an accurate response, I would need to see the specific text of Story A and the two source stories you are referring to. However, based on general principles, I can tell you that simply analyzing Story A without reference to the original stories would not be sufficient for me to determine whether it was more likely to have been derived from Story 1 or Story 2. I would need additional context or information in order to make that determination.', ' Without having access to the specific text of Stories 1 and 2, I cannot provide a definitive answer. However, based on your description, I would need to know more context about the content of both stories in order to make an informed decision.', ' Based on the information provided, I am unable to definitively determine whether the LLM thinks Story A was created from Story 1 or Story 2, as the response does not contain any specific reference or indication that would allow me to make that determination. In order for me to provide an accurate response, I would need more context or information about the content of the responses.']
+[2024-05-02 16:58:37,644][root][INFO] - Decision count: Counter({" I cannot provide an answer without knowing the content of Story 1 and Story 2. However, if you provide me with the necessary information, I can determine which story the LLM's response is more closely related to.": 1, " Without having access to the actual text of Stories 1 and 2, I can't make a definitive determination as to which one the LLM may have used as its source for Story A. However, based on the information provided in your message, I would be able to make a judgment if you could tell me how Story 1 and Story 2 differ. For example, are there specific details or events that are unique to each story? Once I have this information, I can use it to help determine whether Story A is more similar to Story 1 or Story 2.": 1, ' Based on the provided information, the LLM has determined that Story A is most likely derived from Story 1. Therefore, I would respond with a 1.': 1, " Based on the information provided in your message, I don't have enough context to determine whether the LLM believes Story A came from Story 1 or Story 2. In order for me to accurately answer this question, I would need access to the specific text of the LLM's response, as well as the texts of Story 1 and Story 2, so that I can make a more informed analysis. Could you please provide me with this additional information?": 1, ' Based on the information provided, I am unable to determine with certainty whether the LLM believes Story A was created from Story 1 or Story 2. The response does not seem to indicate a clear preference for either origin. To make an accurate assessment, additional context and information may be required.': 1, " Based on the information provided, it's not explicitly clear whether the LLM identifies Story A as derived from Story 1 or Story 2. The LLM's response does not contain any direct reference to either origin story. Therefore, without additional context or information, I cannot definitively answer this question.": 1, " In order to determine whether the LLM thinks that Story A was created from Story 1 or Story 2, I would need to see the specific response generated by the LLM in question. However, based on the information provided, it seems likely that the LLM would be unable to definitively determine which of the two source stories (Story 1 or Story 2) was used to create Story A, since the response does not appear to contain any direct reference to either of the source stories. Instead, the LLM's response appears to be focused on summarizing and interpreting the content of Story A, rather than making any explicit comparisons to the source stories. Without additional context or information, it is difficult to make a more informed determination.": 1, ' In order to provide an accurate response, I would need to see the specific text of Story A and the two source stories you are referring to. However, based on general principles, I can tell you that simply analyzing Story A without reference to the original stories would not be sufficient for me to determine whether it was more likely to have been derived from Story 1 or Story 2. I would need additional context or information in order to make that determination.': 1, ' Without having access to the specific text of Stories 1 and 2, I cannot provide a definitive answer. However, based on your description, I would need to know more context about the content of both stories in order to make an informed decision.': 1, ' Based on the information provided, I am unable to definitively determine whether the LLM thinks Story A was created from Story 1 or Story 2, as the response does not contain any specific reference or indication that would allow me to make that determination. In order for me to provide an accurate response, I would need more context or information about the content of the responses.': 1})
+[2024-05-02 16:58:37,644][root][INFO] - Threshold: 6
+[2024-05-02 16:58:37,644][root][INFO] - Number of 1's: 0
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+[2024-05-02 16:59:26,623][distinguish][INFO] - Analysis:  To determine whether Story A is a modified version of Story 1 or Story 2, we need more information about the specific details of each story. However, I can explain how I would approach this task in general.
+
+First, I would carefully read both Story 1 and Story 2, paying close attention to their themes, plot points, characters, and other narrative elements. It's important to note any similarities and differences between the two stories, as well as any unique features that might help distinguish them.
+
+Next, I would do the same for Story A. As I read it, I would compare it to both Story 1 and Story 2, looking for any direct references, quotations, paraphrases, or other indications of a connection. I would also look for subtle clues, such as recurring motifs or character traits, that might suggest a connection between Story A and either of the original stories.
+
+Once I had identified any potential connections between Story A and either Story 1 or Story 2, I would analyze them in more depth. For example, if Story A contained a scene that closely resembled a scene from Story 1 but not Story 2, this might suggest that Story A was based on Story 1. On the other hand, if Story A contained several minor details that were only present in Story 2, this might suggest a connection between the two.
+
+Ultimately, the decision of whether Story A is a modified version of Story 1 or Story 2 would depend on the weight of evidence supporting one over the other. If there are clear and numerous connections between Story A and Story 1, then it's likely that Story A is a modified version of Story 1. However, if the connections are tenuous or inconsistent, it may be difficult to make a definitive determination. In cases where the evidence is unclear, additional context or information may be necessary to make an informed judgment.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py:1101: UserWarning: You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  warnings.warn(
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 121, in <module>
+    load_dotenv(find_dotenv())
+    ^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 109, in main
+    
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 107, in <lambda>
+    
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 53, in distinguish
+    decisions = [func() for i in range(num_repetitions) for func in (regular_match, flipped_match)]
+                 ^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 47, in <lambda>
+    regular_match = lambda: matcher(response_1, response_2, perturbed)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/distinguish.py", line 96, in match
+    output = self.second_chain.invoke(dict_input)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 2309, in invoke
+    input = step.invoke(
+            ^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3771, in invoke
+    return self._call_with_config(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 1488, in _call_with_config
+    context.run(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/config.py", line 347, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3645, in _invoke
+    output = call_func_with_variable_args(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/runnables/config.py", line 347, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 84, in __call__
+    return self.generate_text(prompt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 79, in generate_text
+    response = self.pipeline(prompt)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/_api/deprecation.py", line 145, in warning_emitting_wrapper
+    return wrapped(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/language_models/llms.py", line 1028, in __call__
+    self.generate(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/language_models/llms.py", line 748, in generate
+    output = self._generate_helper(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/language_models/llms.py", line 606, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_core/language_models/llms.py", line 593, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain_community/llms/huggingface_pipeline.py", line 266, in _generate
+    responses = self.pipeline(
+                ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/text_generation.py", line 208, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py", line 1121, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py", line 1046, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/text_generation.py", line 271, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/utils.py", line 1777, in generate
+    return self.sample(
+           ^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/utils.py", line 2874, in sample
+    outputs = self(
+              ^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1317, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1185, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 904, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 834, in forward
+    current_hidden_states = expert_layer(current_state) * routing_weights[top_x_list, idx_list, None]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 768, in forward
+    current_hidden_states = self.act_fn(self.w1(hidden_states)) * self.w3(hidden_states)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 185, in forward
+    out = ext_q4_matmul(x, self.q4, self.width)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 42, in ext_q4_matmul
+    q4_matmul(x, q4, output)
+KeyboardInterrupt

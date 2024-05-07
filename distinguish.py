@@ -32,7 +32,6 @@ class Distinguisher:
         self.profile_background = """{system_profile}"""
 
         self.first_instructions = textwrap.dedent("""
-[INST]
 Story 1: {{story_1}}
 
 Story 2: {{story_2}}
@@ -40,10 +39,7 @@ Story 2: {{story_2}}
 Story A: {{story_a}}
                                             
 Story A was created by modifying Story 1 or Story 2. Which one? Explain your reasoning in-depth before responding. Both stories have similar themes and plots, so focus on specific details to
-make a decision.
-[/INST]
-
-Answer:""")
+make a decision.""")
 
         self.first_prompt = PromptTemplate(
             template=self.first_instructions,
@@ -58,14 +54,11 @@ Answer:""")
         self.first_chain = self.first_prompt | self.pipeline
 
         self.second_instructions = textwrap.dedent("""
-[INST]
 Response: {{response}}
                                                    
 Read the above the response given by another LLM. Does the LLM think Story A was created from Story 1 or Story 2?
                                                    
-If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story 2, respond with a 2.
-                                                   
-[/INST]""")
+If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story 2, respond with a 2.""")
         
         # self.second_output_parser = PydanticOutputParser(pydantic_object=DistinguisherAnswer)
         

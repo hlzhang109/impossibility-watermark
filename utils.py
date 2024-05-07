@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import json
 import datetime
+import textwrap
 from openai import OpenAI
 
 from dotenv import load_dotenv, find_dotenv
@@ -155,4 +156,10 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
+def mixtral_format_instructions(story_text):
+    return textwrap.dedent(f"""
+    [INST]
+    {story_text}
+    [/INST]
 
+    Answer:""")

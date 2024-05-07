@@ -11,6 +11,8 @@ from gptwm import GPTWatermarkLogitsWarper, GPTWatermarkDetector
 from exp_generate import generate_shift
 from exp_detect import permutation_test
 
+# TODO: Turn this into an ABC-based implementation.
+
 # For testing
 import hydra
 

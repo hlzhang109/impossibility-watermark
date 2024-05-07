@@ -15,7 +15,7 @@ load_dotenv(find_dotenv())
 def generate_comparison_prompts(response_1, response_2, perturbed):
     prompt_1 = textwrap.dedent(f"""
 Story 1: {response_1}
-Story 2: {response_2}
+Story 2: {response_2}~
 Story A: {perturbed}
 
 Story A was created by modifying Story 1 or Story 2. Which one? Explain your reasoning in-depth before responding. Both stories have similar themes and plots, so focus on specific details to
@@ -92,7 +92,7 @@ def main(cfg):
     if cfg.distinguisher.matcher == "gpt4":
         matcher = gpt4matcher
     elif cfg.distinguisher.matcher == "local":
-        distinguisher_object = Distinguisher(cfg.generator_args)
+        distinguisher_object = Distinguisher(cfg.distinguisher.distinguisher_args)
         matcher = distinguisher_object.match
 
     distinguisher = partial(distinguish, matcher, response_1, response_2, num_repetitions=cfg.distinguisher.num_repetitions)

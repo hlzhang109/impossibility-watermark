@@ -20,7 +20,6 @@ logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 def get_eval_background(is_completion):
     if is_completion:
         eval_background = textwrap.dedent("""
-            [INST]
             ** Task ** : 
 
             - Read the prefix and two possible completions for it: Completion A and Completion B.
@@ -53,13 +52,11 @@ def get_eval_background(is_completion):
             ** Format Instructions ** : 
             
             {format_instructions} 
-            [/INST]
             """
         )
     
     else:
         eval_background = textwrap.dedent("""
-            [INST]
             ** Task ** : 
 
             - Read the prompt and two possible responses for it: Response A and Response B.
@@ -95,7 +92,6 @@ def get_eval_background(is_completion):
             ** Format Instructions ** : 
             
             {format_instructions} 
-            [/INST]
             """
         )
     return eval_background

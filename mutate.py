@@ -60,9 +60,6 @@ class TextMutator:
             Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
             """
         )
-        
-        if 'Mixtral' in cfg.model_name_or_path:
-            self.step_1_template = '[INST]\n' + self.step_1_template + '\n[/INST]'
                 
         self.step_1_prompt = PromptTemplate(
             template=self.step_1_template,
@@ -92,10 +89,7 @@ class TextMutator:
 
             {format_instructions_section}
             """
-        )
-            
-        if 'Mixtral' in cfg.model_name_or_path:
-            self.step_2_template = '[INST]\n' + self.step_2_template + '\n[/INST]'          
+        )     
         
         self.system_prompt = PromptTemplate(
             template=self.step_2_profile,

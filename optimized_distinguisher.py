@@ -43,7 +43,7 @@ def gpt4matcher(response_1, response_2, perturbed):
     # If no valid decision is made after 3 trials, return 0
     return 0
 
-def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
+def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions, threshold_rate):
     regular_match = lambda: matcher(response_1, response_2, perturbed)
 
     # Adjust the response of the flipped match function using cool functional programming

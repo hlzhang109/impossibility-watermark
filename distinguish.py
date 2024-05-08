@@ -78,7 +78,7 @@ If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story
         }
 
         # Run Chain
-        response = self.first_chain.invoke(dict_input)
+        response = str(self.first_chain.invoke(dict_input))
 
         log.info(f"Analysis: {response}")
 

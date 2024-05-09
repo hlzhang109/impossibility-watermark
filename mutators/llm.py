@@ -15,6 +15,7 @@ from langchain_core.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+from langchain_community.llms import HuggingFacePipeline
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 
@@ -26,21 +27,25 @@ log = logging.getLogger(__name__)
 class Mutation(BaseModel):
     text:  str = Field(description="Edited text with minimal changes for consistency")
 
-class TextMutator:    
+class LLMMutator:    
     """
     This class is responsible for loading and initializing an LLM with specified parameters. 
     It also provides methods for mutating a text in a 1- or 2-step process.
     """
-    def __init__(self, cfg, pipeline=None):
-        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
-        
+
+    def __init__(self, cfg, pipeline=None):       
         self.cfg = cfg # config.mutator_args
         self.pipeline = pipeline
         
-        # # Model Pipeline
-        # if not isinstance(self.pipeline, HuggingFacePipeline):
-        #     log.info("Initializing a new Text Mutator pipeline from cfg...")
-        #     self.pipeline = PipeLineBuilder(cfg).pipeline
+        # Model Pipeline
+        if not isinstance(self.pipeline, HuggingFacePipeline):
+        
+            # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
+            # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
+            from model_builders.pipeline import PipeLineBuilder
+
+            log.info("Initializing a new Text Mutator pipeline from cfg...")
+            self.pipeline = PipeLineBuilder(cfg).pipeline
 
         # Output Parser
         self.output_parser = PydanticOutputParser(pydantic_object=Mutation)
@@ -230,10 +235,20 @@ class TextMutator:
         return diff_result
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
 def test(cfg):
 
     import time
+    import os
+
+    CUDA_VISIBLE_DEVICES = str(cfg.mutator_args.cuda)
+    WORLD_SIZE = str(len(str(cfg.mutator_args.cuda).split(",")))
+
+    print(f"CUDA_VISIBLE_DEVICES: {CUDA_VISIBLE_DEVICES}")
+    print(f"WORLD_SIZE: {WORLD_SIZE}")
+    
+    os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
+    os.environ["WORLD_SIZE"] = WORLD_SIZE
 
     text = textwrap.dedent(
         """
@@ -245,7 +260,9 @@ def test(cfg):
         """
     )
 
-    text_mutator = TextMutator(cfg.mutator_args)
+    print(cfg.mutator_args)
+
+    text_mutator = LLMMutator(cfg.mutator_args)
 
     start = time.time()
     mutated_text = text_mutator.mutate(text)

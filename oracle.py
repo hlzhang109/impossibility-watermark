@@ -198,6 +198,20 @@ class RankOracle(Oracle):
             eval_label = 5 # output_2 is better
         return eval_label
 
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [5] and followup_pred in [1]:
+            return True
+        # if original_pred in [5] and followup_pred in [5]:
+        #     return True
+        return False
+
     def test(self, instruction, output_1, output_2, label, **kwargs):
         original_label = numerize_label(downscale_label(label))
         followup_label = numerize_label(downscale_label(invert_label(label)))
@@ -309,6 +323,18 @@ class JointOracle(Oracle):
             return 4
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
             return 5
+
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+            return True
+        return False
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
         original_label = numerize_label(label)
@@ -437,6 +463,18 @@ class RelativeOracle(Oracle):
                 log.info(f"Invalid parsed values: {response, status}")
                 return -1
 
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+            return True
+        return False
+
     def test(self, instruction, output_1, output_2, label, **kwargs):
 
         if "3" in self.cfg.template:
@@ -543,18 +581,8 @@ class SoloOracle(Oracle):
         output_score = int(evaluation[eval_key])
         return output_score
 
-    def test(self, instruction, output_1, output_2, label, **kwargs):
-        label = numerize_label(label)
-
-        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
-        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
-
-        output_1_score = self.extract_label(output_1_evaluation)
-        output_2_score = self.extract_label(output_2_evaluation)       
-        
+    def derive_label(self, output_1_score, output_2_score):
         diff = output_1_score - output_2_score 
-
-        # derive label
         pred = -1
         if 5 <= diff <= 10: # output 1 is much better than output_2
             pred =  1
@@ -566,6 +594,34 @@ class SoloOracle(Oracle):
             pred = 4
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
             pred = 5
+
+        return pred
+
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
+        
+        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
+        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
+
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)  
+
+        pred = self.derive_label(output_1_score, output_2_score)
+        
+        if pred in [3,4,5]:
+            return True
+        return False
+
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        label = numerize_label(label)
+
+        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
+        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
+
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)       
+        
+        pred = self.derive_label(output_1_score, output_2_score)
 
         # assign correctness points
         pred_correct = 0
@@ -617,11 +673,11 @@ def test(cfg):
 
     templates = [
         # ("rate.self-reward", SoloOracle), 
-        ("rate.lmsys.ia", SoloOracle), 
-        ("rate.lmsys.ib", SoloOracle), 
+        ("solo.lmsys.ia", SoloOracle), 
+        ("solo.lmsys.ib", SoloOracle), 
         ("rank.alpaca_eval", RankOracle), 
-        ("compare.lmsys.ia", JointOracle), 
-        ("compare.lmsys.ib", JointOracle), 
+        ("joint.lmsys.ia", JointOracle), 
+        ("joint.lmsys.ib", JointOracle), 
         ("relative.sandpaper.3", RelativeOracle), 
         ("relative.sandpaper.5", RelativeOracle), 
     ]

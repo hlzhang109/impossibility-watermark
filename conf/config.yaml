@@ -3,28 +3,27 @@ defaults:
     - watermark_args: umd
 
 attack_args:
-    # prompt: "Provide a straightforward description of the Eiffel Tower's physical features without using complex or elaborate language."
-    prompt : null
+    prompt: "Provide a straightforward description of the Eiffel Tower's physical features without using complex or elaborate language."
     prompt_file: "./inputs/dynamic_prompts.csv" # only used if prompt is None
     prompt_num: 4
-    watermarked_text: null
-    watermarked_text_path: null
+    watermarked_text: 
+    watermarked_text_path: 
     watermarked_text_num: 1
     num_steps: 2000
     patience: 250
     stop_at_removal: False # stop the attack after removing the watermark
     num_successful_steps: 100
-    results_dir: null
+    results_dir: "./results/"
     model_cache_dir: "./.cache"
-    save_name: null # if None, it defaults to attack_{timestamp}.csv
-    use_watermark: False # when running with GPT-4, disregard the watermark
+    save_name: # if None, it defaults to attack_{timestamp}.csv
+    use_watermark: True # when running with GPT-4, disregard the watermark
     backtrack_patience: 50
     is_completion: False
-    json_path: null
+    json_path: 
     json_index: 0
     is_continuation: False
-    prev_csv_file: null # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "0"
+    prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
+    cuda: "3,4,5,6,7"
 
 generator_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -59,10 +58,10 @@ oracle_args:
     num_formatting_retries: 1
     system_profile: "You are a helpful and precise assistant for checking the quality of the answer."
     template_dir: "./prompt_templates/quality_oracle/"
-    template: "rate.self-reward"
+    template: "relative.sandpaper.3"
 
 mutator_args:
-    use_old_mutator: False
+    type: "span_fill" # llm, mask_fill, span_fill
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5

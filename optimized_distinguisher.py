@@ -102,9 +102,12 @@ def main(cfg):
 
     if cfg.distinguisher.matcher == "gpt4":
         matcher = gpt4matcher
+    # TODO: Only works with Llama right now.
     elif cfg.distinguisher.matcher == "local":
         distinguisher_object = Distinguisher(cfg.distinguisher.distinguisher_args)
         matcher = distinguisher_object.match
+
+    log.info(f"Num repetitions: {cfg.distinguisher.num_repetitions}")
 
     distinguisher = partial(distinguish, matcher, response_1, response_2, num_repetitions=cfg.distinguisher.num_repetitions)
 

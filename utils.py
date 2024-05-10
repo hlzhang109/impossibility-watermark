@@ -163,3 +163,19 @@ def mixtral_format_instructions(story_text):
     [/INST]
 
     Answer:""")
+
+def strip_up_to(response, delimiter):
+    # Find the position of the delimiter
+    pos = response.find(delimiter)
+    
+    # If the delimiter is found, return the part of the string after it
+    if pos != -1:
+        # Adjust the position to remove the delimiter itself
+        return response[pos + len(delimiter):].strip()
+    return response
+
+def parse_llama_output(response):
+    delimiter = "<|end_header_id|>"
+    response = strip_up_to(response, delimiter)
+    response = response[:-9] if response.endswith('assistant') else response
+    return response

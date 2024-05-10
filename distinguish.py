@@ -11,7 +11,7 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-
+from utils import strip_up_to, parse_llama_output
 from model_builders.pipeline import PipeLineBuilder 
 
 import logging
@@ -79,16 +79,23 @@ If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story
 
         # Run Chain
         response = str(self.first_chain.invoke(dict_input))
-
-        log.info(f"Analysis: {response}")
+        response = parse_llama_output(response)
+        log.info(f"Response: {response}")
 
         dict_input = {
             "response": response,
         }
 
-        output = self.second_chain.invoke(dict_input)
+        output = str(self.second_chain.invoke(dict_input))
+
+        output = parse_llama_output(output)
 
         log.info(f"Final Output: {output}")
+
+        try:
+            output = int(output.strip())
+        except:
+            output = ""
 
         return output
 

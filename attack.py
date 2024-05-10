@@ -41,8 +41,8 @@ class Attack:
         self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-            self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
+        # if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
+        #     self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
@@ -78,8 +78,9 @@ class Attack:
         
         # Generate watermarked response
         if watermarked_text is None and prompt is not None:
-            log.info("Generating watermarked text from prompt...")
-            watermarked_text = self.watermarker.generate(prompt)
+            raise Exception("watermarked test can't be none")
+            # log.info("Generating watermarked text from prompt...")
+            # watermarked_text = self.watermarker.generate(prompt)
 
         assert watermarked_text is not None, "Unable to proceed without watermarked text!"
         

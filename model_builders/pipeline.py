@@ -106,9 +106,13 @@ class PipeLineBuilder:
                     add_generation_prompt=True
             )
 
-            outputs = self.pipeline(generated_prompt) 
+            output = self.pipeline(generated_prompt) 
 
-            return outputs
+            prompt_end_index = output.find(prompt) + len(prompt)
+            if prompt_end_index != -1:
+                # Return only the text after the prompt
+                return output[prompt_end_index:].strip()
+            return output
 
         if "Mixtral" in self.cfg.model_name_or_path:
             prompt = mixtral_format_instructions(prompt)

@@ -14,7 +14,7 @@ import numpy as np
 from nltk.tokenize import sent_tokenize
 from sampling_utils import extract_prompt_from_text
 from sampling_lsh_utils import lsh_reject_completion
-# TODO: This is probably from kSemStamp. It generates a bug right now.
+# TODO: This is probably from k-SemStamp. It generates a bug right now.
 # from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 
 PUNCTS = '.,!?'
@@ -27,7 +27,7 @@ def parse_args():
     parser.add_argument(
         '--model', type=str, help='str model name to generate continuation. huggingface/openai', default="facebook/opt-1.3b")
     parser.add_argument(
-        '--embedder', default="",type=str, help='str model name to embed sentences')
+        '--embedder', default=None,type=str, help='str model name to embed sentences')
     parser.add_argument('--len_prompt', '-l', default=32,
                         help='MAX length of prompt')
     parser.add_argument('--max_new_tokens', type=int, default=205)
@@ -117,20 +117,20 @@ if __name__ == '__main__':
         # load cluster centers
         else:
             cluster_centers = torch.load(args.cc_path)
-        embedder = SentenceTransformer(args.embedder, device = 'cuda')
-        def text_to_generated_text(ex):
-            prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
-            response= kmeans_reject_completion(
-                prompt=prompt,
-                model=model, tokenizer=tokenizer, gen_config=gen_config,
-                embedder=embedder,
-                cluster_centers=cluster_centers,
-                lmbd=args.lmbd,
-                k_dim=args.sp_dim,
-                margin=args.delta,
-                device=args.device)
-            ex['text'] = response.strip()
-            return ex
+            embedder = SentenceTransformer(args.embedder, device = 'cuda')
+            def text_to_generated_text(ex):
+                prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
+                response= kmeans_reject_completion(
+										prompt=prompt,
+										model=model, tokenizer=tokenizer, gen_config=gen_config,
+										embedder=embedder,
+										cluster_centers=cluster_centers,
+										lmbd=args.lmbd,
+										k_dim=args.sp_dim,
+										margin=args.delta,
+										device=args.device)
+                ex['text'] = response.strip()
+                return ex
     else:
         raise NotImplementedError
    

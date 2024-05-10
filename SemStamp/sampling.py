@@ -11,14 +11,16 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
 from sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import nltk
 from nltk.tokenize import sent_tokenize
 from sampling_utils import extract_prompt_from_text
 from sampling_lsh_utils import lsh_reject_completion
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
 # from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 
-PUNCTS = '.,!?'
+nltk.download('punkt')
 
+PUNCTS = '.,!?'
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -27,7 +29,7 @@ def parse_args():
     parser.add_argument(
         '--model', type=str, help='str model name to generate continuation. huggingface/openai', default="facebook/opt-1.3b")
     parser.add_argument(
-        '--embedder', default=None,type=str, help='str model name to embed sentences')
+        '--embedder', default="",type=str, help='str model name to embed sentences')
     parser.add_argument('--len_prompt', '-l', default=32,
                         help='MAX length of prompt')
     parser.add_argument('--max_new_tokens', type=int, default=205)
@@ -65,6 +67,10 @@ if __name__ == '__main__':
     bad_words_ids = tokenizer(
         "\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
     
+    # TODO: What the hell?
+    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    # TODO: Removed repetition penalty.
     gen_config = GenerationConfig.from_pretrained(
         args.model,
         return_dict_in_generate=True,
@@ -73,17 +79,20 @@ if __name__ == '__main__':
         do_sample=True,
         temperature=0.7,
         top_k=0,
-        repetition_penalty=args.rep_p,
+        repetition_penalty=1.1,
         bad_words_ids=bad_words_ids,
         # top_p=0.96,
         local_files_only=is_offline
     )
 
     name = os.path.join(
-        folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-seed={args.seed_scheme}-rep_p={args.rep_p}")
+        folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-rep_p={1.1}")
+        # folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-seed={args.seed_scheme}-rep_p={args.rep_p}")
+    
     
     if args.sp_mode == "lsh":
-        lsh_model = SBERTLSHModel(lsh_model_path=args.embedder,
+        # TODO: Fix lsh_model_path
+        lsh_model = SBERTLSHModel(lsh_model_path=None,
                                   device=args.device, batch_size=1, lsh_dim=args.sp_dim, sbert_type='base')
         model = AutoModelForCausalLM.from_pretrained(
             args.model, local_files_only=is_offline).to(args.device)
@@ -97,7 +106,12 @@ if __name__ == '__main__':
                 lmbd=args.lmbd,
                 device=args.device,
                 margin=args.delta)
-            ex['text'] = response.strip()
+            
+            # TODO: This returns a tuple.
+            print(prompt)
+            print(response)
+
+            ex['text'] = response[0].strip()
             return ex
     elif 'kmeans' in args.sp_mode:
         model = AutoModelForCausalLM.from_pretrained(
@@ -107,6 +121,7 @@ if __name__ == '__main__':
         if args.cc_path == None:
             if args.embed_path == None:
                 embed_path = embed_gen_list(
+                    # TODO: Fix embedder args.
                     embedder_path=args.embedder, dataset_path=args.train_data)
             else:
                 embed_path = args.embed_path

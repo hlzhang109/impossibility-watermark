@@ -78,21 +78,19 @@ class SBERTLSHModel(LSHModel):
         self.dimension = 1024 if 'large' in self.sbert_type else 768
 
         print(f'loading SBERT {self.sbert_type} model...')
-        # self.embedder = SentenceTransformer(f"{OPTS.sbert_type}-nli-mean-tokens")
-        # try:
+
         if lsh_model_path is not None:
             self.embedder = SentenceTransformer(lsh_model_path)
             self.dimension = self.embedder.get_sentence_embedding_dimension()
         else:
             self.embedder = SentenceTransformer(
                 "sentence-transformers/all-mpnet-base-v1")
-        # except:
-        #     self.embedder = SentenceTransformer(f"{os.getenv('HOME')}/.cache/torch/sentence_transformers/sentence-transformers_{self.sbert_type}-nli-stsb-mean-tokens")
-        # self.embedder.eval()
-        # self.device.move(self.embedder)
         self.embedder = self.embedder.to(self.device)
         self.embedder.eval()
 
+        if not list(self.embedder.parameters()):
+            raise ValueError("No parameters found in model; check model path or initialization.")
+        
         self.hasher.reset(dim=self.dimension)
 
     def get_embeddings(self, sents: Iterator[str]) -> np.ndarray:

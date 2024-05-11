@@ -42,5 +42,3 @@ def get_cmd_args():
     parser.add_argument('--use_query', type=bool, default=True, help="whether this is a query or a completion")
     args = parser.parse_args()
     return args
-
-    #

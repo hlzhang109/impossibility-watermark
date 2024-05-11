@@ -1,0 +1,71 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Namespace(data='data/c4_val-1000', model='facebook/opt-1.3b', embedder='', len_prompt=32, max_new_tokens=205, min_new_tokens=195, lmbd=0.25, delta=0, sp_mode='lsh', sp_dim=3, embed_path=None, cc_path=None, train_data=None)
+initializing random projection LSH model
+loading SBERT base model...
+
+Map:   0%|          | 0/1000 [00:00<?, ? examples/s]
+Map:   0%|          | 0/1000 [00:01<?, ? examples/s]
+Map:   0%|          | 0/1000 [00:01<?, ? examples/s]
+prompt: Cluster comprises IBM's Opteron-based eServer 325 server and systems management software and storage devices that can run Linux and Windows operating systems.
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/SemStamp/sampling.py", line 145, in <module>
+    temp_dataset = dataset.map(text_to_generated_text, batch_size=1)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 602, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 567, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3156, in map
+    for rank, done, content in Dataset._map_single(**dataset_kwargs):
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3517, in _map_single
+    example = apply_function_on_filtered_inputs(example, i, offset=offset)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3416, in apply_function_on_filtered_inputs
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/SemStamp/sampling.py", line 100, in text_to_generated_text
+    response = lsh_reject_completion(
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/SemStamp/sampling_lsh_utils.py", line 79, in lsh_reject_completion
+    sent_end_criteria.update(new_text)
+  File "/local1/borito1907/impossibility-watermark/SemStamp/sampling_utils.py", line 35, in update
+    self.current_num_sentences = len(sent_tokenize(current_text))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/nltk/tokenize/__init__.py", line 106, in sent_tokenize
+    tokenizer = load(f"tokenizers/punkt/{language}.pickle")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/nltk/data.py", line 750, in load
+    opened_resource = _open(resource_url)
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/nltk/data.py", line 876, in _open
+    return find(path_, path + [""]).open()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/nltk/data.py", line 583, in find
+    raise LookupError(resource_not_found)
+LookupError: 
+**********************************************************************
+  Resource [93mpunkt[0m not found.
+  Please use the NLTK Downloader to obtain the resource:
+
+  [31m>>> import nltk
+  >>> nltk.download('punkt')
+  [0m
+  For more information see: https://www.nltk.org/data.html
+
+  Attempted to load [93mtokenizers/punkt/PY3/english.pickle[0m
+
+  Searched in:
+    - '/home/borito1907/nltk_data'
+    - '/local1/borito1907/anaconda3/envs/watermark/nltk_data'
+    - '/local1/borito1907/anaconda3/envs/watermark/share/nltk_data'
+    - '/local1/borito1907/anaconda3/envs/watermark/lib/nltk_data'
+    - '/usr/share/nltk_data'
+    - '/usr/local/share/nltk_data'
+    - '/usr/lib/nltk_data'
+    - '/usr/local/lib/nltk_data'
+    - ''

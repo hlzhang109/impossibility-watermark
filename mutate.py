@@ -1,145 +1,254 @@
-import os
+# from langchain.globals import set_debug
+# set_debug(True)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-os.environ["WORLD_SIZE"] = "1"
-
-import nltk
+import numpy as np
+import traceback
+import datetime
+import textwrap
 import random
-from nltk.tokenize import sent_tokenize
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import difflib
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    PromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+from langchain.output_parsers import PydanticOutputParser
+from langchain_core.pydantic_v1 import BaseModel, Field
+
+import hydra
+import logging
+
+log = logging.getLogger(__name__)
+
+class Mutation(BaseModel):
+    text:  str = Field(description="Edited text with minimal changes for consistency")
 
 class TextMutator:    
     """
     This class is responsible for loading and initializing an LLM with specified parameters. 
-    It also provides methods for mutating a text in a 1- or 2-step process. 
-
-    Parameters:
-    - model_name_or_path (str): The name or path of the model to be loaded. Default is "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ".
-    - revision (str): The specific model revision to use. Default is "main". 
-        - NOTE: Use "gptq-3bit-128g-actorder_True" for the 3-bit version. However, current tests show 4x worse inference time.
-    - max_new_tokens (int): The maximum number of new tokens to be generated in a single inference. Default is 1024.
-    - do_sample (bool): If True, sampling is used for generating tokens. If False, deterministic decoding is used. Default is True.
-    - temperature (float): The sampling temperature for token generation. Higher values lead to more randomness. Default is 0.7.
-    - top_p (float): The nucleus sampling probability. Keeps the cumulative probability for the most likely tokens to this threshold. Default is 0.95.
-    - top_k (int): The number of highest probability vocabulary tokens to keep for top-k-filtering. Default is 40.
-    - repetition_penalty (float): The penalty applied to repeated tokens. Values >1 discourage repetition. Default is 1.1.
-    - cache_dir (str): The directory where the model cache is stored. Default is "./.cache/".
-        - NOTE: The default dir is stored to network attached storage (NAS) and NAS is very slow for model loading. 
-                However NAS has more room for LLMs. Store locally to dramatically decrease load time. 
+    It also provides methods for mutating a text in a 1- or 2-step process.
     """
-    def __init__(self, model_name_or_path="TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ", 
-                 revision="main", # "gptq-3bit-128g-actorder_True" for 3-bit version
-                 max_new_tokens=1024, do_sample=True, temperature=0.7, top_p=0.95, 
-                 top_k=40, repetition_penalty=1.1, cache_dir="./.cache/"):
+    def __init__(self, cfg, pipeline=None):
+        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
+        
+        self.cfg = cfg # config.mutator_args
+        self.pipeline = pipeline
+        
+        # # Model Pipeline
+        # if not isinstance(self.pipeline, HuggingFacePipeline):
+        #     log.info("Initializing a new Text Mutator pipeline from cfg...")
+        #     self.pipeline = PipeLineBuilder(cfg).pipeline
 
-        # Initialize and load the model and tokenizer
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path,
-            cache_dir=cache_dir,
-            device_map="auto",
-            trust_remote_code=False,
-            revision=revision) 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name_or_path, use_fast=True, cache_dir=cache_dir)
-
-        # Store the pipeline configuration
-        self.pipeline_config = {
-            "model": self.model,
-            "tokenizer": self.tokenizer,
-            "max_new_tokens": max_new_tokens,
-            "do_sample": do_sample,
-            "temperature": temperature,
-            "top_p": top_p,
-            "top_k": top_k,
-            "repetition_penalty": repetition_penalty
-        }
-
-        # Create the pipeline
-        self.pipe = pipeline("text-generation", **self.pipeline_config)
+        # Output Parser
+        self.output_parser = PydanticOutputParser(pydantic_object=Mutation)
 
         # Check if NLTK data is downloaded, if not, download it
         try:
             nltk.data.find('tokenizers/punkt')
         except LookupError:
             nltk.download('punkt')
+            
+        # Initialize chains 
+        
+        # Step 1 - Localize Creativity Injection
+        
+        self.step_1_template = textwrap.dedent(
+            """
+            Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
+            """
+        )
+                
+        self.step_1_prompt = PromptTemplate(
+            template=self.step_1_template,
+            input_variables=["sentence"],
+        )
+        
+        self.step_1_chain = self.step_1_prompt | self.pipeline
 
-    def generate_text(self, prompt):
-        # Process the input text
-        prompt_template = f'[INST] {prompt} [/INST]'
-        return self.pipe(prompt_template)[0]['generated_text'].replace(prompt_template, "").strip()
+        # Step 2 - Global Consistency Edit
+        self.step_2_profile = """{system_profile}"""
 
-    def mutate_1_step(self, text):
-        # Combined prompt for creative alteration and consistency adjustment
-        combined_prompt = (
-            "Select a sentence at random from this text, rewrite it in a creative way, "
-            "and then apply the minimal amount of edits to the rest of the text to be ",
-            f"consistent with the newly introduced change: '{text}'"
+        # Determine the format instructions section based on the condition
+        format_instructions_section = (
+            textwrap.dedent("""
+            ** Format Instructions **: 
+
+            {format_instructions} 
+            """) if self.cfg.use_pydantic_parser else ""
         )
 
-        # Generate the modified text
-        modified_text = self.generate_text(combined_prompt)
-        return modified_text
+        self.step_2_template = textwrap.dedent(f"""
+            Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
+
+            Text:
+
+            {{original_text}} 
+
+            {format_instructions_section}
+            """
+        )     
+        
+        self.system_prompt = PromptTemplate(
+            template=self.step_2_profile,
+            input_variables=["system_profile"],
+        )
+
+        self.user_prompt = PromptTemplate(
+            template=self.step_2_template,
+            input_variables=["original_text"],
+            partial_variables={"format_instructions": self.output_parser.get_format_instructions()} if self.cfg.use_pydantic_parser else {},
+        )
+
+        if self.cfg.use_system_profile:
+            system_prompt      = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            user_prompt        = HumanMessagePromptTemplate(prompt=self.user_prompt)
+            self.step_2_prompt = ChatPromptTemplate.from_messages([system_prompt, user_prompt])
+        else:
+            self.step_2_prompt = self.user_prompt
+
+        # Initial chain setup without the output parser
+        self.step_2_chain = self.step_2_prompt | self.pipeline
+        # Conditionally add the output parser if self.cfg.use_pydantic_parser is True
+        if self.cfg.use_pydantic_parser:
+            self.step_2_chain = self.step_2_chain | self.output_parser
 
     def creatively_alter_sentence(self, text):
         # Use NLTK to split the text into sentences
         sentences = sent_tokenize(text)
         # Randomly select a sentence
         selected_sentence = random.choice(sentences)
+        log.info(f"Sentence to rephrase: {selected_sentence}")
 
         # Generate a creative variation of the sentence
-        creative_prompt = f"Rewrite this sentence creatively: '{selected_sentence}'"
-        creative_variation = self.generate_text(creative_prompt)
-
+        rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
+        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        # rephrased_sentence = rephrased_sentence.split("[/INST]",1)[1].strip()
+        
+        creative_sentences = sent_tokenize(rephrased_sentence)
+        rephrased_sentence = creative_sentences[0]
+        
+        log.info(f"Rephrased sentence: {rephrased_sentence}")
         # Replace the original sentence with its creative variation
-        sentences[sentences.index(selected_sentence)] = creative_variation
+        sentences[sentences.index(selected_sentence)] = rephrased_sentence
         return ' '.join(sentences)
 
-    def adjust_for_consistency(self, creative_text):
-        # Generate minimal changes for consistency
-        consistency_prompt = f"Make minimal edits to this text for consistency and quality: '{creative_text}'"
-        adjusted_text = self.generate_text(consistency_prompt)
-        return adjusted_text
+    def adjust_for_consistency(self, original_text, **kwargs):
+        # Prepare Input
+        dict_input = {"original_text": original_text}
+        if self.cfg.use_system_profile:
+            dict_input.update({"system_profile": self.cfg.system_profile})
 
-    def mutate_2_step(self, text):
-        # Step 1: Creatively alter a random sentence
-        text_with_creative_sentence = self.creatively_alter_sentence(text)
+        # Run Chain
+        chain_output = self.step_2_chain.invoke(dict_input)
+        
+        if self.cfg.use_pydantic_parser:
+            dict_output = chain_output.dict()
+        else:
+            dict_output = {"text" : chain_output}
+        
+        dict_output.update({
+            **dict_input,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            **kwargs
+        })
+        return dict_output
 
-        # Step 2: Adjust the rest of the text for consistency
-        final_text = self.adjust_for_consistency(text_with_creative_sentence)
+    def random_walk_attack(self, text, span_len):
 
-        return final_text
+        words = word_tokenize(text)
+        if len(words) < span_len:
+            return text  # Return the original text if it's too short
+        
+        start = np.random.randint(0, len(words) - span_len)
+        end = start + span_len
 
-if __name__ == "__main__":
+        for i in range(start, end):
+            words[i] = '<<<MASK>>>'
+
+        # filled_words = ? Going to use Flan T5. I can either understand its interface and incorporate it here
+        # or go back to attack_old and just change the model... will probably do the latter
+
+        recombined_text = ' '.join(filled_words)
+        return recombined_text
+
+    def old_mutate(self, text, **kwargs):
+        retry_count = 0
+        while retry_count < self.cfg.num_retries:
+            try:
+                
+                final_text = self.random_walk_attack(text)
+                
+                return final_text
+            except Exception:
+                retry_count += 1
+                log.info(f"Failed to produce a valid generation, trying again...")
+                if retry_count >= self.cfg.num_retries:
+                    log.info(f"Failed to produce a valid generation after {retry_count} tries.")
+                    log.info(traceback.format_exc())
+
+    def mutate(self, text, **kwargs):
+        retry_count = 0
+        while retry_count < self.cfg.num_retries:
+            try:
+                # Step 1: Creatively alter a random sentence
+                mutated_text = self.creatively_alter_sentence(text)
+                # # Step 1.5: Creatively alter another random sentence
+                # mutated_text = self.creatively_alter_sentence(mutated_text)
+                # Step 2: Adjust the rest of the text for consistency
+                final_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"].strip()
+                return final_text
+            except Exception:
+                retry_count += 1
+                log.info(f"Failed to produce a valid generation, trying again...")
+                if retry_count >= self.cfg.num_retries:
+                    log.info(f"Failed to produce a valid generation after {retry_count} tries.")
+                    log.info(traceback.format_exc())
+
+    def diff(self, text1, text2):
+        # Splitting the texts into lines as difflib works with lists of lines
+        text1_lines = text1.splitlines()
+        text2_lines = text2.splitlines()
+        
+        # Creating a Differ object
+        d = difflib.Differ()
+
+        # Calculating the difference
+        diff = list(d.compare(text1_lines, text2_lines))
+
+        # Joining the result into a single string for display
+        diff_result = '\n'.join(diff)
+
+        return diff_result
+
+
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def test(cfg):
 
     import time
 
-    # Example usage
-    text_mutator = TextMutator()
-    original_text = \
-    """
-    "The Lord of the Rings" series by J.R.R. Tolkien is a profound exploration of power and its impact on individuals and societies. Central to this exploration is the One Ring, a symbol of absolute power that corrupts and enslaves those who possess or desire it. Tolkien's narrative delves into the multifaceted nature of power and offers insights into its potential for both destruction and redemption.
+    text = textwrap.dedent(
+        """
+        Power is a central theme in J.R.R. Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story. Power can take many forms, including physical strength, political authority, and magical abilities. However, the most significant form of power in the series is the One Ring, created by Sauron to control and enslave the free peoples of Middle-earth.
+        The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world. Sauron's desire for the Ring drives much of the plot, as he seeks to reclaim it and use its power to enslave all of Middle-earth. Other characters, such as Gandalf and Frodo, also become obsessed with the Ring's power, leading them down dangerous paths and ultimately contributing to the destruction of their own kingdoms.
+        Throughout the series, Tolkien suggests that power corrupts even the noblest of beings. As Gandalf says, "The greatest danger of the Ring is the corruption of the bearer." This becomes manifest as the characters who possess or covet the Ring become increasingly consumed by its power, losing sight of their original goals and values. Even those who begin with the best intentions, like Boromir, are ultimately undone by the temptation of the Ring's power.
+        However, Tolkien also suggests that true power lies not in domination but in selflessness and sacrifice. Characters who reject the idea of using power solely for personal gain or selfish reasons are often the most effective in resisting the darkness of the Ring. For example, Aragorn's refusal to claim the throne or Sauron's rightful place as the Dark Lord illustrates this point. Instead, they embrace a more altruistic view of power, recognizing the importance of serving others and doing good.
+        In conclusion, the One Ring symbolizes the corrosive nature of power while highlighting the potential for redemption through selflessness and sacrifice. Through the characters of the Lord of the Rings series, Tolkien demonstrates the various forms of power and their effects on individuals and society. He shows that the pursuit of power for personal gain can lead to corruption, but that true power emerges when one puts the needs of others first.
+        """
+    )
 
-    The One Ring, often simply referred to as "the Ring," embodies the allure and dangers of power. Forged by the dark lord Sauron, it contains a part of his essence, making it a conduit for his malevolent will. The Ring’s ability to grant invisibility and influence over others represents the seductive nature of power, offering the illusion of invincibility and control. However, this power comes at a great cost, as it gradually dominates and corrupts its bearer. This is evident in characters like Gollum, who becomes consumed by his obsession with the Ring, and Boromir, whose noble intentions are tainted by his desire for it.
+    text_mutator = TextMutator(cfg.mutator_args)
 
-    Tolkien's portrayal of power extends beyond the Ring to the characters who resist its lure. Figures like Gandalf and Aragorn understand the corrupting influence of the Ring and refuse to wield it, despite their noble intentions. Their restraint and wisdom highlight an important theme in Tolkien's work: true power lies in the ability to resist the temptation of absolute control and to act for the greater good.
+    start = time.time()
+    mutated_text = text_mutator.mutate(text)
+    delta = time.time() - start
 
-    Furthermore, Tolkien suggests that power is inherently neither good nor evil, but its impact depends on the intentions and character of those who wield it. This is exemplified in Frodo's journey, where the burden of the Ring tests his moral fortitude. His struggle is not just against external enemies but an internal battle against the corrupting influence of power.
+    log.info(f"Original text: {text}")
+    log.info(f"Mutated text: {mutated_text}")
+    log.info(f"Diff: {text_mutator.diff(text, mutated_text)}")
+    log.info(f"Time taken: {delta}")
 
-    In conclusion, Tolkien's "The Lord of the Rings" is a profound meditation on the nature of power. Through the symbol of the Ring and the trials of its characters, Tolkien illustrates that true strength lies in humility, selflessness, and the courage to resist the corrupting allure of absolute power. The series serves as a timeless reminder of the complex dynamics of power and the moral integrity required to wield it responsibly.
-    """
-
-    # Timing mutate_1_step
-    start_time = time.time()
-    mutated_1_step_text = text_mutator.mutate_1_step(original_text)
-    end_time = time.time()
-    print("mutate_1_step " + "=" * 100)
-    print(mutated_1_step_text)
-    print("Execution time for mutate_1_step: {:.2f} seconds".format(end_time - start_time))
-
-    # Timing mutate_2_step
-    start_time = time.time()
-    mutated_2_step_text = text_mutator.mutate_2_step(original_text)
-    end_time = time.time()
-    print("mutate_2_step "  + "=" * 100)
-    print(mutated_2_step_text)
-    print("Execution time for mutate_2_step: {:.2f} seconds".format(end_time - start_time))
+if __name__ == "__main__":
+    test()

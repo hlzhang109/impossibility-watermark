@@ -1,0 +1,79 @@
+[2024-02-23 16:36:38,057][pipeline_builder][INFO] - Initializing MaziyarPanahi/Smaug-72B-v0.1-GPTQ
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 311, in _lazy_init
+    queued_call()
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 180, in _check_capability
+    capability = get_device_capability(d)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 435, in get_device_capability
+    prop = get_device_properties(device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 453, in get_device_properties
+    return _get_device_properties(device)  # type: ignore[name-defined]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: device >= 0 && device < num_gpus INTERNAL ASSERT FAILED at "../aten/src/ATen/cuda/CUDAContext.cpp":50, please report a bug to PyTorch. device=1, num_gpus=
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/attack.py", line 191, in main
+    attacker = Attack(cfg)
+               ^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 35, in __init__
+    self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 31, in get_or_create_pipeline_builder
+    self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 46, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 561, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 3434, in from_pretrained
+    max_memory = get_balanced_memory(
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 849, in get_balanced_memory
+    max_memory = get_max_memory(max_memory)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 720, in get_max_memory
+    _ = torch.tensor([0], device=i)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 317, in _lazy_init
+    raise DeferredCudaCallError(msg) from e
+torch.cuda.DeferredCudaCallError: CUDA call failed lazily at initialization with error: device >= 0 && device < num_gpus INTERNAL ASSERT FAILED at "../aten/src/ATen/cuda/CUDAContext.cpp":50, please report a bug to PyTorch. device=1, num_gpus=
+
+CUDA call was originally invoked at:
+
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/borito1907/impossibility-watermark/attack.py", line 11, in <module>
+    from pipeline_builder import PipeLineBuilder
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 2, in <module>
+    import torch
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/__init__.py", line 1332, in <module>
+    _C._initExtension(manager_path())
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 244, in <module>
+    _lazy_call(_check_capability)
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/torch/cuda/__init__.py", line 241, in _lazy_call
+    _queued_calls.append((callable, traceback.format_stack()))
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

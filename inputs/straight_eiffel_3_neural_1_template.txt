@@ -1,0 +1,36 @@
+[2024-02-22 12:13:33,503][pipeline_builder][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+[2024-02-22 12:13:33,681][datasets][INFO] - PyTorch version 2.1.2 available.
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py:4193: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-02-22 12:13:37,876][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/attack.py", line 190, in main
+    attacker = Attack(cfg)
+               ^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 36, in __init__
+    self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 32, in get_or_create_pipeline_builder
+    self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 46, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 561, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 3502, in from_pretrained
+    ) = cls._load_pretrained_model(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 3926, in _load_pretrained_model
+    new_error_msgs, offload_index, state_dict_index = _load_state_dict_into_meta_model(
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 805, in _load_state_dict_into_meta_model
+    set_module_tensor_to_device(model, param_name, param_device, **set_module_kwargs)
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 347, in set_module_tensor_to_device
+    new_value = value.to(device)
+                ^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 28.00 MiB. GPU 0 has a total capacty of 47.33 GiB of which 10.88 MiB is free. Process 3751295 has 260.00 MiB memory in use. Process 3751296 has 260.00 MiB memory in use. Process 3751297 has 260.00 MiB memory in use. Process 3751294 has 42.76 GiB memory in use. Including non-PyTorch memory, this process has 3.76 GiB memory in use. Of the allocated memory 3.50 GiB is allocated by PyTorch, and 471.00 KiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

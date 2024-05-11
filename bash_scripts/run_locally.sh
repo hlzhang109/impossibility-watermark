@@ -1,0 +1,2 @@
+TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+python attack.py --input "inputs/short_input.csv" --output "./results/output_$TIMESTAMP.csv" --step_T 20 --num_trials 2 --check_quality True --intermediate "./results/intermediate_$TIMESTAMP.csv" --mask_filling_model_name 'google/t5-v1_1-xl'

@@ -1,0 +1,73 @@
+[2024-02-21 22:10:29,761][datasets][INFO] - PyTorch version 2.1.2 available.
+/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py:4193: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-02-21 22:10:37,013][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py", line 286, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/mlabonne/gemma-7b-it-GGUF/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 118, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1238, in hf_hub_download
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 118, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1631, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 385, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 409, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py", line 296, in hf_raise_for_status
+    raise EntryNotFoundError(message, response) from e
+huggingface_hub.utils._errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-65d6e57d-52c728302190179e0e4939fa;f675db96-e177-4851-a966-2c28a1ca0c69)
+
+Entry Not Found for url: https://huggingface.co/mlabonne/gemma-7b-it-GGUF/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/attack.py", line 190, in main
+    attacker = Attack(cfg)
+               ^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 38, in __init__
+    self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 32, in get_or_create_pipeline_builder
+    self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 21, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 521, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: mlabonne/gemma-7b-it-GGUF does not appear to have a file named config.json. Checkout 'https://huggingface.co/mlabonne/gemma-7b-it-GGUF/main' for available files.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

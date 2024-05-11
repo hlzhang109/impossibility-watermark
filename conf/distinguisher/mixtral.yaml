@@ -1,0 +1,25 @@
+entropy: 1 
+output_1: 1
+attack_id_1: 5
+output_2: 3
+attack_id_2: 1
+log_suffix: ""
+num_trials: 10
+num_repetitions: 5
+mutation_num: -1
+matcher: "local" #or "gpt4"
+
+distinguisher_args:
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
+    revision: "main" 
+    model_cache_dir: "${attack_args.model_cache_dir}"
+    device_map: "auto"
+    trust_remote_code: True
+    max_new_tokens: 1024
+    do_sample: True 
+    temperature: 0.7 
+    top_p: 0.95 
+    top_k: 40
+    repetition_penalty: 1.1
+    watermark_score_threshold: 5.0
+    cuda: "${attack_args.cuda}"

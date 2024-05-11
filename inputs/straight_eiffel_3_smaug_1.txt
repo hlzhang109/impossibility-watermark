@@ -1,0 +1,31 @@
+[2024-02-21 21:33:21,997][datasets][INFO] - PyTorch version 2.1.2 available.
+[2024-02-21 21:33:31,251][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Downloading shards:   0%|          | 0/15 [00:00<?, ?it/s]Downloading shards:   0%|          | 0/15 [00:00<?, ?it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/borito1907/impossibility-watermark/attack.py", line 190, in main
+    attacker = Attack(cfg)
+               ^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 38, in __init__
+    self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/attack.py", line 32, in get_or_create_pipeline_builder
+    self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
+                                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/impossibility-watermark/pipeline_builder.py", line 20, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/models/auto/auto_factory.py", line 566, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/modeling_utils.py", line 3392, in from_pretrained
+    resolved_archive_file, sharded_metadata = get_checkpoint_shard_files(
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/utils/hub.py", line 1011, in get_checkpoint_shard_files
+    cached_filename = cached_file(
+                      ^^^^^^^^^^^^
+  File "/home/borito1907/anaconda3/envs/watermark/lib/python3.11/site-packages/transformers/utils/hub.py", line 378, in cached_file
+    raise EnvironmentError(f"Could not locate {full_filename} inside {path_or_repo_id}.")
+OSError: Could not locate model-00001-of-00015.safetensors inside LoneStriker/Smaug-34B-v0.1-GPTQ.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

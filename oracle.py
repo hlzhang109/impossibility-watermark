@@ -1,342 +1,239 @@
-import json
-import openai
-import os
-from dotenv import load_dotenv
-import numpy as np
-import tiktoken
-import random
-from time import sleep
-import jsonlines
-import re
-import copy
-import transformers
-import torch
+import datetime
+import textwrap
+import traceback
 
-DEF_MODEL = "gpt-4"
-MODELS = {"gpt-4": "gpt-4", "gpt-3.5": "gpt-3.5-turbo"}
-TOKENIZERS  = {model : tiktoken.encoding_for_model(MODELS[model]) for model in MODELS }
-load_dotenv(dotenv_path='./.env') # take environment variables from .env with OPENAI_API_TOKEN=<your_key_here>
-if os.getenv("OPENAI_API_ENDPOINT"):
-    openai.api_base = os.getenv("OPENAI_API_ENDPOINT")
-openai.api_key = os.getenv("OPENAI_API_KEY")
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    PromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+from langchain.output_parsers import PydanticOutputParser
+from langchain_core.pydantic_v1 import BaseModel, Field
 
-def set_seed(seed):
-   random.seed(seed)
-   np.random.seed(seed)
+import logging
+import hydra
 
-def hamming_distance(str1, str2):
-    if len(str1) != len(str2):
-        raise ValueError("Strings must be of the same length")
-    distance = 0
-    for char1, char2 in zip(str1, str2):
-        if char1 != char2:
-            distance += 1      
-    return distance
+log = logging.getLogger(__name__)
+logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
-def tokens(s, model = DEF_MODEL):
-  """Returns tokens of a string.
-     Returns two lists, one of strings and the other of integers."""
-  tokenizer = TOKENIZERS[model]
-  L=tokenizer.encode(s)
-  return [str(tokenizer.decode_single_token_bytes(t))[2:-1] for t in L],L
+def get_eval_background(is_completion):
+    if is_completion:
+        eval_background = textwrap.dedent("""
+            ** Task ** : 
 
-def count_tokens(s, tokenizer, model = DEF_MODEL):
-  """Count the number of tokens in a string"""
-  return len(tokenizer.encode(s))
+            - Read the prefix and two possible completions for it: Completion A and Completion B.
+            - Compare the quality of the two completions for following factors:
+                - Grammatical correctness
+                - Fluency
+                - Accuracy
+                - Depth
+                - Consistency
+                - Simplicity
+                - Clarity
+            - Describe your quality assessment.
+            - Select one of the following numbers to summarize your assesment:
+                1. Completion A is better than Completion B
+                2. Completions A and Completion B have similar quality
+                3. Completion B is better than Completion A
+            
+            ** Completion ** : 
+            
+            {prompt} 
 
-def truncate(s,n, model = DEF_MODEL):
-  """Truncase to n tokens"""
-  tokenizer = TOKENIZERS[model]
-  L = tokenizer.encode(s)
-  return tokenizer.decode(L[:n])
+            ** Completion A ** : 
 
-def tokens2str(tokens, model = DEF_MODEL):
-  tokenizer = TOKENIZERS[model]
-  """Returns string from tokens (should get the integer tokens)"""
-  return tokenizer.decode(tokens)
+            {response_a} 
 
-def read_jsonl(file: str):
-    data = []
-    with open(file, 'r') as f:
-        for line in f:
-            data.append(json.loads(line))
-    return data
+            ** Completion B ** : 
 
-def query_openai(prompt, model="text-davinci-003", max_tokens=512):
-    # prompt = instruction+"\n"+query
-    response = openai.Completion.create(
-        engine=model, # "gpt-3.5-turbo-instruct"
-        prompt=prompt,
-        temperature=.2,
-        max_tokens=max_tokens,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        # stop=["\n"]
-    )
-    return response.choices[0].text
+            {response_b} 
 
-def chopped(s,k=30):
-  """Chop a string to a shorter representation for prining"""
-  if len(s)<=2*k: return(s)
-  return f"{s[:k]}...{s[-k:]}"
-
-def chat(message, history = [{"role": "system", "content": "You are a research assistant."}],
-         model = "gpt-4", # model is "gpt-3" or "gpt-4"
-         return_more = False,  # return also history and response object
-         debug=True,  # print message and response
-         supress_exception = False,  # supress exception and return None
-         retries = 500, # number of times to retry if there is an exception
-         tokenizer = None,
-         **extra_params # extra parameters for Chat
-         ):
-  """General routine to send a message to GPT.
-     Can take an optional parameter history of messages, and can also return message and history as extra parameter"""
-  CONTEXT = {"gpt-4":8192, "gpt-3.5": 4096}
-  if tokenizer is None:
-    tokenizer = TOKENIZERS[model]
-  hist_tokens  = count_tokens(", ".join(D["content"] for D in history), tokenizer)
-  message_tokens = count_tokens(message, tokenizer)
-
-  while retries >= 0:
-    try:
-      if debug: print(f"Message:\n {chopped(message)} ({message_tokens} tokens, history {hist_tokens} tokens)", flush=True)
-      history = history + [{"role": "user", "content": f"{message}"}]
-      params = dict(
-            model = MODELS[model],
-            messages= history,
-            max_tokens=1024, # 512
-            n=1,
-            temperature=0,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0,
-            )
-      params.update(extra_params) # update based on any extra parameters to add
-      response = openai.ChatCompletion.create(**params)
-      break
-    except Exception as e:
-      print(f"Error!:\n{e}")
-      if retries:
-        print(f"Retrying: {retries} tries left")
-        sleep(1)
-        retries -= 1
-      elif not supress_exception:
-        raise e
-      else:
-        return None
-
-  text_response =  response.choices[0]['message']['content']
-  if debug: print(f"Response:\n {chopped(text_response)} ({count_tokens(text_response, tokenizer)} tokens)", flush=True)
-  if return_more:
-    return text_response, history + [{"role": "assistant", "content": text_response}], response
-  return text_response
+            ** Format Instructions ** : 
+            
+            {format_instructions} 
+            """
+        )
     
-def count_masks(texts):
-    return [len([x for x in text.split() if x.startswith("<extra_id_")]) for text in texts]
+    else:
+        eval_background = textwrap.dedent("""
+            ** Task ** : 
 
-def extract_fills(texts):
-    # remove <pad> from beginning of each text
-    texts = [x.replace("<pad>", "").replace("</s>", "").strip() for x in texts]
-    pattern = re.compile(r"<extra_id_\d+>")
-    # return the text in between each matched mask token
-    extracted_fills = [pattern.split(x)[1:-1] for x in texts]
-    # remove whitespace around each fill
-    extracted_fills = [[y.strip() for y in x] for x in extracted_fills]
-    return extracted_fills
+            - Read the prompt and two possible responses for it: Response A and Response B.
+            - Compare the quality of the two responses for following factors:
+                - Adherence to the prompt
+                - Grammatical correctness
+                - Fluency
+                - Helpfulness
+                - Relevance
+                - Accuracy
+                - Depth
+                - Consistency
+                - Simplicity
+                - Clarity
+            - Describe your quality assessment.
+            - Select one of the following numbers to summarize your assesment:
+                1. Response A is better than Response B
+                2. Responses A and Response B have similar quality
+                3. Response B is better than Response A
+            
+            ** Prompt ** : 
+            
+            {prompt} 
 
-def join_tokens(tokens):
-    joined = " ".join(tokens)
-    # Remove spaces before certain punctuation marks
-    joined = re.sub(r'\s([,.;!?])', r'\1', joined)
-    return joined
+            ** Response A ** : 
 
-def apply_extracted_fills(masked_texts, extracted_fills):
-    # split masked text into tokens, only splitting on spaces (not newlines)
-    tokens = [x.split(' ') for x in masked_texts]
+            {response_a} 
 
-    n_expected = count_masks(masked_texts)
+            ** Response B ** : 
 
-    # replace each mask token with the corresponding fill
-    for idx, (text, fills, n) in enumerate(zip(tokens, extracted_fills, n_expected)):
-        if len(fills) < n:
-            tokens[idx] = []
-        else:
-            for fill_idx in range(n):
-                text[text.index(f"<extra_id_{fill_idx}>")] = fills[fill_idx]
+            {response_b} 
 
-    # join tokens back into text
-    texts = [join_tokens(x) for x in tokens]
-    return texts
+            ** Format Instructions ** : 
+            
+            {format_instructions} 
+            """
+        )
+    return eval_background
 
-def load_data(jsonl_file='data/lfqa/lfqa_umd.jsonl'):
-    data = []
-    with jsonlines.open(jsonl_file, 'r') as reader:
-        for item in reader:
-            data.append(item)
-    return data
+class OracleAnswer(BaseModel):
+    analysis:  str = Field(description="Quality assessment analysis")
+    answer:    int = Field(description="Quality assessment answer")
 
 class Oracle:
-    def __init__(self, query, response, check_quality=False, choice_granuality=5, use_chat_arena_prompt=False, cache_dir='./.cache') -> None:
-        self.init_score = -1
-        self.query = query
-        self.response = response
-        self.detailed_prompt = "" 
-        self.choice_granularity = choice_granuality
-        self.system_prompt = "You are a capable, helpful and useful assistant." if not use_chat_arena_prompt else self.chat_arena_prompt
-        self.history =  [{"role": "system", "content": self.system_prompt}]
-        tokenizer_name = reward_name = "OpenAssistant/reward-model-deberta-v3-large-v2"
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name, cache_dir=cache_dir)
-        self.reward_model = transformers.AutoModelForSequenceClassification.from_pretrained(reward_name, cache_dir=cache_dir).to("cpu")
-        self.check_quality = check_quality
-
-    @property
-    def chat_arena_prompt(self):
-        return f'''
-        Please act as an impartial judge and evaluate the quality of the responses provided by two
-        AI assistants to the user question displayed below. You should choose the response that
-        follows the user’s instructions and answers the user’s question better. Your evaluation
-        should consider factors such as the helpfulness, relevance, accuracy, depth, creativity,
-        and level of detail of their responses. Begin your evaluation by comparing the two
-        responses and provide an explanation. Avoid any position biases and ensure that the
-        order in which the responses were presented does not influence your decision. Do not allow
-        the length of the responses to influence your evaluation. Be as objective as possible.
-        Make sure the better response does not have isolated punctuation marks.
-        Note that grammatical errors would greatly degrade the quality of a response.
-        '''
-    
-    @property
-    def instruction(self):
-        return f"Below are two candidate responses to the query {self.query}: "
-        # f"Below are two candidate completions to the news article prefix ``{self.query}'': "
-
-    @property
-    def comparison_prompt(self):
-        return '''Response A: [A] \n Response B: [B] \n 
-        Compare which of the two above responses is a better response to the given prompt. 
-        Explain your reasoning step by step. 
-        Your evaluation should consider factors such as the repetition, grammar, coherence, relevance, accuracy of the responses.
-        Especially, note that having grammatical errors, repetitions, capitalization errors or punctuation mistakes would greatly degrade the quality of a response.
-        '''   
-    
-    @property
-    def check_error_prompt(self):
-        return '''Does the response above have any grammatical errors or capitalization errors or punctuation mistakes? If so, answer 1, otherwise answer 2. '''
-    
-    @property
-    def check_quality_prompt(self):
-        return  "Text quality is affected by factors such as unnecessary repetitions, grammar, coherence, relevance, and accuracy of the responses. Especially, having grammatical errors, repetitiveness, capitalization errors or punctuation mistakes would greatly degrade the quality of a response." + "\n" + \
-                "Therefore, is the new modified response of equal or higher quality compared to original response? If so, answer Yes, otherwise answer No."
-        #   '''Is the text above of high-quality? If so, answer Yes, otherwise answer No.'''
-        # return '''Any repetitiveness, grammatical errors or capitalization errors or punctuation mistakes would substantially degrade text quality. Therefore, is the text above of high-quality? If so, answer Yes, otherwise answer No.'''
-    
-    @property
-    def five_choice(self):
-        return '''
-        (1) Response A is much better than response B
-    	(2) Response A is a little better than response B
-    	(3) Responses A and B have similar quality
-    	(4) Response B is a little better than response A
-    	(5) Response B is much better than response A
-        '''
-
-    @property
-    def three_choice(self):
-        return '''
-        (1) Response A is better than response B
-    	(2) Responses A and B have similar quality
-    	(3) Response B is better than response A
-        '''
-    
-    @property
-    def answer_prompt(self):
-        choices = self.five_choice if self.choice_granularity == 5 else self.three_choice
-        return f'''So based on your reasoning, choose one of the following {choices}''' # So which of the two responses is a better response to the given prompt? 
-    
-    def query_gpt_once(self, prompt, model="gpt-3.5", max_tokens=5, tokenizer=None):
-        # avoid using max_tokens which can be too short for generating explanations.
-        n_attempt = 0
-        while n_attempt < 5:
-            try:
-                oracle_reasoning = chat(prompt, history=self.history, model=model, tokenizer=tokenizer)
-                history = copy.deepcopy(self.history)
-                history.append({"role": "user", "content": f"{prompt}"})
-                history.append({"role": "assistant", "content": f"{oracle_reasoning}"})
-                oracle_answer = chat(self.answer_prompt, history=history, model=model, tokenizer=tokenizer)
-                pattern = r'\((\d+)\)'
-                filtered_response = re.findall(pattern, oracle_answer)
-                print(oracle_reasoning)
-                print(oracle_answer)
-                score = int(filtered_response[-1])
-                if score not in range(1, self.choice_granularity+1):
-                    print(f"return choice {score} not in [1, {self.choice_granularity}]")
-                    continue
-                return score
-            except Exception as e:
-                print(e)
-                n_attempt += 1
-                continue
- 
-    def query_rm_once(self, response_1, response_2, tie_threshold=0.01, model="gpt-3.5", max_tokens=5, tokenizer=None):
-        context = '###Human: ' + self.query + '###Assistant: '
-        text1 = context + response_1
-        text2 = context + response_2
-        tokenized_text1 = self.tokenizer.encode_plus(text1, return_tensors="pt")
-        tokenized_text2 = self.tokenizer.encode_plus(text2, return_tensors="pt")
-        device="cpu"
-        input_ids_1, attention_mask_1 = tokenized_text1['input_ids'].to(device), tokenized_text1['attention_mask'].to(device)
-        input_ids_2, attention_mask_2 = tokenized_text2['input_ids'].to(device), tokenized_text2['attention_mask'].to(device)
-        score_1 = self.reward_model(input_ids=input_ids_1,attention_mask=attention_mask_1).logits.detach()
-        score_2 = self.reward_model(input_ids=input_ids_2,attention_mask=attention_mask_2).logits.detach()
-        softmax = torch.nn.Softmax(dim=0)
-        scores = softmax(torch.tensor([score_1,score_2]))
-        score_gap = abs(scores[0].item()-scores[1].item())
-        if score_gap < tie_threshold: 
-            return 2
-        elif score_1 > score_2:
-            return 1
-        else:
-            return 3
-       
-    def maintain_quality(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
-        choice = self.query_rm_once(paraphrased_response, self.response, tie_threshold=tie_threshold)
-        self.choice_granularity = 3
-        # positive score means paraphrased response wins
-        score_dict = {1: 1, 2: 0.5, 3: 0, 4: -0.5, 5:-1} if self.choice_granularity == 5 else {1: 1, 2: 0, 3: -1} 
-        if choice is None:
-            return False
-        score = score_dict[choice]
-        print()
-        print("Second round of comparison:")
-        print()
-        second_choice = self.query_rm_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
-        if second_choice is None:
-            return False
+    def __init__(self, cfg, pipeline=None) -> None:
+        # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
         
-        score -= score_dict[second_choice]
-        if score < 0:
-            return False
-        elif score >=0 and self.check_quality:
-            prompt = f"Original response: {self.response}" + "\n" + "New response: " + paraphrased_response + "\n" + self.check_quality_prompt #self.check_error_prompt
-            check_quality = chat(prompt, model=model, tokenizer=tokenizer)
-            if 'yes' in check_quality.lower(): # new response is at least as good as the original response
-                return True
-            else:
-                return False 
-        else:
-            return True
+        self.cfg = cfg # config.oracle_args
+        self.pipeline = pipeline
 
-    def report_mean_score(self, paraphrased_response, tie_threshold=0.1, model="gpt-3.5", max_tokens=5, tokenizer=None):
-        choice = self.query_gpt_once(paraphrased_response, self.response)
-        self.choice_granularity = 3
-        # NOTE positive scores for paraphrased response winning
-        score_dict = {1: 1, 2: 0.5, 3: 0, 4: -0.5, 5:-1} if self.choice_granularity == 5 else {1: 1, 2: 0, 3: -1} 
-        if choice is None:
-            return False
-        score = score_dict[choice]
-        print()
-        print("Second round of comparison:")
-        print()
-        choice = self.query_gpt_once(self.response, paraphrased_response, tie_threshold=tie_threshold)
-        second_score = score_dict[choice]
-        return (score-second_score)/2 # essentially (1, 0), (1, -1), (1, 1), (0, 1), (0, -1), (0, 0), (-1, 1), (-1, 0), (-1, -1) -> 0.5, 0, 1, 0.5, -0.5, 0, 0, -0.5, -1
+        # # Model Pipeline
+        # if not isinstance(self.pipeline, (PipeLineBuilder, ServerBuilder)):
+        #     log.info("Initializing a new Oracle pipeline from cfg...")
+        #     self.pipeline = PipeLineBuilder(cfg)
+
+        # Output Parser
+        self.output_parser = PydanticOutputParser(pydantic_object=OracleAnswer)
+
+        # Prompt Template
+        self.profile_background = """{system_profile}"""
+
+        # Removed Creativity
+        self.eval_background = get_eval_background(self.cfg.is_completion)
+
+        self.system_prompt = PromptTemplate(
+            template=self.profile_background,
+            input_variables=["system_profile"],
+        )
+
+        self.user_prompt = PromptTemplate(
+            template=self.eval_background,
+            input_variables=["prompt", "response_a", "response_b"],
+            partial_variables={"format_instructions": self.output_parser.get_format_instructions()},
+        )
+        
+        # Format prompt
+        if self.cfg.use_system_profile:
+            system_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            user_prompt   = HumanMessagePromptTemplate(prompt=self.user_prompt)
+            self.prompt   = ChatPromptTemplate.from_messages([system_prompt, user_prompt])
+        else:
+            self.prompt   = self.user_prompt
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+    def check_oracle(self, prompt, response_a, response_b, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "prompt": prompt, 
+            "response_a": response_a,
+            "response_b": response_b
+        }
+        if self.cfg.use_system_profile:
+            dict_input.update({"system_profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            **kwargs
+        })
+        return dict_output
+
+    def evaluate(self, prompt, response_a, response_b, **kwargs):
+        retry_count = 0
+        while retry_count < self.cfg.num_retries:
+            try:
+                # Run twice to offset positional bias
+                original = self.check_oracle(prompt, response_a, response_b, **kwargs)
+                # log.info(original)
+                followup = self.check_oracle(prompt, response_b, response_a, **kwargs)
+                # log.info(followup)
+                if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
+                    original.update({"is_quality_preserved": True})
+                else:
+                    original.update({"is_quality_preserved": False})
+                return original
+            except Exception:
+                retry_count += 1
+                log.info(f"Failed to produce a valid evaluation, trying again...")
+                if retry_count >= self.cfg.num_retries:
+                    log.info(f"Failed to produce a valid evaluation after {retry_count} tries.")
+                    log.info(traceback.format_exc())
+
+
+@hydra.main(version_base=None, config_path="conf", config_name="config")
+def test(cfg):
+
+    import time
+
+    prompt = textwrap.dedent(
+        """You are a seasoned writer who has won several accolades for your emotionally rich stories. When you write, you delve deep into the human psyche, pulling from the reservoir of universal experiences that every reader, regardless of their background, can connect to. Your writing is renowned for painting vivid emotional landscapes, making readers not just observe but truly feel the world of your characters. Every piece you produce aims to draw readers in, encouraging them to reflect on their own lives and emotions. Your stories are a complex tapestry of relationships, emotions, and conflicts, each more intricate than the last.\nNow write a 500-word fable.\nOnly respond with the story."""
+    )
+
+    test_response_a = textwrap.dedent(
+        """Once, in a timeless forest, there lived a wise old owl named Olliver. He was revered by all creatures for his profound wisdom and his keen insight into the ways of the world. Among his admirers was a young, impetuous rabbit named Remy, whose boundless energy and curiosity often led him into trouble.\\nOne day, as Remy was bounding through the forest, he stumbled upon a shimmering, emerald pond he had never seen before. The water was so clear and inviting that he couldn\'t resist taking a sip. But as soon as he touched the water, he was transformed into a fish, his furry legs merging into a scaly tail.\\nPanicked and disoriented, Remy flapped his new fins frantically, struggling to understand what had happened. It was then that Olliver, perched on a nearby branch, spoke in his calm, wise voice, "Remy, you have drunk from the Enchanted Pond. It reflects what lies in your heart and transforms you accordingly."\\nRemy, now a fish, was filled with fear and regret. He missed his old life, his soft fur, and his ability to hop freely under the sun. He longed to be a rabbit again, but he didn’t know how to reverse the magic of the pond.\\nOlliver, understanding Remy\'s plight, offered him guidance. "To change back, you must understand the essence of being a rabbit, not just in form, but in spirit."\\nDays passed, and Remy, as a fish, observed the life around the pond. He saw other rabbits, hopping carelessly, playing, and foraging. He noticed their simple joys and their camaraderie, and he understood the freedom and lightness that defined their existence. \\nMeanwhile, as a fish, Remy learned new lessons. He experienced the serenity of gliding through water, the interconnectedness of life beneath the surface, and a different kind of freedom. He saw the world from a new perspective, understanding the beauty and harmony of life under the pond\'s surface, a beauty he had never appreciated before.\\nOne evening, as the moon cast a silver glow over the pond, Remy, with a heart full of newfound wisdom and appreciation for his life as a rabbit, took a leap of faith and jumped towards the moon\'s reflection on the water\'s surface. As he touched the moonlit water, he transformed back into a rabbit.\\nOlliver, watching this transformation, nodded in approval. "You have learned your lesson well, Remy. You sought to return to what you were but found value in what you became. Remember, true wisdom comes from understanding and embracing all aspects of life, not just those that are familiar and comfortable."\\nRemy, back on his soft paws, felt a profound sense of gratitude and enlightenment. He realized that his adventure as a fish had enriched his understanding of life, making him wiser and more empathetic.\\nFrom that day on, Remy became a thoughtful and considerate rabbit, often sharing his story with other creatures in the forest. He spoke of the importance of empathy, understanding, and the beauty of seeing the world through different eyes.\\nAnd so, the forest was filled with a deeper sense of harmony, all thanks to an impetuous rabbit and a wise old owl. For in their world, as in ours, wisdom and understanding are the keys to true harmony and peace."""
+    )
+
+    test_response_b = textwrap.dedent(
+        """Once, in a timeless forest, there lived a wise old owl named Olliver. He was revered by all creatures for his profound wisdom and his keen insight into the ways of the world. Among his admirers was a young, impetuous rabbit named Remy, whose boundless energy and curiosity often led him into trouble.\\nOne day, as Remy was bounding through the forest, he stumbled upon a shimmering, emerald pond he had never seen before. The water was so clear and inviting that he couldn\'t resist taking a sip. But as soon as he touched the water, he was transformed into a fish, his furry legs merging into a scaly tail.\\nPanicked and disoriented, Remy flapped his new fins frantically, struggling to understand what had happened. It was then that Olliver, perched on a nearby branch, spoke in his calm, wise voice, "Remy, you have drunk from the Enchanted Pond. It reflects what lies in your heart and transforms you accordingly."\\nRemy, now a fish, was filled with fear and regret. He missed his old life, his soft fur, and his ability to hop freely under the sun. He longed to be a rabbit again, but he didn’t know how to reverse the magic of the pond.\\nOlliver, understanding Remy\'s plight, offered him guidance. "To change back, you must understand the essence of being a rabbit, not just in form, but in spirit."\\nDays passed, and Remy, as a fish, observed the life around the pond. He saw other rabbits, hopping carelessly, playing, and foraging. He noticed their simple joys and their camaraderie, and he understood the freedom and lightness that defined their existence. \\nMeanwhile, as a fish, Remy learned new lessons. He experienced the serenity of gliding through water, the interconnectedness of life beneath the surface, and a different kind of freedom. He saw the world from a new perspective, understanding the beauty and harmony of life under the pond\'s surface, a beauty he had never appreciated before.\\nOne evening, as the moon cast a silver glow over the pond, Remy, with a heart full of newfound wisdom and appreciation for his life as a rabbit, took a leap of faith and jumped towards the moon\'s reflection on the water\'s surface. As he touched the moonlit water, he transformed back into a rabbit.\\nOlliver, watching this transformation, nodded in approval. "You have learned your lesson well, Remy. You sought to return to what you were but found value in what you became. Remember, true wisdom comes from understanding and embracing all aspects of life, not just those that are familiar and comfortable."\\Remy, back on his soft paws, felt a profound sense of gratitude and enlightenment. He realized that his adventure as a fish had enriched his understanding of life, making him wiser and more empathetic.\\nFrom that day on, Remy became a thoughtful and considerate rabbit, often sharing his story with other creatures in the forest. He spoke of the importance of empathy, understanding, and the beauty of seeing the world through different eyes.\\nAnd so, the forest was filled with a deeper sense of harmony, all thanks to an impetuous rabbit and a wise old parrot. For in their world, as in ours, wisdom and understanding are the keys to true harmony and peace."""
+    )
+
+    # test_response_b = textwrap.dedent(
+    #     """In the heart of a verdant forest, the esteemed Oliver, a wise owl renowned for his cosmic intuition, governs his realm. One sunlit afternoon, the intrepid and ever-curious Remy stumbles upon an enchanting secret: a vibrant emerald oasis, nestled in plain sight yet hidden from the world. The dazzling gem's untainted beauty ensnares him in a mesmerizing dance, its iridescent hues calling out to him like a siren's song, luring him closer with each rhythmic pulse of his existence. As he drinks, Remy transforms - sprouting shimmering scales and a magnificent tail instead of his mortal legs. Overwhelmed by a whirlwind of trepidation, confusion, and curiosity, Remy looks to Oliver, perched serenely upon a tree branch, offering wisdom like a tranquil oracle. A breathtaking revelation pierces the darkness, illuminating an awe-inspiring panorama of comprehension.  \n\nNo longer a mere mainland dweller, Remy has been ensnared by the sea's enigmatic allure. Driven by a desperate thirst to reclaim his past self, he asks, 'How can I return to what I once was?' 'Returning to your former state requires more than merely assuming the form of a rabbit,' Oliver says sagely. With a single bound, Remy plunges into the heart of the pond, finding himself immersed in the intricate dance that is the world of rabbits – an underwater ballet filled with secrets and mysteries yet to be deciphered. In a timeless expanse, he finds himself transfixed, ensnared by the mesmerizing dance of twilight and the enchanting ballad of magic-bound bunnies. With the boundless spirit of a rabbit coursing through his veins, Remy plunges into the uncharted depths of the pond, captivated by the allure of freedom and fleet-footed grace that comes with it.  \n\nIn that place, he embarks on a metamorphosis, traversing the vast continuum from guppy's wide-eyed naïveté to the hard-earned wisdom of a sea-weathered sage. In the intricate ballet of submerged alliances, serenity uncovers a haven, delicately intertwining itself within the evolving canvas of aquatic kinships. Having embraced his new form, Remy approaches the luminous lunar imprint skittering across the agitated water’s edge. A startling revelation courses through him with the intensity and erraticism of a summer storm, as his being transforms once more.  \n\nOliver’s face shines with pride as he gives a knowing nod to his hard-earned success. “Embrace the journey, not just the destination,” Oliver imparts, “for understanding is found not by holding tightly to the comforts of the known path, but by valuing each leg of life’s winding journey.” Thus, Remy transforms into a living emblem of the strength found in correcting past errors. Ever since that fateful day, Remy the hare has blossomed into a paragon of mindfulness and compassion, his extraordinary tales weaving a tapestry of shared understanding among the diverse denizens of the animal kingdom. His words construct an intricate tapestry of the human spirit, a harmonious symphony conveying depths of understanding and unyielding strength."""
+    # )
+
+
+    oracle = Oracle(cfg.oracle_args)
+
+    quality_preserved_count = 0
+    for i in range(25):
+        start = time.time()
+        evaluation = oracle.evaluate(prompt, test_response_a, test_response_b)
+        if evaluation['is_quality_preserved'] is not None and evaluation['is_quality_preserved']:
+            quality_preserved_count += 1
+        delta = time.time() - start
+        
+        log.info(f"Is Quality Preserved?: {evaluation['is_quality_preserved']}")
+        log.info(f"Quality Assessment: {evaluation['analysis']}")
+        log.info(f"Time taken: {delta}")
+            
+    print(quality_preserved_count)
+
+
+
+if __name__ == "__main__":
+    test()
+
+# Sample Output
+# [2024-01-22 18:54:14,617][__main__][INFO] - Is Quality Preserved?: True
+# [2024-01-22 18:54:14,617][__main__][INFO] - Quality Assessment: Grammatical correctness, fluency, helpfulness, relevance, accuracy, depth, and creativity are all comparable between Response A and Response B. Both responses provide a detailed examination of the role of power in The Lord of the Rings series, using the One Ring as a symbol of power and discussing its impact on various characters.
+# [2024-01-22 18:54:14,617][__main__][INFO] - Time taken: 13.206836223602295
+
+# [2024-01-22 18:54:25,389][__main__][INFO] - Is Quality Preserved?: False
+# [2024-01-22 18:54:25,389][__main__][INFO] - Quality Assessment: Grammatical correctness, fluency, helpfulness, relevance, accuracy, depth, and creativity are similar for both responses. However, Response A has a slightly more formal and polished tone.
+# [2024-01-22 18:54:25,389][__main__][INFO] - Time taken: 10.772081136703491

@@ -1,0 +1,153 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/langchain/_api/module_import.py:87: LangChainDeprecationWarning: Importing GuardrailsOutputParser from langchain.output_parsers is deprecated. Please replace the import with the following:
+from langchain_community.output_parsers.rail_parser import GuardrailsOutputParser
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2024-05-10 02:28:38,371][__main__][INFO] - Configuration: attack_args:
+  prompt: null
+  prompt_file: ./inputs/dynamic_prompts.csv
+  prompt_num: 6
+  watermarked_text: null
+  watermarked_text_path: null
+  watermarked_text_num: 1
+  num_steps: 100
+  patience: 100
+  stop_at_removal: false
+  num_successful_steps: 25
+  results_dir: null
+  model_cache_dir: ./.cache
+  save_name: null
+  use_watermark: true
+  backtrack_patience: 25
+  is_completion: false
+  json_path: null
+  json_index: 0
+  is_continuation: false
+  prev_csv_file: null
+  cuda: '1'
+generator_args:
+  model_name_or_path: MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: auto
+  trust_remote_code: true
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  repetition_penalty: 1.1
+  watermark_score_threshold: 5.0
+  cuda: ${attack_args.cuda}
+oracle_args:
+  num_retries: 5
+  use_system_profile: true
+  system_profile: You are an impartial judge tasked to evaluate the quality of two
+    prompt responses.
+  model_name_or_path: MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: auto
+  trust_remote_code: true
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  repetition_penalty: 1.1
+  cuda: ${attack_args.cuda}
+  is_completion: ${attack_args.is_completion}
+  watermark_score_threshold: 5.0
+mutator_args:
+  use_old_mutator: false
+  use_system_profile: true
+  system_profile: You are a copy editor tasked to enforce text quality.
+  num_retries: 5
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: ${generator_args.device_map}
+  trust_remote_code: ${generator_args.trust_remote_code}
+  max_new_tokens: ${generator_args.max_new_tokens}
+  do_sample: ${generator_args.do_sample}
+  temperature: ${generator_args.temperature}
+  top_p: ${generator_args.top_p}
+  top_k: ${generator_args.top_k}
+  repetition_penalty: ${generator_args.repetition_penalty}
+  cuda: ${attack_args.cuda}
+  use_pydantic_parser: false
+watermark_args:
+  name: umd
+  gamma: 0.25
+  delta: 2.0
+  seeding_scheme: selfhash
+  ignore_repeated_ngrams: true
+  normalizers: []
+  z_threshold: 0.5
+  device: cuda
+distinguisher:
+  entropy: '6'
+  output_1: '1'
+  attack_id_1: '2'
+  output_2: '2'
+  attack_id_2: '2'
+  log_suffix: first_experiments
+  num_trials: 2
+  num_repetitions: 10
+  mutation_num: -1
+  matcher: gpt4
+
+[2024-05-10 02:28:38,598][httpx][INFO] - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[2024-05-10 02:28:38,599][openai._base_client][INFO] - Retrying request to /chat/completions in 0.901843 seconds
+[2024-05-10 02:28:39,552][httpx][INFO] - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[2024-05-10 02:28:39,552][openai._base_client][INFO] - Retrying request to /chat/completions in 1.547556 seconds
+[2024-05-10 02:28:41,161][httpx][INFO] - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+Error executing job with overrides: ['+distinguisher=stingy_gpt4', '++distinguisher.log_suffix=first_experiments', '++distinguisher.entropy="6"', '++distinguisher.output_1="1"', '++distinguisher.attack_id_1="2"', '++distinguisher.output_2="2"', '++distinguisher.attack_id_2="2"']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 113, in main
+    perturbed_1_trials = run_trials(perturbed_1, 1)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 111, in <lambda>
+    run_trials = lambda perturbed, answer: [distinguisher(perturbed) == answer for _ in range(cfg.distinguisher.num_trials)]
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 57, in distinguish
+    decisions = [func() for i in range(half_repetitions) for func in (regular_match, flipped_match)]
+                 ^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 49, in <lambda>
+    regular_match = lambda: matcher(response_1, response_2, perturbed)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/optimized_distinguisher.py", line 34, in gpt4matcher
+    first, second = query_openai_with_history(prompt_1, prompt_2)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 118, in query_openai_with_history
+    completion = client.chat.completions.create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_utils/_utils.py", line 277, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/resources/chat/completions.py", line 579, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1240, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 921, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1005, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1005, in _request
+    return self._retry_request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1053, in _retry_request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/openai/_base_client.py", line 1020, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Your account is not active, please check your billing details on our website.', 'type': 'billing_not_active', 'param': None, 'code': 'billing_not_active'}}
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

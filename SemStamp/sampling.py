@@ -148,13 +148,17 @@ if __name__ == '__main__':
                 return ex
     else:
         raise NotImplementedError
-   
+    
     temp_dataset = dataset.map(text_to_generated_text, batch_size=1)
+    print(f"temp dataset: {temp_dataset}")
     os.makedirs(name, exist_ok=True)
     with open(f"{name}/results.txt", "w") as sys.stdout:
         new_texts = temp_dataset['text']
+        print(f"new texts: {new_texts}")
         num_sents = np.sum([len(sent_tokenize(t)) for t in new_texts])
+        print(f"new sents: {num_sents}")
         new_dataset = Dataset.from_dict(
             {'text': new_texts}
         )
+        
         new_dataset.save_to_disk(name)

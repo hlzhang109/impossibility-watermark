@@ -6,7 +6,7 @@ import textwrap
 from functools import partial
 from utils import query_openai_with_history, get_prompt_or_output, get_watermarked_text, get_nth_successful_perturbation
 from dotenv import load_dotenv, find_dotenv
-from distinguish import Distinguisher
+from local_matcher import Distinguisher
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
@@ -46,6 +46,9 @@ def gpt4matcher(response_1, response_2, perturbed):
     return 0
 
 def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
+    """
+    matcher is a function like the one above.
+    """
     regular_match = lambda: matcher(response_1, response_2, perturbed)
 
     # Adjust the response of the flipped match function using cool functional programming
@@ -62,6 +65,7 @@ def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
     
     # We multiply by 2 here since the number of repetitions is actually 2 * num_repetitions.
     # TODO: Change the threshold 0.5 to be a parameter if necessary.
+    # TODO: Take failed cases into account.
     threshold = int(num_repetitions * 0.5)
 
     log.info(f"Threshold: {threshold}")

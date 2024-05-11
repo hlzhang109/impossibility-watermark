@@ -69,35 +69,32 @@ If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story
 
         self.second_chain = self.second_prompt | self.pipeline
 
-    def match(self, story_1, story_2, story_a, **kwargs):
-        # Prepare Input
-        dict_input = {
-            "story_1": story_1, 
-            "story_2": story_2,
-            "story_a": story_a,
-        }
+    def match(self, story_1, story_2, story_a, num_retries=3, **kwargs):
+        # TODO: Ideally turn num_retries into a Hydra parameter.
+        for _ in range(num_retries):
+            dict_input = {
+                "story_1": story_1, 
+                "story_2": story_2,
+                "story_a": story_a,
+            }
+            response = str(self.first_chain.invoke(dict_input))
+            response = parse_llama_output(response)
+            log.info(f"Response: {response}")
 
-        # Run Chain
-        response = str(self.first_chain.invoke(dict_input))
-        response = parse_llama_output(response)
-        log.info(f"Response: {response}")
+            dict_input = {
+                "response": response,
+            }
+            output = str(self.second_chain.invoke(dict_input))
+            output = parse_llama_output(output)
+            log.info(f"Final Output: {output}")
 
-        dict_input = {
-            "response": response,
-        }
+            try:
+                output = int(output.strip())
+                return output
+            except:
+                continue
 
-        output = str(self.second_chain.invoke(dict_input))
-
-        output = parse_llama_output(output)
-
-        log.info(f"Final Output: {output}")
-
-        try:
-            output = int(output.strip())
-        except:
-            output = ""
-
-        return output
+        return ""
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")

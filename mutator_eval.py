@@ -80,7 +80,12 @@ def eval(cfg):
 
                 # Mutate text
                 start = time.time()
-                text = mutator.mutate(text)
+                try:
+                    text = mutator.mutate(text)
+                except Exception as e:
+                    print(e)
+                    continue
+
                 mutation_time = time.time() - start
 
                 out_dict.update({

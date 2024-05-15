@@ -22,7 +22,7 @@ cmd="CUDA_VISIBLE_DEVICES=\"$cuda_device\" python -m attack "
 
 # Append parts of the command for readability
 cmd+="attack_args.watermarked_text_path=\"./inputs/round_${prompt_num}_outputs.csv\" "
-cmd+="attack_args.watermarked_text_num=$output_num"
+cmd+="attack_args.watermarked_text_num=$output_num "
 cmd+="attack_args.results_dir=$results_dir "
 cmd+="attack_args.save_name=\"${save_name}.csv\" "
 cmd+="attack_args.prompt_num=$prompt_num "

@@ -65,7 +65,7 @@ def main():
     for attack in good_attacks:
         log_filepath = f"./results/stationary_distribution/robustness_analysis/entropy_{attack['entropy']}/distinguisher_results/{attack['output_1']}_{attack['attack_id_1']}-{attack['output_2']}_{attack['attack_id_2']}_{log_suffix}.log"
 
-        command = f"python optimized_distinguisher.py +distinguisher=stingy_gpt4 ++distinguisher.log_suffix={log_suffix} " \
+        command = f"python distinguisher.py +distinguisher=stingy_gpt4 ++distinguisher.log_suffix={log_suffix} " \
                   f"++distinguisher.entropy='\"{attack['entropy']}\"' " \
                   f"++distinguisher.output_1='\"{attack['output_1']}\"' " \
                   f"++distinguisher.attack_id_1='\"{attack['attack_id_1']}\"' " \

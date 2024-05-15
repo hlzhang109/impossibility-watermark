@@ -156,14 +156,6 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
-def mixtral_format_instructions(story_text):
-    return textwrap.dedent(f"""
-    [INST]
-    {story_text}
-    [/INST]
-
-    Answer:""")
-
 def strip_up_to(response, delimiter):
     # Find the position of the delimiter
     pos = response.find(delimiter)
@@ -179,3 +171,17 @@ def parse_llama_output(response):
     response = strip_up_to(response, delimiter)
     response = response[:-9] if response.endswith('assistant') else response
     return response
+
+from umd import UMDWatermarker
+from unigram import UnigramWatermarker
+from exp import EXPWatermarker
+
+def get_watermarker(cfg):
+    if cfg.watermark_args.name == "umd":
+        return UMDWatermarker(cfg)
+    elif cfg.watermark_args.name == "unigram":
+        return UnigramWatermarker(cfg)
+    elif cfg.watermark_args.name == "exp":
+        return EXPWatermarker(cfg)
+    else:
+        raise

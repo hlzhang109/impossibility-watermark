@@ -3,7 +3,6 @@ import torch
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration, AutoModel
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-from utils import mixtral_format_instructions
 import textwrap
 
 from dotenv import load_dotenv, find_dotenv
@@ -13,6 +12,14 @@ import hydra
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
+
+def mixtral_format_instructions(story_text):
+    return textwrap.dedent(f"""
+    [INST]
+    {story_text}
+    [/INST]
+
+    Answer:""")
 
 class PipeLineBuilder:
     def __init__(self, cfg):
@@ -173,7 +180,9 @@ class PipeLineBuilder:
             prompt = mixtral_format_instructions(prompt)
 
         # return self.pipeline_base(prompt)[0]['generated_text'].replace(prompt, "").strip()
-        prompt = prompt.to_string()
+        # TODO: We should probably convert the prompt template to string in the mutator class.
+        if not isinstance(prompt, str):
+            prompt = prompt.to_string()
         response = self.pipeline(prompt)
         return response
 

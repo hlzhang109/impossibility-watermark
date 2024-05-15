@@ -4,13 +4,12 @@ import hydra
 import logging
 import shutil
 from tqdm import tqdm
-from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num
+from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num, get_watermarker
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 from model_builders.pipeline import PipeLineBuilder
-from watermark import Watermarker
 from oracle import Oracle
 from mutate import TextMutator
 
@@ -41,8 +40,8 @@ class Attack:
         self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        # if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-        #     self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
+        if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
+            self.watermarker  = get_watermarker(self.cfg)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
@@ -87,6 +86,8 @@ class Attack:
         original_watermarked_text = watermarked_text
         original_text_len = count_words(original_watermarked_text)
         
+        log.info(f"Type of use_watermark: {type(self.cfg.attack_args.use_watermark)}")
+        log.info(f"use_watermark: {self.cfg.attack_args.use_watermark}")
         if self.cfg.attack_args.use_watermark:
             watermark_detected, score = self.watermarker.detect(original_watermarked_text)
         else:

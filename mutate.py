@@ -17,6 +17,7 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+from model_builders.pipeline import PipeLineBuilder
 
 import hydra
 import logging
@@ -32,15 +33,16 @@ class TextMutator:
     It also provides methods for mutating a text in a 1- or 2-step process.
     """
     def __init__(self, cfg, pipeline=None):
+        # NOTE: Not working with multiple CUDA devices, so disabled for now.
         # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
         
         self.cfg = cfg # config.mutator_args
         self.pipeline = pipeline
         
         # # Model Pipeline
-        # if not isinstance(self.pipeline, HuggingFacePipeline):
-        #     log.info("Initializing a new Text Mutator pipeline from cfg...")
-        #     self.pipeline = PipeLineBuilder(cfg).pipeline
+        if not isinstance(self.pipeline, PipeLineBuilder):
+            log.info("Initializing a new Text Mutator pipeline from cfg...")
+            self.pipeline = PipeLineBuilder(cfg)
 
         # Output Parser
         self.output_parser = PydanticOutputParser(pydantic_object=Mutation)

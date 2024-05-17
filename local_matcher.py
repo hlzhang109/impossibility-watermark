@@ -11,7 +11,6 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-from utils import strip_up_to, parse_llama_output
 from model_builders.pipeline import PipeLineBuilder 
 
 import logging
@@ -25,7 +24,7 @@ class DistinguisherAnswer(BaseModel):
 
 class Distinguisher:
     def __init__(self, cfg, pipeline=None) -> None:        
-        self.cfg = cfg # config.oracle_args
+        self.cfg = cfg # config.distinguisher
         self.pipeline = pipeline
 
         # Prompt Template
@@ -78,14 +77,12 @@ If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story
                 "story_a": story_a,
             }
             response = str(self.first_chain.invoke(dict_input))
-            response = parse_llama_output(response)
             log.info(f"Response: {response}")
 
             dict_input = {
                 "response": response,
             }
             output = str(self.second_chain.invoke(dict_input))
-            output = parse_llama_output(output)
             log.info(f"Final Output: {output}")
 
             try:
@@ -94,6 +91,7 @@ If the LLM thinks it is Story 1, respond with a 1. If the LLM thinks it is story
             except:
                 continue
 
+        log.info(f"Failed to match. Returning the empty string.")
         return ""
 
 

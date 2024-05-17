@@ -1,47 +1,60 @@
 import subprocess
-
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 log = logging.getLogger(__name__)
 
-attack_1 = {
-    "entropy": 1,
-    "output_1": 1,
-    "attack_id_1" : 5,
-    "output_2": 3,
-    "attack_id_2": 1,
+def generate_attack_dictionaries(entropy_value, entropy_dict):
+    attack_dictionaries = []
+    keys = list(entropy_dict.keys())
+
+    for idx, key in enumerate(keys):
+        other_keys = keys[idx+1:]  # Only use keys that come after the current key
+        for other_key in other_keys:
+            for key_attack_id in entropy_dict[key]:
+                for other_key_attack_id in entropy_dict[other_key]:
+                    attack_dict = {
+                        "entropy": entropy_value,
+                        "output_1" : key,
+                        "attack_id_1" : key_attack_id,
+                        "output_2" : other_key,
+                        "attack_id_2": other_key_attack_id,
+                    }
+                    attack_dictionaries.append(attack_dict)
+                    
+    return attack_dictionaries
+
+entropy_1 = {
+    "output_1": ["3_1", "5"],
+    "output_2": ["2_1", "4"],
+    "output_3": ["1", "2", "3"]
 }
 
-attack_4 = {
-    "entropy": 4,
-    "output_1": "1",
-    "attack_id_1" : "2_1",
-    "output_2": "2",
-    "attack_id_2": "1_1",
+entropy_4 = {
+    "output_1": ["2_1", "3_1"],
+    "output_2": ["1_1"],
+    "output_3": ["2", "4"]
 }
 
-attack_5 = {
-    "entropy": 5,
-    "output_1": 1,
-    "attack_id_1" : "1_1",
-    "output_2": 2,
-    "attack_id_2": "1_1",
+entropy_5 = {
+    "output_1": ["1_1", "2_1", "3_1"],
+    "output_2": ["1_1", "2_1", "3_1"],
 }
 
-attack_6 = {
-    "entropy": 6,
-    "output_1": 1,
-    "attack_id_1" : "2",
-    "output_2": 2,
-    "attack_id_2": "2",
+entropy_6 = {
+    "output_1": ["2", "3"],
+    "output_2": ["2", "3", "4"],
 }
 
-# good_attacks = [attack_1, attack_4, attack_5, attack_6]
-# good_attacks = [attack_1]
-# good_attacks = [attack_4]
-good_attacks = [attack_5, attack_6]
+
+good_attacks = []
+entropy_1_attacks = generate_attack_dictionaries(1, entropy_1)
+entropy_4_attacks = generate_attack_dictionaries(4, entropy_4)
+entropy_5_attacks = generate_attack_dictionaries(5, entropy_5)
+entropy_6_attacks = generate_attack_dictionaries(6, entropy_6)
+
+good_attacks = entropy_1_attacks + entropy_4_attacks + entropy_5_attacks + entropy_6_attacks
 
 def run_command(command, filepath):
     log.info(f"Running command: {command}")
@@ -59,13 +72,13 @@ def run_command(command, filepath):
         return None, e.stderr
 
 def main():
-    log_suffix = "first_experiments"
+    log_suffix = "05_16_llama_mass_huge_batch"
     results = []
 
     for attack in good_attacks:
         log_filepath = f"./results/stationary_distribution/robustness_analysis/entropy_{attack['entropy']}/distinguisher_results/{attack['output_1']}_{attack['attack_id_1']}-{attack['output_2']}_{attack['attack_id_2']}_{log_suffix}.log"
 
-        command = f"python distinguisher.py +distinguisher=stingy_gpt4 ++distinguisher.log_suffix={log_suffix} " \
+        command = f"python distinguisher.py +distinguisher=llama3 ++distinguisher.log_suffix={log_suffix} " \
                   f"++distinguisher.entropy='\"{attack['entropy']}\"' " \
                   f"++distinguisher.output_1='\"{attack['output_1']}\"' " \
                   f"++distinguisher.attack_id_1='\"{attack['attack_id_1']}\"' " \

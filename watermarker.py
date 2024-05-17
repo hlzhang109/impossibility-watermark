@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import torch
 import logging
 
-from pipeline import PipeLineBuilder
+from model_builders.pipeline import PipeLineBuilder
 
 log = logging.getLogger(__name__)
 

@@ -26,25 +26,25 @@ def generate_attack_dictionaries(entropy_value, entropy_dict):
     return attack_dictionaries
 
 entropy_1 = {
-    "output_1": ["3_1", "5"],
-    "output_2": ["2_1", "4"],
-    "output_3": ["1", "2", "3"]
+    "1": ["3_1", "5"],
+    "2": ["2_1", "4"],
+    "3": ["1", "2", "3"]
 }
 
 entropy_4 = {
-    "output_1": ["2_1", "3_1"],
-    "output_2": ["1_1"],
-    "output_3": ["2", "4"]
+    "1": ["2_1", "3_1"],
+    "2": ["1_1"],
+    "3": ["2", "4"]
 }
 
 entropy_5 = {
-    "output_1": ["1_1", "2_1", "3_1"],
-    "output_2": ["1_1", "2_1", "3_1"],
+    "1": ["1_1", "2_1", "3_1"],
+    "2": ["1_1", "2_1", "3_1"],
 }
 
 entropy_6 = {
-    "output_1": ["2", "3"],
-    "output_2": ["2", "3", "4"],
+    "1": ["2", "3"],
+    "2": ["2", "3", "4"],
 }
 
 
@@ -54,7 +54,10 @@ entropy_4_attacks = generate_attack_dictionaries(4, entropy_4)
 entropy_5_attacks = generate_attack_dictionaries(5, entropy_5)
 entropy_6_attacks = generate_attack_dictionaries(6, entropy_6)
 
-good_attacks = entropy_1_attacks + entropy_4_attacks + entropy_5_attacks + entropy_6_attacks
+good_attacks += entropy_1_attacks 
+# good_attacks += entropy_4_attacks
+# good_attacks += entropy_5_attacks 
+# good_attacks += entropy_6_attacks
 
 def run_command(command, filepath):
     log.info(f"Running command: {command}")

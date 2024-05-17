@@ -1,0 +1,154 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+In file included from /local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/numpy/core/include/numpy/ndarraytypes.h:1929,
+                 from /local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/numpy/core/include/numpy/arrayobject.h:5,
+                 from /home/borito1907/.pyxbld/temp.linux-x86_64-cpython-312/local1/borito1907/impossibility-watermark/levenshtein.c:1210:
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+   17 | #warning "Using deprecated NumPy API, disable it with " \
+      |  ^~~~~~~
+[2024-05-16 18:57:40,032][__main__][INFO] - Configuration: attack_args:
+  prompt: null
+  prompt_file: ./inputs/dynamic_prompts.csv
+  prompt_num: 6
+  watermarked_text: null
+  watermarked_text_path: null
+  watermarked_text_num: 1
+  num_steps: 100
+  patience: 100
+  stop_at_removal: false
+  num_successful_steps: 25
+  results_dir: null
+  model_cache_dir: ./.cache
+  save_name: null
+  use_watermark: true
+  backtrack_patience: 25
+  is_completion: false
+  json_path: null
+  json_index: 0
+  is_continuation: false
+  prev_csv_file: null
+  cuda: '1'
+generator_args:
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: auto
+  trust_remote_code: true
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  repetition_penalty: 1.1
+  watermark_score_threshold: 5.0
+  cuda: ${attack_args.cuda}
+oracle_args:
+  num_retries: 5
+  use_system_profile: true
+  system_profile: You are an impartial judge tasked to evaluate the quality of two
+    prompt responses.
+  model_name_or_path: MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: auto
+  trust_remote_code: true
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  repetition_penalty: 1.1
+  cuda: ${attack_args.cuda}
+  is_completion: ${attack_args.is_completion}
+  watermark_score_threshold: 5.0
+mutator_args:
+  use_old_mutator: false
+  use_system_profile: true
+  system_profile: You are a copy editor tasked to enforce text quality.
+  num_retries: 5
+  model_name_or_path: TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+  revision: main
+  model_cache_dir: ${attack_args.model_cache_dir}
+  device_map: ${generator_args.device_map}
+  trust_remote_code: ${generator_args.trust_remote_code}
+  max_new_tokens: ${generator_args.max_new_tokens}
+  do_sample: ${generator_args.do_sample}
+  temperature: ${generator_args.temperature}
+  top_p: ${generator_args.top_p}
+  top_k: ${generator_args.top_k}
+  repetition_penalty: ${generator_args.repetition_penalty}
+  cuda: ${attack_args.cuda}
+  use_pydantic_parser: false
+watermark_args:
+  name: umd
+  gamma: 0.25
+  delta: 2.0
+  seeding_scheme: selfhash
+  ignore_repeated_ngrams: true
+  normalizers: []
+  z_threshold: 0.5
+  device: cuda
+distinguisher:
+  entropy: '6'
+  output_1: output_1
+  attack_id_1: '2'
+  output_2: output_2
+  attack_id_2: '2'
+  log_suffix: 05_16_llama_mass_huge_batch
+  num_trials: 10
+  num_repetitions: 5
+  mutation_num: -1
+  matcher: local
+  distinguisher_args:
+    model_name_or_path: MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+    revision: main
+    model_cache_dir: ${attack_args.model_cache_dir}
+    device_map: auto
+    trust_remote_code: true
+    max_new_tokens: 1024
+    do_sample: true
+    temperature: 0.7
+    top_p: 0.95
+    top_k: 40
+    repetition_penalty: 1.1
+    watermark_score_threshold: 5.0
+    cuda: ${attack_args.cuda}
+
+Error executing job with overrides: ['+distinguisher=llama3', '++distinguisher.log_suffix=05_16_llama_mass_huge_batch', '++distinguisher.entropy="6"', '++distinguisher.output_1="output_1"', '++distinguisher.attack_id_1="2"', '++distinguisher.output_2="output_2"', '++distinguisher.attack_id_2="2"']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/distinguisher.py", line 106, in main
+    response_1, perturbed_1 = get_response_and_perturbed(cfg.distinguisher.entropy, cfg.distinguisher.output_1, cfg.distinguisher.attack_id_1, cfg.distinguisher.mutation_num)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/distinguisher.py", line 83, in get_response_and_perturbed
+    response = get_watermarked_text(csv_file_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 44, in get_watermarked_text
+    df = pd.read_csv(csv_file_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 586, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 482, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 811, in __init__
+    self._engine = self._make_engine(self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1040, in _make_engine
+    return mapping[engine](self.f, **self.options)  # type: ignore[call-arg]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 51, in __init__
+    self._open_handles(src, kwds)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/parsers/base_parser.py", line 222, in _open_handles
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/pandas/io/common.py", line 702, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results/stationary_distribution/robustness_analysis/entropy_6/output_output_1/corpuses/attack_2.csv'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

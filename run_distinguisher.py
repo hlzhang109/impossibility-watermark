@@ -54,10 +54,20 @@ entropy_4_attacks = generate_attack_dictionaries(4, entropy_4)
 entropy_5_attacks = generate_attack_dictionaries(5, entropy_5)
 entropy_6_attacks = generate_attack_dictionaries(6, entropy_6)
 
-good_attacks += entropy_1_attacks 
+# good_attacks += entropy_1_attacks 
 # good_attacks += entropy_4_attacks
 # good_attacks += entropy_5_attacks 
 # good_attacks += entropy_6_attacks
+
+hard_attack = {
+    'entropy' : 6,
+    'output_1' : "1",
+    'attack_id_1' : "3",
+    "output_2" : "2",
+    "attack_id_2" : "4",
+}
+
+good_attacks = [hard_attack]
 
 def run_command(command, filepath):
     log.info(f"Running command: {command}")
@@ -75,7 +85,7 @@ def run_command(command, filepath):
         return None, e.stderr
 
 def main():
-    log_suffix = "05_16_llama_mass_huge_batch"
+    log_suffix = "05_17_llama_entropy_6_hard_attack"
     results = []
 
     for attack in good_attacks:

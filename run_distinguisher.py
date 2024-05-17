@@ -85,7 +85,7 @@ def run_command(command, filepath):
         return None, e.stderr
 
 def main():
-    log_suffix = "05_17"
+    log_suffix = "05_17_hard"
     results = []
 
     for attack in good_attacks:

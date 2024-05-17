@@ -14,6 +14,8 @@ class UnigramWatermarker(Watermarker):
         self.setup_watermark_components()
 
     def setup_watermark_components(self):
+        assert self.tokenizer.vocab_size == self.model.config.vocab_size, f"Tokenizer vocab size {self.tokenizer.vocab_size} does not match model vocab size {self.model.config.vocab_size}"
+
         self.watermark_processor = LogitsProcessorList([
             GPTWatermarkLogitsWarper(
                 fraction=self.cfg.watermark_args.fraction,

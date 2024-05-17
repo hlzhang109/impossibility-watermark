@@ -4,6 +4,7 @@ import logging
 
 from model_builders.pipeline import PipeLineBuilder
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 class Watermarker(ABC):
@@ -52,8 +53,8 @@ class Watermarker(ABC):
                 completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded
-            _, p_value = self.detect(completion)
-            if p_value <= self.p_threshold:
+            is_detected, p_value = self.detect(completion)
+            if is_detected:
                 return completion
             else:
                 log.info("Failed to watermark, trying again...")
@@ -64,7 +65,6 @@ class Watermarker(ABC):
     @abstractmethod
     def detect(self, completion):
         pass
-
 
 
 

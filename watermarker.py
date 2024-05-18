@@ -46,14 +46,15 @@ class Watermarker(ABC):
     def generate(self, prompt):
         n_attempts = 0
         while n_attempts < self.n_attempts:
-            outputs = self.generate_watermarked_outputs(prompt)
+            completion = self.generate_watermarked_outputs(prompt)
 
-            completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            log.info(f"Received completion: {completion}")
+
             if not self.is_completion:
                 completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded
-            is_detected, p_value = self.detect(completion)
+            is_detected, _ = self.detect(completion)
             if is_detected:
                 return completion
             else:

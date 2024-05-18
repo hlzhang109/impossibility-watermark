@@ -35,15 +35,18 @@ class SentenceEndCriteria(StoppingCriteria):
         self.current_num_sentences = len(sent_tokenize(current_text))
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
+        # Ensure that the batch size is 1.
         assert input_ids.size(0) == 1
         text = self.tokenizer.decode(input_ids[0], skip_special_tokens=True)
         return len(sent_tokenize(text)) > self.current_num_sentences + 1
 
 
 def discard_final_token_in_outputs(outputs):
+    # Discard the final token in the sequences within the 'outputs' object.
+    # Assuming 'outputs.sequences' is a 2D array where each row is a sequence and each column is a token,
+    # this line removes the last token from each sequence.
     outputs.sequences = outputs.sequences[:, :-1]  # (bz, seqlen)
     return outputs
-
 
 def extract_prompt_from_text(text, len_prompt):
     tokens = text.split(' ')
@@ -64,12 +67,13 @@ def extract_prompt_from_text(text, len_prompt):
     return prompt
 
 def gen_sent(model, tokenizer, text_ids, gen_config, stopping_criteria):
+    # Generate text using the model with the given configuration and stopping criteria.
     outputs = model.generate(
-            # input_ids,
             text_ids,
             gen_config,
             stopping_criteria=stopping_criteria,
         )
+    
     outputs = discard_final_token_in_outputs(outputs)
     new_text_ids = outputs.sequences
     new_text = tokenizer.decode(

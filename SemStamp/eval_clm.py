@@ -4,6 +4,9 @@
 # https://arxiv.org/abs/2212.10020
 #
 # original github link: https://github.com/cloudygoose/blindspot_nlg
+
+# TODO: No clue what this does. Import statements don't work either.
+
 import argparse
 import os
 from util import load_file_by_line, path_wo_ext, break_text, chunks

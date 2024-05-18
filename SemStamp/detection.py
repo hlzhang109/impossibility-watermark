@@ -2,7 +2,7 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 # from eval_clm import get_roc_metrics
 import pandas as pd
-from sbert_lsh_model import SBERTLSHModel
+from .sbert_lsh_model import SBERTLSHModel
 from tqdm import trange
 from sentence_transformers import SentenceTransformer
 import argparse
@@ -12,7 +12,7 @@ import os
 import torch
 import numpy as np
 # detect_kmeans, run_bert_score, evaluate_z_scores, flatten_gens_and_paras
-from detection_utils import detect_lsh
+from .detection_utils import detect_lsh
 
 def parse_args():
     parser = argparse.ArgumentParser()

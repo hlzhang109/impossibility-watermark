@@ -7,8 +7,8 @@ import torch
 import pickle
 from transformers import AutoTokenizer
 # from dipper import DipperParaphraser
-from paraphrase_gen_utils import accept_by_bigram_overlap, accept_by_unigram_overlap, SParrot, query_openai, query_openai_bigram, gen_prompt, gen_bigram_prompt, extract_list   
-from sampling_utils import well_formed_sentence
+from .paraphrase_gen_utils import accept_by_bigram_overlap, accept_by_unigram_overlap, SParrot, query_openai, query_openai_bigram, gen_prompt, gen_bigram_prompt, extract_list   
+from .sampling_utils import well_formed_sentence
 
 device = 'cuda' if torch.cuda.is_available() else "cpu"
 num_beams = 25

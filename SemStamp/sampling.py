@@ -8,14 +8,14 @@ import sys
 from datasets import load_from_disk, Dataset
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
-from sbert_lsh_model import SBERTLSHModel
+from .sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import pandas as pd
 import nltk
 from nltk.tokenize import sent_tokenize
-from sampling_utils import extract_prompt_from_text
-from sampling_lsh_utils import lsh_reject_completion
+from .sampling_utils import extract_prompt_from_text
+from .sampling_lsh_utils import lsh_reject_completion
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
 # from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 

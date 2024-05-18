@@ -4,7 +4,7 @@ from watermarker import Watermarker
 import nltk
 import torch
 import os
-from transformers import LogitsProcessorList, AutoModelForCausalLM, GenerationConfig, AutoTokenizer
+from transformers import LogitsProcessorList, AutoModelForCausalLM, GenerationConfig, AutoTokenizer, AutoConfig
 from SemStamp.sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
 from SemStamp.sampling_lsh_utils import lsh_reject_completion
@@ -27,7 +27,6 @@ log = logging.getLogger(__name__)
 class SemStampWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
-        self.setup_watermark_components()
 
     def setup_watermark_components(self):
         # NOTE: currently, no batching.
@@ -44,8 +43,8 @@ class SemStampWatermarker(Watermarker):
         self.gen_config = GenerationConfig.from_pretrained(
 						self.cfg.generator_args.model_name_or_path,
 						return_dict_in_generate=True,
-						max_new_tokens=self.cfg.generator_args.max_new_tokens,
-						min_new_tokens=self.cfg.generator_args.min_new_tokens,
+						max_new_tokens=self.cfg.watermark_args.max_new_tokens,
+						min_new_tokens=self.cfg.watermark_args.min_new_tokens,
 						do_sample=self.cfg.generator_args.do_sample,
 						temperature=self.cfg.generator_args.temperature,
 						top_k=self.cfg.generator_args.top_k,
@@ -54,45 +53,59 @@ class SemStampWatermarker(Watermarker):
 						local_files_only=self.is_offline
 				)
         
-        # TODO: Fix lsh_model_path.
+        log.info(f"Initializing embedder model.")
+        self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
+        self.embedder.eval()
+        log.info(f"Finished initializing embedder model.")
+        
+        # TODO: Fix lsh_model_path. We're using the default model in their code right now.
         self.lsh_model = SBERTLSHModel(lsh_model_path=None,
-                                  device=self.cfg.generator_args.device_map, batch_size=1, lsh_dim=self.cfg.watermarker_args.sp_dim, sbert_type='base')
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.cfg.generator_args.model_name_or_path, local_files_only=self.is_offline).to(self.cfg.generator_args.device_map)
+                                  device=self.cfg.watermark_args.device, batch_size=1, lsh_dim=self.cfg.watermark_args.sp_dim, sbert_type='base', embedder=self.embedder)
+
+        if "opt" in self.cfg.generator_args.model_name_or_path:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.cfg.generator_args.model_name_or_path, device_map=self.cfg.watermark_args.device,  local_files_only=self.is_offline)
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.cfg.generator_args.model_name_or_path,
+                revision=self.cfg.generator_args.revision,
+                cache_dir=self.cfg.generator_args.model_cache_dir,
+                device_map=self.cfg.generator_args.device_map,
+                trust_remote_code=self.cfg.generator_args.trust_remote_code)
         
         self.model.eval()
         
     def generate_watermarked_outputs(self, prompt):
         if self.cfg.watermark_args.sp_mode == "lsh":
-            return self._lsh_generate_watermarked_outputs(self, prompt)
+            return self._lsh_generate_watermarked_outputs(prompt)
 
         # TODO: Implement k-SemStamp.
 
         raise NotImplementedError
     
-    def _lsh_generate_watermarked_outputs(self,ex):
+    def _lsh_generate_watermarked_outputs(self,prompt):
 
         # TODO: Why do we need to pass the length as well? Can we just pass the prompt to this function?
-        prompt = extract_prompt_from_text(ex['text'], self.cfg.watermark_args.len_prompt)
+        prompt = extract_prompt_from_text(prompt, self.cfg.watermark_args.len_prompt)
         response = lsh_reject_completion(
             prompt,
             self.model, self.tokenizer, self.gen_config,
             self.lsh_model, self.cfg.watermark_args.sp_dim,
             lmbd=self.cfg.watermark_args.lmbd,
-            device=self.cfg.generator_args.device_map,
+            device=self.cfg.watermark_args.device,
             margin=self.cfg.watermark_args.delta)
         
         # TODO: This returns a tuple. It should just return the watermarked text.
         log.info(f"Prompt: {prompt}")
         log.info(f"Response: {response}")
 
-        ex['generated_text'] = response[0].strip()
-        return ex
+        generated_text = response[0].strip()
+        return generated_text
 
 
     def detect(self, completion):
         if self.cfg.watermark_args.sp_mode == "lsh":
-            return self._lsh_detect(self, completion)
+            return self._lsh_detect(completion)
 
         # TODO: Implement k-SemStamp.
 
@@ -105,4 +118,4 @@ class SemStampWatermarker(Watermarker):
                                  lmbd=self.cfg.watermark_args.lmbd, lsh_dim=self.cfg.watermark_args.sp_dim)
         
         is_detected = z_score >= self.cfg.watermark_args.z_threshold
-        return is_detected
+        return is_detected, z_score

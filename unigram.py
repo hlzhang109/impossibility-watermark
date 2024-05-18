@@ -11,7 +11,6 @@ log = logging.getLogger(__name__)
 class UnigramWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
-        self.setup_watermark_components()
 
     def setup_watermark_components(self):
         assert self.tokenizer.vocab_size == self.model.config.vocab_size, f"Tokenizer vocab size {self.tokenizer.vocab_size} does not match model vocab size {self.model.config.vocab_size}"
@@ -42,7 +41,9 @@ class UnigramWatermarker(Watermarker):
         ).to(self.model.device)
 
         outputs = self.model.generate(**inputs, **self.generator_kwargs)
-        return outputs
+
+        completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        return completion
 
     def detect(self, completion):
         token_sequence = self.tokenizer(completion, add_special_tokens=False)['input_ids']

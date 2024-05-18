@@ -72,21 +72,25 @@ class LSHModel:
 
 
 class SBERTLSHModel(LSHModel):
-    def __init__(self, device, batch_size, lsh_dim, sbert_type='roberta', lsh_model_path=None, **kwargs):
+    def __init__(self, device, batch_size, lsh_dim, sbert_type='roberta', lsh_model_path=None, embedder=None, **kwargs):
         super(SBERTLSHModel, self).__init__(device, batch_size, lsh_dim)
         self.sbert_type = sbert_type
         self.dimension = 1024 if 'large' in self.sbert_type else 768
 
         print(f'loading SBERT {self.sbert_type} model...')
 
-        if lsh_model_path is not None:
-            self.embedder = SentenceTransformer(lsh_model_path)
-            self.dimension = self.embedder.get_sentence_embedding_dimension()
+        if embedder is not None:
+            self.embedder = embedder
         else:
-            self.embedder = SentenceTransformer(
-                "sentence-transformers/all-mpnet-base-v1")
-        self.embedder = self.embedder.to(self.device)
-        self.embedder.eval()
+            if lsh_model_path is not None:
+                self.embedder = SentenceTransformer(lsh_model_path)
+                self.dimension = self.embedder.get_sentence_embedding_dimension()
+            else:
+                self.embedder = SentenceTransformer(
+                    "sentence-transformers/all-mpnet-base-v1")
+                
+            self.embedder = self.embedder.to(self.device)
+            self.embedder.eval()
 
         if not list(self.embedder.parameters()):
             raise ValueError("No parameters found in model; check model path or initialization.")

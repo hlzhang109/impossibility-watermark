@@ -159,6 +159,7 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
 from umd import UMDWatermarker
 from unigram import UnigramWatermarker
 from exp import EXPWatermarker
+from semstamp import SemStampWatermarker
 
 def get_watermarker(cfg):
     if cfg.watermark_args.name == "umd":
@@ -167,5 +168,7 @@ def get_watermarker(cfg):
         return UnigramWatermarker(cfg)
     elif cfg.watermark_args.name == "exp":
         return EXPWatermarker(cfg)
+    elif cfg.watermark_args.name == "semstamp":
+        return SemStampWatermarker(cfg)
     else:
-        raise
+        raise NotImplementedError

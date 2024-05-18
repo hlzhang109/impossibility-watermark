@@ -1,6 +1,6 @@
 defaults:
     - _self_
-    - watermark_args: exp
+    - watermark_args: semstamp
     # - attack_args: mixtral_regular_attack
     # - generator_args: large_mixtral
     - oracle_args: llama3
@@ -32,8 +32,8 @@ attack_args:
     cuda: "1" # NOTE: This doesn't do anything.
 
 generator_args:
-    # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
-    model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
+    # model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "auto"

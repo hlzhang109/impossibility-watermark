@@ -31,10 +31,29 @@ class SemStampWatermarker(Watermarker):
     def setup_watermark_components(self):
         # NOTE: currently, no batching.
 
+        is_offline = os.environ.get('TRANSFORMERS_OFFLINE') is not None and os.environ.get(
+        'TRANSFORMERS_OFFLINE') == '1'
+
         # block the LLM from generating
         bad_words_ids = self.tokenizer("\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
 
+        self.gen_config = GenerationConfig.from_pretrained(
+						self.cfg.generator_args.model_name_or_path,
+						return_dict_in_generate=True,
+						max_new_tokens=self.cfg.generator_args.max_new_tokens,
+						min_new_tokens=self.cfg.generator_args.min_new_tokens,
+						do_sample=self.cfg.generator_args.do_sample,
+						temperature=self.cfg.generator_args.temperature,
+						top_k=self.cfg.generator_args.top_k,
+						bad_words_ids=bad_words_ids,
+                        repetition_penalty=self.cfg.generator_args.repetition_penalty,                        
+						# top_p=0.96,
+						local_files_only=is_offline
+				)
+
         self.generator_kwargs.update([('bad_words_ids', bad_words_ids), ('min_new_tokens', self.cfg.watermark_args.min_new_tokens)])
+
+        log.info(self.generator_kwargs)
         
         log.info(f"Initializing embedder model.")
         self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
@@ -67,7 +86,9 @@ class SemStampWatermarker(Watermarker):
             self.lsh_model, self.cfg.watermark_args.sp_dim,
             lmbd=self.cfg.watermark_args.lmbd,
             device=self.cfg.watermark_args.device,
-            margin=self.cfg.watermark_args.delta)
+            margin=self.cfg.watermark_args.delta,
+            pipeline=self.pipeline,
+            generator_kwargs=self.generator_kwargs)
         
         # TODO: This returns a tuple. It should just return the watermarked text.
         log.info(f"Prompt: {prompt}")

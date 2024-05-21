@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-from. import sampling_utils
-=======
 from . import sampling_utils
->>>>>>> Stashed changes
 import torch
 import torch.nn.functional as F
 from transformers import GenerationConfig, StoppingCriteriaList
@@ -11,10 +7,7 @@ from transformers.modeling_utils import PreTrainedModel
 from transformers.tokenization_utils import PreTrainedTokenizer
 import numpy as np
 from .sampling_utils import SentenceEndCriteria, device, gen_sent
-<<<<<<< Updated upstream
 import logging
-=======
->>>>>>> Stashed changes
 
 # rng = torch.Generator()
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -73,7 +66,7 @@ def lsh_reject_completion(
         lsh_model: SBERTLSHModel, lsh_dim: int,  # LSH args
         lmbd=1.0, # watermark args. lambda is probability of accepting (i.e., green list size)
         device='cuda',
-        margin=0.002, pipeline=None,
+        margin=0.002, pipeline=None, generator_kwargs = None,
         **kwargs):
             
     sent_end_criteria = SentenceEndCriteria(tokenizer)
@@ -96,6 +89,7 @@ def lsh_reject_completion(
     
     while True:
         stopping_criteria = StoppingCriteriaList([sent_end_criteria])
+        # TODO: This doesn't work right now, since we removed their generation config as it was throwing an error with Mixtral.
         if "opt" in model.config._name_or_path:
             new_text, new_text_ids = gen_sent(model = model, 
                 tokenizer = tokenizer, 
@@ -105,12 +99,8 @@ def lsh_reject_completion(
             )
         # TODO: Experimenting with Mixtral right now, it doesn't work.
         elif "Mixtral" in model.config._name_or_path:
-            outputs = model.generate(
-                    text_ids,
-                    gen_config,
-                    stopping_criteria=stopping_criteria,
-                )
-            
+            generator_kwargs['stopping_criteria'] = stopping_criteria
+            outputs = model.generate(**text_ids, **generator_kwargs)
             new_text_ids = outputs.sequences
             new_text = tokenizer.decode(
                 new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)

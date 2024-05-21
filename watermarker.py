@@ -24,6 +24,7 @@ class Watermarker(ABC):
         self.tokenizer = self.pipeline.tokenizer
         self.tokenizer.pad_token = self.tokenizer.pad_token or self.tokenizer.eos_token
 
+
         self.generator_kwargs = {
             "max_new_tokens": self.cfg.generator_args.max_new_tokens,
             "do_sample": self.cfg.generator_args.do_sample,

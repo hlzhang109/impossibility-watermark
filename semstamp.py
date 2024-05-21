@@ -30,48 +30,22 @@ class SemStampWatermarker(Watermarker):
 
     def setup_watermark_components(self):
         # NOTE: currently, no batching.
-        # NOTE: I don't understand this.
-        self.is_offline = os.environ.get('TRANSFORMERS_OFFLINE') is not None and os.environ.get(
-        'TRANSFORMERS_OFFLINE') == '1'
 
-        self.tokenizer = AutoTokenizer.from_pretrained(self.cfg.generator_args.model_name_or_path, local_files_only=self.is_offline)
-
-        # block \n
+        # block the LLM from generating
         bad_words_ids = self.tokenizer("\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
 
-        # NOTE: They had top_p=0.96 commented out. I don't know why.
-        self.gen_config = GenerationConfig.from_pretrained(
-						self.cfg.generator_args.model_name_or_path,
-						return_dict_in_generate=True,
-						max_new_tokens=self.cfg.watermark_args.max_new_tokens,
-						min_new_tokens=self.cfg.watermark_args.min_new_tokens,
-						do_sample=self.cfg.generator_args.do_sample,
-						temperature=self.cfg.generator_args.temperature,
-						top_k=self.cfg.generator_args.top_k,
-						bad_words_ids=bad_words_ids,
-                        repetition_penalty=self.cfg.generator_args.repetition_penalty,                        
-						local_files_only=self.is_offline
-				)
+        self.generator_kwargs.update([('bad_words_ids', bad_words_ids), ('min_new_tokens', self.cfg.watermark_args.min_new_tokens)])
         
         log.info(f"Initializing embedder model.")
         self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
         self.embedder.eval()
         log.info(f"Finished initializing embedder model.")
+
+        # TODO: Make the code work with our pipeline setup.
         
         # TODO: Fix lsh_model_path. We're using the default model in their code right now.
         self.lsh_model = SBERTLSHModel(lsh_model_path=None,
                                   device=self.cfg.watermark_args.device, batch_size=1, lsh_dim=self.cfg.watermark_args.sp_dim, sbert_type='base', embedder=self.embedder)
-
-        if "opt" in self.cfg.generator_args.model_name_or_path:
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.cfg.generator_args.model_name_or_path, device_map=self.cfg.watermark_args.device,  local_files_only=self.is_offline)
-        else:
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.cfg.generator_args.model_name_or_path,
-                revision=self.cfg.generator_args.revision,
-                cache_dir=self.cfg.generator_args.model_cache_dir,
-                device_map=self.cfg.generator_args.device_map,
-                trust_remote_code=self.cfg.generator_args.trust_remote_code)
         
         self.model.eval()
         

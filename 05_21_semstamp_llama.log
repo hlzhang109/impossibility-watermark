@@ -1,0 +1,86 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-21 15:48:20,870][__main__][INFO] - Starting to watermark...
+[2024-05-21 15:48:20,870][__main__][INFO] - Getting the watermarker...
+[2024-05-21 15:48:20,871][watermarker][INFO] - Using device: cuda
+[2024-05-21 15:48:20,871][root][INFO] - Device: auto
+[2024-05-21 15:48:20,871][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-21 15:48:24,865][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'LlamaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MvpForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ/resolve/main/generation_config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py", line 383, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1221, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1282, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1722, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(url=url, proxies=proxies, timeout=etag_timeout, headers=headers)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1645, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 372, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 396, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/huggingface_hub/utils/_errors.py", line 315, in hf_raise_for_status
+    raise EntryNotFoundError(message, response) from e
+huggingface_hub.utils._errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-664d24c4-7f5bf0af742f9a6f767faa47;58acdaeb-694f-4368-9503-9e496a1df59e)
+
+Entry Not Found for url: https://huggingface.co/MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ/resolve/main/generation_config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarker_tester.py", line 21, in test
+    watermarker = get_watermarker(cfg)
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 172, in get_watermarker
+    return SemStampWatermarker(cfg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/semstamp.py", line 29, in __init__
+    super().__init__(cfg, pipeline, n_attempts, is_completion)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 36, in __init__
+    self.setup_watermark_components()
+  File "/local1/borito1907/impossibility-watermark/semstamp.py", line 44, in setup_watermark_components
+    self.gen_config = GenerationConfig.from_pretrained(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/configuration_utils.py", line 741, in from_pretrained
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py", line 434, in cached_file
+    raise EnvironmentError(
+OSError: MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ does not appear to have a file named generation_config.json. Checkout 'https://huggingface.co/MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ/main' for available files.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

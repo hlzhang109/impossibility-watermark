@@ -3,7 +3,7 @@ defaults:
     - watermark_args: semstamp
     # - attack_args: mixtral_regular_attack
     # - generator_args: large_mixtral
-    - oracle_args: llama3
+    # - oracle_args: llama3
 
 attack_args:
     # prompt: "Provide a straightforward description of the Eiffel Tower's physical features without using complex or elaborate language."
@@ -32,14 +32,20 @@ attack_args:
     cuda: "1" # NOTE: This doesn't do anything.
 
 generator_args:
+<<<<<<< Updated upstream
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
     # model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
     # model_name_or_path: "facebook/opt-1.3b"
+=======
+    # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
+    model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
+>>>>>>> Stashed changes
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "auto"
     trust_remote_code: True
     max_new_tokens: 1024
+    min_new_tokens: 768
     do_sample: True 
     temperature: 0.7 
     top_p: 0.95 
@@ -71,8 +77,9 @@ mutator_args:
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     # model_name_or_path: "grammarly/coedit-xl-composite"
+    model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "${generator_args.device_map}"

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 from. import sampling_utils
+=======
+from . import sampling_utils
+>>>>>>> Stashed changes
 import torch
 import torch.nn.functional as F
 from transformers import GenerationConfig, StoppingCriteriaList
@@ -7,7 +11,10 @@ from transformers.modeling_utils import PreTrainedModel
 from transformers.tokenization_utils import PreTrainedTokenizer
 import numpy as np
 from .sampling_utils import SentenceEndCriteria, device, gen_sent
+<<<<<<< Updated upstream
 import logging
+=======
+>>>>>>> Stashed changes
 
 # rng = torch.Generator()
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -66,7 +73,7 @@ def lsh_reject_completion(
         lsh_model: SBERTLSHModel, lsh_dim: int,  # LSH args
         lmbd=1.0, # watermark args. lambda is probability of accepting (i.e., green list size)
         device='cuda',
-        margin=0.002,
+        margin=0.002, pipeline=None,
         **kwargs):
             
     sent_end_criteria = SentenceEndCriteria(tokenizer)

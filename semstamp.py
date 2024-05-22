@@ -36,6 +36,7 @@ class SemStampWatermarker(Watermarker):
 
         # block the LLM from generating
         bad_words_ids = self.tokenizer("\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
+
         if 'Llama' not in self.cfg.generator_args.model_name_or_path:
             self.gen_config = GenerationConfig.from_pretrained(
                             self.cfg.generator_args.model_name_or_path,
@@ -53,6 +54,7 @@ class SemStampWatermarker(Watermarker):
         else:
             self.gen_config = None
             self.pipeline._init_pipeline_config(self.cfg.generator_args)
+
         self.generator_kwargs.update([('bad_words_ids', bad_words_ids), ('min_new_tokens', self.cfg.watermark_args.min_new_tokens)])
 
         log.info(self.generator_kwargs)
@@ -90,7 +92,8 @@ class SemStampWatermarker(Watermarker):
             device=self.cfg.watermark_args.device,
             margin=self.cfg.watermark_args.delta,
             pipeline=self.pipeline,
-            generator_kwargs=self.generator_kwargs)
+            generator_kwargs=self.generator_kwargs,
+            max_new_tokens=self.cfg.generator_args.max_new_tokens)
         
         # TODO: This returns a tuple. It should just return the watermarked text.
         log.info(f"Prompt: {prompt}")

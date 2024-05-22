@@ -9,6 +9,8 @@ import numpy as np
 from .sampling_utils import SentenceEndCriteria, device, gen_sent
 import logging
 
+import textwrap
+
 # rng = torch.Generator()
 device = "cuda" if torch.cuda.is_available() else "cpu"
 rng = torch.Generator(device)
@@ -59,6 +61,14 @@ def reject_close_generation(lsh_model, sents, margin, cutoff=None):
     sents = sents[select]
     return list(sents), select
 
+def mixtral_format_instructions(prompt):
+    return textwrap.dedent(f"""
+    [INST]
+    {prompt}
+    [/INST]
+
+    Answer:""")
+
 def lsh_reject_completion(
         prompt: str,
         model: PreTrainedModel, 
@@ -66,8 +76,11 @@ def lsh_reject_completion(
         lsh_model: SBERTLSHModel, lsh_dim: int,  # LSH args
         lmbd=1.0, # watermark args. lambda is probability of accepting (i.e., green list size)
         device='cuda',
-        margin=0.002, pipeline=None, generator_kwargs = None,
+        margin=0.002, pipeline=None, generator_kwargs = None, max_new_tokens=None, #TODO: Make this better, just put this here in order to test.
         **kwargs):
+    
+    if "Mixtral" in model.config._name_or_path:
+        prompt = mixtral_format_instructions(prompt)
             
     sent_end_criteria = SentenceEndCriteria(tokenizer)
     sent_end_criteria.update(prompt)
@@ -105,13 +118,26 @@ def lsh_reject_completion(
             new_text = tokenizer.decode(
                 new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
         elif "Llama" in model.config._name_or_path:
-            generator_kwargs['stopping_criteria'] = stopping_criteria
-
             #TODO: pipeline outputs is a string, but need to do tokenization on sequences? Not sure how to resolve, will look att later...
-            outputs = pipeline.generate_text(text_ids, generator_kwargs)
-            new_text_ids = outputs.sequences
-            new_text = tokenizer.decode(
-                new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
+            generator_kwargs['stopping_criteria'] = stopping_criteria
+            
+            # Generate text using the pipeline
+            generated_text = pipeline.generate_text(text, generator_kwargs)
+            
+            # Tokenize the generated text and convert it to a list of IDs
+            new_text_ids = tokenizer.encode(generated_text)
+            
+            # Convert the list of IDs to a tensor to match Mixtral's format
+            new_text_ids = torch.tensor([new_text_ids])
+            
+            # Decode the tokenized text to get the new text
+            new_text = tokenizer.decode(new_text_ids[0], skip_special_tokens=True)
+
+            # generator_kwargs['stopping_criteria'] = stopping_criteria
+            # outputs = model.generate(text_ids, gen_config, **generator_kwargs)
+            # new_text_ids = outputs.sequences
+            # new_text = tokenizer.decode(
+            #     new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
 
         else:
             raise NotImplementedError("model type not supported")
@@ -119,6 +145,10 @@ def lsh_reject_completion(
         if new_text == '':
             log.info('WARNING: stopped generation because generated nothing (after discarding last generated token)')
             break
+
+
+        log.info(f"Candidate text: {new_text}")
+        log.info(f"Accept Mask: {accept_mask}")
 
         total_trials += 1
         current_trials += 1
@@ -133,10 +163,14 @@ def lsh_reject_completion(
         
         # Get the LSH hash for the generated text, continue if it's not in the correct place
         lsh_candidate = lsh_model.get_hash([new_text])[0]
+
+        log.info(f"LSH Candidate: {lsh_candidate}")
+
         if lsh_candidate not in accept_mask:
             log.info(f"Candidate text is doesn't fall into the correct place in the embedding space.")
-            log.info(f"Here is the candidate text: {new_text}")
             continue
+        else:
+            log.info("Candidate text falls within the semantic partition.")
         
         if (lsh_candidate in accept_mask) or current_trials >= MAX_TRIALS:
             if current_trials >= MAX_TRIALS:
@@ -161,6 +195,7 @@ def lsh_reject_completion(
             current_trials = 0
 
             # If the number of new tokens generated reaches the maximum new token number, stop generating.
-            if (len(text_ids[0]) - prompt_length) >= gen_config.max_new_tokens-1:
+            # TODO: Fix the max_new_tokens if it doesn't work.
+            if (len(text_ids[0]) - prompt_length) >= max_new_tokens-1:
                 break
     return text, total_trials

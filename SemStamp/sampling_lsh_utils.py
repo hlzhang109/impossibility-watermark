@@ -132,13 +132,6 @@ def lsh_reject_completion(
             
             # Decode the tokenized text to get the new text
             new_text = tokenizer.decode(new_text_ids[0], skip_special_tokens=True)
-
-            # generator_kwargs['stopping_criteria'] = stopping_criteria
-            # outputs = model.generate(text_ids, gen_config, **generator_kwargs)
-            # new_text_ids = outputs.sequences
-            # new_text = tokenizer.decode(
-            #     new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
-
         else:
             raise NotImplementedError("model type not supported")
         

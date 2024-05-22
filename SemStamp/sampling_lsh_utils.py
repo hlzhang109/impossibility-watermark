@@ -100,10 +100,19 @@ def lsh_reject_completion(
         # TODO: Experimenting with Mixtral right now, it doesn't work.
         elif "Mixtral" in model.config._name_or_path:
             generator_kwargs['stopping_criteria'] = stopping_criteria
-            outputs = model.generate(**text_ids, **generator_kwargs)
+            outputs = model.generate(text_ids, gen_config, **generator_kwargs)
             new_text_ids = outputs.sequences
             new_text = tokenizer.decode(
                 new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
+        elif "Llama" in model.config._name_or_path:
+            generator_kwargs['stopping_criteria'] = stopping_criteria
+
+            #TODO: pipeline outputs is a string, but need to do tokenization on sequences? Not sure how to resolve, will look att later...
+            outputs = pipeline.generate_text(text_ids, generator_kwargs)
+            new_text_ids = outputs.sequences
+            new_text = tokenizer.decode(
+                new_text_ids[0, text_ids.size(1):], skip_special_tokens=True)
+
         else:
             raise NotImplementedError("model type not supported")
         

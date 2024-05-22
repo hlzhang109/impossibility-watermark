@@ -36,21 +36,23 @@ class SemStampWatermarker(Watermarker):
 
         # block the LLM from generating
         bad_words_ids = self.tokenizer("\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
-
-        self.gen_config = GenerationConfig.from_pretrained(
-						self.cfg.generator_args.model_name_or_path,
-						return_dict_in_generate=True,
-						max_new_tokens=self.cfg.generator_args.max_new_tokens,
-						min_new_tokens=self.cfg.generator_args.min_new_tokens,
-						do_sample=self.cfg.generator_args.do_sample,
-						temperature=self.cfg.generator_args.temperature,
-						top_k=self.cfg.generator_args.top_k,
-						bad_words_ids=bad_words_ids,
-                        repetition_penalty=self.cfg.generator_args.repetition_penalty,                        
-						# top_p=0.96,
-						local_files_only=is_offline
-				)
-
+        if 'Llama' not in self.cfg.generator_args.model_name_or_path:
+            self.gen_config = GenerationConfig.from_pretrained(
+                            self.cfg.generator_args.model_name_or_path,
+                            return_dict_in_generate=True,
+                            max_new_tokens=self.cfg.generator_args.max_new_tokens,
+                            min_new_tokens=self.cfg.generator_args.min_new_tokens,
+                            do_sample=self.cfg.generator_args.do_sample,
+                            temperature=self.cfg.generator_args.temperature,
+                            top_k=self.cfg.generator_args.top_k,
+                            bad_words_ids=bad_words_ids,
+                            repetition_penalty=self.cfg.generator_args.repetition_penalty,                        
+                            # top_p=0.96,
+                            local_files_only=is_offline
+                    )
+        else:
+            self.gen_config = None
+            self.pipeline._init_pipeline_config(self.cfg.generator_args)
         self.generator_kwargs.update([('bad_words_ids', bad_words_ids), ('min_new_tokens', self.cfg.watermark_args.min_new_tokens)])
 
         log.info(self.generator_kwargs)

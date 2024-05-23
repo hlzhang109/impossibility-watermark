@@ -69,6 +69,7 @@ def mixtral_format_instructions(prompt):
 
     Answer:""")
 
+# NOTE: Moved this inside the semstamp.py file to avoid passing 1000 parameters.
 def lsh_reject_completion(
         prompt: str,
         model: PreTrainedModel, 

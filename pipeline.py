@@ -161,6 +161,8 @@ class PipeLineBuilder:
                     add_generation_prompt=True
             )
 
+            log.info(f"Generated Prompt for Llama: {generated_prompt}")
+
             output = self.pipeline(generated_prompt) 
             prompt_end_index = output.find(prompt_str) + len(prompt_str)
             if prompt_end_index != -1:
@@ -182,7 +184,7 @@ class PipeLineBuilder:
 def main(cfg):
     # Create or get existing pipeline builders for generator, oracle, and mutator.
     mutator_pipeline_builder = PipeLineBuilder(cfg.mutator_args)
-    prompt = "Who's the current president of the US?"
+    prompt = "Who's the last president of the US?"
     response = mutator_pipeline_builder(prompt)
     print(response)
 

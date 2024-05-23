@@ -139,7 +139,7 @@ class PipeLineBuilder:
         if 'Mixtral' in cfg.model_name_or_path:
             self.pipeline_config["return_full_text"] = False
 
-    def generate_text(self, prompt: PromptTemplate, generator_kwargs=None):
+    def generate_text(self, prompt: PromptTemplate):
         """
         This function expects a prompt and returns the generated text.
         """
@@ -161,7 +161,9 @@ class PipeLineBuilder:
                     add_generation_prompt=True
             )
 
-            output = self.pipeline(generated_prompt, **generator_kwargs) 
+            log.info(f"Generated Prompt for Llama: {generated_prompt}")
+
+            output = self.pipeline(generated_prompt) 
             prompt_end_index = output.find(prompt_str) + len(prompt_str)
             if prompt_end_index != -1:
                 output = output[prompt_end_index:].strip()
@@ -182,6 +184,7 @@ class PipeLineBuilder:
 def main(cfg):
     # Create or get existing pipeline builders for generator, oracle, and mutator.
     mutator_pipeline_builder = PipeLineBuilder(cfg.mutator_args)
+    prompt = "Who's the last president of the US?"
     response = mutator_pipeline_builder(prompt)
     print(response)
 

@@ -156,6 +156,14 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
+def mixtral_format_instructions(self, prompt):
+    return textwrap.dedent(f"""
+    [INST]
+    {prompt}
+    [/INST]
+
+    Answer:""")
+
 from umd import UMDWatermarker
 from unigram import UnigramWatermarker
 from exp import EXPWatermarker

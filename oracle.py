@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 import datetime
 import textwrap
 import traceback
@@ -8,237 +9,734 @@ from langchain_core.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.output_parsers import PydanticOutputParser
+from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-from model_builders.pipeline import PipeLineBuilder
-from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-from utils import parse_llama_output
+# from langchain.globals import set_debug; set_debug(True)
 
+import os
 import logging
 import hydra
 
+from model_builders.pipeline import PipeLineBuilder
+from utils import read_text_file, extract_response_info, add_prefix_to_keys
+
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
-log.setLevel(logging.DEBUG)
 
-# NOTE: Output parsers and system profiles are currently removed.
+class RankAnswer(BaseModel):
+    analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
+    ranking:   dict = Field(description="An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.")
 
-class Oracle:
-    def __init__(self, cfg, pipeline=None) -> None:        
+class JointAnswer(BaseModel):
+    analysis:          str = Field(description="A string that describes the reasoning behind your scores for each answer.")
+    assistant_1_score: int = Field(description="An integer score for assistant 1's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+    assistant_2_score: int = Field(description="An integer score for assistant 2's answer on a scale of 1 to 10, where a higher score indicates better overall performance.")
+
+class RelativeAnswer(BaseModel):
+    analysis:  str = Field(description="A string that describes the reasoning behind your answer for which response is best or why they are the same.")
+    answer:    str = Field(description="A string summary describing whether response A is better, the same, or worse than response B.")
+
+class SoloAnswer(BaseModel):
+    analysis: str = Field(description="A string that describes the reasoning behind your answer for score.")
+    score:    str = Field(description="An integer score for the response.")
+
+def numerize_label(label):
+    """
+    Converts label description into numbers for easy comparison. 
+
+    Parameters:
+    label (str): The label description. 
+
+    Returns:
+    str: The corresponding numerized label. 
+    """
+    if "output_1 is much better than output_2" in label:
+        return 1
+    elif "output_1 is slightly better than output_2" in label:
+        return 2
+    elif "output_1 is about the same as output_2" in label:
+        return 3
+    elif "output_1 is slightly worse than output_2" in label:
+        return 4
+    elif "output_1 is much worse than output_2" in label:
+        return 5
+    else:
+        raise ValueError("Invalid label provided.")
+
+def downscale_label(label):
+    """
+    Converts a 5-point scale label to a 3-point scale.
+
+    Parameters:
+    label (str): The label on the 5-point scale. 
+
+    Returns:
+    str: The corresponding response on the 3-point scale.
+    """
+    if "better" in label:
+        return "output_1 is much better than output_2"
+    elif "same" in label:
+        return label # leave the same
+    elif "worse" in label:
+        return "output_1 is much worse than output_2"
+    else:
+        raise ValueError("Invalid label provided.")
+
+def invert_label(label):
+    """
+    Inverts a 5-point scale label. Useful for positional tests. 
+    
+    E.g. invert_label("output_1 is much better than output_2")
+         > "output_1 is much worse than output_2"
+
+    Parameters:
+    label (str): The label on the 5-point scale. 
+
+    Returns:
+    str: The corresponding inverted response.
+    """
+    if "better" in label:
+        return label.replace("better", "worse")
+    elif "same" in label:
+        return label # no change required. 
+    elif "worse" in label:
+        return label.replace("worse", "better")
+    else:
+        raise ValueError("Invalid label provided.")
+
+# Abstract base class for all oracles
+class Oracle(ABC):
+    def __init__(self, cfg, pipeline=None) -> None:
+
         self.cfg = cfg # config.oracle_args
-        self.pipeline = self._initialize_pipeline(pipeline)
-
-        # Removed Creativity
-        self.analysis_instructions = self._get_analysis_instructions()
-        self.parsing_instructions = self._get_parsing_instructions()
-
-        self.analysis_chain = self._create_chain(template=self.analysis_instructions, input_variables=["prompt", "response_a", "response_b"])
-
-        self.parsing_chain = self._create_chain(template=self.parsing_instructions, input_variables=["analysis"])
-
-
-    def _calculate_prompt_length(self, prompt: str, response_a: str, response_b: str) -> int:
-        """
-        Calculate the length of the analysis prompt after substituting input variables.
-        """
-        # Prepare Input
-        dict_input = {
-            "prompt": prompt,
-            "response_a": response_a,
-            "response_b": response_b
-        }
-        # Generate the filled prompt using the template
-        filled_prompt = self.analysis_instructions.format(**dict_input)
-        # Return the length of the filled prompt
-        return len(filled_prompt)
-
-    def _get_analysis_instructions(self,):
-        if self.cfg.is_completion:
-            eval_background = textwrap.dedent("""
-                ** Task ** : 
-
-                - Read the prefix and two possible completions for it: Completion A and Completion B.
-                - Compare the quality of the two completions for following factors:
-                    - Grammatical correctness
-                    - Fluency
-                    - Accuracy
-                    - Depth
-                    - Consistency
-                    - Simplicity
-                    - Clarity
-                - Describe your quality assessment.
-                - Select one of the following numbers to summarize your assesment:
-                    1. Completion A is better than Completion B
-                    2. Completions A and Completion B have similar quality
-                    3. Completion B is better than Completion A
-                                              
-                ** Completion A ** : 
-
-                {response_a} 
-
-                ** Completion B ** : 
-
-                {response_b} 
-                """
-            )
-        
-        else:
-            eval_background = textwrap.dedent("""
-                ** Task ** : 
-
-                - Read the prompt and two possible responses for it: Response A and Response B.
-                - Compare the quality of the two responses for following factors:
-                    - Adherence to the prompt
-                    - Grammatical correctness
-                    - Fluency
-                    - Helpfulness
-                    - Relevance
-                    - Accuracy
-                    - Depth
-                    - Consistency
-                    - Simplicity
-                    - Clarity
-                - Describe your quality assessment.
-                - Select one of the following numbers to summarize your assesment:
-                    1. Response A is better than Response B
-                    2. Responses A and Response B have similar quality
-                    3. Response B is better than Response A
-                
-                ** Prompt ** : 
-                
-                {prompt} 
-
-                ** Response A ** : 
-
-                {response_a} 
-
-                ** Response B ** : 
-
-                {response_b}
-                """
-            )
-        return eval_background
-
-    def _get_parsing_instructions(self):
-        return textwrap.dedent("""
-Analysis: {analysis}
-                                                   
-Read the above the response given by another LLM.
-As a result of its assessment, does the LLM pick 1, 2 or 3?
-                                                    
-If the LLM picks 1, respond with a 1. If the LLM picks 2, respond with a 2. If the LLM picks 3, respond with a 3. Your answer should be a single digit.""")
-
-    def _initialize_pipeline(self, pipeline):
-        if not isinstance(pipeline, (PipeLineBuilder, HuggingFacePipeline)):
+        self.pipeline = pipeline
+        if not isinstance(self.pipeline, PipeLineBuilder):
             log.info("Initializing a new Oracle pipeline from cfg...")
-            return PipeLineBuilder(self.cfg)
-        return pipeline
+            self.pipeline = PipeLineBuilder(cfg)
 
-    def _create_chain(self, template, input_variables):
-        prompt = PromptTemplate(
-            template=template,
-            input_variables=input_variables,
+    @abstractmethod
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        pass
+
+    @abstractmethod
+    def extract_label(self, evaluation):
+        pass
+
+    @abstractmethod
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        pass
+
+
+class RankOracle(Oracle):
+    
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=RankAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
         )
-        return prompt | self.pipeline
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-    def check_oracle(self, prompt: str, response_a: str, response_b: str, **kwargs):
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized RankOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
         # Prepare Input
         dict_input = {
-            "prompt": prompt, 
-            "response_a": response_a,
-            "response_b": response_b
+            "instruction": instruction, 
+            "output_1": output_1,
+            "output_2": output_2
         }
 
-        analysis_prompt_length = self._calculate_prompt_length(prompt, response_a, response_b)
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
 
-        dict_output = {}
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
 
-        if self.cfg.use_system_profile:
-            dict_input.update({"system_profile": self.cfg.system_profile})
-
-        # Run analyis chain
-        chain_output = str(self.analysis_chain.invoke(dict_input))
-
-        chain_output = chain_output[analysis_prompt_length:]
-
-        dict_output['analysis'] = parse_llama_output(chain_output)
-
-        log.info(f"Analysis:\n {dict_output['analysis']}")
-
-        dict_input = {
-            "analysis": dict_output['analysis']
-        }
-
-        for _ in range(3):
-            chain_output = self.parsing_chain.invoke(dict_input)
-            log.info(f"Answer was: {chain_output}")
-            answer = parse_llama_output(str(chain_output))
-            try:
-                answer = int(answer.strip())
-                dict_output['answer'] = answer
-                log.info(f"Answer was an integer.")
-                break
-            except:
-                log.info(f"Answer isn't an integer. Trying again.")
-                continue
-
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
         return dict_output
 
-    def evaluate(self, prompt, response_a, response_b, **kwargs):
-        retry_count = 0
-        while retry_count < self.cfg.num_retries:
-            try:
-                # Run twice to offset positional bias
-                original = self.check_oracle(prompt, response_a, response_b, **kwargs)
-                log.debug(original)
-                followup = self.check_oracle(prompt, response_b, response_a, **kwargs)
-                log.debug(followup)
-                if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
-                    original.update({"is_quality_preserved": True})
-                else:
-                    original.update({"is_quality_preserved": False})
-                return original
-            except Exception:
-                retry_count += 1
-                log.info(f"Failed to produce a valid evaluation, trying again...")
-                log.debug(traceback.format_exc())
-                if retry_count >= self.cfg.num_retries:
-                    log.info(f"Failed to produce a valid evaluation after {retry_count} tries.")
-                    log.info(traceback.format_exc())
+    def extract_label(self, evaluation):
+        eval_key = "ranking"
+        ranking = list(evaluation[eval_key].values())
+        eval_label = 1 # output_1 is better (default)
+        if ranking[1] == 1: 
+            eval_label = 5 # output_2 is better
+        return eval_label
+
+    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [5] and followup_pred in [1]:
+            is_quality_preserved = True
+        else:
+            is_quality_preserved = False
+
+        if return_evals:
+            original = add_prefix_to_keys(original, "original_")
+            followup = add_prefix_to_keys(followup, "followup_")
+            original.update({**followup})
+            return is_quality_preserved, original
+        return is_quality_preserved
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        original_label = numerize_label(downscale_label(label))
+        followup_label = numerize_label(downscale_label(invert_label(label)))
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({
+            **followup,
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
+
+
+class JointOracle(Oracle):
+
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=JointAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized JointOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1,
+            "output_2": output_2
+        }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+    def extract_label(self, evaluation):
+        eval_key_1 = "assistant_1_score"
+        eval_key_2 = "assistant_2_score"
+        output_1_score = int(evaluation[eval_key_1])
+        output_2_score = int(evaluation[eval_key_2])
+        diff = output_1_score - output_2_score 
+        if 5 <= diff <= 10: # output 1 is much better than output_2
+            return 1
+        elif 2 <= diff <= 5: # output 1 is slightly better than output_2
+            return 2
+        elif -2 <= diff <= 2:  # output 1 is about the same as output_2
+            return 3
+        elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
+            return 4
+        elif -5 <= diff <= -10: # output 1 is much worse than output_2
+            return 5
+
+    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+            is_quality_preserved = True
+        else:
+            is_quality_preserved = False
+
+        if return_evals:
+            original = add_prefix_to_keys(original, "original_")
+            followup = add_prefix_to_keys(followup, "followup_")
+            original.update({**followup})
+            return is_quality_preserved, original
+        return is_quality_preserved
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        original_label = numerize_label(label)
+        followup_label = numerize_label(invert_label(label))
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({
+            **followup, 
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
+
+class RelativeOracle(Oracle):
+
+    def __init__(self, cfg, pipeline=None) -> None:
+        
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized RelativeOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1,
+            "output_2": output_2
+        }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+    def extract_label(self, evaluation):
+        eval_key = "answer"
+        response, status = extract_response_info(evaluation[eval_key])
+        response = response.lower()
+        log.info(f"Parsed values: {response, status}")
+        if "3" in self.cfg.template:
+            if "better" in status:
+                return 1
+            elif "similar" in status:
+                return 3
+            elif "worse" in status:
+                return 5
+            else:
+                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
+                log.info(f"Invalid parsed values: {response, status}")
+                return -1
+        elif "5" in self.cfg.template:
+            if "much better" in status:
+                return 1
+            if "a little better" in status:
+                return 2
+            elif "similar" in status:
+                return 3
+            elif "a little worse" in status:
+                return 4
+            elif "much worse" in status:
+                return 5
+            else:
+                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
+                log.info(f"Invalid parsed values: {response, status}")
+                return -1
+
+    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+        
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+        
+        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+            is_quality_preserved = True
+        else:
+            is_quality_preserved = False
+
+        if return_evals:
+            original = add_prefix_to_keys(original, "original_")
+            followup = add_prefix_to_keys(followup, "followup_")
+            original.update({**followup})
+            return is_quality_preserved, original
+        return is_quality_preserved
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+
+        if "3" in self.cfg.template:
+            original_label = numerize_label(downscale_label(label))
+            followup_label = numerize_label(downscale_label(invert_label(label)))
+        elif "5" in self.cfg.template:
+            original_label = numerize_label(label)
+            followup_label = numerize_label(invert_label(label))
+        else:
+            raise ValueError("Invalid template name, should specify '3' or '5' choices! e.g. 'relative.sandpaper.3'")
+
+        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+
+        original_pred = self.extract_label(original)
+        followup_pred = self.extract_label(followup)
+
+        # assign correctness points
+        pred_correct = 0
+        if (original_label == original_pred) and (followup_label == followup_pred):
+            pred_correct = 1 # both are correct and positionally invariant
+        elif (original_label == original_pred) or (followup_label == followup_pred):
+            pred_correct = 0.5 # one was correct, but some positional bias was present
+
+        # prepare output
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({
+            **followup,
+            "original_label": original_label,
+            "followup_label": followup_label,
+            "original_pred": original_pred, 
+            "followup_pred": followup_pred,
+            "pred_correct": pred_correct,
+        })
+
+        return original
+
+class SoloOracle(Oracle):
+ 
+    def __init__(self, cfg, pipeline=None) -> None:
+        super().__init__(cfg, pipeline)
+        
+        # init output parser with template specific object
+        self.output_parser = OutputFixingParser.from_llm(
+            parser=PydanticOutputParser(pydantic_object=SoloAnswer),
+            llm=self.pipeline.pipeline,
+            max_retries=self.cfg.num_formatting_retries,
+        )
+ 
+        # init prompt with specific inputs
+        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+
+        if self.pipeline.requires_INST_tokens:
+            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+
+        self.instruction_prompt = PromptTemplate(
+            template=self.instructions,
+            template_format='jinja2',
+            input_variables=["instruction", "output_1", "output_2"],
+        )
+        
+        if cfg.system_profile:
+            self.profile_template = """{profile}"""
+            self.system_prompt = PromptTemplate(
+                template=self.profile_template,
+                input_variables=["profile"],
+            )    
+            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        else:
+            self.prompt = self.instruction_prompt 
+
+        self.chain = self.prompt | self.pipeline | self.output_parser
+
+        log.info(f"Initialized SoloOracle with cfg={cfg}")
+
+    def evaluate(self, instruction, output_1, output_2=None, **kwargs):
+        # Prepare Input
+        dict_input = {
+            "instruction": instruction, 
+            "output_1": output_1,
+            # "output_2": output_2
+        }
+
+        if self.cfg.system_profile:
+            dict_input.update({"profile": self.cfg.system_profile})
+
+        # Run Chain
+        pydantic_output = self.chain.invoke(dict_input)
+
+        # Prepare Output
+        dict_output = pydantic_output.dict()
+        dict_output.update({
+            **dict_input,
+            **kwargs,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+        return dict_output
+
+    def extract_label(self, evaluation):
+        eval_key = "score"
+        output_score = int(evaluation[eval_key])
+        return output_score
+
+    def derive_label(self, output_1_score, output_2_score):
+        diff = output_1_score - output_2_score 
+        pred = -1
+        if 5 <= diff <= 10: # output 1 is much better than output_2
+            pred =  1
+        elif 2 <= diff <= 5: # output 1 is slightly better than output_2
+            pred =  2
+        elif -2 <= diff <= 2:  # output 1 is about the same as output_2
+            pred = 3
+        elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
+            pred = 4
+        elif -5 <= diff <= -10: # output 1 is much worse than output_2
+            pred = 5
+
+        return pred
+
+    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+        
+        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
+        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
+
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)  
+
+        pred = self.derive_label(output_1_score, output_2_score)
+        
+        if pred in [3,4,5]:
+            is_quality_preserved = True
+        else:
+            is_quality_preserved = False
+
+        if return_evals:
+            output_1_evaluation = add_prefix_to_keys(output_1_evaluation, "output_1_")
+            output_2_evaluation = add_prefix_to_keys(output_2_evaluation, "output_2_")
+            output_1_evaluation.update({**output_2_evaluation})
+            return is_quality_preserved, output_1_evaluation
+        return is_quality_preserved
+
+
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        label = numerize_label(label)
+
+        output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
+        output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
+
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)       
+        
+        pred = self.derive_label(output_1_score, output_2_score)
+
+        # assign correctness points
+        pred_correct = 0
+        if (label == pred):
+            pred_correct = 1 
+
+        # prepare output
+        output_1_evaluation = add_prefix_to_keys(output_1_evaluation, "output_1_")
+        output_2_evaluation = add_prefix_to_keys(output_2_evaluation, "output_2_")
+        output_1_evaluation.update({
+            **output_2_evaluation, 
+            "label": label,
+            "pred": pred, 
+            "pred_correct": pred_correct,
+        })
+
+        return output_1_evaluation
+
+# def evaluate(self, instruction, output_1, output_2, **kwargs):
+#     retry_count = 0
+#     while retry_count < self.cfg.num_retries:
+#         try:
+#             # Run twice to offset positional bias
+#             original = self.check_oracle(instruction, output_1, output_2, **kwargs)
+#             # log.info(original)
+#             followup = self.check_oracle(instruction, output_2, output_1, **kwargs)
+#             # log.info(followup)
+#             if original["answer"] in [2, 3] and followup["answer"] in [1, 2]:
+#                 original.update({"is_quality_preserved": True})
+#             else:
+#                 original.update({"is_quality_preserved": False})
+#             return original
+#         except Exception:
+#             retry_count += 1
+#             log.info(f"Failed to produce a valid evaluation, trying again...")
+#             if retry_count >= self.cfg.num_retries:
+#                 log.info(f"Failed to produce a valid evaluation after {retry_count} tries.")
+#                 log.info(traceback.format_exc())
+
+
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def test(cfg):
 
-    import time
+    import pandas as pd
 
-    prompt = textwrap.dedent(
-        """You are a seasoned writer who has won several accolades for your emotionally rich stories. When you write, you delve deep into the human psyche, pulling from the reservoir of universal experiences that every reader, regardless of their background, can connect to. Your writing is renowned for painting vivid emotional landscapes, making readers not just observe but truly feel the world of your characters. Every piece you produce aims to draw readers in, encouraging them to reflect on their own lives and emotions. Your stories are a complex tapestry of relationships, emotions, and conflicts, each more intricate than the last.\nNow write a 500-word fable.\nOnly respond with the story."""
-    )
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
+    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
-    test_response_a = textwrap.dedent(
-        """Once, in a timeless forest, there lived a wise old owl named Olliver. He was revered by all creatures for his profound wisdom and his keen insight into the ways of the world. Among his admirers was a young, impetuous rabbit named Remy, whose boundless energy and curiosity often led him into trouble.\\nOne day, as Remy was bounding through the forest, he stumbled upon a shimmering, emerald pond he had never seen before. The water was so clear and inviting that he couldn\'t resist taking a sip. But as soon as he touched the water, he was transformed into a fish, his furry legs merging into a scaly tail.\\nPanicked and disoriented, Remy flapped his new fins frantically, struggling to understand what had happened. It was then that Olliver, perched on a nearby branch, spoke in his calm, wise voice, "Remy, you have drunk from the Enchanted Pond. It reflects what lies in your heart and transforms you accordingly."\\nRemy, now a fish, was filled with fear and regret. He missed his old life, his soft fur, and his ability to hop freely under the sun. He longed to be a rabbit again, but he didn’t know how to reverse the magic of the pond.\\nOlliver, understanding Remy\'s plight, offered him guidance. "To change back, you must understand the essence of being a rabbit, not just in form, but in spirit."\\nDays passed, and Remy, as a fish, observed the life around the pond. He saw other rabbits, hopping carelessly, playing, and foraging. He noticed their simple joys and their camaraderie, and he understood the freedom and lightness that defined their existence. \\nMeanwhile, as a fish, Remy learned new lessons. He experienced the serenity of gliding through water, the interconnectedness of life beneath the surface, and a different kind of freedom. He saw the world from a new perspective, understanding the beauty and harmony of life under the pond\'s surface, a beauty he had never appreciated before.\\nOne evening, as the moon cast a silver glow over the pond, Remy, with a heart full of newfound wisdom and appreciation for his life as a rabbit, took a leap of faith and jumped towards the moon\'s reflection on the water\'s surface. As he touched the moonlit water, he transformed back into a rabbit.\\nOlliver, watching this transformation, nodded in approval. "You have learned your lesson well, Remy. You sought to return to what you were but found value in what you became. Remember, true wisdom comes from understanding and embracing all aspects of life, not just those that are familiar and comfortable."\\nRemy, back on his soft paws, felt a profound sense of gratitude and enlightenment. He realized that his adventure as a fish had enriched his understanding of life, making him wiser and more empathetic.\\nFrom that day on, Remy became a thoughtful and considerate rabbit, often sharing his story with other creatures in the forest. He spoke of the importance of empathy, understanding, and the beauty of seeing the world through different eyes.\\nAnd so, the forest was filled with a deeper sense of harmony, all thanks to an impetuous rabbit and a wise old owl. For in their world, as in ours, wisdom and understanding are the keys to true harmony and peace."""
-    )
+    templates = [
+        # ("rate.self-reward", SoloOracle), 
+        ("solo.lmsys.ia", SoloOracle), 
+        ("solo.lmsys.ib", SoloOracle), 
+        ("rank.alpaca_eval", RankOracle), 
+        ("joint.lmsys.ia", JointOracle), 
+        ("joint.lmsys.ib", JointOracle), 
+        ("relative.sandpaper.3", RelativeOracle), 
+        ("relative.sandpaper.5", RelativeOracle), 
+    ]
 
-    test_response_b = textwrap.dedent(
-        """Once, in a timeless forest, there lived a wise old owl named Olliver. He was revered by all creatures for his profound wisdom and his keen insight into the ways of the world. Among his admirers was a young, impetuous rabbit named Remy, whose boundless energy and curiosity often led him into trouble.\\nOne day, as Remy was bounding through the forest, he stumbled upon a shimmering, emerald pond he had never seen before. The water was so clear and inviting that he couldn\'t resist taking a sip. But as soon as he touched the water, he was transformed into a fish, his furry legs merging into a scaly tail.\\nPanicked and disoriented, Remy flapped his new fins frantically, struggling to understand what had happened. It was then that Olliver, perched on a nearby branch, spoke in his calm, wise voice, "Remy, you have drunk from the Enchanted Pond. It reflects what lies in your heart and transforms you accordingly."\\nRemy, now a fish, was filled with fear and regret. He missed his old life, his soft fur, and his ability to hop freely under the sun. He longed to be a rabbit again, but he didn’t know how to reverse the magic of the pond.\\nOlliver, understanding Remy\'s plight, offered him guidance. "To change back, you must understand the essence of being a rabbit, not just in form, but in spirit."\\nDays passed, and Remy, as a fish, observed the life around the pond. He saw other rabbits, hopping carelessly, playing, and foraging. He noticed their simple joys and their camaraderie, and he understood the freedom and lightness that defined their existence. \\nMeanwhile, as a fish, Remy learned new lessons. He experienced the serenity of gliding through water, the interconnectedness of life beneath the surface, and a different kind of freedom. He saw the world from a new perspective, understanding the beauty and harmony of life under the pond\'s surface, a beauty he had never appreciated before.\\nOne evening, as the moon cast a silver glow over the pond, Remy, with a heart full of newfound wisdom and appreciation for his life as a rabbit, took a leap of faith and jumped towards the moon\'s reflection on the water\'s surface. As he touched the moonlit water, he transformed back into a rabbit.\\nOlliver, watching this transformation, nodded in approval. "You have learned your lesson well, Remy. You sought to return to what you were but found value in what you became. Remember, true wisdom comes from understanding and embracing all aspects of life, not just those that are familiar and comfortable."\\nRemy, back on his soft paws, felt a profound sense of gratitude and enlightenment. He realized that his adventure as a fish had enriched his understanding of life, making him wiser and more empathetic.\\nFrom that day on, Remy became a thoughtful and considerate rabbit, often sharing his story with other creatures in the forest. He spoke of the importance of empathy, understanding, and the beauty of seeing the world through different eyes.\\nAnd so, the forest was filled with a deeper sense of harmony, all thanks to an impetuous rabbit and a wise old parrot. For in their world, as in ours, wisdom and understanding are the keys to true harmony and peace."""
-    )
+    tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv")
 
-    oracle = Oracle(cfg.oracle_args)
+    for template, Oracle in templates:
+        cfg.oracle_args.template = template
+        oracle = Oracle(cfg.oracle_args)
 
-    quality_preserved_count = 0
-    for i in range(25):
-        start = time.time()
-        evaluation = oracle.evaluate(prompt, test_response_a, test_response_b)
-        log.info(f"Evaluation: {evaluation}")
-        if evaluation and evaluation['is_quality_preserved']:
-            quality_preserved_count += 1
-        delta = time.time() - start
-        
-        log.info(f"Is Quality Preserved?: {evaluation['is_quality_preserved']}")
-        log.info(f"Quality Assessment: {evaluation['analysis']}")
-        log.info(f"Time taken: {delta}")
+        results = []
+        for index, row in tests_df.iterrows():
+            try:
+                dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
+            except:
+                log.info(f"Test crashed for {row} on template={template}")
+                dict_output = {
+                    "instruction": row["instruction"], 
+                    "output_1": row["output_1"], 
+                    "output_2": row["output_2"], 
+                    "label": row['label']
+                }
             
-    print(quality_preserved_count)
+            log.info(dict_output)
+            results.append(dict_output)
+
+            # (inefficient) incremental saving...
+            df = pd.DataFrame(results)
+            df.to_csv(f"./results/oracle_tests_{template}.csv")
 
 if __name__ == "__main__":
     test()

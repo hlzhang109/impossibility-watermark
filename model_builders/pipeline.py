@@ -45,9 +45,8 @@ def parse_llama_output(response):
 class PipeLineBuilder:
     def __init__(self, cfg):
         self.cfg = cfg
-
-        logging.info(f"Device: {cfg.device_map}")
-
+        self.requires_INST_tokens = False
+        
         log.info(f"Initializing {cfg.model_name_or_path}")
 
         # NOTE: Using openai is incompatible with watermarking. 
@@ -64,7 +63,7 @@ class PipeLineBuilder:
                 cache_dir=cfg.model_cache_dir)
 
             self._init_pipeline_config(self.cfg)
-            
+
             # Create the pipeline
             if "grammarly" in cfg.model_name_or_path:
                 self.pipeline_base = pipeline("text2text-generation", **self.pipeline_config)
@@ -140,6 +139,7 @@ class PipeLineBuilder:
         
         if 'Mixtral' in cfg.model_name_or_path:
             self.pipeline_config["return_full_text"] = False
+            self.requires_INST_tokens = True
 
     def generate_text(self, prompt: PromptTemplate):
         """

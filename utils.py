@@ -222,3 +222,70 @@ def diff(text1, text2):
     diff_result = '\n'.join(diff)
 
     return diff_result
+def read_text_file(file_path):
+    """
+    Reads a text file and returns its contents as a string.
+
+    Args:
+        file_path (str): The path to the text file to be read.
+
+    Returns:
+        str: The contents of the file.
+
+    Raises:
+        FileNotFoundError: If the file cannot be found at the specified path.
+        IOError: If an error occurs during file reading.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            contents = file.read()
+            return contents
+    except FileNotFoundError:
+        print(f"Error: The file at '{file_path}' does not exist.")
+        raise
+    except IOError as e:
+        print(f"An error occurred while reading the file: {e}")
+        raise
+
+def add_prefix_to_keys(original_dict, prefix):
+    # Create a new dictionary with the prefix added to each key
+    new_dict = {f"{prefix}{key}": value for key, value in original_dict.items()}
+    return new_dict
+
+def extract_response_info(sentence):
+    # Enhanced regular expression with corrected spacing and flexible matching
+    pattern = re.compile(
+        r"(response [ab]).*(much better|a little better|better|similar|a little worse|worse|much worse).*?(response [ab])",
+        re.IGNORECASE
+    )
+
+    # Search for patterns in the sentence
+    match = pattern.search(sentence)
+
+    if match:
+        response_first = match.group(1).lower()
+        comparison = match.group(2).lower()
+        if "much" in sentence:
+          comparison = "much " + comparison
+        elif "a little" in sentence:
+          comparison = "a little " + comparison
+        response_second = match.group(3).lower()
+
+        # Ensure "response a" is always discussed first in the output
+        if response_first.endswith("b"):
+            # Reverse the comparison if "response b" is mentioned first
+            reverse_comparison_map = {
+                "much better": "much worse",
+                "a little better": "a little worse",
+                "better": "worse",
+                "similar": "similar",
+                "a little worse": "a little better",
+                "worse": "better",
+                "much worse": "much better"
+            }
+            adjusted_comparison = reverse_comparison_map[comparison]
+            return ["response a", adjusted_comparison]
+        else:
+            return ["response a", comparison]
+    else:
+        return ["", ""]

@@ -2,16 +2,15 @@ import logging
 from watermarker import Watermarker
 
 import nltk
-import torch
 import os
-from transformers import LogitsProcessorList, AutoModelForCausalLM, GenerationConfig, AutoTokenizer, AutoConfig, StoppingCriteriaList
+from transformers import GenerationConfig, StoppingCriteriaList
 from SemStamp.sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
 from SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
 from SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
-from SemStamp.detection_utils import detect_kmeans, detect_lsh
+from SemStamp.detection_utils import detect_lsh
 from nltk.tokenize import sent_tokenize
-from utils import mixtral_format_instructions
+from utils import mixtral_format_instructions, parse_llama_output
 import textwrap
 
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
@@ -24,12 +23,13 @@ PUNCTS = '.,!?'
 log = logging.getLogger(__name__)
 
 class SemStampWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False, only_detect=False):
+        super().__init__(cfg, pipeline, n_attempts, is_completion, only_detect)
 
-    def setup_watermark_components(self):
-        # NOTE: currently, no batching.
-
+    def _setup_generating_components(self):
+        """
+        This function sets up the LLM we'll use for generating watermarked text.
+        """
         is_offline = os.environ.get('TRANSFORMERS_OFFLINE') is not None and os.environ.get(
         'TRANSFORMERS_OFFLINE') == '1'
 
@@ -56,8 +56,18 @@ class SemStampWatermarker(Watermarker):
 
         self.generator_kwargs.update([('bad_words_ids', bad_words_ids), ('min_new_tokens', self.cfg.watermark_args.min_new_tokens)])
 
+        self.model.eval()
+
         log.info(self.generator_kwargs)
-        
+
+    def _setup_watermark_components(self):
+        # NOTE: currently, no batching.
+
+        # We don't want to initialize Llama when we only want to detect.
+        if not self.only_detect:
+            log.info("Setting up generating components...")
+            self._setup_generating_components()
+
         log.info(f"Initializing embedder model.")
         self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
         self.embedder.eval()
@@ -67,10 +77,9 @@ class SemStampWatermarker(Watermarker):
         self.lsh_model = SBERTLSHModel(lsh_model_path=None,
                                   device=self.cfg.watermark_args.device, batch_size=1, lsh_dim=self.cfg.watermark_args.sp_dim, sbert_type='base', embedder=self.embedder)
         
-        self.model.eval()
+        
     
     def generate_sentence(self, text, text_ids, stopping_criteria):
-        # TODO: Not sure this works right now, since we messed with their generation config. Didn't test yet.
         if "opt" in self.model.config._name_or_path:
             new_text, new_text_ids = gen_sent(model = self.model, 
                 tokenizer = self.tokenizer, 
@@ -98,10 +107,12 @@ class SemStampWatermarker(Watermarker):
 
     def lsh_reject_completion(self, prompt: str, margin=0.002, **kwargs):
         # TODO: Can we move this logic to a better place?
-        if "Mixtral" in self.model.config._name_or_path:
-            prompt = mixtral_format_instructions(prompt)
-        if "Llama" in self.model.config._name_or_path:
-            prompt = textwrap.dedent(f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+        # We don't want to make it a prompt if it's not a completion.
+        if not self.cfg.attack_args.is_completion:
+            if "Mixtral" in self.model.config._name_or_path:
+                prompt = mixtral_format_instructions(prompt)
+            if "Llama" in self.model.config._name_or_path:
+                prompt = textwrap.dedent(f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
 You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
@@ -153,20 +164,17 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
             log.info(f"LSH Candidate: {lsh_candidate}")
 
-            # TODO: There's an issue in their code. if the candidate never falls within the accept mask,
-            # we never check whether we exceeded max trials. This is potentially a dangerous infinite loop.
+            candidate_accepted = (lsh_candidate in accept_mask) and (len(sent_tokenize(new_text)) == 1)
 
             if lsh_candidate not in accept_mask:
                 log.info(f"Candidate text is doesn't fall into the correct place in the embedding space.")
-                continue
             # NOTE: I don't know why, but Mixtral seemed to generate 2 sentences 10% of the time. This is meant to avoid the issue.
             elif len(sent_tokenize(new_text)) > 1:
                 log.info(f"Candidate text is more than one sentence.")
-                continue
             else:
                 log.info("Candidate text falls within the semantic partition.")
-            
-            if (lsh_candidate in accept_mask) or current_trials >= self.cfg.watermark_args.max_trials:
+
+            if candidate_accepted or current_trials >= self.cfg.watermark_args.max_trials:
                 if current_trials >= self.cfg.watermark_args.max_trials:
                     log.info(
                         f'WARNING: desired semantic signature can\'t be sampled after max_trials {self.cfg.watermark_args.max_trials}')
@@ -191,6 +199,8 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
                 # If the number of new tokens generated reaches the maximum new token number, stop generating.
                 if (len(text_ids[0]) - prompt_length) >= self.cfg.watermark_args.max_new_tokens-1:
                     break
+
+        text = parse_llama_output(text)
         return text, total_trials
 
     def generate_watermarked_outputs(self, prompt):

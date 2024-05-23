@@ -12,7 +12,7 @@ class UnigramWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
 
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         assert self.tokenizer.vocab_size == self.model.config.vocab_size, f"Tokenizer vocab size {self.tokenizer.vocab_size} does not match model vocab size {self.model.config.vocab_size}"
 
         self.watermark_processor = LogitsProcessorList([

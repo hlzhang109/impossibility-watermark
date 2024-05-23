@@ -35,13 +35,19 @@ class Attack:
             return self.pipeline_builders[model_name_or_path]
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
-        self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+        # If we're only in detection mode for Semstamp, we don't need the pipeline.
+        if not self.cfg.watermark_args != "semstamp" or not self.cfg.watermark_args.only_detect:
+            self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+            self.generator_pipeline = self.generator_pipe_builder.pipeline
+        else:
+            self.generator_pipeline = None
+
         self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
         self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
         if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-            self.watermarker  = get_watermarker(self.cfg)
+            self.watermarker  = get_watermarker(self.cfg, pipeline=self.generator_pipeline, only_detect=self.cfg.watermark_args.only_detect)
         self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
         self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
 
@@ -76,8 +82,9 @@ class Attack:
             prev_step_count = 0
         
         # Generate watermarked response
+        # NOTE: Removed this for now since we want to generate beforehand with SemStamp and only run detection.
         if watermarked_text is None and prompt is not None:
-            raise Exception("watermarked test can't be none")
+            raise Exception("watermarked text can't be None")
             # log.info("Generating watermarked text from prompt...")
             # watermarked_text = self.watermarker.generate(prompt)
 
@@ -86,7 +93,7 @@ class Attack:
         original_watermarked_text = watermarked_text
         original_text_len = count_words(original_watermarked_text)
         
-        log.info(f"Type of use_watermark: {type(self.cfg.attack_args.use_watermark)}")
+        # log.info(f"Type of use_watermark: {type(self.cfg.attack_args.use_watermark)}")
         log.info(f"use_watermark: {self.cfg.attack_args.use_watermark}")
         if self.cfg.attack_args.use_watermark:
             watermark_detected, score = self.watermarker.detect(original_watermarked_text)

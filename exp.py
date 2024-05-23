@@ -14,7 +14,7 @@ class EXPWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
 
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         torch.manual_seed(self.cfg.watermark_args.seed)
         self.watermark_sequence_length = self.cfg.watermark_args.watermark_sequence_length
         self.generated_text_length = self.cfg.watermark_args.generated_text_length

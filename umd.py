@@ -13,7 +13,7 @@ class UMDWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
 
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         self.watermark_processor = WatermarkLogitsProcessor(
             vocab=list(self.tokenizer.get_vocab().values()),
             gamma=self.cfg.watermark_args.gamma,

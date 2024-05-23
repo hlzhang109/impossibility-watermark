@@ -11,11 +11,13 @@ from langchain_openai import ChatOpenAI
 import logging
 import hydra
 
+
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
 # Utility functions for different LLMs
 
+# TODO: We should ideally import these from utils.py.
 def mixtral_format_instructions(prompt):
     return textwrap.dedent(f"""
     [INST]
@@ -26,7 +28,7 @@ def mixtral_format_instructions(prompt):
 
 def strip_up_to(response, delimiter):
     # Find the position of the delimiter
-    pos = response.find(delimiter)
+    pos = response.rfind(delimiter)
     
     # If the delimiter is found, return the part of the string after it
     if pos != -1:

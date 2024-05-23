@@ -1,18 +1,18 @@
 name: "semstamp"
 embedder:
 delta: .01 
-# TODO: What does sp stand for?
-# Answer: sp is short for semantic space partitioning. Leaving the TODO up in case we still want to rename the variable.
-# This variable corresponds to both sp_mode (in sampling.py) and detection_mode (in detection.py) in their code.
-# We might want to rename it.
+# sp is short for semantic space partitioning. Leaving the TODO up in case we still want to rename the variable.
+# This variable corresponds to both sp_mode (in sampling.py) and detection_mode (in detection.py) in their code..
 sp_mode: lsh # or kmeans
 sp_dim: 3
 lmbd: .25
 max_new_tokens: 255 # maximum number of tokens to generate
 min_new_tokens: 245 # minimum number of tokens to generate
 max_trials: 100 # maximum number of times we try to generate a sentence to fall into the semantic partition
+only_detect : True
 cc_path:
 train_data:
 device: "auto"
 len_prompt: 32
 z_threshold: 0.5
+save_file_name: null # if we're using the watermarked_text_generator, this will tell the script where to save the watermarked text

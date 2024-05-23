@@ -1,0 +1,23 @@
+prompt : null
+prompt_file: "./inputs/dynamic_prompts.csv" # only used if prompt is None
+prompt_num: 6
+watermarked_text: null
+watermarked_text_path: null
+watermarked_text_num: 1
+num_steps: 2000 # how many mutations should the attack try to make
+patience: 250 # how many unsuccessful mutations in a row before we quit
+stop_at_removal: False # stop the attack after removing the watermark
+num_successful_steps: 100 # how many successful mutations before stopping
+results_dir: null
+model_cache_dir: "/local1/borito1907/.cache/"
+save_name: null # if None, it defaults to attack_{timestamp}.csv
+use_watermark: False # when running with GPT-4, disregard the watermark
+backtrack_patience: 50 # how many unsuccessful mutations before backtrack
+# For completion
+is_completion: False
+json_path: null
+json_index: 0
+# For continuations
+is_continuation: False
+prev_csv_file: null # If you're running a continuation, this should be the name of the previous CSV file.
+cuda: "1" # NOTE: This doesn't do anything.

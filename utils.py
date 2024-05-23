@@ -5,6 +5,7 @@ import json
 import datetime
 import textwrap
 from openai import OpenAI
+import difflib
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -18,6 +19,12 @@ def save_to_csv(data, dir, filename, rewrite=False):
         os.makedirs(dir, exist_ok=True)
         df_out.to_csv(file_path, index=False)  # Create new file with headers
     print(f"Data appended to {file_path}")
+
+def count_csv_entries(file_path):
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(file_path)
+    # Return the number of entries (rows) in the DataFrame
+    return len(df)
     
 def load_data(filename):
     """Load JSON data from a file."""
@@ -164,19 +171,54 @@ def mixtral_format_instructions(self, prompt):
 
     Answer:""")
 
+def strip_up_to(response, delimiter):
+    # Find the position of the delimiter
+    pos = response.rfind(delimiter)
+    
+    # If the delimiter is found, return the part of the string after it
+    if pos != -1:
+        # Adjust the position to remove the delimiter itself
+        return response[pos + len(delimiter):].strip()
+    return response
+
+def parse_llama_output(response):
+    delimiter = "<|end_header_id|>"
+    response = strip_up_to(response, delimiter)
+    response = response[:-9] if response.endswith('assistant') else response
+    return response
+
 from umd import UMDWatermarker
 from unigram import UnigramWatermarker
 from exp import EXPWatermarker
 from semstamp import SemStampWatermarker
 
-def get_watermarker(cfg):
+def get_watermarker(cfg, **kwargs):
     if cfg.watermark_args.name == "umd":
-        return UMDWatermarker(cfg)
+        return UMDWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "unigram":
-        return UnigramWatermarker(cfg)
+        return UnigramWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "exp":
-        return EXPWatermarker(cfg)
+        return EXPWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "semstamp":
-        return SemStampWatermarker(cfg)
+        return SemStampWatermarker(cfg, **kwargs)
     else:
         raise NotImplementedError
+    
+def diff(text1, text2):
+    """
+    Returns the difference of 2 texts.
+    """
+    # Splitting the texts into lines as difflib works with lists of lines
+    text1_lines = text1.splitlines()
+    text2_lines = text2.splitlines()
+    
+    # Creating a Differ object
+    d = difflib.Differ()
+
+    # Calculating the difference
+    diff = list(d.compare(text1_lines, text2_lines))
+
+    # Joining the result into a single string for display
+    diff_result = '\n'.join(diff)
+
+    return diff_result

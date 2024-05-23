@@ -6,7 +6,6 @@ import traceback
 import datetime
 import textwrap
 import random
-import difflib
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from langchain_core.prompts import (
@@ -18,11 +17,16 @@ from langchain_core.prompts import (
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 from model_builders.pipeline import PipeLineBuilder
+from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
+from utils import diff
 
 import hydra
 import logging
 
 log = logging.getLogger(__name__)
+
+class AlteredSentence(BaseModel):
+    altered_sentence: str = Field(description="Altered sentence with subtle shifts in meaning")
 
 class Mutation(BaseModel):
     text:  str = Field(description="Edited text with minimal changes for consistency")
@@ -35,54 +39,64 @@ class TextMutator:
     def __init__(self, cfg, pipeline=None):
         # NOTE: Not working with multiple CUDA devices, so disabled for now.
         # os.environ["CUDA_VISIBLE_DEVICES"] = cfg.cuda
-        
+                
         self.cfg = cfg # config.mutator_args
-        self.pipeline = pipeline
-        
-        # # Model Pipeline
-        if not isinstance(self.pipeline, PipeLineBuilder):
-            log.info("Initializing a new Text Mutator pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg)
-
-        # Output Parser
-        self.output_parser = PydanticOutputParser(pydantic_object=Mutation)
-
+        self.pipeline = self._initialize_pipeline(pipeline)
+        # If we're using the output parsers, initialize them.
+        self.altered_sentence_parser, self.output_parser = self._initialize_pydantic_parsers()
         # Check if NLTK data is downloaded, if not, download it
-        try:
-            nltk.data.find('tokenizers/punkt')
-        except LookupError:
-            nltk.download('punkt')
-            
+        self._ensure_nltk_data()
+
+        # Determine the format instructions based on whether we're using the pydantic_parser
+        format_instructions_section = self._get_format_instructions_section()
+
+        self.system_profile = """{system_profile}"""
+
+        self.system_prompt = PromptTemplate(
+            template=self.system_profile,
+            input_variables=["system_profile"],
+        )
+
         # Initialize chains 
         
         # Step 1 - Localize Creativity Injection
-        
-        self.step_1_template = textwrap.dedent(
-            """
-            Rewrite this sentence, introducing subtle shifts in its meaning: {sentence}
-            """
-        )
-                
-        self.step_1_prompt = PromptTemplate(
-            template=self.step_1_template,
+        self.step_1_chain = self._create_chain(
+            template=self._get_step_1_template(format_instructions_section),
             input_variables=["sentence"],
+            partial_variables={"format_instructions": self.altered_sentence_parser._get_format_instructions()} if cfg.use_pydantic_parser else {},
+            use_system_profile=cfg.use_system_profile
         )
-        
-        self.step_1_chain = self.step_1_prompt | self.pipeline
 
         # Step 2 - Global Consistency Edit
-        self.step_2_profile = """{system_profile}"""
-
-        # Determine the format instructions section based on the condition
-        format_instructions_section = (
-            textwrap.dedent("""
-            ** Format Instructions **: 
-
-            {format_instructions} 
-            """) if self.cfg.use_pydantic_parser else ""
+        self.step_2_chain = self._create_chain(
+            template=self._get_step_2_template(format_instructions_section),
+            input_variables=["original_text"],
+            partial_variables={"format_instructions": self.output_parser._get_format_instructions()} if cfg.use_pydantic_parser else {},
+            use_system_profile=cfg.use_system_profile
         )
 
-        self.step_2_template = textwrap.dedent(f"""
+        # Conditionally add the output parsers if self.cfg.use_pydantic_parser is True
+        if self.cfg.use_pydantic_parser:
+            self.step_1_chain = self.step_1_chain | self.altered_sentence_parser
+            self.step_2_chain = self.step_2_chain | self.output_parser
+
+    def _create_chain(self, template, input_variables, partial_variables, use_system_profile):
+        user_prompt = PromptTemplate(template=template, input_variables=input_variables, partial_variables=partial_variables)
+        if use_system_profile:
+            system_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+            user_prompt = HumanMessagePromptTemplate(prompt=user_prompt)
+            return ChatPromptTemplate.from_messages([system_prompt, user_prompt]) | self.pipeline
+        return user_prompt | self.pipeline
+
+    def _get_step_1_template(self, format_instructions_section):
+        return textwrap.dedent(f"""
+            Rewrite this sentence, introducing subtle shifts in its meaning: {{sentence}}
+
+            {format_instructions_section}
+            """)
+
+    def _get_step_2_template(self, format_instructions_section):
+        return textwrap.dedent(f"""
             Task: Make minimal edits to this text for consistency and quality. Make sure the text does not get shorter. Only respond with edited text.
 
             Text:
@@ -90,32 +104,34 @@ class TextMutator:
             {{original_text}} 
 
             {format_instructions_section}
-            """
-        )     
-        
-        self.system_prompt = PromptTemplate(
-            template=self.step_2_profile,
-            input_variables=["system_profile"],
-        )
+            """)
 
-        self.user_prompt = PromptTemplate(
-            template=self.step_2_template,
-            input_variables=["original_text"],
-            partial_variables={"format_instructions": self.output_parser.get_format_instructions()} if self.cfg.use_pydantic_parser else {},
-        )
-
-        if self.cfg.use_system_profile:
-            system_prompt      = SystemMessagePromptTemplate(prompt=self.system_prompt)
-            user_prompt        = HumanMessagePromptTemplate(prompt=self.user_prompt)
-            self.step_2_prompt = ChatPromptTemplate.from_messages([system_prompt, user_prompt])
-        else:
-            self.step_2_prompt = self.user_prompt
-
-        # Initial chain setup without the output parser
-        self.step_2_chain = self.step_2_prompt | self.pipeline
-        # Conditionally add the output parser if self.cfg.use_pydantic_parser is True
+    def _get_format_instructions_section(self):
         if self.cfg.use_pydantic_parser:
-            self.step_2_chain = self.step_2_chain | self.output_parser
+            return textwrap.dedent("""
+                ** Format Instructions **: 
+                
+                {format_instructions} 
+                """)
+        return ""
+
+    def _initialize_pipeline(self, pipeline):
+        if not isinstance(pipeline, (PipeLineBuilder, HuggingFacePipeline)):
+            log.info("Initializing a new Text Mutator pipeline from cfg...")
+            return PipeLineBuilder(self.cfg)
+        return pipeline
+
+    def _initialize_pydantic_parsers(self):
+        if self.cfg.use_pydantic_parser:
+            return (PydanticOutputParser(pydantic_object=AlteredSentence),
+                    PydanticOutputParser(pydantic_object=Mutation))
+        return (None, None)
+
+    def _ensure_nltk_data(self):
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            nltk.download('punkt')    
 
     def creatively_alter_sentence(self, text):
         # Use NLTK to split the text into sentences
@@ -124,9 +140,14 @@ class TextMutator:
         selected_sentence = random.choice(sentences)
         log.info(f"Sentence to rephrase: {selected_sentence}")
 
+        # Prepare Input
+        dict_input = {"sentence": selected_sentence}
+        if self.cfg.use_system_profile:
+            dict_input.update({"system_profile": self.cfg.system_profile})
+
         # Generate a creative variation of the sentence
-        rephrased_sentence = self.step_1_chain.invoke({"sentence": selected_sentence})
-        # log.info(f"Rephrased sentence: {rephrased_sentence}")
+        rephrased_sentence = self.step_1_chain.invoke(dict_input)
+        log.info(f"Rephrased sentence: {rephrased_sentence}")
         # rephrased_sentence = rephrased_sentence.split("[/INST]",1)[1].strip()
         
         creative_sentences = sent_tokenize(rephrased_sentence)
@@ -158,39 +179,6 @@ class TextMutator:
         })
         return dict_output
 
-    def random_walk_attack(self, text, span_len):
-
-        words = word_tokenize(text)
-        if len(words) < span_len:
-            return text  # Return the original text if it's too short
-        
-        start = np.random.randint(0, len(words) - span_len)
-        end = start + span_len
-
-        for i in range(start, end):
-            words[i] = '<<<MASK>>>'
-
-        # filled_words = ? Going to use Flan T5. I can either understand its interface and incorporate it here
-        # or go back to attack_old and just change the model... will probably do the latter
-
-        recombined_text = ' '.join(filled_words)
-        return recombined_text
-
-    def old_mutate(self, text, **kwargs):
-        retry_count = 0
-        while retry_count < self.cfg.num_retries:
-            try:
-                
-                final_text = self.random_walk_attack(text)
-                
-                return final_text
-            except Exception:
-                retry_count += 1
-                log.info(f"Failed to produce a valid generation, trying again...")
-                if retry_count >= self.cfg.num_retries:
-                    log.info(f"Failed to produce a valid generation after {retry_count} tries.")
-                    log.info(traceback.format_exc())
-
     def mutate(self, text, **kwargs):
         retry_count = 0
         while retry_count < self.cfg.num_retries:
@@ -200,8 +188,10 @@ class TextMutator:
                 # # Step 1.5: Creatively alter another random sentence
                 # mutated_text = self.creatively_alter_sentence(mutated_text)
                 # Step 2: Adjust the rest of the text for consistency
-                final_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"].strip()
-                return final_text
+                if self.cfg.consistency_check:
+                    log.info(f"Running the consistency check...")
+                    mutated_text = self.adjust_for_consistency(mutated_text, **kwargs)["text"].strip()
+                return mutated_text
             except Exception:
                 retry_count += 1
                 log.info(f"Failed to produce a valid generation, trying again...")
@@ -209,26 +199,8 @@ class TextMutator:
                     log.info(f"Failed to produce a valid generation after {retry_count} tries.")
                     log.info(traceback.format_exc())
 
-    def diff(self, text1, text2):
-        # Splitting the texts into lines as difflib works with lists of lines
-        text1_lines = text1.splitlines()
-        text2_lines = text2.splitlines()
-        
-        # Creating a Differ object
-        d = difflib.Differ()
-
-        # Calculating the difference
-        diff = list(d.compare(text1_lines, text2_lines))
-
-        # Joining the result into a single string for display
-        diff_result = '\n'.join(diff)
-
-        return diff_result
-
-
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def test(cfg):
-
     import time
 
     text = textwrap.dedent(
@@ -249,7 +221,7 @@ def test(cfg):
 
     log.info(f"Original text: {text}")
     log.info(f"Mutated text: {mutated_text}")
-    log.info(f"Diff: {text_mutator.diff(text, mutated_text)}")
+    log.info(f"Diff: {diff(text, mutated_text)}")
     log.info(f"Time taken: {delta}")
 
 if __name__ == "__main__":

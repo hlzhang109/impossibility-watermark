@@ -13,9 +13,8 @@ log = logging.getLogger(__name__)
 class EXPWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
-        self.setup_watermark_components()
 
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         torch.manual_seed(self.cfg.watermark_args.seed)
         self.watermark_sequence_length = self.cfg.watermark_args.watermark_sequence_length
         self.generated_text_length = self.cfg.watermark_args.generated_text_length
@@ -39,7 +38,9 @@ class EXPWatermarker(Watermarker):
             key=self.watermark_sequence_key
         )
 
-        return outputs
+        completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+        return completion
 
     def detect(self, completion):
         tokens = self.tokenizer.encode(completion, return_tensors='pt', truncation=True, max_length=2048).numpy()[0]

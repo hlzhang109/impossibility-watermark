@@ -5,6 +5,7 @@ import json
 import datetime
 import textwrap
 from openai import OpenAI
+import difflib
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -18,6 +19,12 @@ def save_to_csv(data, dir, filename, rewrite=False):
         os.makedirs(dir, exist_ok=True)
         df_out.to_csv(file_path, index=False)  # Create new file with headers
     print(f"Data appended to {file_path}")
+
+def count_csv_entries(file_path):
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(file_path)
+    # Return the number of entries (rows) in the DataFrame
+    return len(df)
     
 def load_data(filename):
     """Load JSON data from a file."""
@@ -156,17 +163,17 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
-def mixtral_format_instructions(story_text):
+def mixtral_format_instructions(self, prompt):
     return textwrap.dedent(f"""
     [INST]
-    {story_text}
+    {prompt}
     [/INST]
 
     Answer:""")
 
 def strip_up_to(response, delimiter):
     # Find the position of the delimiter
-    pos = response.find(delimiter)
+    pos = response.rfind(delimiter)
     
     # If the delimiter is found, return the part of the string after it
     if pos != -1:
@@ -179,3 +186,106 @@ def parse_llama_output(response):
     response = strip_up_to(response, delimiter)
     response = response[:-9] if response.endswith('assistant') else response
     return response
+
+from umd import UMDWatermarker
+from unigram import UnigramWatermarker
+from exp import EXPWatermarker
+from semstamp import SemStampWatermarker
+
+def get_watermarker(cfg, **kwargs):
+    if cfg.watermark_args.name == "umd":
+        return UMDWatermarker(cfg, **kwargs)
+    elif cfg.watermark_args.name == "unigram":
+        return UnigramWatermarker(cfg, **kwargs)
+    elif cfg.watermark_args.name == "exp":
+        return EXPWatermarker(cfg, **kwargs)
+    elif cfg.watermark_args.name == "semstamp":
+        return SemStampWatermarker(cfg, **kwargs)
+    else:
+        raise NotImplementedError
+    
+def diff(text1, text2):
+    """
+    Returns the difference of 2 texts.
+    """
+    # Splitting the texts into lines as difflib works with lists of lines
+    text1_lines = text1.splitlines()
+    text2_lines = text2.splitlines()
+    
+    # Creating a Differ object
+    d = difflib.Differ()
+
+    # Calculating the difference
+    diff = list(d.compare(text1_lines, text2_lines))
+
+    # Joining the result into a single string for display
+    diff_result = '\n'.join(diff)
+
+    return diff_result
+def read_text_file(file_path):
+    """
+    Reads a text file and returns its contents as a string.
+
+    Args:
+        file_path (str): The path to the text file to be read.
+
+    Returns:
+        str: The contents of the file.
+
+    Raises:
+        FileNotFoundError: If the file cannot be found at the specified path.
+        IOError: If an error occurs during file reading.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            contents = file.read()
+            return contents
+    except FileNotFoundError:
+        print(f"Error: The file at '{file_path}' does not exist.")
+        raise
+    except IOError as e:
+        print(f"An error occurred while reading the file: {e}")
+        raise
+
+def add_prefix_to_keys(original_dict, prefix):
+    # Create a new dictionary with the prefix added to each key
+    new_dict = {f"{prefix}{key}": value for key, value in original_dict.items()}
+    return new_dict
+
+def extract_response_info(sentence):
+    # Enhanced regular expression with corrected spacing and flexible matching
+    pattern = re.compile(
+        r"(response [ab]).*(much better|a little better|better|similar|a little worse|worse|much worse).*?(response [ab])",
+        re.IGNORECASE
+    )
+
+    # Search for patterns in the sentence
+    match = pattern.search(sentence)
+
+    if match:
+        response_first = match.group(1).lower()
+        comparison = match.group(2).lower()
+        if "much" in sentence:
+          comparison = "much " + comparison
+        elif "a little" in sentence:
+          comparison = "a little " + comparison
+        response_second = match.group(3).lower()
+
+        # Ensure "response a" is always discussed first in the output
+        if response_first.endswith("b"):
+            # Reverse the comparison if "response b" is mentioned first
+            reverse_comparison_map = {
+                "much better": "much worse",
+                "a little better": "a little worse",
+                "better": "worse",
+                "similar": "similar",
+                "a little worse": "a little better",
+                "worse": "better",
+                "much worse": "much better"
+            }
+            adjusted_comparison = reverse_comparison_map[comparison]
+            return ["response a", adjusted_comparison]
+        else:
+            return ["response a", comparison]
+    else:
+        return ["", ""]

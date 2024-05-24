@@ -4,15 +4,10 @@ import hydra
 import logging
 import shutil
 from tqdm import tqdm
-from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num
+from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num, get_watermarker
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
-
-from model_builders.pipeline import PipeLineBuilder
-from watermark import Watermarker
-from oracle import Oracle
-from mutate import TextMutator
 
 import warnings
 
@@ -22,12 +17,27 @@ warnings.filterwarnings("ignore", message="Setting `pad_token_id` to `eos_token_
 # Suppress the warning about using pipelines sequentially on GPU
 warnings.filterwarnings("ignore", message="You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset")
 
-
 class Attack:
     def __init__(self, cfg):
         self.cfg = cfg
         
         self.pipeline_builders = {}
+
+        # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
+        # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
+        from model_builders.pipeline import PipeLineBuilder
+        from utils import get_watermarker
+        from oracle import (
+            RankOracle,
+            JointOracle,
+            RelativeOracle,
+            SoloOracle
+        )
+        from mutators import (
+            LLMMutator,
+            MaskFillMutator,
+            SpanFillMutator
+        )
 
         # Helper function to create or reuse pipeline builders.
         def get_or_create_pipeline_builder(model_name_or_path, args):
@@ -36,15 +46,44 @@ class Attack:
             return self.pipeline_builders[model_name_or_path]
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
-        self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+        # If we're only in detection mode for Semstamp, we don't need the pipeline.
+        if not self.cfg.watermark_args != "semstamp" or not self.cfg.watermark_args.only_detect:
+            self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
+            self.generator_pipeline = self.generator_pipe_builder.pipeline
+        else:
+            self.generator_pipeline = None
+
         self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
-        self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        # if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-        #     self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipe_builder, is_completion=cfg.attack_args.is_completion)
-        self.quality_oracle = Oracle(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
-        self.mutator = TextMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
+        if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
+            self.watermarker  = get_watermarker(cfg, pipeline=self.generator_pipeline, is_completion=cfg.attack_args.is_completion)
+
+        # Configure Oracle
+        oracle_class = None
+        if "joint" in cfg.oracle_args.template:
+            oracle_class = JointOracle
+        elif "rank" in cfg.oracle_args.template:
+            oracle_class = RankOracle
+        elif "relative" in cfg.oracle_args.template:
+            oracle_class = RelativeOracle
+        elif "solo" in cfg.oracle_args.template:
+            oracle_class = SoloOracle
+        else:
+            raise ValueError(f"Invalid oracle template. See {cfg.oracle_args.template_dir} for options.")
+        self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder)
+
+        # Configure Mutator
+        # TODO: Incorporate mutator from distinguisher with the mutator here.
+        if "llm" in cfg.mutator_args.type:
+            self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
+            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
+        elif "mask_fill" in cfg.mutator_args.type:
+            self.mutator = MaskFillMutator()
+        elif "span_fill" in cfg.mutator_args.type:
+            self.mutator = SpanFillMutator()
+        else:
+            raise ValueError("Invalid mutator type. Must be either 'llm', 'span_fill', or 'mask_fill'.")
 
     def attack(self, cfg, prompt=None, watermarked_text=None):
         """
@@ -56,6 +95,9 @@ class Attack:
         if save_name is None:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d.%H.%M.%S")
             save_name = f"attack_{timestamp}.csv"
+
+        print(f"self.cfg.attack_args.save_name: {self.cfg.attack_args.save_name}")
+        print(f"save_name: {save_name}")
         save_path = os.path.join(self.cfg.attack_args.results_dir, save_name)
 
         # Run a continuation
@@ -77,8 +119,9 @@ class Attack:
             prev_step_count = 0
         
         # Generate watermarked response
+        # NOTE: Removed this for now since we want to generate beforehand with SemStamp and only run detection.
         if watermarked_text is None and prompt is not None:
-            raise Exception("watermarked test can't be none")
+            raise Exception("watermarked text can't be None")
             # log.info("Generating watermarked text from prompt...")
             # watermarked_text = self.watermarker.generate(prompt)
 
@@ -87,6 +130,8 @@ class Attack:
         original_watermarked_text = watermarked_text
         original_text_len = count_words(original_watermarked_text)
         
+        # log.info(f"Type of use_watermark: {type(self.cfg.attack_args.use_watermark)}")
+        log.info(f"use_watermark: {self.cfg.attack_args.use_watermark}")
         if self.cfg.attack_args.use_watermark:
             watermark_detected, score = self.watermarker.detect(original_watermarked_text)
         else:
@@ -118,47 +163,30 @@ class Attack:
                 break
 
             log.info("Mutating watermarked text...")
-            if cfg.mutator_args.use_old_mutator: 
-                mutated_text = self.mutator.old_mutate(watermarked_text)
-            else: 
-                mutated_text = self.mutator.mutate(watermarked_text)
+            mutated_text = self.mutator.mutate(watermarked_text)
 
             log.info(f"Mutated text: {mutated_text}")
-
             mutated_text_len = count_words(mutated_text)
 
             if mutated_text_len / original_text_len < 0.95:
                 log.info("Mutation failed to preserve text length requirement...")
-                quality_preserved = False
-                quality_analysis = None
+                is_quality_preserved = False
+                # quality_analysis = None
                 watermark_detected = True
                 score = -1
             else:
                 log.info("Checking quality oracle and watermark detector...")
-                oracle_response = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)
-                # Retry one more time if there's an error
-                num_retries = 5
-                retry = 0
-                while oracle_response is None and retry <= num_retries:
-                    oracle_response = self.quality_oracle.evaluate(prompt, original_watermarked_text, mutated_text)
-                    retry += 1
-                    
-                if oracle_response is None:
-                    quality_preserved = False
-                    quality_analysis = "Retry exceeded."
-                else:
-                    quality_preserved = oracle_response['is_quality_preserved']
-                    quality_analysis = oracle_response['analysis']
+                is_quality_preserved = self.quality_oracle.is_quality_preserved(prompt, original_watermarked_text, mutated_text)
 
                 if self.cfg.attack_args.use_watermark:
                     watermark_detected, score = self.watermarker.detect(mutated_text)
                 else:
                     watermark_detected, score = False, False
                     
-            perturbation_stats = get_perturbation_stats(step_num + prev_step_count, watermarked_text, mutated_text, quality_preserved, quality_analysis, watermark_detected, score, backtrack)
+            perturbation_stats = get_perturbation_stats(step_num + prev_step_count, watermarked_text, mutated_text, is_quality_preserved, "", watermark_detected, score, backtrack)
             save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
             
-            if quality_preserved:
+            if is_quality_preserved:
                 log.info(f"Mutation successful. This was the {successful_perturbations}th successful perturbation.")
                 patience = 0
                 backtrack_patience = 0
@@ -186,8 +214,16 @@ class Attack:
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
     
-    # os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
-    # os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
+    import os
+
+    CUDA_VISIBLE_DEVICES = str(cfg.mutator_args.cuda)
+    WORLD_SIZE = str(len(str(cfg.mutator_args.cuda).split(",")))
+
+    print(f"CUDA_VISIBLE_DEVICES: {CUDA_VISIBLE_DEVICES}")
+    print(f"WORLD_SIZE: {WORLD_SIZE}")
+    
+    os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
+    os.environ["WORLD_SIZE"] = WORLD_SIZE
     
     # Read the prompt and the watermarked text from the input files
     prompt = cfg.attack_args.prompt

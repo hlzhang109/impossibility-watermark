@@ -12,9 +12,8 @@ log = logging.getLogger(__name__)
 class UMDWatermarker(Watermarker):
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
-        self.setup_watermark_components()
 
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         self.watermark_processor = WatermarkLogitsProcessor(
             vocab=list(self.tokenizer.get_vocab().values()),
             gamma=self.cfg.watermark_args.gamma,
@@ -43,7 +42,10 @@ class UMDWatermarker(Watermarker):
             max_length=self.cfg.generator_args.max_new_tokens
         ).to(self.model.device)
         outputs = self.model.generate(**inputs, **self.generator_kwargs)
-        return outputs
+
+        completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+        return completion
 
     def detect(self, completion):
         score = self.watermark_detector.detect(completion)

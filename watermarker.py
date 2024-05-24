@@ -2,8 +2,9 @@ from abc import ABC, abstractmethod
 import torch
 import logging
 
-from pipeline import PipeLineBuilder
+from model_builders.pipeline import PipeLineBuilder
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 class Watermarker(ABC):
@@ -16,26 +17,28 @@ class Watermarker(ABC):
 
         log.info(f"Using device: {self.device}")
 
-        if not isinstance(self.pipeline, PipeLineBuilder):
-            self.pipeline = PipeLineBuilder(self.cfg.generator_args)
-        
-        self.model = self.pipeline.model.to(self.device)
-        self.tokenizer = self.pipeline.tokenizer
-        self.tokenizer.pad_token = self.tokenizer.pad_token or self.tokenizer.eos_token
+        if not self.cfg.watermark_args.only_detect:
+            if not isinstance(self.pipeline, PipeLineBuilder):
+                self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+            
+            self.model = self.pipeline.model.to(self.device)
+            self.tokenizer = self.pipeline.tokenizer
+            self.tokenizer.pad_token = self.tokenizer.pad_token or self.tokenizer.eos_token
 
-        self.generator_kwargs = {
-            "max_new_tokens": self.cfg.generator_args.max_new_tokens,
-            "do_sample": self.cfg.generator_args.do_sample,
-            "temperature": self.cfg.generator_args.temperature,
-            "top_p": self.cfg.generator_args.top_p,
-            "top_k": self.cfg.generator_args.top_k,
-            "repetition_penalty": self.cfg.generator_args.repetition_penalty
-        }
+
+            self.generator_kwargs = {
+                "max_new_tokens": self.cfg.generator_args.max_new_tokens,
+                "do_sample": self.cfg.generator_args.do_sample,
+                "temperature": self.cfg.generator_args.temperature,
+                "top_p": self.cfg.generator_args.top_p,
+                "top_k": self.cfg.generator_args.top_k,
+                "repetition_penalty": self.cfg.generator_args.repetition_penalty
+            }
         
-        self.setup_watermark_components()
+        self._setup_watermark_components()
 
     @abstractmethod
-    def setup_watermark_components(self):
+    def _setup_watermark_components(self):
         pass
 
     @abstractmethod
@@ -45,15 +48,16 @@ class Watermarker(ABC):
     def generate(self, prompt):
         n_attempts = 0
         while n_attempts < self.n_attempts:
-            outputs = self.generate_watermarked_outputs(prompt)
+            completion = self.generate_watermarked_outputs(prompt)
 
-            completion = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            log.info(f"Received completion: {completion}")
+
             if not self.is_completion:
                 completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded
-            _, p_value = self.detect(completion)
-            if p_value <= self.p_threshold:
+            is_detected, _ = self.detect(completion)
+            if is_detected:
                 return completion
             else:
                 log.info("Failed to watermark, trying again...")
@@ -64,7 +68,6 @@ class Watermarker(ABC):
     @abstractmethod
     def detect(self, completion):
         pass
-
 
 
 

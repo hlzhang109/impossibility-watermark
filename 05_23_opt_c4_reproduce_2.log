@@ -1,0 +1,364 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-23 12:07:16,346][__main__][INFO] - Starting to watermark...
+[2024-05-23 12:07:16,349][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-23 12:07:16,349][__main__][INFO] - Getting the watermarker...
+[2024-05-23 12:07:16,349][watermarker][INFO] - Using device: cuda
+[2024-05-23 12:07:16,349][root][INFO] - Device: auto
+[2024-05-23 12:07:16,349][model_builders.pipeline][INFO] - Initializing facebook/opt-1.3b
+[2024-05-23 12:07:16,799][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-23 12:07:18,548][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.0, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[50118]], 'min_new_tokens': 245}
+[2024-05-23 12:07:18,548][semstamp][INFO] - Initializing embedder model.
+[2024-05-23 12:07:18,548][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-05-23 12:07:19,346][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-23 12:07:19,387][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-23 12:07:19,389][__main__][INFO] - Got the watermarker. Generating watermarked text...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.37it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.37it/s]
+[2024-05-23 12:07:20,257][semstamp][INFO] - Candidate text:  They’ve been hit with a slew of food safety issues since they reopened at full capacity in March after a six-month hiatus as a result of the coronavirus pandemic.
+[2024-05-23 12:07:20,258][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.74it/s]
+[2024-05-23 12:07:20,276][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 12:07:20,276][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:20,748][semstamp][INFO] - Candidate text:  Not only did some customers get sick, but several restaurants have closed permanently as a result and the chain has been embroiled in lawsuits over alleged employee safety violations, including employees falling ill.
+[2024-05-23 12:07:20,748][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.74it/s]
+[2024-05-23 12:07:20,763][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:20,764][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:20,895][semstamp][INFO] - Candidate text:  Many people are still wary of their beef.
+[2024-05-23 12:07:20,895][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.92it/s]
+[2024-05-23 12:07:20,910][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 12:07:20,910][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:21,180][semstamp][INFO] - Candidate text:  But despite the ongoing problems, the brand continues to sell more than ever before and is still growing.
+[2024-05-23 12:07:21,180][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.11it/s]
+[2024-05-23 12:07:21,195][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:21,195][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:21,427][semstamp][INFO] - Candidate text:  And while the number of Chipotle outlets is growing, its food quality is improving.
+[2024-05-23 12:07:21,427][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.41it/s]
+[2024-05-23 12:07:21,442][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:21,442][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:22,001][semstamp][INFO] - Candidate text:  A New York Times article revealed that workers had contracted and then died from COVID-19, which is a strain of the virus, while preparing restaurant meat that had come into contact with the infected employees and customers.
+[2024-05-23 12:07:22,001][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.67it/s]
+[2024-05-23 12:07:22,016][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:22,016][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:22,285][semstamp][INFO] - Candidate text:  And this latest episode highlights how the chain’s reputation and brand have taken a big hit.
+[2024-05-23 12:07:22,285][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.40it/s]
+[2024-05-23 12:07:22,300][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 12:07:22,300][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:22,801][semstamp][INFO] - Candidate text:  This video shows how employees are struggling to keep customers safe, plus what it’s like to find out that a worker at one of your local Chipotles has an explosive personality.
+[2024-05-23 12:07:22,802][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.44it/s]
+[2024-05-23 12:07:22,816][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:22,816][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:23,243][semstamp][INFO] - Candidate text:  But the most recent controversy surrounding the brand comes from a different direction: Chipotle reportedly plans to begin promoting their new “Fresh Meals” option.
+[2024-05-23 12:07:23,243][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.20it/s]
+[2024-05-23 12:07:23,839][semstamp][INFO] - Candidate text:  If it wasn’t hard enough already, new reports detail that the company is reportedly on the brink of bankruptcy, due in part to the COVID-19 pandemic and a massive spike in demand for meat products.
+[2024-05-23 12:07:23,840][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.23it/s]
+[2024-05-23 12:07:23,857][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 12:07:23,857][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:24,107][semstamp][INFO] - Candidate text:  And that’s just as hard on the employees who work at restaurants like these.
+[2024-05-23 12:07:24,107][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.13it/s]
+[2024-05-23 12:07:24,122][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:24,122][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:24,501][semstamp][INFO] - Candidate text:  Some customers also say their food is not up to par lately, so there’s no need to come back and eat there again.
+[2024-05-23 12:07:24,501][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.94it/s]
+[2024-05-23 12:07:24,516][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:24,516][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:24,970][semstamp][INFO] - Candidate text:  These workers have had to deal with endless customers, who aren't really sure when or why they're getting sick, while they keep trying to put out the flames themselves.
+[2024-05-23 12:07:24,971][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.41it/s]
+[2024-05-23 12:07:24,985][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 12:07:24,986][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:25,726][semstamp][INFO] - Candidate text:  Here’s what it's been like inside Chipotle during the pandemic: You might expect Chipotle’s problems to be worse during the pandemic, but it’s actually seen its same kinds of numbers from 2019 to 2020 compared to two years previous.
+[2024-05-23 12:07:25,726][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.46it/s]
+[2024-05-23 12:07:25,744][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:25,744][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:26,052][semstamp][INFO] - Candidate text:  Here’s a little reality check: Your food might not be dirty — it might just be bad.
+[2024-05-23 12:07:26,052][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.92it/s]
+[2024-05-23 12:07:26,067][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:26,067][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:26,187][semstamp][INFO] - Candidate text:  That's a lot to bear.
+[2024-05-23 12:07:26,187][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.05it/s]
+[2024-05-23 12:07:26,202][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 12:07:26,202][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:26,479][semstamp][INFO] - Candidate text:  It also can take a toll on their well being, which you can read more about here.
+[2024-05-23 12:07:26,479][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.50it/s]
+[2024-05-23 12:07:26,935][semstamp][INFO] - Candidate text:  Luckily, the coronavirus has done more than just bring havoc to these businesses; it seems to have made them even harder for employees to deal with than usual.
+[2024-05-23 12:07:26,936][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.95it/s]
+[2024-05-23 12:07:27,271][semstamp][INFO] - Candidate text:  This is yet another nail in the coffin for Chipotle during an especially tough time for fast-food outlets generally.
+[2024-05-23 12:07:27,271][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.63it/s]
+[2024-05-23 12:07:27,286][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:27,286][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:27,747][semstamp][INFO] - Candidate text:  Here’s how one worker on TikTok is doing it: he recently created an emotional video addressing his frustrations with everything going on in the restaurant industry right now.
+[2024-05-23 12:07:27,747][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.40it/s]
+[2024-05-23 12:07:27,762][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:27,762][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:28,203][semstamp][INFO] - Candidate text:  And then there’s the fear about all those people whose jobs were recently lost, which isn’t going to help the workers feel any better.
+[2024-05-23 12:07:28,203][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.64it/s]
+[2024-05-23 12:07:28,218][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:28,218][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:28,867][semstamp][INFO] - Candidate text:  According to one worker interviewed by CBS, it can be difficult to maintain a sense of empathy for people, like many employees, that are suddenly no longer working because of COVID, while at the same time also trying to fight outbreaks. "
+[2024-05-23 12:07:28,867][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.62it/s]
+[2024-05-23 12:07:28,884][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 12:07:28,884][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:29,603][semstamp][INFO] - Candidate text:  But if you’re able to get into one of these places — even just to hang out for some lunch — then I think it helps to look back on the good old days and think of what we could accomplish with our lives during challenging times like these.
+[2024-05-23 12:07:29,603][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.68it/s]
+[2024-05-23 12:07:29,621][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:29,621][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:30,159][semstamp][INFO] - Candidate text:  Still, it’s easy to say when no one is coming out with an apology or giving back the $5 tips paid for by each customer — and to try to figure out why.
+[2024-05-23 12:07:30,159][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.19it/s]
+[2024-05-23 12:07:30,174][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:30,174][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:30,315][semstamp][INFO] - Candidate text:  Still, maybe they'll get paid.
+[2024-05-23 12:07:30,315][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.96it/s]
+[2024-05-23 12:07:30,329][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 12:07:30,330][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:30,585][semstamp][INFO] - Candidate text:  For many restaurants like Chipotle, it seems there's not an end in sight.
+[2024-05-23 12:07:30,585][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.54it/s]
+[2024-05-23 12:07:30,772][semstamp][INFO] - Candidate text:  Or maybe the food will taste so much better now.
+[2024-05-23 12:07:30,772][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.36it/s]
+[2024-05-23 12:07:30,787][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:30,787][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:31,212][semstamp][INFO] - Candidate text:  Maybe they'll get enough overtime pay to make ends meet without it being considered a hazard for them to return to work during the ongoing public health crisis.
+[2024-05-23 12:07:31,212][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.98it/s]
+[2024-05-23 12:07:31,227][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 12:07:31,227][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:31,380][semstamp][INFO] - Candidate text:  Here, they tell some of their stories.
+[2024-05-23 12:07:31,380][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.57it/s]
+[2024-05-23 12:07:31,395][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:31,395][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:31,498][semstamp][INFO] - Candidate text:  We're not sure.
+[2024-05-23 12:07:31,498][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.35it/s]
+[2024-05-23 12:07:31,513][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:31,513][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:31,641][semstamp][INFO] - Candidate text:  Or some kind of government assistance.
+[2024-05-23 12:07:31,641][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.40it/s]
+[2024-05-23 12:07:31,656][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:31,656][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:31,911][semstamp][INFO] - Candidate text:  As long as they aren’t forced to eat those new burrito bowls.
+[2024-05-23 12:07:31,912][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.66it/s]
+[2024-05-23 12:07:31,926][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:31,927][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:32,435][semstamp][INFO] - Candidate text:  And maybe things will return to a semblance of normal soon enough—or perhaps Chipotle can come up with new ways for their employees to earn more of what their hard work is worth.
+[2024-05-23 12:07:32,435][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.55it/s]
+[2024-05-23 12:07:32,450][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:32,450][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:32,514][semstamp][INFO] - Candidate text:  Maybe.
+[2024-05-23 12:07:32,515][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 181.16it/s]
+[2024-05-23 12:07:32,529][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:32,529][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:33,192][semstamp][INFO] - Candidate text:  On Tuesday, July 14, a group of employees and advocates made an attempt to speak out against the company via some unconventional tools — an online petition, a protest video, even letters to major newspapers, all to make sure the word gets out.
+[2024-05-23 12:07:33,193][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.93it/s]
+[2024-05-23 12:07:33,210][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 12:07:33,210][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:33,502][semstamp][INFO] - Candidate text:  It won’t hurt for them to see a happy end to this story either…right?
+[2024-05-23 12:07:33,502][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 179.14it/s]
+[2024-05-23 12:07:33,517][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 12:07:33,517][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:33,966][semstamp][INFO] - Candidate text:  Chipotle will give $500 checks to its restaurant staff if a worker dies from COVID-19, as reported by CBS News’ Jericka Duncan.
+[2024-05-23 12:07:33,966][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.46it/s]
+[2024-05-23 12:07:33,981][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:33,981][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:34,240][semstamp][INFO] - Candidate text:  This is, again, pretty standard practice for fast-food chains in the industry.
+[2024-05-23 12:07:34,240][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.11it/s]
+[2024-05-23 12:07:34,494][semstamp][INFO] - Candidate text:  At least 30 people have died after falling ill at Chipotle since January 2020.
+[2024-05-23 12:07:34,494][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 178.60it/s]
+[2024-05-23 12:07:34,508][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:34,509][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:34,742][semstamp][INFO] - Candidate text:  (If a customer contracts it, it will issue a medical retirement form.)
+[2024-05-23 12:07:34,742][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.98it/s]
+[2024-05-23 12:07:34,757][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 12:07:34,757][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:35,209][semstamp][INFO] - Candidate text:  The company said it gave 5,000 employees $250 bonuses earlier this month, but only a handful were in management positions that could receive one of the checks.
+[2024-05-23 12:07:35,209][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.90it/s]
+[2024-05-23 12:07:35,224][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:35,224][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:35,623][semstamp][INFO] - Candidate text:  If any of the workers at those locations die as a result of the virus itself, those employees would receive more than half the usual pay.
+[2024-05-23 12:07:35,624][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.53it/s]
+[2024-05-23 12:07:35,638][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:35,639][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:36,363][semstamp][INFO] - Candidate text:  In an email sent to employees, the company said it’ll begin distributing payments to full-time hourly workers beginning Monday, Dec. 21, and that everyone will be eligible once the death rate drops to 200 per million per week over the next several months.
+[2024-05-23 12:07:36,363][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.56it/s]
+[2024-05-23 12:07:36,380][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 12:07:36,380][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:36,820][semstamp][INFO] - Candidate text:  The $500 payout is on top of the usual pay increase the fast-casual chain offers during a crisis like this one, as The Times notes.
+[2024-05-23 12:07:36,820][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.09it/s]
+[2024-05-23 12:07:36,835][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:36,835][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:37,069][semstamp][INFO] - Candidate text:  You can donate at www.ChipotleForRestaurants.com.
+[2024-05-23 12:07:37,069][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.96it/s]
+[2024-05-23 12:07:37,084][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:37,084][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:37,292][semstamp][INFO] - Candidate text:  So it’s not all bad news around the kitchen.
+[2024-05-23 12:07:37,293][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.36it/s]
+[2024-05-23 12:07:37,308][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 12:07:37,308][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:37,593][semstamp][INFO] - Candidate text:  The company also promised it would "offer flexible hours and hours off" if it becomes necessary.
+[2024-05-23 12:07:37,593][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.99it/s]
+[2024-05-23 12:07:37,608][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:37,608][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:37,945][semstamp][INFO] - Candidate text:  Chipotle has also promised that each worker on their payroll will receive three hours' pay once this money is distributed.
+[2024-05-23 12:07:37,945][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.45it/s]
+[2024-05-23 12:07:37,960][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 12:07:37,960][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:38,283][semstamp][INFO] - Candidate text:  If a worker survives that day – which remains to be seen – the chain will give them another $200.
+[2024-05-23 12:07:38,284][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.26it/s]
+[2024-05-23 12:07:42,837][semstamp][INFO] - Candidate text:  More Details Here… [CBS News] Also On Hot 96.3: [Close] #BlackVoicesMatter @davismillsmusic @chucktaylormusic #BET #TheMusicOfBlackLivesMatter [blackvoicesmatter.com] #LoveHimLifetimeOriginalMovie #Nashville #loveandbelieve [loveandbelievefilm.com] #thenewsmagazine #nashvillenewmagazine #loveandbelievein Nashville [newsmagazineblog.com] [thenewsmagazineblog.com] #blacklifestorymonth #nashville #Nashvillestory #BlackHistoryMonth #nashvillefoodandrestaurants [www.nashvillefoodandrestaurantsofinstagram.com] [instagram.com/restaurantsofinstagrpa] #loveandbelievenashvana [nashvana.net] #loveandbelieve2020 #prayforthepeople #prayerforthehealthcareworkers #breathespiritfullife #prayerforthosewhowillneedit #prayersforkids #prayingforkidshadeep #prayersforourkids #prayersforkiddlekidssafe #prayersforkiddlekiddies [prayersforkiddlesafety.tumblr.com] [twitter.com/_d_e.haymond] [https://www.youtube.com/watch?v=gXC6o_j8A2E] I don’t know about you, but I hate reading these kinds of stories.
+[2024-05-23 12:07:42,837][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 90.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 108.48it/s]
+[2024-05-23 12:07:42,861][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 12:07:42,862][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:43,340][semstamp][INFO] - Candidate text:  The food chain is also adding two shifts to accommodate more diners, and will increase sanitizing stations across its restaurants as well as its supply chain and logistics operations.
+[2024-05-23 12:07:43,340][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.16it/s]
+[2024-05-23 12:07:43,355][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 12:07:43,355][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:43,655][semstamp][INFO] - Candidate text:  According to CNN, it's unclear when most of these workers will receive their promised paychecks.
+[2024-05-23 12:07:43,655][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.97it/s]
+[2024-05-23 12:07:43,670][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 12:07:43,670][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 12:07:44,154][semstamp][INFO] - Candidate text:  Meanwhile, other fast food chains in the United States like McDonald's, Arby's and Denny's aren’t even paying all of their franchisees.
+[2024-05-23 12:07:44,154][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.11it/s]
+[2024-05-23 12:07:44,707][semstamp][INFO] - Candidate text:  In July, the first month back to normal for many other fast-food industry chains, Chipotle experienced more cases of COVID at its U.S. locations than any other company.
+[2024-05-23 12:07:44,707][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.93it/s]
+[2024-05-23 12:07:44,722][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 12:07:44,723][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 12:07:44,723][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-23 12:07:44,723][semstamp][INFO] - Response: ("Tough time to be a Chipotle lover. They’ve been hit with a slew of food safety issues since they reopened at full capacity in March after a six-month hiatus as a result of the coronavirus pandemic. Many people are still wary of their beef. And this latest episode highlights how the chain’s reputation and brand have taken a big hit. And that’s just as hard on the employees who work at restaurants like these. These workers have had to deal with endless customers, who aren't really sure when or why they're getting sick, while they keep trying to put out the flames themselves. That's a lot to bear. And then there’s the fear about all those people whose jobs were recently lost, which isn’t going to help the workers feel any better. Still, maybe they'll get paid. It won’t hurt for them to see a happy end to this story either…right? Chipotle will give $500 checks to its restaurant staff if a worker dies from COVID-19, as reported by CBS News’ Jericka Duncan. The food chain is also adding two shifts to accommodate more diners, and will increase sanitizing stations across its restaurants as well as its supply chain and logistics operations. In July, the first month back to normal for many other fast-food industry chains, Chipotle experienced more cases of COVID at its U.S. locations than any other company.", 54)
+[2024-05-23 12:07:44,723][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. They’ve been hit with a slew of food safety issues since they reopened at full capacity in March after a six-month hiatus as a result of the coronavirus pandemic. Many people are still wary of their beef. And this latest episode highlights how the chain’s reputation and brand have taken a big hit. And that’s just as hard on the employees who work at restaurants like these. These workers have had to deal with endless customers, who aren't really sure when or why they're getting sick, while they keep trying to put out the flames themselves. That's a lot to bear. And then there’s the fear about all those people whose jobs were recently lost, which isn’t going to help the workers feel any better. Still, maybe they'll get paid. It won’t hurt for them to see a happy end to this story either…right? Chipotle will give $500 checks to its restaurant staff if a worker dies from COVID-19, as reported by CBS News’ Jericka Duncan. The food chain is also adding two shifts to accommodate more diners, and will increase sanitizing stations across its restaurants as well as its supply chain and logistics operations. In July, the first month back to normal for many other fast-food industry chains, Chipotle experienced more cases of COVID at its U.S. locations than any other company.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.34it/s]
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.56it/s]
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+[2024-05-23 12:07:44,913][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. They’ve been hit with a slew of food safety issues since they reopened at full capacity in March after a six-month hiatus as a result of the coronavirus pandemic. Many people are still wary of their beef. And this latest episode highlights how the chain’s reputation and brand have taken a big hit. And that’s just as hard on the employees who work at restaurants like these. These workers have had to deal with endless customers, who aren't really sure when or why they're getting sick, while they keep trying to put out the flames themselves. That's a lot to bear. And then there’s the fear about all those people whose jobs were recently lost, which isn’t going to help the workers feel any better. Still, maybe they'll get paid. It won’t hurt for them to see a happy end to this story either…right? Chipotle will give $500 checks to its restaurant staff if a worker dies from COVID-19, as reported by CBS News’ Jericka Duncan. The food chain is also adding two shifts to accommodate more diners, and will increase sanitizing stations across its restaurants as well as its supply chain and logistics operations. In July, the first month back to normal for many other fast-food industry chains, Chipotle experienced more cases of COVID at its U.S. locations than any other company.
+[2024-05-23 12:07:44,913][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-23 12:07:44,913][__main__][INFO] - Score: 6.0
+[2024-05-23 12:07:44,913][__main__][INFO] - Time taken: 25.524438619613647

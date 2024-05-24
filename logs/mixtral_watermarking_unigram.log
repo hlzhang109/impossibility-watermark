@@ -1,0 +1,74 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2024-05-17 16:21:07,196][__main__][INFO] - Starting to watermark...
+[2024-05-17 16:21:07,196][__main__][INFO] - Getting the watermarker...
+[2024-05-17 16:21:07,196][watermarker][INFO] - Using device: cuda
+[2024-05-17 16:21:07,196][root][INFO] - Device: auto
+[2024-05-17 16:21:07,197][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modeling_utils.py:4470: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-05-17 16:21:09,356][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-17 16:21:23,517][__main__][INFO] - Got the watermarker. Generating watermarked text...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarker_tester.py", line 25, in test
+    watermarked_text = watermarker.generate(prompt)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 49, in generate
+    outputs = self.generate_watermarked_outputs(prompt)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/impossibility-watermark/unigram.py", line 44, in generate_watermarked_outputs
+    outputs = self.model.generate(**inputs, **self.generator_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/utils.py", line 1731, in generate
+    result = self._sample(
+             ^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/generation/utils.py", line 2370, in _sample
+    outputs = self(
+              ^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1358, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1226, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

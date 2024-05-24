@@ -8,13 +8,14 @@ import sys
 from datasets import load_from_disk, Dataset
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
-from sbert_lsh_model import SBERTLSHModel
+from .sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import pandas as pd
 import nltk
 from nltk.tokenize import sent_tokenize
-from sampling_utils import extract_prompt_from_text
-from sampling_lsh_utils import lsh_reject_completion
+from .sampling_utils import extract_prompt_from_text
+from .sampling_lsh_utils import lsh_reject_completion
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
 # from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 
@@ -67,10 +68,10 @@ if __name__ == '__main__':
     bad_words_ids = tokenizer(
         "\n", return_tensors="pt", add_special_tokens=False).input_ids.to(device='cuda').tolist()
     
-    # TODO: What the hell?
+    # TODO: They didn't specify the device in their code.
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    # TODO: Removed repetition penalty.
+    # TODO: Removed repetition penalty argument from argparse, since they didn't have it.
     gen_config = GenerationConfig.from_pretrained(
         args.model,
         return_dict_in_generate=True,
@@ -85,6 +86,13 @@ if __name__ == '__main__':
         local_files_only=is_offline
     )
 
+
+    name = os.path.join(
+        folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-rep_p={1.1}")
+        # folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-seed={args.seed_scheme}-rep_p={args.rep_p}")
+    
+    
+    
     name = os.path.join(
         folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-rep_p={1.1}")
         # folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-seed={args.seed_scheme}-rep_p={args.rep_p}")
@@ -107,58 +115,32 @@ if __name__ == '__main__':
                 device=args.device,
                 margin=args.delta)
             
+            
             # TODO: This returns a tuple.
             print(prompt)
             print(response)
 
-            ex['text'] = response[0].strip()
+            ex['generated_text'] = response[0].strip()
             return ex
-    elif 'kmeans' in args.sp_mode:
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model, local_files_only=is_offline).to(args.device)
-        model.eval()
-        # cluster generations if no clusters provided
-        if args.cc_path == None:
-            if args.embed_path == None:
-                embed_path = embed_gen_list(
-                    # TODO: Fix embedder args.
-                    embedder_path=args.embedder, dataset_path=args.train_data)
-            else:
-                embed_path = args.embed_path
-            gen_embeds = load_embeds(embed_path)
-            cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
-            cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
-            torch.save(cluster_centers, cc_path)
-        # load cluster centers
-        else:
-            cluster_centers = torch.load(args.cc_path)
-            embedder = SentenceTransformer(args.embedder, device = 'cuda')
-            def text_to_generated_text(ex):
-                prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
-                response= kmeans_reject_completion(
-										prompt=prompt,
-										model=model, tokenizer=tokenizer, gen_config=gen_config,
-										embedder=embedder,
-										cluster_centers=cluster_centers,
-										lmbd=args.lmbd,
-										k_dim=args.sp_dim,
-										margin=args.delta,
-										device=args.device)
-                ex['text'] = response.strip()
-                return ex
-    else:
-        raise NotImplementedError
-    
+
+    # Create new dataset
     temp_dataset = dataset.map(text_to_generated_text, batch_size=1)
     print(f"temp dataset: {temp_dataset}")
-    os.makedirs(name, exist_ok=True)
-    with open(f"{name}/results.txt", "w") as sys.stdout:
-        new_texts = temp_dataset['text']
-        print(f"new texts: {new_texts}")
-        num_sents = np.sum([len(sent_tokenize(t)) for t in new_texts])
-        print(f"new sents: {num_sents}")
-        new_dataset = Dataset.from_dict(
-            {'text': new_texts}
-        )
-        
-        new_dataset.save_to_disk(name)
+
+    sample_folder_name = os.path.join(
+        folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-rep_p={1.1}")
+        # TODO: This was the old version. folder_name, f"lmbd={args.lmbd}-{args.sp_mode}-{args.delta}-{args.sp_dim}-len={args.min_new_tokens}-{args.max_new_tokens}-seed={args.seed_scheme}-rep_p={args.rep_p}")    
+    os.makedirs(sample_folder_name, exist_ok=True)
+
+    original_texts = temp_dataset['text']
+    generated_texts = temp_dataset['generated_text']
+    print(f"original texts: {original_texts}")
+    print(f"generated texts: {generated_texts}")
+
+    num_new_sentences = np.sum([len(sent_tokenize(t)) for t in generated_texts])
+    print(f"Number of new sentences: {num_new_sentences}")
+    
+
+    # Save to CSV
+    df = pd.DataFrame({'original_text': original_texts, 'generated_text': generated_texts})
+    df.to_csv(f"{sample_folder_name}/results.csv", index=False)

@@ -1,13 +1,18 @@
 name: "semstamp"
 embedder:
 delta: .01 
+# sp is short for semantic space partitioning. Leaving the TODO up in case we still want to rename the variable.
+# This variable corresponds to both sp_mode (in sampling.py) and detection_mode (in detection.py) in their code..
 sp_mode: lsh # or kmeans
 sp_dim: 3
 lmbd: .25
-max_new_tokens: 205
-min_new_tokens: 195
+max_new_tokens: 255 # maximum number of tokens to generate
+min_new_tokens: 245 # minimum number of tokens to generate
+max_trials: 100 # maximum number of times we try to generate a sentence to fall into the semantic partition
+only_detect : False
 cc_path:
 train_data:
-device: "cuda"
+device: "auto"
 len_prompt: 32
-z_threshold: .5
+z_threshold: 0.5
+save_file_name: null # if we're using the watermarked_text_generator, this will tell the script where to save the watermarked text

@@ -60,13 +60,15 @@ def distinguish(matcher ,response_1, response_2, perturbed, num_repetitions):
     decisions = [func() for i in range(half_repetitions) for func in (regular_match, flipped_match)]
     log.info("Decisions recorded: %s", decisions)
 
-    decision_count = Counter(decisions)
+    successful_decisions = [d for d in decisions if d in [1, 2]]
+    num_successful_attempts = len(successful_decisions)
+
+    decision_count = Counter(successful_decisions)
     log.info("Decision count: %s", decision_count)
     
     # We multiply by 2 here since the number of repetitions is actually 2 * num_repetitions.
     # TODO: Change the threshold 0.5 to be a parameter if necessary.
-    # TODO: Take failed cases into account.
-    threshold = int(num_repetitions * 0.5)
+    threshold = int(num_successful_attempts * 0.5)
 
     log.info(f"Threshold: {threshold}")
     log.info(f"Number of 1's: {decision_count[1]}")

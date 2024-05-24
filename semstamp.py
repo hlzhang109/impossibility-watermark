@@ -23,8 +23,8 @@ PUNCTS = '.,!?'
 log = logging.getLogger(__name__)
 
 class SemStampWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False, only_detect=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion, only_detect)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
+        super().__init__(cfg, pipeline, n_attempts, is_completion)
 
     def _setup_generating_components(self):
         """
@@ -64,7 +64,7 @@ class SemStampWatermarker(Watermarker):
         # NOTE: currently, no batching.
 
         # We don't want to initialize Llama when we only want to detect.
-        if not self.only_detect:
+        if not self.cfg.watermark_args.only_detect:
             log.info("Setting up generating components...")
             self._setup_generating_components()
 

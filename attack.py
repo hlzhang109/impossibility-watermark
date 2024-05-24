@@ -26,7 +26,7 @@ class Attack:
         # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
         # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
         from model_builders.pipeline import PipeLineBuilder
-        from watermark import Watermarker
+        from utils import get_watermarker
         from oracle import (
             RankOracle,
             JointOracle,
@@ -57,7 +57,7 @@ class Attack:
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
         if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-            self.watermarker  = Watermarker(cfg, pipeline=self.generator_pipeline, is_completion=cfg.attack_args.is_completion)
+            self.watermarker  = get_watermarker(cfg, pipeline=self.generator_pipeline, is_completion=cfg.attack_args.is_completion)
 
         # Configure Oracle
         oracle_class = None
@@ -71,13 +71,13 @@ class Attack:
             oracle_class = SoloOracle
         else:
             raise ValueError(f"Invalid oracle template. See {cfg.oracle_args.template_dir} for options.")
-        self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
+        self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder)
 
         # Configure Mutator
         # TODO: Incorporate mutator from distinguisher with the mutator here.
         if "llm" in cfg.mutator_args.type:
             self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
-            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
+            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
         elif "mask_fill" in cfg.mutator_args.type:
             self.mutator = MaskFillMutator()
         elif "span_fill" in cfg.mutator_args.type:
@@ -170,8 +170,8 @@ class Attack:
 
             if mutated_text_len / original_text_len < 0.95:
                 log.info("Mutation failed to preserve text length requirement...")
-                quality_preserved = False
-                quality_analysis = None
+                is_quality_preserved = False
+                # quality_analysis = None
                 watermark_detected = True
                 score = -1
             else:
@@ -186,7 +186,7 @@ class Attack:
             perturbation_stats = get_perturbation_stats(step_num + prev_step_count, watermarked_text, mutated_text, is_quality_preserved, "", watermark_detected, score, backtrack)
             save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
             
-            if quality_preserved:
+            if is_quality_preserved:
                 log.info(f"Mutation successful. This was the {successful_perturbations}th successful perturbation.")
                 patience = 0
                 backtrack_patience = 0

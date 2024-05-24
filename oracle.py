@@ -11,6 +11,7 @@ from langchain_core.prompts import (
 )
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 # from langchain.globals import set_debug; set_debug(True)
 
 import os
@@ -21,7 +22,9 @@ from model_builders.pipeline import PipeLineBuilder
 from utils import read_text_file, extract_response_info, add_prefix_to_keys
 
 log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
+
 
 class RankAnswer(BaseModel):
     analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
@@ -109,10 +112,7 @@ class Oracle(ABC):
     def __init__(self, cfg, pipeline=None) -> None:
 
         self.cfg = cfg # config.oracle_args
-        self.pipeline = pipeline
-        if not isinstance(self.pipeline, PipeLineBuilder):
-            log.info("Initializing a new Oracle pipeline from cfg...")
-            self.pipeline = PipeLineBuilder(cfg)
+        self.pipeline = self._initialize_pipeline(pipeline)
 
     @abstractmethod
     def evaluate(self, instruction, output_1, output_2, **kwargs):
@@ -126,6 +126,11 @@ class Oracle(ABC):
     def test(self, instruction, output_1, output_2, label, **kwargs):
         pass
 
+    def _initialize_pipeline(self, pipeline):
+        if not isinstance(pipeline, (PipeLineBuilder, HuggingFacePipeline)):
+            log.info("Initializing a new Oracle pipeline from cfg...")
+            return PipeLineBuilder(self.cfg)
+        return pipeline
 
 class RankOracle(Oracle):
     
@@ -142,8 +147,9 @@ class RankOracle(Oracle):
         # init prompt with specific inputs
         self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        if self.pipeline.requires_INST_tokens:
-            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # TODO: Remove this code if experiment works. Find it in pipeline and remove the corresponding portion as well.
+        # if self.pipeline.requires_INST_tokens:
+        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
         self.instruction_prompt = PromptTemplate(
             template=self.instructions,
@@ -249,7 +255,6 @@ class RankOracle(Oracle):
 
         return original
 
-
 class JointOracle(Oracle):
 
     def __init__(self, cfg, pipeline=None) -> None:
@@ -265,8 +270,8 @@ class JointOracle(Oracle):
         # init prompt with specific inputs
         self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        if self.pipeline.requires_INST_tokens:
-            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # if self.pipeline.requires_INST_tokens:
+        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
         self.instruction_prompt = PromptTemplate(
             template=self.instructions,
@@ -397,8 +402,8 @@ class RelativeOracle(Oracle):
         # init prompt with specific inputs
         self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        if self.pipeline.requires_INST_tokens:
-            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # if self.pipeline.requires_INST_tokens:
+        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
         self.instruction_prompt = PromptTemplate(
             template=self.instructions,
@@ -435,6 +440,8 @@ class RelativeOracle(Oracle):
 
         # Run Chain
         pydantic_output = self.chain.invoke(dict_input)
+
+        log.debug(f"Pydantic Output: {pydantic_output}")
 
         # Prepare Output
         dict_output = pydantic_output.dict()
@@ -480,7 +487,9 @@ class RelativeOracle(Oracle):
     def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
+        log.debug(f"Original: {original}")
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        log.debug(f"Followup: {followup}")
         
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
@@ -550,8 +559,8 @@ class SoloOracle(Oracle):
         # init prompt with specific inputs
         self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        if self.pipeline.requires_INST_tokens:
-            self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # if self.pipeline.requires_INST_tokens:
+        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
         self.instruction_prompt = PromptTemplate(
             template=self.instructions,

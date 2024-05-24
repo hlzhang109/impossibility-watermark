@@ -8,17 +8,16 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 class Watermarker(ABC):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False, only_detect=False):
+    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         self.cfg = cfg # config.watermark_args
         self.n_attempts = n_attempts
         self.pipeline = pipeline
         self.is_completion = is_completion
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.only_detect = only_detect
 
         log.info(f"Using device: {self.device}")
 
-        if not self.only_detect:
+        if not self.cfg.watermark_args.only_detect:
             if not isinstance(self.pipeline, PipeLineBuilder):
                 self.pipeline = PipeLineBuilder(self.cfg.generator_args)
             

@@ -14,12 +14,11 @@ from langchain_core.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain_community.llms import HuggingFacePipeline
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 from model_builders.pipeline import PipeLineBuilder
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-from ..utils import diff
+from utils import diff
 
 import hydra
 import logging

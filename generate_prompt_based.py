@@ -23,7 +23,7 @@ def run_command(command, filepath):
 def main():
     results = []
 
-    for prompt_num in range(1,13):
+    for prompt_num in range(1,2):
 
         log_filepath = f"./logs/prompt_based/{prompt_num}_div_pen_15.log"
         
@@ -31,6 +31,7 @@ def main():
                   f"++attack_args.prompt_file='./inputs/tests_v1.csv' " \
                   f"++attack_args.prompt_num={prompt_num} " \
                   f"++attack_args.is_completion=False " \
+                  f"++attack_args.save_name='c4_{prompt_num}_mask_fill.csv' " \
                   f"++watermark_args.save_file_name='prompt_based_{prompt_num}.csv' "
         
         stdout, stderr = run_command(command, log_filepath)

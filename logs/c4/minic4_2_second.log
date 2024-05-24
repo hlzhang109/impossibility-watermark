@@ -1,0 +1,1105 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-23 23:33:54,949][__main__][INFO] - Starting to watermark...
+[2024-05-23 23:33:54,951][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-23 23:33:54,951][__main__][INFO] - Getting the watermarker...
+[2024-05-23 23:33:54,951][watermarker][INFO] - Using device: cuda
+[2024-05-23 23:33:54,951][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-23 23:34:00,720][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-23 23:34:11,504][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at /local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'LlamaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MvpForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+[2024-05-23 23:34:14,464][semstamp][INFO] - Setting up generating components...
+[2024-05-23 23:34:14,466][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.0, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-23 23:34:14,466][semstamp][INFO] - Initializing embedder model.
+[2024-05-23 23:34:14,466][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-05-23 23:34:15,294][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-23 23:34:15,360][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-23 23:34:15,361][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-23 23:34:15,361][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.66it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.66it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:22,125][semstamp][INFO] - Candidate text:  The company's stock has fallen by more than...
+Stock market today: Dow, S&P 500 rise as investors look past global concerns - MarketWatchMarketWatchStock market today: Dow, S&P 500 rise as investors look past global concernsMarketWatchU.S.
+[2024-05-23 23:34:22,126][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.33it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:24,172][semstamp][INFO] - Candidate text:  Not only has the burrito behemoth faced supply chain issues, but also food safety concerns after several customers got sick from eating at various locations.
+
+
+[2024-05-23 23:34:24,173][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.43it/s]
+[2024-05-23 23:34:24,189][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:34:24,189][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:26,547][semstamp][INFO] - Candidate text:  I mean,'t get me wrong, their burritos are still awesome, but let's face it, they've had some major issues in the past year or so.
+[2024-05-23 23:34:26,547][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.39it/s]
+[2024-05-23 23:34:26,563][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:34:26,563][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:28,335][semstamp][INFO] - Candidate text:  First,keyed out to $9 million settlement for food poisoning outbreak, and now their menu is getting a major overhaul.
+[2024-05-23 23:34:28,336][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 96.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.71it/s]
+[2024-05-23 23:34:28,356][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:34:28,356][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:30,453][semstamp][INFO] - Candidate text:  The company is facing increased competition, a tough comparison from last year’s sales surge, and an ongoing food safety crisis that has battered its brand reputation.
+
+[2024-05-23 23:34:30,453][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.19it/s]
+[2024-05-23 23:34:30,469][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:34:30,470][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:33,916][semstamp][INFO] - Candidate text: As a result, same-store sales are likely to decline in the low-to-mid single digits during the fourth quarter, management warned on Tuesday.
+[2024-05-23 23:34:33,916][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.18it/s]
+[2024-05-23 23:34:33,935][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:34:33,935][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:36,858][semstamp][INFO] - Candidate text: The burrito chain’s same-store sales plummeted 14.1% in the fourth quarter, missing analysts’ estimates of a 10.4% decline.
+[2024-05-23 23:34:36,858][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.48it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:39,380][semstamp][INFO] - Candidate text: Chipotle Mexican Grill Inc.’s same-store sales dropped 14.8% in the third quarter, worse than the 10.1% decline analysts expected.
+[2024-05-23 23:34:39,381][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.96it/s]
+[2024-05-23 23:34:39,397][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:34:39,397][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:43,133][semstamp][INFO] - Candidate text: Chipotle Mexican Grill Inc (CMG) reported dismal Q2 earnings on Tuesday after the market close, sending shares plummeting by over 11% in extended hours trading.
+[2024-05-23 23:34:43,134][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.63it/s]
+[2024-05-23 23:34:43,150][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:34:43,150][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:44,873][semstamp][INFO] - Candidate text: In October, the fast-casual chain disclosed a quarterly profit that missed estimates as sales growth slowed.
+[2024-05-23 23:34:44,873][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.10it/s]
+[2024-05-23 23:34:44,889][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:34:44,889][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:45,630][semstamp][INFO] - Candidate text: So what does it do?
+[2024-05-23 23:34:45,630][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.05it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:47,493][semstamp][INFO] - Candidate text: In response, the burrito chain is launching a new marketing campaign aimed at rebuilding customer trust and driving sales growth.
+
+
+[2024-05-23 23:34:47,493][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.79it/s]
+[2024-05-23 23:34:47,510][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:34:47,510][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:51,111][semstamp][INFO] - Candidate text: The effort, dubbed "As Real as It Gets," will feature advertisements showcasing the quality of Chipotle's ingredients, as well as its commitment to food safety and sustainability.
+
+
+[2024-05-23 23:34:51,112][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.92it/s]
+[2024-05-23 23:34:51,129][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:34:51,129][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:56,761][semstamp][INFO] - Candidate text: The “Food With Integrity” slogan will remain, but it will be augmented by a new tagline: “Classics Never Go Out of Style.”
+
+Chipotle is introducing a series of ads showcasing its core menu items, including burritos, bowls, tacos, and salads.
+[2024-05-23 23:34:56,761][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.20it/s]
+[2024-05-23 23:34:56,781][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:34:56,781][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:34:59,842][semstamp][INFO] - Candidate text: The new ad effort, dubbed “As Real as It Gets,” kicks off on Monday with a series of TV commercials and online videos that showcase the quality of Chipotle’s ingredients and cooking methods.
+
+
+[2024-05-23 23:34:59,842][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.20it/s]
+[2024-05-23 23:34:59,858][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:34:59,859][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:02,126][semstamp][INFO] - Candidate text: The campaign, dubbed "As Real As It Gets," targets millennials with a focus on the quality and authenticity of Chipotle's ingredients.
+[2024-05-23 23:35:02,127][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.32it/s]
+[2024-05-23 23:35:02,143][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:02,143][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:04,740][semstamp][INFO] - Candidate text: The effort, called “Food With Integrity,” will highlight Chipotle’s commitment to using high-quality ingredients and preparing them in a way that promotes customer well-being.
+[2024-05-23 23:35:04,741][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.41it/s]
+[2024-05-23 23:35:04,757][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:04,757][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:07,489][semstamp][INFO] - Candidate text: The campaign, called "Food With Integrity," features advertising and promotional efforts focused on Chipotle's commitment to using high-quality ingredients sourced from environmentally sustainable and socially responsible suppliers.
+
+
+[2024-05-23 23:35:07,489][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.08it/s]
+[2024-05-23 23:35:07,505][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:07,505][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:10,831][semstamp][INFO] - Candidate text: The centerpiece of the campaign is a new slogan: “As Real As It Gets.” According to Ad Age, the phrase is meant to convey the authenticity and wholesomeness of Chipotle’s ingredients and cooking methods.
+
+
+[2024-05-23 23:35:10,831][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.62it/s]
+[2024-05-23 23:35:10,850][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:10,850][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:13,914][semstamp][INFO] - Candidate text: Chipotle Mexican Grill (CMG) - Get Report said same-store sales declined 4.8% in the first quarter, missing analysts' estimates of a 3.5% decline.
+[2024-05-23 23:35:13,914][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.60it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:16,389][semstamp][INFO] - Candidate text: The campaign, dubbed “As Real as It Gets,” features TV ads and in-store promotions highlighting the quality of Chipotle’s ingredients and cooking methods.
+[2024-05-23 23:35:16,389][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.91it/s]
+[2024-05-23 23:35:16,406][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:16,406][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:19,407][semstamp][INFO] - Candidate text: The campaign, which debuts today, features a series of ads showcasing the quality and transparency of Chipotle’s ingredients, as well as the steps the company is taking to ensure customer safety.
+
+
+[2024-05-23 23:35:19,408][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.28it/s]
+[2024-05-23 23:35:19,424][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:19,424][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:22,223][semstamp][INFO] - Candidate text: **Chipotle's Plan**
+
+The campaign, called “As Real As It Gets,” will focus on the quality of Chipotle’s ingredients, preparation methods, and employee training.
+[2024-05-23 23:35:22,223][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.85it/s]
+[2024-05-23 23:35:22,239][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:22,239][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:24,905][semstamp][INFO] - Candidate text: **Why it matters**
+
+Chipotle’s struggles are a great reminder of the importance of maintaining high-quality products, services, and experiences in today’s competitive marketplaces.
+[2024-05-23 23:35:24,906][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.80it/s]
+[2024-05-23 23:35:24,922][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:35:24,922][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:27,522][semstamp][INFO] - Candidate text:  With consumers having more choices than ever before, companies must prioritize innovation, quality control, and customer satisfaction to remain relevant.
+
+
+[2024-05-23 23:35:27,522][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.31it/s]
+[2024-05-23 23:35:27,538][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:35:27,538][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:30,098][semstamp][INFO] - Candidate text:  The brand’s food safety issues have had a significant impact on its financials, highlighting the need for companies to prioritize transparency, accountability, and customer satisfaction.
+
+
+[2024-05-23 23:35:30,098][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.55it/s]
+[2024-05-23 23:35:30,114][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:35:30,114][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:31,479][semstamp][INFO] - Candidate text:  One misstep can have serious consequences on consumer trust and loyalty.
+
+
+[2024-05-23 23:35:31,479][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.63it/s]
+[2024-05-23 23:35:31,494][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:31,494][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:33,256][semstamp][INFO] - Candidate text:  When companies fail to deliver on these basics, customers can quickly lose faith and defect to competitors.
+
+
+[2024-05-23 23:35:33,257][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.85it/s]
+[2024-05-23 23:35:33,272][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:33,272][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:34,969][semstamp][INFO] - Candidate text:  When companies compromise on quality, they risk losing customer loyalty and damaging their brand reputations.
+
+
+[2024-05-23 23:35:34,969][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.36it/s]
+[2024-05-23 23:35:34,984][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:35:34,984][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:36,481][semstamp][INFO] - Candidate text:  One slip-up can have significant consequences for your brand reputation and bottom line.
+[2024-05-23 23:35:36,482][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.57it/s]
+[2024-05-23 23:35:36,497][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:35:36,497][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:38,460][semstamp][INFO] - Candidate text:  It also highlights the need for companies to prioritize transparency, accountability, and customer engagement in the face of adversity.
+
+
+[2024-05-23 23:35:38,461][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.48it/s]
+[2024-05-23 23:35:38,476][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:35:38,476][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:40,039][semstamp][INFO] - Candidate text:  One misstep can have lasting consequences for a brand’s reputation and bottom line.
+
+
+[2024-05-23 23:35:40,039][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.14it/s]
+[2024-05-23 23:35:40,055][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:35:40,055][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:41,886][semstamp][INFO] - Candidate text:  When companies fail to meet customer expectations, they risk losing loyalty, trust, and ultimately, revenue.
+
+
+[2024-05-23 23:35:41,886][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.51it/s]
+[2024-05-23 23:35:41,902][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:41,902][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:43,997][semstamp][INFO] - Candidate text:  Brands must continually innovate and invest in their offerings to stay ahead of the curve and protect their hard-earned reputations.
+
+
+[2024-05-23 23:35:43,997][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.83it/s]
+[2024-05-23 23:35:44,013][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:35:44,013][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:46,043][semstamp][INFO] - Candidate text:  With customers having endless options, companies need to prioritize building strong relationships with their audience, especially during times of crisis.
+
+
+[2024-05-23 23:35:46,044][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.46it/s]
+[2024-05-23 23:35:46,059][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 23:35:46,059][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:47,837][semstamp][INFO] - Candidate text: **What you can do**
+
+1.
+[2024-05-23 23:35:47,838][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.73it/s]
+[2024-05-23 23:35:47,853][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:35:47,853][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:50,214][semstamp][INFO] - Candidate text: **The Big Idea**
+
+Chipotle’s new marketing push focuses on highlighting the quality of its ingredients, cooking methods, and employee training programs.
+[2024-05-23 23:35:50,215][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.87it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:52,386][semstamp][INFO] - Candidate text: **Takeaway**
+
+To survive in today’s fast-paced business environment, focus on delivering exceptional value, quality, and service.
+[2024-05-23 23:35:52,386][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.46it/s]
+[2024-05-23 23:35:52,402][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:35:52,402][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:57,105][semstamp][INFO] - Candidate text: **How this applies to your business**
+
+Even if you aren’t a fast-casual restaurant chain, there are valuable lessons to be learned from Chipotle’s struggles:
+
+1️⃣ **Consistency is key**: Consistently delivering high-quality products and services is crucial for building customer loyalty and trust.
+
+
+[2024-05-23 23:35:57,105][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.29it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:35:58,677][semstamp][INFO] - Candidate text: **The takeaway**
+
+Companies must stay vigilant in delivering quality and ensuring customer satisfaction.
+[2024-05-23 23:35:58,678][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.62it/s]
+[2024-05-23 23:35:58,693][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:35:58,693][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:01,188][semstamp][INFO] - Candidate text: **What you can do**
+
+* Re-evaluate your customer experience: Take a step back and assess whether your product or service is meeting customer expectations.
+[2024-05-23 23:36:01,189][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.02it/s]
+[2024-05-23 23:36:01,205][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:01,205][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:03,368][semstamp][INFO] - Candidate text: **Key takeaways**
+
+* **Reputation is everything**: A single misstep can have long-lasting consequences for your brand.
+[2024-05-23 23:36:03,369][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.19it/s]
+[2024-05-23 23:36:03,385][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:03,385][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:06,080][semstamp][INFO] - Candidate text: ---
+
+Source: CNN Money
+
+## Tech giants invest in eSports
+
+The world of competitive gaming, also known as eSports, just got a whole lot more interesting. 
+
+
+[2024-05-23 23:36:06,081][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.65it/s]
+[2024-05-23 23:36:06,098][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:06,098][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:08,997][semstamp][INFO] - Candidate text: **The Campaign:**
+
+The new marketing effort, titled “As Real as It Gets,” aims to reposition Chipotle as a leader in food quality, sustainability, and transparency.
+[2024-05-23 23:36:08,997][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.25it/s]
+[2024-05-23 23:36:09,014][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:36:09,014][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:10,308][semstamp][INFO] - Candidate text: Here are three key takeaways for business leaders:
+
+1.
+[2024-05-23 23:36:10,308][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.93it/s]
+[2024-05-23 23:36:10,324][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:10,324][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:12,222][semstamp][INFO] - Candidate text: **The bigger picture**
+
+Chipotle’s challenges reflect broader trends in the fast-casual dining industry.
+[2024-05-23 23:36:12,223][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.77it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:13,793][semstamp][INFO] - Candidate text: **The bigger picture**
+
+Food safety concerns are a significant issue for many consumers.
+[2024-05-23 23:36:13,793][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.71it/s]
+[2024-05-23 23:36:13,809][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:36:13,809][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:15,974][semstamp][INFO] - Candidate text: **The bigger picture**
+
+Food safety concerns have plagued Chipotle for years, leading to a decline in sales and customer loyalty.
+[2024-05-23 23:36:15,974][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.07it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:17,812][semstamp][INFO] - Candidate text: **The takeaway**
+
+To regain customer trust and loyalty, Chipotle needs to focus on:
+
+1.
+[2024-05-23 23:36:17,812][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.58it/s]
+[2024-05-23 23:36:17,828][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:36:17,828][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:21,533][semstamp][INFO] - Candidate text: **What you can do**
+
+Take a page out of Chipotle’s book by prioritizing customer satisfaction and loyalty:
+
+1️⃣ **Invest in quality**: Focus on delivering high-quality products and services that meet your customers’ expectations.
+
+
+[2024-05-23 23:36:21,533][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.07it/s]
+[2024-05-23 23:36:21,552][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:36:21,552][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:23,315][semstamp][INFO] - Candidate text: **The big picture**
+
+Chipotle is taking steps to revamp its image by:
+
+1.
+[2024-05-23 23:36:23,315][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.77it/s]
+[2024-05-23 23:36:23,331][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:36:23,332][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:25,564][semstamp][INFO] - Candidate text: **Key stats**
+
+* Chipotle same-store sales fell 21% in Q2 2016 compared to the previous year.
+
+[2024-05-23 23:36:25,564][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.77it/s]
+[2024-05-23 23:36:25,581][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:25,581][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:27,010][semstamp][INFO] - Candidate text: Let me know if you have any questions or thoughts on this topic!
+[2024-05-23 23:36:27,010][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.78it/s]
+[2024-05-23 23:36:27,026][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:36:27,026][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:27,789][semstamp][INFO] - Candidate text: ### 2.
+[2024-05-23 23:36:27,789][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.17it/s]
+[2024-05-23 23:36:27,804][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 23:36:27,805][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:30,167][semstamp][INFO] - Candidate text: **Key stats**
+
+* Same-store sales dropped 14.8% in Q1 2016 compared to Q1 2015.
+
+[2024-05-23 23:36:30,168][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.21it/s]
+[2024-05-23 23:36:30,184][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:36:30,184][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:31,684][semstamp][INFO] - Candidate text: * The company is spending $10 million on the new marketing campaign.
+
+[2024-05-23 23:36:31,684][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.01it/s]
+[2024-05-23 23:36:31,699][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:36:31,699][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:33,618][semstamp][INFO] - Candidate text: * Chipotle’s brand reputation took a significant hit following several food safety incidents in 2015.
+
+
+[2024-05-23 23:36:33,618][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.72it/s]
+[2024-05-23 23:36:33,634][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:33,634][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:35,420][semstamp][INFO] - Candidate text: * Chipotle is offering free burritos to customers who sign up for its loyalty program.
+
+
+[2024-05-23 23:36:35,420][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.74it/s]
+[2024-05-23 23:36:35,436][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:36:35,436][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:37,321][semstamp][INFO] - Candidate text: **What you can do about it**
+
+Take heed from Chipotle’s struggles by:
+
+1.
+[2024-05-23 23:36:37,322][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.70it/s]
+[2024-05-23 23:36:37,337][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:36:37,337][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:39,222][semstamp][INFO] - Candidate text: **What you can do**
+
+If your business is facing similar challenges, focus on:
+
+1.
+[2024-05-23 23:36:39,222][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.82it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:41,251][semstamp][INFO] - Candidate text: **What you can do**
+
+Take this as a chance to assess your own business’s vulnerabilities and opportunities.
+[2024-05-23 23:36:41,251][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.19it/s]
+[2024-05-23 23:36:41,267][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:41,267][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:43,151][semstamp][INFO] - Candidate text: **What you can do**
+
+Use this example as a cautionary tale for your own business.
+[2024-05-23 23:36:43,152][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.33it/s]
+[2024-05-23 23:36:43,167][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:43,167][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:44,178][semstamp][INFO] - Candidate text: **What can we learn?
+[2024-05-23 23:36:44,178][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.74it/s]
+[2024-05-23 23:36:44,193][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:44,194][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:45,203][semstamp][INFO] - Candidate text: **What do you think?
+[2024-05-23 23:36:45,203][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.63it/s]
+[2024-05-23 23:36:45,219][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:45,219][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:46,497][semstamp][INFO] - Candidate text: ---
+
+What's the main idea behind this article?
+
+[2024-05-23 23:36:46,498][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.19it/s]
+[2024-05-23 23:36:46,513][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:36:46,513][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:48,734][semstamp][INFO] - Candidate text: **What this means for you**
+
+As a marketer, it’s crucial to stay ahead of the competition by:
+
+1.
+[2024-05-23 23:36:48,734][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.18it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:50,696][semstamp][INFO] - Candidate text: **What you can do**
+
+Take a closer look at your own business and ask yourself:
+
+1.
+[2024-05-23 23:36:50,696][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.25it/s]
+[2024-05-23 23:36:50,712][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:50,712][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:52,260][semstamp][INFO] - Candidate text: **The bigger picture**
+
+Chipotle is not alone in its struggles.
+[2024-05-23 23:36:52,260][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.67it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:53,278][semstamp][INFO] - Candidate text: ---
+
+What do you think?
+[2024-05-23 23:36:53,278][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.61it/s]
+[2024-05-23 23:36:53,294][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:36:53,294][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:55,110][semstamp][INFO] - Candidate text: **Quote**
+
+"We're moving aggressively to reestablish our brand position and drive sales growth."
+[2024-05-23 23:36:55,110][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.19it/s]
+[2024-05-23 23:36:55,126][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:36:55,126][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:36:59,444][semstamp][INFO] - Candidate text: Source: Bloomberg](https://www.bloomberg.com/news/articles/2016-04-27/chipotle-to-spend-10-million-on-new-marketing-campaign-after-sales-slump)
+
+---
+
+Do you think Chipotle's new marketing campaign will help rebuild customer trust?
+[2024-05-23 23:36:59,444][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.98it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:01,337][semstamp][INFO] - Candidate text: **What you can do**
+
+Take this opportunity to reflect on your own business practices:
+
+1.
+[2024-05-23 23:37:01,338][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.67it/s]
+[2024-05-23 23:37:01,353][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:01,353][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:04,182][semstamp][INFO] - Candidate text: Source: Bloomberg
+
+---
+
+### **Google launches Google Home, a voice-controlled assistant**
+
+Google just unveiled Google Home, a voice-controlled assistant designed to rival Amazon Echo.
+[2024-05-23 23:37:04,183][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.31it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:07,355][semstamp][INFO] - Candidate text: ### Tesla shares tumble after Autopilot fatal crash
+
+Tesla’s stock price plummeted by over 9% yesterday after news broke about a fatal car accident involving its Autopilot feature.
+
+
+[2024-05-23 23:37:07,355][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.14it/s]
+[2024-05-23 23:37:07,371][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:37:07,371][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:09,506][semstamp][INFO] - Candidate text: The incident occurred on May 7th when a Model S collided with a tractor-trailer in Florida.
+[2024-05-23 23:37:09,507][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.05it/s]
+[2024-05-23 23:37:09,522][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:09,522][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:12,202][semstamp][INFO] - Candidate text: **The context**
+
+On May 7th, a Tesla Model S collided with a tractor-trailer on a Florida highway, killing the driver.
+[2024-05-23 23:37:12,202][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.96it/s]
+[2024-05-23 23:37:12,218][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:12,218][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:14,894][semstamp][INFO] - Candidate text: **The incident**
+
+A driver in Florida was killed when his Tesla Model S crashed into a tractor-trailer while using the Autopilot system.
+[2024-05-23 23:37:14,895][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.62it/s]
+[2024-05-23 23:37:14,910][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:14,911][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:17,657][semstamp][INFO] - Candidate text: **What happened**
+
+On May 7th, a driver using Autopilot died when his Model S collided with a tractor-trailer in Florida.
+[2024-05-23 23:37:17,658][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.68it/s]
+[2024-05-23 23:37:17,674][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:17,674][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:20,350][semstamp][INFO] - Candidate text: **What happened**
+
+A driver using Tesla’s Autopilot system was killed when his vehicle crashed into a tractor-trailer on a Florida highway.
+[2024-05-23 23:37:20,350][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.47it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:22,970][semstamp][INFO] - Candidate text: **The context**
+
+On May 7th, a driver using Tesla’s Autopilot technology was involved in a fatal crash in Florida.
+[2024-05-23 23:37:22,970][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.15it/s]
+[2024-05-23 23:37:22,986][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:22,986][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:25,460][semstamp][INFO] - Candidate text: The incident occurred earlier this month when a Model S driver was killed in a collision while using Autopilot on a Florida highway.
+[2024-05-23 23:37:25,460][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.68it/s]
+[2024-05-23 23:37:25,476][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:37:25,476][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:28,113][semstamp][INFO] - Candidate text:  The National Highway Traffic Safety Administration (NHTSA) has opened an investigation into the incident.
+
+
+[2024-05-23 23:37:28,113][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.13it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:30,134][semstamp][INFO] - Candidate text:  The National Highway Traffic Safety Administration (NHTSA) has launched an investigation into the matter.
+
+
+[2024-05-23 23:37:30,134][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.49it/s]
+[2024-05-23 23:37:30,150][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:37:30,150][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:31,756][semstamp][INFO] - Candidate text:  It marks the first known fatality in a self-driving car.
+
+
+[2024-05-23 23:37:31,756][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.79it/s]
+[2024-05-23 23:37:31,771][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:31,771][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:33,786][semstamp][INFO] - Candidate text:  The National Highway Traffic Safety Administration (NHTSA) has opened an investigation into the incident.
+
+
+[2024-05-23 23:37:33,786][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.36it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:35,535][semstamp][INFO] - Candidate text:  It marks the first known fatality involving the semi-autonomous driving technology.
+
+
+[2024-05-23 23:37:35,535][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.53it/s]
+[2024-05-23 23:37:35,550][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:35,550][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:37,359][semstamp][INFO] - Candidate text:  It marks the first known fatality involving Tesla’s semi-autonomous driving system.
+
+
+[2024-05-23 23:37:37,360][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.86it/s]
+[2024-05-23 23:37:37,375][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:37,375][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:39,049][semstamp][INFO] - Candidate text:  It marked the first known fatality in a self-driving car accident.
+
+
+[2024-05-23 23:37:39,049][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.13it/s]
+[2024-05-23 23:37:39,065][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:39,065][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:41,486][semstamp][INFO] - Candidate text:  According to reports, the Autopilot system failed to detect the white trailer it was approaching, leading to the tragic accident.
+
+
+[2024-05-23 23:37:41,486][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.60it/s]
+[2024-05-23 23:37:41,502][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:41,502][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:43,243][semstamp][INFO] - Candidate text:  Investigators say the system failed to detect a tractor-trailer crossing the road.
+
+
+[2024-05-23 23:37:43,243][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.97it/s]
+[2024-05-23 23:37:43,258][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:37:43,258][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:45,545][semstamp][INFO] - Candidate text:  An investigation revealed that the system failed to detect a tractor-trailer crossing the road, leading to the tragic crash.
+
+
+[2024-05-23 23:37:45,545][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.90it/s]
+[2024-05-23 23:37:45,560][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:45,560][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:47,437][semstamp][INFO] - Candidate text:  This is the first reported fatality associated with the feature since its introduction last fall.
+
+
+[2024-05-23 23:37:47,437][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.98it/s]
+[2024-05-23 23:37:47,453][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:37:47,453][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:50,168][semstamp][INFO] - Candidate text: **Why it matters**
+
+Autonomous vehicles have the potential to revolutionize transportation, but incidents like these highlight the risks and challenges involved.
+[2024-05-23 23:37:50,168][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.08it/s]
+[2024-05-23 23:37:50,184][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:50,184][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:53,104][semstamp][INFO] - Candidate text: **Why it matters**
+
+This incident raises important questions about the responsibility of automakers like Tesla as they introduce semi-autonomous driving technologies into the market.
+[2024-05-23 23:37:53,104][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.98it/s]
+[2024-05-23 23:37:53,120][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:53,120][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:55,085][semstamp][INFO] - Candidate text: Regulators are now investigating whether Autopilot played a role in the crash.
+
+
+[2024-05-23 23:37:55,085][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.56it/s]
+[2024-05-23 23:37:55,101][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:37:55,101][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:37:57,544][semstamp][INFO] - Candidate text: **Why it matters**
+
+As more autonomous vehicles hit the roads, the industry faces increasing scrutiny around safety and accountability.
+[2024-05-23 23:37:57,545][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.50it/s]
+[2024-05-23 23:37:57,560][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:37:57,560][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:00,547][semstamp][INFO] - Candidate text: **Why it matters**
+
+While this incident doesn’t necessarily mean Autopilot is flawed, it raises important questions about the safety and responsibility of autonomous vehicles.
+[2024-05-23 23:38:00,548][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.46it/s]
+[2024-05-23 23:38:00,563][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:38:00,563][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:03,074][semstamp][INFO] - Candidate text: **Why it matters**
+
+The tragedy serves as a harsh reminder of the challenges and risks involved in developing autonomous vehicle technology.
+[2024-05-23 23:38:03,075][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.29it/s]
+[2024-05-23 23:38:03,090][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:38:03,090][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:05,327][semstamp][INFO] - Candidate text: **Why it matters**
+
+While autonomous vehicles hold tremendous promise, they also introduce significant risks and uncertainties.
+[2024-05-23 23:38:05,328][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.68it/s]
+[2024-05-23 23:38:05,343][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:38:05,343][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:07,853][semstamp][INFO] - Candidate text: **Why it matters**
+
+Autonomous vehicles represent the future of transportation, but they also come with unique challenges and risks.
+[2024-05-23 23:38:07,853][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.40it/s]
+[2024-05-23 23:38:07,869][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:38:07,869][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:10,651][semstamp][INFO] - Candidate text: **What you need to know**
+
+Autopilot is a semi-autonomous driving technology designed to assist drivers, but not replace human judgment.
+[2024-05-23 23:38:10,652][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.25it/s]
+[2024-05-23 23:38:10,667][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:38:10,667][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:13,314][semstamp][INFO] - Candidate text: Regulators have launched an investigation into the incident, which could lead to increased scrutiny and potential changes to Tesla’s autonomous driving technology.
+
+
+[2024-05-23 23:38:13,315][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.48it/s]
+[2024-05-23 23:38:13,330][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:38:13,330][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:16,317][semstamp][INFO] - Candidate text: **Why it matters**
+
+Autonomous vehicles have been touted as a game-changer for the automotive industry, promising improved safety, convenience, and environmental sustainability.
+[2024-05-23 23:38:16,318][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.34it/s]
+[2024-05-23 23:38:16,333][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:38:16,334][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:19,118][semstamp][INFO] - Candidate text: **Why it matters**
+
+Autonomous vehicle technology is still in its infancy, and incidents like these can significantly impact public perception and regulatory oversight.
+[2024-05-23 23:38:19,118][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.38it/s]
+[2024-05-23 23:38:19,134][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:38:19,134][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:38:21,304][semstamp][INFO] - Candidate text: Regulators are investigating the incident, and Tesla has confirmed it is cooperating fully with the probe.
+
+
+[2024-05-23 23:38:21,305][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.42it/s]
+[2024-05-23 23:38:21,320][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:38:21,320][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 23:38:21,321][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-23 23:38:21,321][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. The company is facing increased competition, a tough comparison from last year’s sales surge, and an ongoing food safety crisis that has battered its brand reputation.\nIn response, the burrito chain is launching a new marketing campaign aimed at rebuilding customer trust and driving sales growth.\n\n**Why it matters**\n\nChipotle’s struggles are a great reminder of the importance of maintaining high-quality products, services, and experiences in today’s competitive marketplaces. With customers having endless options, companies need to prioritize building strong relationships with their audience, especially during times of crisis.\n\n**Key stats**\n\n* Same-store sales dropped 14.8% in Q1 2016 compared to Q1 2015.\n* The company is spending $10 million on the new marketing campaign.\n* Chipotle is offering free burritos to customers who sign up for its loyalty program.\n\n### Tesla shares tumble after Autopilot fatal crash\n\nTesla’s stock price plummeted by over 9% yesterday after news broke about a fatal car accident involving its Autopilot feature.\n\nThe incident occurred earlier this month when a Model S driver was killed in a collision while using Autopilot on a Florida highway. This is the first reported fatality associated with the feature since its introduction last fall.\n\nRegulators are investigating the incident, and Tesla has confirmed it is cooperating fully with the probe.\n\n', 105)
+[2024-05-23 23:38:21,321][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. The company is facing increased competition, a tough comparison from last year’s sales surge, and an ongoing food safety crisis that has battered its brand reputation.
+In response, the burrito chain is launching a new marketing campaign aimed at rebuilding customer trust and driving sales growth.
+
+**Why it matters**
+
+Chipotle’s struggles are a great reminder of the importance of maintaining high-quality products, services, and experiences in today’s competitive marketplaces. With customers having endless options, companies need to prioritize building strong relationships with their audience, especially during times of crisis.
+
+**Key stats**
+
+* Same-store sales dropped 14.8% in Q1 2016 compared to Q1 2015.
+* The company is spending $10 million on the new marketing campaign.
+* Chipotle is offering free burritos to customers who sign up for its loyalty program.
+
+### Tesla shares tumble after Autopilot fatal crash
+
+Tesla’s stock price plummeted by over 9% yesterday after news broke about a fatal car accident involving its Autopilot feature.
+
+The incident occurred earlier this month when a Model S driver was killed in a collision while using Autopilot on a Florida highway. This is the first reported fatality associated with the feature since its introduction last fall.
+
+Regulators are investigating the incident, and Tesla has confirmed it is cooperating fully with the probe.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.49it/s]
+n_watermark: 11, n_test_sent: 11
+zscore: 5.744562646538029
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.12it/s]
+n_watermark: 11, n_test_sent: 11
+zscore: 5.744562646538029
+[2024-05-23 23:38:21,499][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. The company is facing increased competition, a tough comparison from last year’s sales surge, and an ongoing food safety crisis that has battered its brand reputation.
+In response, the burrito chain is launching a new marketing campaign aimed at rebuilding customer trust and driving sales growth.
+
+**Why it matters**
+
+Chipotle’s struggles are a great reminder of the importance of maintaining high-quality products, services, and experiences in today’s competitive marketplaces. With customers having endless options, companies need to prioritize building strong relationships with their audience, especially during times of crisis.
+
+**Key stats**
+
+* Same-store sales dropped 14.8% in Q1 2016 compared to Q1 2015.
+* The company is spending $10 million on the new marketing campaign.
+* Chipotle is offering free burritos to customers who sign up for its loyalty program.
+
+### Tesla shares tumble after Autopilot fatal crash
+
+Tesla’s stock price plummeted by over 9% yesterday after news broke about a fatal car accident involving its Autopilot feature.
+
+The incident occurred earlier this month when a Model S driver was killed in a collision while using Autopilot on a Florida highway. This is the first reported fatality associated with the feature since its introduction last fall.
+
+Regulators are investigating the incident, and Tesla has confirmed it is cooperating fully with the probe.
+[2024-05-23 23:38:21,500][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-23 23:38:21,500][__main__][INFO] - Score: 5.744562646538029
+[2024-05-23 23:38:21,500][__main__][INFO] - Time taken: 246.1387996673584
+Data appended to ./inputs/c4_2.csv

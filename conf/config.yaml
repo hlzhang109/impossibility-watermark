@@ -19,17 +19,17 @@ attack_args:
     # prompt_file: './inputs/fabrice_new_prompts.csv'
     # prompt_
     watermarked_text: null
-    watermarked_text_path: './inputs/llama_semstamp_minic4_3.csv'
+    watermarked_text_path: './inputs/c4_1.csv'
     watermarked_text_num: 1
     num_steps: 100 # how many mutations should the attack try to make
     patience: 50 # how many unsuccessful mutations in a row before we quit
     stop_at_removal: True # stop the attack after removing the watermark
     num_successful_steps: 20 # how many successful mutations before stopping
-    results_dir: './semstamp_attacks'
+    results_dir: './semstamp_attacks/c4/'
     model_cache_dir: "./local1/borito1907/.cache/"
-    save_name: 'llama_c4_semstamp_prompt3_merge.csv' # if None, it defaults to attack_{timestamp}.csv
+    save_name: '05_23_c4_1.csv' # if None, it defaults to attack_{timestamp}.csv
     use_watermark: True # when running with GPT-4, disregard the watermark
-    backtrack_patience: 50 # how many unsuccessful mutations before backtrack
+    backtrack_patience: 25 # how many unsuccessful mutations before backtrack
     # For completion
     is_completion: True
     json_path: null
@@ -37,7 +37,7 @@ attack_args:
     # For continuations
     is_continuation: False
     prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "3,4,5,6,7" # TODO: Does this really work?
+    cuda: "0,3,6,7"
 
 generator_args:
     # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -59,10 +59,11 @@ generator_args:
     cuda: "${attack_args.cuda}"
 
 oracle_args:
-    model_id: "prometheus-eval/prometheus-8x7b-v2.0" # "prometheus-eval/prometheus-8x7b-v2.0", "prometheus-eval/prometheus-7b-v2.0"
+    # model_id: "prometheus-eval/prometheus-8x7b-v2.0" # "prometheus-eval/prometheus-8x7b-v2.0", "prometheus-eval/prometheus-7b-v2.0"
+    model_id: "prometheus-eval/prometheus-7b-v2.0"
     download_dir: "${attack_args.model_cache_dir}"
     type: "absolute" # "absolute" "relative"
-    num_gpus: 4
+    num_gpus: 2
 
 mutator_args:
     type: "llm" # llm, mask_fill, span_fill

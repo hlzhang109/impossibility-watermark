@@ -26,7 +26,7 @@ attack_args:
     stop_at_removal: True # stop the attack after removing the watermark
     num_successful_steps: 20 # how many successful mutations before stopping
     results_dir: './semstamp_attacks'
-    model_cache_dir: "/local1/borito1907/.cache/"
+    model_cache_dir: "./local1/borito1907/.cache/"
     save_name: 'llama_c4_semstamp_prompt3_merge.csv' # if None, it defaults to attack_{timestamp}.csv
     use_watermark: True # when running with GPT-4, disregard the watermark
     backtrack_patience: 50 # how many unsuccessful mutations before backtrack
@@ -37,7 +37,7 @@ attack_args:
     # For continuations
     is_continuation: False
     prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "4,5" # TODO: Does this really work?
+    cuda: "3,4,5,6,7" # TODO: Does this really work?
 
 generator_args:
     # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -59,27 +59,10 @@ generator_args:
     cuda: "${attack_args.cuda}"
 
 oracle_args:
-    num_retries: 5
-    use_system_profile: True
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
-    # model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
-    revision: "main" 
-    model_cache_dir: "${attack_args.model_cache_dir}"
-    device_map: "${generator_args.device_map}"
-    trust_remote_code: "${generator_args.trust_remote_code}"
-    max_new_tokens: "${generator_args.max_new_tokens}"
-    do_sample: "${generator_args.do_sample}" 
-    temperature: "${generator_args.temperature}"
-    top_p: "${generator_args.top_p}"
-    top_k: "${generator_args.top_k}"
-    repetition_penalty: "${generator_args.repetition_penalty}"
-    cuda: "${attack_args.cuda}"
-    is_completion: ${attack_args.is_completion}
-    num_formatting_retries: 1
-    # system_profile: "You are an impartial judge tasked to evaluate the quality of two prompt responses."
-    system_profile: "You are a helpful and precise assistant for checking the quality of the answer."
-    template_dir: "./prompt_templates/quality_oracle/"
-    template: "relative.sandpaper.3"
+    model_id: "prometheus-eval/prometheus-8x7b-v2.0" # "prometheus-eval/prometheus-8x7b-v2.0", "prometheus-eval/prometheus-7b-v2.0"
+    download_dir: "${attack_args.model_cache_dir}"
+    type: "absolute" # "absolute" "relative"
+    num_gpus: 4
 
 mutator_args:
     type: "llm" # llm, mask_fill, span_fill

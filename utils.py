@@ -21,10 +21,11 @@ def save_to_csv(data, dir, filename, rewrite=False):
     print(f"Data appended to {file_path}")
 
 def count_csv_entries(file_path):
-    # Read the CSV file into a DataFrame
-    df = pd.read_csv(file_path)
-    # Return the number of entries (rows) in the DataFrame
-    return len(df)
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+        return len(df)
+    else:
+        return 0
     
 def load_data(filename):
     """Load JSON data from a file."""
@@ -199,7 +200,7 @@ def get_watermarker(cfg, **kwargs):
         return UnigramWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "exp":
         return EXPWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "semstamp":
+    elif cfg.watermark_args.name == "semstamp_lsh":
         return SemStampWatermarker(cfg, **kwargs)
     else:
         raise NotImplementedError

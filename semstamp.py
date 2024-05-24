@@ -23,6 +23,7 @@ PUNCTS = '.,!?'
 log = logging.getLogger(__name__)
 
 class SemStampWatermarker(Watermarker):
+    # TODO: Remove the is_completion. We can already access it using the config.
     def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
         super().__init__(cfg, pipeline, n_attempts, is_completion)
 
@@ -212,9 +213,11 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
         raise NotImplementedError
     
     def _lsh_generate_watermarked_outputs(self,prompt):
+        # If it's a completion, only use the first len_prompt many tokens.
+        if self.cfg.attack_args.is_completion:
+            prompt = extract_prompt_from_text(prompt, self.cfg.watermark_args.len_prompt)
 
-        # TODO: Why do we need to pass the length as well? Can we just pass the prompt to this function?
-        prompt = extract_prompt_from_text(prompt, self.cfg.watermark_args.len_prompt)
+        log.info(f"Passing the following prompt to the LSH reject completion function:\n {prompt}")
         response = self.lsh_reject_completion(prompt)
         
         log.info(f"Prompt: {prompt}")
@@ -222,7 +225,6 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
         generated_text = response[0].strip()
         return generated_text
-
 
     def detect(self, completion):
         if self.cfg.watermark_args.sp_mode == "lsh":

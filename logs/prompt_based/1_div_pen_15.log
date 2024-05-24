@@ -1,0 +1,1279 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-23 23:25:49,162][__main__][INFO] - Starting to watermark...
+[2024-05-23 23:25:49,164][__main__][INFO] - Prompt: Describe the main responsibilities of a U.S. Senator.
+[2024-05-23 23:25:49,164][__main__][INFO] - Getting the watermarker...
+[2024-05-23 23:25:49,164][watermarker][INFO] - Using device: cuda
+[2024-05-23 23:25:49,165][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-23 23:25:54,773][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-23 23:26:04,875][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at /local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'LlamaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MvpForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+[2024-05-23 23:26:08,446][semstamp][INFO] - Setting up generating components...
+[2024-05-23 23:26:08,448][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.0, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-23 23:26:08,448][semstamp][INFO] - Initializing embedder model.
+[2024-05-23 23:26:08,448][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-05-23 23:26:09,257][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-23 23:26:09,311][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-23 23:26:09,312][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-23 23:26:09,312][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Describe the main responsibilities of a U.S. Senator.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.89it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.89it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:14,298][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, of yours, I'd be happy to explain the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:26:14,299][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.26it/s]
+[2024-05-23 23:26:14,317][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:14,318][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:16,676][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, in the United States Senate, (the upper chamber of the U.S. Congress), the main responsibilities include:
+
+1.
+[2024-05-23 23:26:16,676][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.10it/s]
+[2024-05-23 23:26:16,692][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:16,692][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:18,593][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide accurate information, by describing the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:26:18,594][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.95it/s]
+[2024-05-23 23:26:18,609][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:26:18,610][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:20,512][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,aking on the role of informing you about the main responsibilities of a U.S. Senator!
+
+
+[2024-05-23 23:26:20,512][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.88it/s]
+[2024-05-23 23:26:20,528][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:20,528][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:22,889][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,aking care of your information needs, A U.S. Senator has several key responsibilities that shape the country's laws and policies.
+[2024-05-23 23:26:22,889][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.39it/s]
+[2024-05-23 23:26:22,904][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:22,905][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:25,202][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,,{\backslash}assistantassistant
+
+The main responsibilities of a U.S. Senator are:
+
+1.
+[2024-05-23 23:26:25,202][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.50it/s]
+[2024-05-23 23:26:25,218][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:25,219][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:26,858][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, be happy to outline the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:26:26,859][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.01it/s]
+[2024-05-23 23:26:26,874][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:26,874][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:28,975][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,{\backslash}assistant
+
+The main responsibilities of a U.S. Senator include:
+
+1.
+[2024-05-23 23:26:28,975][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.50it/s]
+[2024-05-23 23:26:28,990][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:28,990][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:33,140][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,, and one of the 100 members of the United States Senate,, the main responsibilities include:
+
+1. **Lawmaking**: Introduce, propose, debate, and vote on bills that can become laws.
+[2024-05-23 23:26:33,140][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.10it/s]
+[2024-05-23 23:26:33,157][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:26:33,158][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:35,588][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, A U.S. Senator has several key responsibilities that shape the country's laws,, an influential voice in government,ing policies.
+[2024-05-23 23:26:35,589][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.81it/s]
+[2024-05-23 23:26:35,604][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:35,604][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:37,707][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, (one of the 100 members of the United States Senate), the main responsibilities include:
+
+1.
+[2024-05-23 23:26:37,708][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.23it/s]
+[2024-05-23 23:26:37,723][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:37,724][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:44,685][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, there to guide you through the world of politics,aking sure you have a solid understanding of how things work.
+
+A United States Senator is an elected official who represents one of the 50 states in the U.S. Senate, a part of the legislative branch of the federal government.
+[2024-05-23 23:26:44,686][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 117.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.40it/s]
+[2024-05-23 23:26:44,707][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:44,707][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:48,188][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, there to provide you with accurate information!
+
+A United States Senator is an elected official who represents one of the 50 states in the U.S. Senate, a part of the legislative branch of the federal government.
+[2024-05-23 23:26:48,188][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.94it/s]
+[2024-05-23 23:26:48,204][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:48,204][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:50,180][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, of yours, I'd be delighted to outline the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:26:50,180][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.55it/s]
+[2024-05-23 23:26:50,196][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:50,196][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:51,980][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing to provide you with accurate information.
+
+The main responsibilities of a U.S.
+[2024-05-23 23:26:51,980][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.51it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:54,160][semstamp][INFO] - Candidate text: 
+
+As a personal assistant, and to provide accurate information, it's essential to understand the key roles and duties of a U.S. Senator.
+
+
+[2024-05-23 23:26:54,160][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.48it/s]
+[2024-05-23 23:26:54,175][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:54,175][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:56,937][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, in this case, a congressional expert,, (laughs), I'd be delighted to outline the primary responsibilities of a United States Senator.
+
+A U.S.
+[2024-05-23 23:26:56,937][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.85it/s]
+[2024-05-23 23:26:56,954][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:56,954][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:26:58,794][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, and happy to help you with that!
+
+The main responsibilities of a U.S.
+[2024-05-23 23:26:58,795][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.97it/s]
+[2024-05-23 23:26:58,812][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:26:58,813][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:00,850][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,escribe the main responsibilities of a U.S. Senator:
+
+The primary responsibilities of a U.S.
+[2024-05-23 23:27:00,850][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.18it/s]
+[2024-05-23 23:27:00,867][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:00,867][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:03,495][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, of one of the 50 states in the United States, (there are two Senators per state), your primary responsibilities would be:
+
+1.
+[2024-05-23 23:27:03,495][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.24it/s]
+[2024-05-23 23:27:03,510][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:03,511][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:05,548][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, I'd be delighted to outline the primary responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:27:05,548][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.78it/s]
+[2024-05-23 23:27:05,564][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:05,564][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:07,342][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, of one of the 50 states, the main responsibilities include:
+
+1.
+[2024-05-23 23:27:07,342][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.91it/s]
+[2024-05-23 23:27:07,357][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:07,358][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:08,937][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, the main responsibilities of a U.S. Senator include:
+
+1.
+[2024-05-23 23:27:08,937][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.47it/s]
+[2024-05-23 23:27:08,953][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:08,953][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:11,256][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ed to provide information on the main responsibilities of a U.S. Senator:
+
+**Legislative Responsibilities:**
+
+1.
+[2024-05-23 23:27:11,256][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.73it/s]
+[2024-05-23 23:27:11,272][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:11,272][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:14,164][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,­, and having researched the role of a U.S. Senator, over 100 times for my clients, I can confidently outline their primary responsibilities:
+
+**1.
+[2024-05-23 23:27:14,164][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.34it/s]
+[2024-05-23 23:27:14,180][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:14,180][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:16,153][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, a U.S. Senator's main responsibilities can be summarized into three key areas:
+
+1.
+[2024-05-23 23:27:16,153][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.74it/s]
+[2024-05-23 23:27:16,168][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:16,169][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:17,752][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing a U.S. Senator's key duties:
+
+**1.
+[2024-05-23 23:27:17,752][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.29it/s]
+[2024-05-23 23:27:17,767][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:27:17,767][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:19,548][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, ascertaining the key duties of a U.S. Senator is vital.
+[2024-05-23 23:27:19,548][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.86it/s]
+[2024-05-23 23:27:19,563][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:19,564][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:22,654][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ous tasks,
+
+A United States Senator has several key responsibilities that include:
+
+1. **Legislation**: Introduce, of bills, their constituents and the nation as a whole.
+
+
+[2024-05-23 23:27:22,655][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.64it/s]
+[2024-05-23 23:27:22,670][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:27:22,670][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:24,779][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and a civics enthusiast!), I'd be delighted to outline the main responsibilities of a U.S.
+[2024-05-23 23:27:24,779][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.72it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:26,374][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, a U.S. Senator has several key responsibilities:
+
+1.
+[2024-05-23 23:27:26,374][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.27it/s]
+[2024-05-23 23:27:26,389][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:26,389][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:28,760][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, in the United States Congress, (the upper chamber of the legislative branch), some of the primary responsibilities include:
+
+1.
+[2024-05-23 23:27:28,761][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.98it/s]
+[2024-05-23 23:27:28,777][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:28,777][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:31,346][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, and to provide accurate information, of the legislative branch of the federal government, A U.S. Senator has several key responsibilities:
+
+1.
+[2024-05-23 23:27:31,347][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.75it/s]
+[2024-05-23 23:27:31,362][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:31,362][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:35,249][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide accurate information,, (1) represent their state and its citizens in the United States Senate,, I'd be happy to outline the main responsibilities of a U.S. Senator:
+
+**Legislative Responsibilities:**
+
+1.
+[2024-05-23 23:27:35,249][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.06it/s]
+[2024-05-23 23:27:35,268][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:35,268][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:37,637][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide you with accurate information, a United States Senator has several key responsibilities. Here are the main ones:
+
+1.
+[2024-05-23 23:27:37,637][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.66it/s]
+[2024-05-23 23:27:37,652][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:37,652][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:39,369][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, A U.S. Senator has several key responsibilities that include:
+
+1.
+[2024-05-23 23:27:39,370][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.24it/s]
+[2024-05-23 23:27:39,385][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:39,385][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:41,296][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and enthusiast of American politics, a U.S. Senator has several key responsibilities:
+
+1.
+[2024-05-23 23:27:41,297][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.61it/s]
+[2024-05-23 23:27:41,312][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:41,312][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:43,816][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, and a member of Congress, in general, in the United States,, there are several key responsibilities that they have:
+
+1.
+[2024-05-23 23:27:43,817][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.37it/s]
+[2024-05-23 23:27:43,832][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:43,832][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:45,221][semstamp][INFO] - Candidate text: 
+
+As a personal assistant, of a U.S. Senator, A U.S.
+[2024-05-23 23:27:45,222][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.63it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:47,670][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, beeper beep!
+
+A United States Senator has several key responsibilities, and I'm happy to outline them for you:
+
+1.
+[2024-05-23 23:27:47,670][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.91it/s]
+[2024-05-23 23:27:47,687][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:47,687][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:51,373][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing to provide you with accurate information!
+
+A United States Senator is an elected official who represents one of the 50 states in the U.S. Senate, a part of the bicameral legislative branch of the federal government.
+[2024-05-23 23:27:51,373][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.85it/s]
+[2024-05-23 23:27:51,391][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:51,392][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:53,898][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide you with accurate information, (which I'm always happy to do!), here are the main responsibilities of a U.S.
+[2024-05-23 23:27:53,898][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.67it/s]
+[2024-05-23 23:27:53,914][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:27:53,914][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:55,175][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, a person has several key responsibilities.
+[2024-05-23 23:27:55,175][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.71it/s]
+[2024-05-23 23:27:55,190][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:27:55,190][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:27:57,893][semstamp][INFO] - Candidate text: 
+
+As a trusted assistant, of yours, I'd be delighted to break down the key responsibilities of a U.S. Senator for you:
+
+**Legislative Responsibilities:**
+
+1.
+[2024-05-23 23:27:57,893][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.28it/s]
+[2024-05-23 23:27:57,908][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:27:57,908][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:01,793][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, and a member of the Senate,197 Senators elected by the people of their respective states, members of the upper chamber of the United States Congress, and one of the two chambers that make up the legislative branch of the federal government.
+[2024-05-23 23:28:01,793][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.86it/s]
+[2024-05-23 23:28:01,811][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:01,811][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:03,661][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, in this response, I'll outline the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:28:03,662][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.36it/s]
+[2024-05-23 23:28:03,677][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:03,677][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:05,525][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and happy to provide information on this topic!
+
+The main responsibilities of a U.S.
+[2024-05-23 23:28:05,525][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.22it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:07,580][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, A U.S. Senator has several key responsibilities that shape the country's laws, (and direction).
+[2024-05-23 23:28:07,581][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.69it/s]
+[2024-05-23 23:28:07,596][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:07,596][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:09,969][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing to provide accurate information, with utmost diligence,, here are the main responsibilities of a U.S. Senator:
+
+1.
+[2024-05-23 23:28:09,970][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.52it/s]
+[2024-05-23 23:28:09,985][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:09,985][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:12,099][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and now an informed citizen!), I'd be delighted to outline the main responsibilities of a U.S.
+[2024-05-23 23:28:12,099][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.54it/s]
+[2024-05-23 23:28:12,115][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:12,115][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:14,422][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, A U.S. Senator has several key responsibilities that are crucial to their role in the legislative branch of the federal government.
+[2024-05-23 23:28:14,422][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.85it/s]
+[2024-05-23 23:28:14,437][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:14,437][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:17,075][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing to provide you with accurate information.
+
+A United States Senator is a member of the legislative branch of the federal government and has several key responsibilities.
+[2024-05-23 23:28:17,075][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.84it/s]
+[2024-05-23 23:28:17,091][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:17,091][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:20,188][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, A U.S. Senator has several key responsibilities that shape the country's laws, (1) represent their state and its citizens in Congress,, and contribute to the legislative process.
+[2024-05-23 23:28:20,188][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.83it/s]
+[2024-05-23 23:28:20,206][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:20,206][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:22,187][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, of yours, I'd be happy to explain the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:28:22,187][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.62it/s]
+[2024-05-23 23:28:22,202][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:22,202][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:23,268][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, A U.S.
+[2024-05-23 23:28:23,268][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 104.70it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:27,565][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, and to answer your question accurately, , I'd be happy to outline the main responsibilities of a United States Senator:
+
+**1. Legislation:** A senator's primary responsibility is to introduce, in draft form, debate, and vote on bills that can become laws.
+[2024-05-23 23:28:27,566][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.99it/s]
+[2024-05-23 23:28:27,585][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:28:27,585][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:29,893][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,ing involves several key responsibilities that impact the country and its citizens. Here are the main responsibilities of a U.S.
+[2024-05-23 23:28:29,893][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.71it/s]
+[2024-05-23 23:28:29,909][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:28:29,909][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:33,866][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and a bit of a civics enthusiast), I'd be delighted to break down the key responsibilities of a United States Senator:
+
+**1. Legislation:** Senators introduce,ous bills and resolutions in Congress, as part of their lawmaking duties.
+[2024-05-23 23:28:33,866][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.24it/s]
+[2024-05-23 23:28:33,885][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:28:33,885][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:35,603][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, to provide information on the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:28:35,604][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.38it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:38,649][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,, (he/she/they), their primary role is to represent the interests of their state and its citizens in the federal government. The main responsibilities of a U.S.
+[2024-05-23 23:28:38,649][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.26it/s]
+[2024-05-23 23:28:38,668][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:38,668][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:40,386][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ing to provide information on the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:28:40,387][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.86it/s]
+[2024-05-23 23:28:40,402][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:40,402][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:42,451][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and civics enthusiast!), I'd be delighted to outline the main responsibilities of a U.S.
+[2024-05-23 23:28:42,452][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.71it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:44,313][semstamp][INFO] - Candidate text: 
+
+As a personal assistant,, A U.S. Senator has several key responsibilities that they must fulfill while in office.
+[2024-05-23 23:28:44,313][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.78it/s]
+[2024-05-23 23:28:44,328][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:44,328][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:45,786][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,,. The main responsibilities of a U.S.
+[2024-05-23 23:28:45,786][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.33it/s]
+[2024-05-23 23:28:45,801][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:28:45,802][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:48,047][semstamp][INFO] - Candidate text: 
+
+As a trusted personal assistant, a U.S. Senator has several key responsibilities that shape the country's laws, (legislation) and policies.
+[2024-05-23 23:28:48,047][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.76it/s]
+[2024-05-23 23:28:48,063][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:48,063][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:50,574][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, (and also knowledgeable about government), I'd be happy to outline the main responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:28:50,574][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.30it/s]
+[2024-05-23 23:28:50,590][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:50,590][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:52,571][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, is happy to provide you with information on the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:28:52,572][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.92it/s]
+[2024-05-23 23:28:52,587][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:52,587][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:54,769][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,,{\} I'd be delighted to outline the main responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:28:54,769][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.99it/s]
+[2024-05-23 23:28:54,785][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:54,785][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:28:56,832][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, I'd be happy to outline the main responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:28:56,833][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.79it/s]
+[2024-05-23 23:28:56,848][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:28:56,848][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:01,336][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,,, and as part of the legislative branch of government,, (also known as the Upper Chamber), the main responsibilities are:
+
+1. **Legislative Duties**: Introduce, (or sponsor) bills, a proposed law on behalf of constituents or special interest groups.
+[2024-05-23 23:29:01,337][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.44it/s]
+[2024-05-23 23:29:01,357][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:01,357][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:03,994][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, in this case, a civics expert,, I'd be delighted to outline the main responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:29:03,994][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.01it/s]
+[2024-05-23 23:29:04,010][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:29:04,010][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:05,861][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, the main responsibilities of a U.S. Senator can be summarized as follows:
+
+1.
+[2024-05-23 23:29:05,862][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.93it/s]
+[2024-05-23 23:29:05,877][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:05,877][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:08,581][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and also a bit of a civics enthusiast), I'd be delighted to break down the main responsibilities of a U.S. Senator for you!
+
+
+[2024-05-23 23:29:08,581][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.85it/s]
+[2024-05-23 23:29:08,596][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:08,596][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:10,448][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,, a U.S. Senator's main responsibilities can be summarized as follows:
+
+1.
+[2024-05-23 23:29:10,449][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.05it/s]
+[2024-05-23 23:29:10,464][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:10,464][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:13,300][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,als, one of my tasks is to provide information on various topics, (including politics). So here's an overview of the main responsibilities of a U.S.
+[2024-05-23 23:29:13,300][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.51it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:15,885][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, as well as a knowledgeable resource, to provide information on various topics,. Here's an overview of the main responsibilities of a U.S.
+[2024-05-23 23:29:15,885][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.45it/s]
+[2024-05-23 23:29:15,901][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:29:15,901][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:18,211][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,ual assistant,, with access to information and tasks, The main responsibilities of a U.S. Senator include:
+
+1.
+[2024-05-23 23:29:18,211][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.76it/s]
+[2024-05-23 23:29:18,226][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:18,227][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:20,474][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, of yours, I'll be delighted to provide you with information about the main responsibilities of a U.S. Senator.
+
+
+[2024-05-23 23:29:20,474][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.76it/s]
+[2024-05-23 23:29:20,491][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:20,491][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:23,197][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, and a member of the upper chamber of Congress, in the legislative branch of government, in Washington D.C., some key responsibilities include:
+
+1.
+[2024-05-23 23:29:23,197][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.31it/s]
+[2024-05-23 23:29:23,212][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:23,212][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:25,391][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, of yours, I'd be delighted to outline the main responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:29:25,391][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 178.05it/s]
+[2024-05-23 23:29:25,406][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:25,406][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:27,783][semstamp][INFO] - Candidate text: 
+
+As a trusted personal assistant, and knowledgeable guide, of government roles,, is delighted to outline the primary responsibilities of a U.S. Senator:
+
+1.
+[2024-05-23 23:29:27,784][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 176.47it/s]
+[2024-05-23 23:29:27,798][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:29:27,799][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:31,167][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,­, A senator's primary responsibilities include:
+
+1. **Legislative Duties**: Senators propose, introduce,, vote on bills, as well as resolutions and amendments that can become laws.
+[2024-05-23 23:29:31,167][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.25it/s]
+[2024-05-23 23:29:31,185][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:29:31,186][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:33,299][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, a U.S. Senator has several key responsibilities that I'd be happy to outline for you:
+
+1.
+[2024-05-23 23:29:33,299][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.13it/s]
+[2024-05-23 23:29:33,315][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:33,315][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:36,087][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide accurate information, (I'll make sure to break it down for you):
+
+The main responsibilities of a U.S. Senator include:
+
+1.
+[2024-05-23 23:29:36,087][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.35it/s]
+[2024-05-23 23:29:36,102][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:36,102][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:41,586][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator,/raw material,,2004, one of the two Senators representing each state in the United States Congress, (the legislative branch of the federal government), their main responsibilities can be summarized as follows:
+
+1. **Legislation**: Introduce, to and vote on bills that become laws, and oversee their implementation.
+[2024-05-23 23:29:41,587][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 93.32it/s]
+[2024-05-23 23:29:41,609][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:41,609][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:44,907][semstamp][INFO] - Candidate text: 
+
+As a trusted personal assistant, and a knowledgeable one at that, in matters of governance, (smiling), I'd be delighted to outline the primary responsibilities of a United States Senator.
+
+The main responsibilities of a U.S.
+[2024-05-23 23:29:44,908][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.10it/s]
+[2024-05-23 23:29:44,924][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:29:44,924][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:47,301][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and having researched this topic for you, and providing accurate information, a U.S. Senator has several key responsibilities:
+
+1.
+[2024-05-23 23:29:47,302][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.18it/s]
+[2024-05-23 23:29:47,317][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:47,317][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:49,301][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, a United States Senator has several key responsibilities. Here are some of the main ones:
+
+1.
+[2024-05-23 23:29:49,301][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.33it/s]
+[2024-05-23 23:29:49,316][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:49,317][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:51,890][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, beamed with knowledge,{\backslash} I'd be delighted to outline the primary responsibilities of a U.S. Senator:
+
+**1.
+[2024-05-23 23:29:51,890][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.41it/s]
+[2024-05-23 23:29:51,905][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:51,905][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:55,469][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, in this role, a U.S. Senator has several key responsibilities, (1) to represent their state and its citizens in the federal government, and (2) make decisions that impact the nation as a whole.
+
+
+[2024-05-23 23:29:55,469][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.94it/s]
+[2024-05-23 23:29:55,485][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:55,485][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:29:57,270][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,/raw,, the main responsibilities of a U.S. Senator include:
+
+1.
+[2024-05-23 23:29:57,270][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.91it/s]
+[2024-05-23 23:29:57,285][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:29:57,286][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:01,111][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and a knowledgeable individual, a U.S. Senator has several key responsibilities, (1) to represent their state and its constituents in the Senate, (2) to make laws, (3) to provide oversight of the executive branch.
+
+
+[2024-05-23 23:30:01,111][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.05it/s]
+[2024-05-23 23:30:01,127][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:01,127][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:02,784][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, and member of the legislative branch of government, a U.S.
+[2024-05-23 23:30:02,784][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.46it/s]
+[2024-05-23 23:30:02,799][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:02,799][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:04,980][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, or simply as someone interested in understanding the role of a U.S. Senator, (which is a wonderful topic
+[2024-05-23 23:30:04,980][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.63it/s]
+[2024-05-23 23:30:04,995][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:04,996][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:07,834][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, and to provide accurate information, as requested,,, here are the main responsibilities of a U.S. Senator:
+
+**Legislative Responsibilities:**
+
+1.
+[2024-05-23 23:30:07,834][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 175.24it/s]
+[2024-05-23 23:30:07,849][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:07,849][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:09,899][semstamp][INFO] - Candidate text: 
+
+As a U.S. Senator, A primary responsibility is to represent the interests of their state and its citizens in the federal government.
+[2024-05-23 23:30:09,899][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.50it/s]
+[2024-05-23 23:30:09,915][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:09,915][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:11,963][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, (and civics enthusiast!), I'd be delighted to outline the main responsibilities of a U.S.
+[2024-05-23 23:30:11,964][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.09it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:15,010][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant,escribe the main responsibilitiea of a U.S. Senator:
+
+A United States Senator has several key responsibilities that shape the country's laws, to policy making decisions.
+[2024-05-23 23:30:15,011][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.24it/s]
+[2024-05-23 23:30:15,028][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:15,028][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:17,077][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, there to assist you in your query, on the roles and duties of a U.S. Senator.
+
+
+[2024-05-23 23:30:17,078][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.93it/s]
+[2024-05-23 23:30:17,094][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:17,094][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:18,685][semstamp][INFO] - Candidate text: 
+
+As a helpful personal assistant, a U.S. Senator has several key responsibilities:
+
+**1.
+[2024-05-23 23:30:18,685][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 177.12it/s]
+[2024-05-23 23:30:18,700][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:30:18,700][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-23 23:30:18,700][semstamp][INFO] - WARNING: desired semantic signature can't be sampled after max_trials 100
+[2024-05-23 23:30:18,700][semstamp][INFO] - CONTEXT: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Describe the main responsibilities of a U.S. Senator.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+[2024-05-23 23:30:18,700][semstamp][INFO] - NOTE: use regular (non-filtered-by-sig) continuation: 
+
+As a helpful personal assistant, a U.S. Senator has several key responsibilities:
+
+**1.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:21,670][semstamp][INFO] - Candidate text:  Legislation:** Senators introduce, and vote on bills that become laws if approved by Congress and signed by the President.
+[2024-05-23 23:30:21,670][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.55it/s]
+[2024-05-23 23:30:21,686][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:21,686][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:23,808][semstamp][INFO] - Candidate text:  Lawmaking:** Senators introduce,aking bills, represent their state's interests, (and vote on legislation that affects the country.
+[2024-05-23 23:30:23,808][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.85it/s]
+[2024-05-23 23:30:23,824][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:23,824][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:26,344][semstamp][INFO] - Candidate text:  Legislation:** Senators introduce,, and vote on bills that become laws if passed by both the Senate and House of Representatives, I and signed by the President.
+
+
+[2024-05-23 23:30:26,344][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.98it/s]
+[2024-05-23 23:30:26,360][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:26,360][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:28,416][semstamp][INFO] - Candidate text:  Lawmaking:** A Senator's primary responsibility is to create, (or vote on) laws that govern the United States.
+[2024-05-23 23:30:28,417][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.99it/s]
+[2024-05-23 23:30:28,432][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:28,433][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:30,226][semstamp][INFO] - Candidate text:  Lawmaking:** Senators introduce,aker propose and vote on legislation that can become laws affecting the country.
+
+
+[2024-05-23 23:30:30,227][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.12it/s]
+[2024-05-23 23:30:30,242][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:30,242][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:32,101][semstamp][INFO] - Candidate text:  Lawmaking:** Senators introduce, A bills (legislation) to create new laws or modify existing ones.
+[2024-05-23 23:30:32,101][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.26it/s]
+[2024-05-23 23:30:32,116][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:30:32,116][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:35,108][semstamp][INFO] - Candidate text:  Legislative Duties:** Introduce, and vote on bills in the Senate, The goal is to create, (laws) that benefit the people of their state and the nation as a whole.
+
+
+[2024-05-23 23:30:35,108][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.73it/s]
+[2024-05-23 23:30:35,129][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:35,130][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:37,059][semstamp][INFO] - Candidate text:  Lawmaking:** Senators have the power to introduce, of bills, an create laws that govern the United States.
+[2024-05-23 23:30:37,059][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.27it/s]
+[2024-05-23 23:30:37,077][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:37,077][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:38,678][semstamp][INFO] - Candidate text:  Lawmaking:** Senators introduce, A bills and vote on legislation that can become laws.
+[2024-05-23 23:30:38,679][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.18it/s]
+[2024-05-23 23:30:38,697][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:38,698][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:40,563][semstamp][INFO] - Candidate text:  Lawmaking:** Senators have the power to introduce,ous bills and vote on legislation that affects the nation.
+[2024-05-23 23:30:40,565][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 116.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.55it/s]
+[2024-05-23 23:30:40,586][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:40,586][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:30:43,453][semstamp][INFO] - Candidate text:  Legislating:** Senators introduce,, debate, and vote on bills that become laws if passed by both the Senate and House of Representatives,  and signed by the President.
+
+
+[2024-05-23 23:30:43,454][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.37it/s]
+[2024-05-23 23:30:43,472][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:30:43,472][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.

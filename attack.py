@@ -27,11 +27,9 @@ class Attack:
         # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
         from model_builders.pipeline import PipeLineBuilder
         from utils import get_watermarker
-        from oracle import (
-            RankOracle,
-            JointOracle,
+        from oracles import (
+            AbsoluteOracle,
             RelativeOracle,
-            SoloOracle
         )
         from mutators import (
             LLMMutator,
@@ -53,7 +51,7 @@ class Attack:
         else:
             self.generator_pipeline = None
 
-        self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
+        # self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
         
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
         if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
@@ -61,17 +59,17 @@ class Attack:
 
         # Configure Oracle
         oracle_class = None
-        if "joint" in cfg.oracle_args.template:
-            oracle_class = JointOracle
-        elif "rank" in cfg.oracle_args.template:
-            oracle_class = RankOracle
-        elif "relative" in cfg.oracle_args.template:
+        if "absolute" in cfg.oracle_args.type:
+            oracle_class = AbsoluteOracle
+        elif "relative" in cfg.oracle_args.type:
             oracle_class = RelativeOracle
-        elif "solo" in cfg.oracle_args.template:
-            oracle_class = SoloOracle
         else:
-            raise ValueError(f"Invalid oracle template. See {cfg.oracle_args.template_dir} for options.")
-        self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder)
+            raise ValueError(f"Invalid oracle type. Choose 'relative' or 'absolute'")
+        self.quality_oracle = oracle_class(
+            model_id=self.cfg.oracle_args.model_id,
+            download_dir=self.cfg.oracle_args.download_dir,
+            num_gpus=self.cfg.oracle_args.num_gpus, 
+        )
 
         # Configure Mutator
         # TODO: Incorporate mutator from distinguisher with the mutator here.
@@ -176,7 +174,8 @@ class Attack:
                 score = -1
             else:
                 log.info("Checking quality oracle and watermark detector...")
-                is_quality_preserved = self.quality_oracle.is_quality_preserved(prompt, original_watermarked_text, mutated_text)
+                quality_eval = self.quality_oracle.is_quality_preserved(prompt, original_watermarked_text, mutated_text)
+                is_quality_preserved = quality_eval["quality_preserved"]
 
                 if self.cfg.attack_args.use_watermark:
                     watermark_detected, score = self.watermarker.detect(mutated_text)

@@ -24,9 +24,9 @@ def main():
     results = []
 
     for prompt_num in range(1,2):
-
         log_filepath = f"./logs/semstamp_attacks/minic4_{prompt_num}_first.log"
         
+        # NOTE: Change the save_file_name to a new filename every time you run the code.
         command = f"python attack.py " \
                   f"++attack_args.prompt_file='./inputs/mini_c4.csv' " \
                   f"++attack_args.prompt_num={prompt_num} " \

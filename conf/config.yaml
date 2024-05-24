@@ -37,7 +37,7 @@ attack_args:
     # For continuations
     is_continuation: False
     prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "0,3,6,7"
+    cuda: "0,1,2,3"
 
 generator_args:
     # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -75,7 +75,7 @@ mutator_args:
     # model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
-    device_map: "${generator_args.device_map}"
+    device_map: "auto" # TODO: This might break.
     trust_remote_code: "${generator_args.trust_remote_code}"
     max_new_tokens: "${generator_args.max_new_tokens}"
     do_sample: "${generator_args.do_sample}" 

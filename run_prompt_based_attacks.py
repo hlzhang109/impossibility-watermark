@@ -35,7 +35,7 @@ def main():
                   f"++attack_args.watermarked_text_num=1 " \
                   f"++attack_args.results_dir='./semstamp_attacks/prompt_based/' " \
                   f"++watermark_args.save_file_name='prompt_based_{prompt_num}.csv' " \
-                  f"++watermark_args.only_detect=True " \
+                  f"++attack_args.save_name='prompt_based_{prompt_num}_mask_fill.csv' " \
                   f"++attack_args.is_completion=False " 
 
         stdout, stderr = run_command(command, log_filepath)

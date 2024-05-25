@@ -2,7 +2,7 @@ defaults:
     - _self_
     - watermark_args: semstamp
     # - attack_args: c4_generation
-    # - attack_args: prompt_based_generation
+    - attack_args: prompt_based_generation
     # - attack_args: mixtral_regular_attack
     # - generator_args: large_mixtral
     # - oracle_args: llama3
@@ -37,7 +37,7 @@ attack_args:
     # For continuations
     is_continuation: False
     prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "0,1,2,3"
+    cuda: "0,1,2,3,4,5,6,7"
 
 generator_args:
     # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -63,16 +63,16 @@ oracle_args:
     model_id: "prometheus-eval/prometheus-7b-v2.0"
     download_dir: "${attack_args.model_cache_dir}"
     type: "absolute" # "absolute" "relative"
-    num_gpus: 2
+    num_gpus: 1
 
 mutator_args:
     type: "mask_fill" # llm, mask_fill, span_fill
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     # model_name_or_path: "grammarly/coedit-xl-composite"
-    # model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
+    model_name_or_path: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ"
     revision: "main" 
     model_cache_dir: "${attack_args.model_cache_dir}"
     device_map: "auto" # TODO: This might break.

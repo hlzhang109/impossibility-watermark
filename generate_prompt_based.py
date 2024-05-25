@@ -31,7 +31,6 @@ def main():
                   f"++attack_args.prompt_file='./inputs/tests_v1.csv' " \
                   f"++attack_args.prompt_num={prompt_num} " \
                   f"++attack_args.is_completion=False " \
-                  f"++attack_args.save_name='c4_{prompt_num}_mask_fill.csv' " \
                   f"++watermark_args.save_file_name='prompt_based_{prompt_num}.csv' "
         
         stdout, stderr = run_command(command, log_filepath)

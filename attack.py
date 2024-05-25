@@ -4,7 +4,11 @@ import hydra
 import logging
 import shutil
 from tqdm import tqdm
-from utils import save_to_csv, count_words, get_prompt_or_output, get_mutated_text, get_prompt_and_completion_from_json, get_completion_from_openai, get_perturbation_stats, get_last_step_num, get_watermarker
+from utils import (
+    get_watermarker,
+    save_to_csv,
+    length_diff_exceeds_percentage,
+)
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
@@ -18,8 +22,26 @@ warnings.filterwarnings("ignore", message="Setting `pad_token_id` to `eos_token_
 warnings.filterwarnings("ignore", message="You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset")
 
 class Attack:
+
+    # TODO: Handle csv save path more elegantly, right now everything is going to the same file. 
+    # TODO: Verify that mutators and oracles are working well.
+
     def __init__(self, cfg):
         self.cfg = cfg
+        self.base_step_metadata = {
+            "step_num": -1,
+            "current_text": "",
+            "mutated_text": "", 
+            "current_text_len": -1,
+            "mutated_text_len": -1, 
+            "length_issue": False,
+            "quality_analysis" : {},
+            "quality_preserved": False,
+            "watermark_detected": False,
+            "watermark_score": -1,
+            "backtrack" : False,
+            "timestamp": "",
+        }
         
         self.pipeline_builders = {}
 
@@ -28,11 +50,16 @@ class Attack:
         from model_builders.pipeline import PipeLineBuilder
         from utils import get_watermarker
         from oracles import (
-            AbsoluteOracle,
+            RankOracle,
+            JointOracle,
             RelativeOracle,
+            SoloOracle,
+            PrometheusAbsoluteOracle,
+            PrometheusRelativeOracle,
         )
         from mutators import (
-            LLMMutator,
+            DocumentMutator,
+            SentenceMutator, 
             MaskFillMutator,
             SpanFillMutator
         )
@@ -51,199 +78,188 @@ class Attack:
         else:
             self.generator_pipeline = None
 
-        # self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
+        self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
         
-        # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        if not self.cfg.attack_args.is_continuation and self.cfg.attack_args.use_watermark:
-            self.watermarker  = get_watermarker(cfg, pipeline=self.generator_pipeline, is_completion=cfg.attack_args.is_completion)
-
         # Configure Oracle
         oracle_class = None
-        if "absolute" in cfg.oracle_args.type:
-            oracle_class = AbsoluteOracle
-        elif "relative" in cfg.oracle_args.type:
-            oracle_class = RelativeOracle
+        if "prometheus" in cfg.oracle_args.template:
+            if "relative" in cfg.oracle_args.template:
+                oracle_class = PrometheusRelativeOracle
+            elif "absolute" in cfg.oracle_args.template:
+                oracle_class = PrometheusAbsoluteOracle
+            else:
+                raise ValueError(f"Invalid Prometheus oracle. Choise either 'prometheus.absolute' or 'prometheus.relative'.")
+
+            self.quality_oracle = oracle_class(
+                model_id=self.cfg.oracle_args.model_name_or_path,
+                download_dir=self.cfg.oracle_args.model_cache_dir,
+                num_gpus=self.cfg.oracle_args.num_gpus, 
+            )
         else:
-            raise ValueError(f"Invalid oracle type. Choose 'relative' or 'absolute'")
-        self.quality_oracle = oracle_class(
-            model_id=self.cfg.oracle_args.model_id,
-            download_dir=self.cfg.oracle_args.download_dir,
-            num_gpus=self.cfg.oracle_args.num_gpus, 
-        )
+            if "joint" in cfg.oracle_args.template:
+                oracle_class = JointOracle
+            elif "rank" in cfg.oracle_args.template:
+                oracle_class = RankOracle
+            elif "relative" in cfg.oracle_args.template:
+                oracle_class = RelativeOracle
+            elif "solo" in cfg.oracle_args.template:
+                oracle_class = SoloOracle
+            else:
+                raise ValueError(f"Invalid oracle template. See {cfg.oracle_args.template_dir} for options.")
+            self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
+
+        # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
+        self.watermarker = get_watermarker(cfg, pipeline=self.generator_pipeline)
 
         # Configure Mutator
-        # TODO: Incorporate mutator from distinguisher with the mutator here.
-        if "llm" in cfg.mutator_args.type:
+        if "document" in cfg.mutator_args.type:
             self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
             self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
-        elif "mask_fill" in cfg.mutator_args.type:
-            self.mutator = MaskFillMutator()
-        elif "span_fill" in cfg.mutator_args.type:
+        elif "sentence" in cfg.mutator_args.type:
+            self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
+            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
+        elif "span" in cfg.mutator_args.type:
             self.mutator = SpanFillMutator()
+        elif "word" in cfg.mutator_args.type:
+            self.mutator = MaskFillMutator()
         else:
-            raise ValueError("Invalid mutator type. Must be either 'llm', 'span_fill', or 'mask_fill'.")
+            raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', or 'mask_fill'.")
 
-    def attack(self, cfg, prompt=None, watermarked_text=None):
-        """
-        Mutate the text for a given number of steps with quality control and watermark checking.
-        """
-        
-        # If no save path is provided, create a default timestamp save path
-        save_name = self.cfg.attack_args.save_name
-        if save_name is None:
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d.%H.%M.%S")
-            save_name = f"attack_{timestamp}.csv"
 
-        print(f"self.cfg.attack_args.save_name: {self.cfg.attack_args.save_name}")
-        print(f"save_name: {save_name}")
-        save_path = os.path.join(self.cfg.attack_args.results_dir, save_name)
+    def attack(self, prompt, watermarked_text):
 
-        # Run a continuation
-        if cfg.attack_args.is_continuation:
-            if cfg.attack_args.prev_csv_file is None:
-                raise Exception("If you're running a continuation, you have to provide the name of the previous attack's CSV file.")
+        original = watermarked_text
 
-            prev_csv_path = os.path.join(cfg.attack_args.results_dir, cfg.attack_args.prev_csv_file)
-            
-            log.info(f"Since we're running a continuation, copying {prev_csv_path} to {save_path}.")
-            
-            watermarked_text = get_mutated_text(prev_csv_path)
-            prev_step_count = get_last_step_num(prev_csv_path) + 1
-            
-            log.info(f"Previous step count was {prev_step_count}.")
-            
-            shutil.copy(prev_csv_path, save_path)
-        else:
-            prev_step_count = 0
-        
-        # Generate watermarked response
-        # NOTE: Removed this for now since we want to generate beforehand with SemStamp and only run detection.
-        if watermarked_text is None and prompt is not None:
-            raise Exception("watermarked text can't be None")
-            # log.info("Generating watermarked text from prompt...")
-            # watermarked_text = self.watermarker.generate(prompt)
+        # Preliminary check to ensure that there is some watermark to attack
+        watermark_detected, score = self.watermarker.detect(original)
+        if not watermark_detected:
+            raise ValueError("No watermark detected on input text. Nothing to attack! Exiting...")
 
-        assert watermarked_text is not None, "Unable to proceed without watermarked text!"
-        
-        original_watermarked_text = watermarked_text
-        original_text_len = count_words(original_watermarked_text)
-        
-        # log.info(f"Type of use_watermark: {type(self.cfg.attack_args.use_watermark)}")
-        log.info(f"use_watermark: {self.cfg.attack_args.use_watermark}")
-        if self.cfg.attack_args.use_watermark:
-            watermark_detected, score = self.watermarker.detect(original_watermarked_text)
-        else:
-            watermark_detected, score = False, False
-        
-        log.info(f"Original Watermarked Text: {original_watermarked_text}")
-        
-        # Log the original watermarked text
-        if not self.cfg.attack_args.is_continuation:
-            perturbation_stats = get_perturbation_stats(-1, original_watermarked_text, original_watermarked_text, True, "No analysis.", watermark_detected, score, False)
-            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
+        # Attack loop       
+        backtrack_patience =  0
+        results, mutated_texts = [], [original]
+        for step_num in tqdm(range(self.cfg.attack_args.max_steps)):
 
-        # Attack        
-        patience = 0
-        backtrack_patience = 0
-        successful_perturbations = 0
-        mutated_texts = [original_watermarked_text]
-        for step_num in tqdm(range(self.cfg.attack_args.num_steps)):
+            step_data = self.base_step_metadata
+            step_data.update({"step_num": step_num})
+            step_data.update({"current_text": watermarked_text})
+
+            # Potentially discard the current step and retry a previous one
             backtrack = backtrack_patience > self.cfg.attack_args.backtrack_patience
             if backtrack:
                 log.error(f"Backtrack patience exceeded. Reverting mutated text to previous version.")
                 backtrack_patience = 0
-                if len(mutated_texts) != 1:
+                if len(mutated_texts) > 1:
                     del mutated_texts[-1]
                     watermarked_text = mutated_texts[-1]
-                  
-            if patience > self.cfg.attack_args.patience: # exit after too many failed perturbations
-                log.error("Mixing patience exceeded. Attack failed...")
-                break
 
+            # Step 1: Mutate      
             log.info("Mutating watermarked text...")
             mutated_text = self.mutator.mutate(watermarked_text)
+            step_data.update({"mutated_text": mutated_text})
+            if self.cfg.attack_args.verbose:
+                log.info(f"Mutated text: {mutated_text}")
 
-            log.info(f"Mutated text: {mutated_text}")
-            mutated_text_len = count_words(mutated_text)
+            # Step 2: Length Check
+            log.info(f"Checking mutated text length to ensure it is within {self.cfg.attack_args.length_variance*100}% of the original...")
+            length_issue, original_len, mutated_len = length_diff_exceeds_percentage(
+                text1=original, 
+                text2=mutated_text, 
+                percentage=self.cfg.attack_args.length_variance
+            )
+            step_data.update({"current_text_len": original_len})
+            step_data.update({"mutated_text_len": mutated_len})
+            step_data.update({"length_issue": length_issue})
 
-            if mutated_text_len / original_text_len < 0.95:
-                log.info("Mutation failed to preserve text length requirement...")
-                is_quality_preserved = False
-                # quality_analysis = None
-                watermark_detected = True
-                score = -1
-            else:
-                log.info("Checking quality oracle and watermark detector...")
-                quality_eval = self.quality_oracle.is_quality_preserved(prompt, original_watermarked_text, mutated_text)
-                is_quality_preserved = quality_eval["quality_preserved"]
-
-                if self.cfg.attack_args.use_watermark:
-                    watermark_detected, score = self.watermarker.detect(mutated_text)
-                else:
-                    watermark_detected, score = False, False
-                    
-            perturbation_stats = get_perturbation_stats(step_num + prev_step_count, watermarked_text, mutated_text, is_quality_preserved, "", watermark_detected, score, backtrack)
-            save_to_csv(perturbation_stats, self.cfg.attack_args.results_dir, save_name)
-            
-            if is_quality_preserved:
-                log.info(f"Mutation successful. This was the {successful_perturbations}th successful perturbation.")
-                patience = 0
-                backtrack_patience = 0
-                successful_perturbations += 1
-                watermarked_text = mutated_text
-                mutated_texts.append(mutated_text)
-            else:
-                # If quality is not maintained, increment patience and retry the mutation process
-                log.info("Low quality mutation. Retrying step...")
-                backtrack_patience += 1
-                patience += 1
+            if length_issue:
+                log.warn(f"Failed length check. Previous was {original_len} words and mutated is {mutated_len} words. Skipping quality check and watermark check...")
+                backtrack_patience =+ 1
+                results.append(step_data)
+                save_to_csv(results, self.cfg.attack_args.log_csv_path) 
                 continue
 
-            if watermark_detected:
-                log.info("Successul mutation, but watermark still intact. Taking another mutation step..")
-                continue
-            else:
-                log.info("Watermark not detected.")
-                if (self.cfg.attack_args.use_watermark and self.cfg.attack_args.stop_at_removal) or successful_perturbations >= self.cfg.attack_args.num_successful_steps:
-                    log.info("Attack successful.")
-                    break
+            log.info("Length check passed!")
+
+            # Step 3: Check Quality
+            log.info("Checking quality oracle...")
+            quality_analysis = self.quality_oracle.is_quality_preserved(prompt, original, mutated_text)
+            step_data.update({"quality_analysis": quality_analysis})
+            step_data.update({"quality_preserved": quality_analysis["quality_preserved"]})
         
-        return mutated_text
+            if not quality_analysis["quality_preserved"]:
+                log.warn("Failed quality check. Skipping watermark check...")
+                results.append(step_data)
+                save_to_csv(results, self.cfg.attack_args.log_csv_path)
+                continue
+
+            log.info("Quality check passed!")
+            mutated_texts.append(mutated_text)
+
+            # Step 4: Check Watermark
+            watermark_detected, watermark_score = self.watermarker.detect(mutated_text)
+            step_data.update({"watermark_detected": watermark_detected})
+            step_data.update({"watermark_score": watermark_score})
+            results.append(step_data)
+            save_to_csv(results, self.cfg.attack_args.log_csv_path)
+
+            if not watermark_detected:
+                log.info("Attack successful!")
+                return mutated_text
+            log.info("Watermark still present, continuing on to another step!")
+
+        return original
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg):
     
     import os
 
-    CUDA_VISIBLE_DEVICES = str(cfg.mutator_args.cuda)
-    WORLD_SIZE = str(len(str(cfg.mutator_args.cuda).split(",")))
+    CUDA_VISIBLE_DEVICES = str(cfg.cuda_visible_devices)
+    WORLD_SIZE = str(len(str(cfg.cuda_visible_devices).split(",")))
 
     print(f"CUDA_VISIBLE_DEVICES: {CUDA_VISIBLE_DEVICES}")
     print(f"WORLD_SIZE: {WORLD_SIZE}")
     
     os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
     os.environ["WORLD_SIZE"] = WORLD_SIZE
-    
-    # Read the prompt and the watermarked text from the input files
-    prompt = cfg.attack_args.prompt
-    if prompt is None:
-        prompt = get_prompt_or_output(cfg.attack_args.prompt_file, cfg.attack_args.prompt_num) 
-        
-    watermarked_text = cfg.attack_args.watermarked_text
-    if watermarked_text is None and cfg.attack_args.watermarked_text_path is not None and not cfg.attack_args.is_continuation:
-        watermarked_text = get_prompt_or_output(cfg.attack_args.watermarked_text_path, cfg.attack_args.watermarked_text_num)
-        
-    # If a JSON file is provided, we generate the completion using GPT-4 and attack it.
-    json_path = cfg.attack_args.json_path
-    if json_path:
-        index = cfg.attack_args.json_index
-        prompt, _ = get_prompt_and_completion_from_json(json_path, index)
-        watermarked_text = get_completion_from_openai(prompt)
+
+    prompt = """
+    "Summarize the plot and key details of the movie Captain Marvel, including its setting in the 1990s, main characters, and important scenes from the trailer. Mention the directors, writers, cast, and any interesting production facts or fan theories related to the film."
+    """
+
+    watermarked_text = """
+    "Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. There is no doubt that there are many superhero movies out there but it has been.
+    Captain marvel and the kree-skrull war explained:
+    Marvel Studios released the first trailer for Captain Marvel on September 18, 2018, and it gave us our first look at Brie Larson as Carol Danvers/Captain Marvel. However, the trailer didn't delve too deeply into the plot or the characters. But now, thanks to some new promo art and details from the film's stars and director, we have a better understanding of what's going on in the movie.
+
+    Captain marvel trailer breakdown:
+
+    The Captain Marvel trailer shows us a mix of action, humor, and emotional moments, giving us a glimpse into the life of Carol Danvers (Brie Larson), aka Captain Marvel. Here's a breakdown of what we see in the trailer:
+
+        * The opening shot shows Carol crashing into a Blockbuster Video store in the '90s, which gives away the time period of the film.
+        * We then cut to Carol in her suit, looking fierce and ready for battle.
+        * Next, we see Nick Fury (Samuel L. Jackson) without his iconic eye patch, which suggests this might be before he lost his eye.
+        * The trailer cuts to a montage of action sequences, showing Carol fighting Kree warriors and destroying enemy ships.",semstamp_lsh,MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+    2,"Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. The movie is set to release on March 8, 2019.
+    Directed by: Anna Boden and Ryan Fleck Written by: Geneva Robertson-Dworet, Nicole Perlman, Meg LeFauve Cast: Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg Music by: Pinar Toprak Produced by: Marvel Studios Distributed by: Walt Disney Studios Motion Pictures #CaptainMarvel #BrieLarson #MarvelStudios #AvengersEndgame #MarvelCinematicUniverse #MCU Follow me on Instagram for more updates - instagram.com/the_movie_buff/ Facebook - facebook.com/themoviebuff/
+    What if Captain Marvel was introduced earlier in the MCU? My thought process:
+    Subscribe Here! 🤩👉 bit.ly/2CQq3oP Join The Discord Server! discord.gg/SyHrD6K Become A Patron! patreon.com/TheFilmTheorist Support Me On Ko-Fi! ko-fi.com/thefilmtheorist #CaptainMarvel #MCU #MarvelStudios #TheFilmTheorist **Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for ""fair use"" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.",semstamp_lsh,MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+    3,"Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Here are some fun facts about the movie.
+
+    **1. The Movie Was Written and Directed by Anna Boden and Ryan Fleck**: Boden is the first female director to helm a solo superhero film in the Marvel Cinematic Universe (MCU). She previously directed It's Kind of a Funny Story (2010) and Mississippi Grind (2015).
+
+    **2. Brie Larson Trained for Nine Months to Prepare for the Role**: The actress underwent intense physical training, including martial arts, stunt training, and weightlifting, to play Carol Danvers/Captain Marvel. Her hard work paid off – she can do most of her own stunts!
+
+    **3. The Film Takes Inspiration from the Comics**: The story draws inspiration from Kelly Sue DeConnick's comic book run, particularly the 2014 series Captain Marvel Vol. 7: Earth's Mightiest Hero. Fans of the comics will recognize nods to iconic characters, like Goose the cat.
+
+    **4. Skrulls Were Created Using Advanced VFX Technology**: To bring the shapeshifting aliens to life, visual effects company Digital Domain developed cutting-edge technology to create realistic facial expressions and movements. No prosthetics or makeup were used for the Skrull designs.
+
+    **5. Samuel L. Jackson's Nick Fury Has a Few Surprises**: In this '90s-set film, Nick Fury is a younger, more optimistic agent."
+    """
     
     attacker = Attack(cfg)
-    attacked_text = attacker.attack(cfg, prompt, watermarked_text)
+    attacked_text = attacker.attack(prompt, watermarked_text)
 
-    log.info(f"Prompt: {prompt}")
     log.info(f"Attacked Response: {attacked_text}")
 
 if __name__ == "__main__":

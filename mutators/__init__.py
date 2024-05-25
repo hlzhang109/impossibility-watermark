@@ -1,3 +1,4 @@
-from .llm import LLMMutator
-from .mask_fill import MaskFillMutator
-from .span_fill import SpanFillMutator
+from .document import DocumentMutator
+from .sentence import SentenceMutator
+from .span import SpanFillMutator
+from .word import MaskFillMutator

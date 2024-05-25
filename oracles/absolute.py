@@ -4,7 +4,7 @@ from prometheus_eval import PrometheusEval
 from prometheus_eval.prompts import ABSOLUTE_PROMPT, SCORE_RUBRIC_TEMPLATE
 import warnings
 
-class AbsoluteOracle:
+class PrometheusAbsoluteOracle:
     def __init__(
         self, 
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
@@ -39,9 +39,9 @@ class AbsoluteOracle:
         # Load or initialize the model used for scoring and feedback
         judge = PrometheusEval(
             model_id=self.model_id, 
+            download_dir=self.download_dir,
             num_gpus=self.num_gpus, 
             absolute_grade_template=ABSOLUTE_PROMPT, 
-            download_dir=self.download_dir
         )
         return judge
 
@@ -85,6 +85,7 @@ class AbsoluteOracle:
         }
 
         return quality_eval
+
 if __name__ == "__main__":
 
     instruction = "Analyze the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes."
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     Overall, symbolism in "To Kill a Mockingbird" serves as a powerful tool to deepen readers' understanding of its complex themes, enriching the narrative and leaving a lasting impact on its audience.
     """
 
-    oracle = AbsoluteOracle()
+    oracle = PrometheusAbsoluteOracle()
 
     quality_eval = oracle.is_quality_preserved(
         instruction=instruction, 

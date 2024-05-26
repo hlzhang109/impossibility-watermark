@@ -187,10 +187,7 @@ def parse_llama_output(response):
     response = response[:-9] if response.endswith('assistant') else response
     return response
 
-from umd import UMDWatermarker
-from unigram import UnigramWatermarker
-from exp import EXPWatermarker
-from semstamp import SemStampWatermarker
+from watermarkers import UMDWatermarker, UnigramWatermarker, EXPWatermarker, SemStampWatermarker
 
 def get_watermarker(cfg, **kwargs):
     if cfg.watermark_args.name == "umd":

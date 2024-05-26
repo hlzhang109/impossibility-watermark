@@ -4,6 +4,7 @@ import pandas as pd
 import hydra
 from tqdm import tqdm
 import logging
+from oracles.absolute import AbsoluteOracle
 
 log = logging.getLogger(__name__)
 
@@ -53,6 +54,7 @@ def eval(cfg):
         ("relative.sandpaper.3", RelativeOracle), 
     ]
     log.info(f"Initializing oracles: {','.join(t for t,c in templates)}...")
+    prometheus = AbsoluteOracle()
     oracles = []
     for t, c in templates:
         cfg.oracle_args.template = t
@@ -94,30 +96,52 @@ def eval(cfg):
                     "mutation_step": mutation_step+1,
                     "mutation_time": mutation_time,
                 })
-
-                for oracle in tqdm(oracles, desc='Oracles'):
-
+                
                     # Evaluate Mutation Quality
-                    try:
-                        is_quality_preserved, evals = oracle.is_quality_preserved(row["instruction"], row["output"], text, return_evals=True)
-                    except Exception as e:
-                        print(e)
-                        is_quality_preserved = "Unknown"
-                        evals = {}
+                try:
+                    is_quality_preserved, evals = prometheus.is_quality_preserved(row["instruction"], row["output"], text, return_evals=True)
+                except Exception as e:
+                    print(e)
+                    is_quality_preserved = "Unknown"
+                    evals = {}
 
-                    out_dict.update({
-                        "oracle": oracle.__class__.__name__,
-                        "quality_preserved": is_quality_preserved,
-                        **evals
-                    })
+                out_dict.update({
+                    "oracle": "Prometheus: Relative",
+                    "quality_preserved": is_quality_preserved,
+                    **evals
+                })
 
-                    log.info(f"Test {index}: {out_dict}")
-                    results.append(out_dict)
+                log.info(f"Test {index}: {out_dict}")
+                results.append(out_dict)
 
-                    # Incremental saving over time...
-                    log.info("Saving results to csv...")
-                    df = pd.DataFrame(results)
-                    df.to_csv("./results/mutator_eval.csv", index=False)
+                # Incremental saving over time...
+                log.info("Saving results to csv...")
+                df = pd.DataFrame(results)
+                df.to_csv("./results/mutator_eval.csv", index=False)
+
+                # for oracle in tqdm(oracles, desc='Oracles'):
+
+                #     # Evaluate Mutation Quality
+                #     try:
+                #         is_quality_preserved, evals = oracle.is_quality_preserved(row["instruction"], row["output"], text, return_evals=True)
+                #     except Exception as e:
+                #         print(e)
+                #         is_quality_preserved = "Unknown"
+                #         evals = {}
+
+                #     out_dict.update({
+                #         "oracle": oracle.__class__.__name__,
+                #         "quality_preserved": is_quality_preserved,
+                #         **evals
+                #     })
+
+                #     log.info(f"Test {index}: {out_dict}")
+                #     results.append(out_dict)
+
+                #     # Incremental saving over time...
+                #     log.info("Saving results to csv...")
+                #     df = pd.DataFrame(results)
+                #     df.to_csv("./results/mutator_eval.csv", index=False)
 
 if __name__ == "__main__":
     eval()

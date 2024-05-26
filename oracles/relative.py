@@ -1,7 +1,7 @@
 from prometheus_eval import PrometheusEval
 from prometheus_eval.prompts import RELATIVE_PROMPT
 
-class RelativeOracle:
+class PrometheusRelativeOracle:
     """Relative Grading: Outputs A or B"""
     def __init__(
         self, 
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     Overall, symbolism in "To Kill a Mockingbird" serves as a powerful tool to deepen readers' understanding of its complex themes, enriching the narrative and leaving a lasting impact on its audience.
     """
 
-    oracle = RelativeOracle()
+    oracle = PrometheusRelativeOracle()
 
     quality_eval = oracle.is_quality_preserved(
         instruction=instruction, 

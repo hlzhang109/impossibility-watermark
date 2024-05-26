@@ -4,21 +4,25 @@ import os
 import json
 import datetime
 import textwrap
-from openai import OpenAI
+# from openai import OpenAI
 import difflib
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-def save_to_csv(data, dir, filename, rewrite=False):
+def save_to_csv(data, file_path, rewrite=False):
     df_out = pd.DataFrame(data)
-    file_path = os.path.join(dir, filename)
+    
+    # Ensure the directory exists
+    dir_path = os.path.dirname(file_path)
+    os.makedirs(dir_path, exist_ok=True)
+    
     if os.path.exists(file_path) and not rewrite:
         df_out.to_csv(file_path, mode='a', header=False, index=False)  # Append without writing headers
     else:
-        os.makedirs(dir, exist_ok=True)
         df_out.to_csv(file_path, index=False)  # Create new file with headers
-    print(f"Data appended to {file_path}")
+    
+    print(f"Data saved to {file_path}")
 
 def count_csv_entries(file_path):
     # Read the CSV file into a DataFrame
@@ -35,6 +39,33 @@ def count_words(text):
     if text is None:
         return 0
     return len(text.split())
+
+def length_diff_exceeds_percentage(text1, text2, percentage):
+
+    # If less than zero, assume disabled
+    if percentage < 0:
+        return False
+
+    # Split the texts into words and count the number of words
+    words1 = text1.split()
+    words2 = text2.split()
+    len1 = len(words1)
+    len2 = len(words2)
+    
+    # Calculate the absolute difference in the number of words
+    word_diff = abs(len1 - len2)
+    
+    # Calculate the percentage difference relative to the smaller text
+    smaller_len = min(len1, len2)
+    
+    # Avoid division by zero in case one of the texts is empty
+    if smaller_len == 0:
+        return word_diff > 0
+    
+    percentage_diff = (word_diff / smaller_len)
+    
+    # Check if the percentage difference exceeds the specified threshold
+    return percentage_diff > percentage, len1, len2
 
 def get_prompt_or_output(csv_path, num):
     # Read the CSV file
@@ -98,53 +129,53 @@ def get_prompt_and_completion_from_json(file_path, index):
     
     return prompt, watermarked_text
 
-def query_openai(prompt, model = "gpt-4-turbo-2024-04-09", max_tokens = None):
-    client = OpenAI()
+# def query_openai(prompt, model = "gpt-4-turbo-2024-04-09", max_tokens = None):
+#     client = OpenAI()
 
-    completion = client.chat.completions.create(
-    model=model,
-    max_tokens=max_tokens,
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-    ]
-    )
+#     completion = client.chat.completions.create(
+#     model=model,
+#     max_tokens=max_tokens,
+#     messages=[
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {"role": "user", "content": prompt}
+#     ]
+#     )
     
-    response = completion.choices[0].message
+#     response = completion.choices[0].message
     
-    return response.content
+#     return response.content
 
-def get_completion_from_openai(prefix, max_tokens = None):
-    completion = query_openai(prefix, max_tokens=max_tokens)
-    completion = prefix + " " + completion
-    return completion
+# def get_completion_from_openai(prefix, max_tokens = None):
+#     completion = query_openai(prefix, max_tokens=max_tokens)
+#     completion = prefix + " " + completion
+#     return completion
 
-def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-turbo-2024-04-09"):
-    client = OpenAI()
+# def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-turbo-2024-04-09"):
+#     client = OpenAI()
 
-    completion = client.chat.completions.create(
-    model=model,
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": initial_prompt}
-    ]
-    )
+#     completion = client.chat.completions.create(
+#     model=model,
+#     messages=[
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {"role": "user", "content": initial_prompt}
+#     ]
+#     )
 
-    first_response = completion.choices[0].message
+#     first_response = completion.choices[0].message
     
-    completion = client.chat.completions.create(
-    model=model,
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": initial_prompt},
-        {'role': "assistant", "content": first_response.content},
-        {"role": "user", "content": follow_up_prompt},
-    ]
-    )
+#     completion = client.chat.completions.create(
+#     model=model,
+#     messages=[
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {"role": "user", "content": initial_prompt},
+#         {'role': "assistant", "content": first_response.content},
+#         {"role": "user", "content": follow_up_prompt},
+#     ]
+#     )
 
-    second_response = completion.choices[0].message
+#     second_response = completion.choices[0].message
     
-    return first_response, second_response
+#     return first_response, second_response
 
 def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserved, quality_analysis, watermark_detected, watermark_score, backtrack):
     perturbation_stats = [{

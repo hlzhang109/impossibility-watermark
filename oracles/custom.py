@@ -127,9 +127,9 @@ class Oracle(ABC):
         pass
 
     def _initialize_pipeline(self, pipeline):
-        if not isinstance(pipeline, (PipeLineBuilder, HuggingFacePipeline)):
+        if not isinstance(pipeline, HuggingFacePipeline):
             log.info("Initializing a new Oracle pipeline from cfg...")
-            return PipeLineBuilder(self.cfg)
+            return PipeLineBuilder(self.cfg).pipeline
         return pipeline
 
 class RankOracle(Oracle):
@@ -140,7 +140,7 @@ class RankOracle(Oracle):
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
             parser=PydanticOutputParser(pydantic_object=RankAnswer),
-            llm=self.pipeline.pipeline,
+            llm=self.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
  
@@ -204,7 +204,7 @@ class RankOracle(Oracle):
             eval_label = 5 # output_2 is better
         return eval_label
 
-    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
@@ -217,12 +217,12 @@ class RankOracle(Oracle):
         else:
             is_quality_preserved = False
 
-        if return_evals:
-            original = add_prefix_to_keys(original, "original_")
-            followup = add_prefix_to_keys(followup, "followup_")
-            original.update({**followup})
-            return is_quality_preserved, original
-        return is_quality_preserved
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({**followup})
+        original.update({**followup})
+        original.update({"quality_preserved": quality_preserved})
+        return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
         original_label = numerize_label(downscale_label(label))
@@ -263,7 +263,7 @@ class JointOracle(Oracle):
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
             parser=PydanticOutputParser(pydantic_object=JointAnswer),
-            llm=self.pipeline.pipeline,
+            llm=self.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
  
@@ -335,7 +335,7 @@ class JointOracle(Oracle):
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
             return 5
 
-    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
@@ -344,16 +344,15 @@ class JointOracle(Oracle):
         followup_pred = self.extract_label(followup)
         
         if original_pred in [3,4,5] and followup_pred in [1,2,3]:
-            is_quality_preserved = True
+            quality_preserved = True
         else:
-            is_quality_preserved = False
+            quality_preserved = False
 
-        if return_evals:
-            original = add_prefix_to_keys(original, "original_")
-            followup = add_prefix_to_keys(followup, "followup_")
-            original.update({**followup})
-            return is_quality_preserved, original
-        return is_quality_preserved
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({**followup})
+        original.update({"quality_preserved": quality_preserved})
+        return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
         original_label = numerize_label(label)
@@ -395,7 +394,7 @@ class RelativeOracle(Oracle):
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
             parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
-            llm=self.pipeline.pipeline,
+            llm=self.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
  
@@ -484,7 +483,7 @@ class RelativeOracle(Oracle):
                 log.info(f"Invalid parsed values: {response, status}")
                 return -1
 
-    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
         log.debug(f"Original: {original}")
@@ -495,16 +494,15 @@ class RelativeOracle(Oracle):
         followup_pred = self.extract_label(followup)
         
         if original_pred in [3,4,5] and followup_pred in [1,2,3]:
-            is_quality_preserved = True
+            quality_preserved = True
         else:
-            is_quality_preserved = False
+            quality_preserved = False
 
-        if return_evals:
-            original = add_prefix_to_keys(original, "original_")
-            followup = add_prefix_to_keys(followup, "followup_")
-            original.update({**followup})
-            return is_quality_preserved, original
-        return is_quality_preserved
+        original = add_prefix_to_keys(original, "original_")
+        followup = add_prefix_to_keys(followup, "followup_")
+        original.update({**followup})
+        original.update({"quality_preserved": quality_preserved})
+        return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
 
@@ -552,7 +550,7 @@ class SoloOracle(Oracle):
         # init output parser with template specific object
         self.output_parser = OutputFixingParser.from_llm(
             parser=PydanticOutputParser(pydantic_object=SoloAnswer),
-            llm=self.pipeline.pipeline,
+            llm=self.pipeline,
             max_retries=self.cfg.num_formatting_retries,
         )
  
@@ -628,7 +626,7 @@ class SoloOracle(Oracle):
 
         return pred
 
-    def is_quality_preserved(self, instruction, output_1, output_2, return_evals=False, **kwargs):
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
         output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
@@ -639,16 +637,15 @@ class SoloOracle(Oracle):
         pred = self.derive_label(output_1_score, output_2_score)
         
         if pred in [3,4,5]:
-            is_quality_preserved = True
+            quality_preserved = True
         else:
-            is_quality_preserved = False
+            quality_preserved = False
 
-        if return_evals:
-            output_1_evaluation = add_prefix_to_keys(output_1_evaluation, "output_1_")
-            output_2_evaluation = add_prefix_to_keys(output_2_evaluation, "output_2_")
-            output_1_evaluation.update({**output_2_evaluation})
-            return is_quality_preserved, output_1_evaluation
-        return is_quality_preserved
+        output_1_evaluation = add_prefix_to_keys(output_1_evaluation, "output_1_")
+        output_2_evaluation = add_prefix_to_keys(output_2_evaluation, "output_2_")
+        output_1_evaluation.update({**output_2_evaluation})
+        output_1_evaluation.update({"quality_preserved": quality_preserved})
+        return output_1_evaluation
 
 
     def test(self, instruction, output_1, output_2, label, **kwargs):

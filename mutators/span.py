@@ -253,8 +253,8 @@ def test(cfg):
     import textwrap
     import os
 
-    CUDA_VISIBLE_DEVICES = str(cfg.mutator_args.cuda)
-    WORLD_SIZE = str(len(str(cfg.mutator_args.cuda).split(",")))
+    CUDA_VISIBLE_DEVICES = str(cfg.cuda_visible_devices)
+    WORLD_SIZE = str(len(str(cfg.cuda_visible_devices).split(",")))
 
     log.info(f"CUDA_VISIBLE_DEVICES: {CUDA_VISIBLE_DEVICES}")
     log.info(f"WORLD_SIZE: {WORLD_SIZE}")

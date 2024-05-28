@@ -1,0 +1,1876 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 16:31:10,162][__main__][INFO] - Starting to watermark...
+[2024-05-26 16:31:10,168][__main__][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Healthtech startup Health2Sync, which launched at the Hardware Battlefield at CES 2014, wants to change all that with a cheap accessory that connects to most standard glucose meters and syncs your blood glucose levels straight to your phone.
+The company announced today it has secured a $3 million Series A round led by WI Harper Group, with participation in the round by Cherubic Ventures, iSeed Ventures and SparkLabs Global Ventures.
+According to the company’s press release, Health2Sync will use the funding to continue product development and accelerate growth overseas in markets like Japan, China and Southeast Asia.
+At its core, the Health2Sync is a cable that connects your smartphone to your glucose meter via the headphone jack to get the two devices talking. Once these devices are connected, data stored on your glucose meter will sync with your smartphone via the Health2Sync app.
+The app is available for both Android and iOS and the cable comes in two varieties — one for legacy glucose meters, and another for more modern meters that transmit data via infrared.
+In addition to displaying the data both numerically and graphically, users of the Health2Sync app can add family members so these loved ones can help them manage their diabetes. It also lets you send data to your physician and diabetic educator so these professional caregivers can do the same.
+And the company claims it gets results. According to a press release, the average HbA1c levels of patients dropped from 8.6 percent to 6.89 percent in patients who had been using Health2Sync for 120 days, which led to significant drops in the risk of health complications in these patients.
+Patients are typically considered to be in control when HbA1c levels are at or below 7-8 percent, according to Mayo Clinic.
+With an additional $3 million in the bank, Health2Sync should be able to make advances in their technology that help people take better control of their diabetes, especially in areas like Japan, China and Southeast Asia that the company is targeting.
+We can’t wait to see how they do. We also can’t wait to see the next round of future success stories in the Battlefield at Disrupt SF 2016, which takes place in just a few short weeks, September 12-14 at San Francisco’s Pier 48.
+[2024-05-26 16:31:10,168][__main__][INFO] - Getting the watermarker...
+[2024-05-26 16:31:10,168][watermarker][INFO] - Using device: cuda
+[2024-05-26 16:31:10,168][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 16:31:13,679][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 16:31:22,520][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 16:31:24,201][semstamp][INFO] - Setting up generating components...
+[2024-05-26 16:31:24,204][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 16:31:24,204][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 16:31:24,204][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 16:31:25,047][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 16:31:25,104][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 16:31:25,105][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 16:31:25,105][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.76it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.75it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 16:31:27,001][semstamp][INFO] - Candidate text:  The Freestyle Libre 2 system provides a more efficient way to monitor glucose levels.
+[2024-05-26 16:31:27,002][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.91it/s]
+[2024-05-26 16:31:27,023][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:31:27,023][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:27,023][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:27,023][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:27,771][semstamp][INFO] - Candidate text:  That's where technology comes in handy.
+[2024-05-26 16:31:27,772][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 105.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.37it/s]
+[2024-05-26 16:31:27,792][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:31:27,792][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:27,792][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:27,792][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:29,212][semstamp][INFO] - Candidate text:  Fortunately, there are many apps available nowadays that help automate various tasks related to managing diabetes.
+[2024-05-26 16:31:29,213][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.35it/s]
+[2024-05-26 16:31:29,231][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:29,231][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:29,231][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:29,231][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:30,715][semstamp][INFO] - Candidate text:  Luckily, advancements in technology have enabled various apps and wearable devices that make monitoring so much easier.
+[2024-05-26 16:31:30,715][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.86it/s]
+[2024-05-26 16:31:30,732][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:31:30,732][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:30,733][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:30,733][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:31,814][semstamp][INFO] - Candidate text:  Remembering to take your medication, day in and day out?
+[2024-05-26 16:31:31,814][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 98.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.69it/s]
+[2024-05-26 16:31:31,835][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:31:31,835][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:31,835][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:31,835][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:33,858][semstamp][INFO] - Candidate text:  Keeping a logbook is helpful but it may become cumbersome to write down each reading especially if you have a variable schedule throughout the week.
+
+[2024-05-26 16:31:33,859][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.78it/s]
+[2024-05-26 16:31:33,877][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:31:33,877][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:33,877][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:33,877][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:35,831][semstamp][INFO] - Candidate text:  Logging blood glucose levels, tracking medication and food intake, noting symptoms or side effects – all of these things take time and effort.
+
+[2024-05-26 16:31:35,832][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.47it/s]
+[2024-05-26 16:31:35,849][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:35,849][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:35,849][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:35,849][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:37,669][semstamp][INFO] - Candidate text:  There’s always something to track, record and analyze: blood sugar levels, medication intake, carb counts and so on.
+
+[2024-05-26 16:31:37,670][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.75it/s]
+[2024-05-26 16:31:37,687][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:37,687][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:37,688][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:37,688][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:39,507][semstamp][INFO] - Candidate text:  One may forget to keep their blood sugar logs up to date, and tracking food intake and exercise routine may become challenging.
+
+[2024-05-26 16:31:39,507][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.65it/s]
+[2024-05-26 16:31:39,516][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:39,517][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:41,005][semstamp][INFO] - Candidate text:  Not only does it require dedication and discipline, but it also opens up room for human error.
+
+[2024-05-26 16:31:41,005][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.01it/s]
+[2024-05-26 16:31:41,023][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:31:41,023][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:41,023][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:41,023][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:41,907][semstamp][INFO] - Candidate text:  And who doesn't like technology that makes life easier
+[2024-05-26 16:31:41,908][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.53it/s]
+[2024-05-26 16:31:41,925][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:31:41,925][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:41,925][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:41,925][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:42,674][semstamp][INFO] - Candidate text:  That's where digital tools come in.
+
+[2024-05-26 16:31:42,675][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.88it/s]
+[2024-05-26 16:31:42,691][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:31:42,692][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:42,692][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:42,692][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:43,908][semstamp][INFO] - Candidate text:  Diabetes managers are available that can help ease the process and make tracking easier.
+
+[2024-05-26 16:31:43,908][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.06it/s]
+[2024-05-26 16:31:43,925][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:31:43,925][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:43,925][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:43,925][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:45,211][semstamp][INFO] - Candidate text:  Logbooks and journals can become cluttered with messy handwriting or torn out pages.
+[2024-05-26 16:31:45,211][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.23it/s]
+[2024-05-26 16:31:45,220][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:45,220][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:46,977][semstamp][INFO] - Candidate text:  With the Health Mate app and smart blood glucose meter, I no longer have to worry about manually tracking my readings.
+[2024-05-26 16:31:46,977][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.08it/s]
+[2024-05-26 16:31:46,987][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:46,987][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:48,945][semstamp][INFO] - Candidate text:  Luckily, there are tools that can help streamline the process and make it easier to keep on top of blood sugar levels and medication.
+
+[2024-05-26 16:31:48,946][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.47it/s]
+[2024-05-26 16:31:48,964][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:31:48,965][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:48,965][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:48,965][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:50,722][semstamp][INFO] - Candidate text:  You have to remember to take your blood glucose readings at least four times per day and then manually record the numbers.
+
+[2024-05-26 16:31:50,723][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.60it/s]
+[2024-05-26 16:31:50,741][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:50,741][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:50,741][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:50,741][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:52,636][semstamp][INFO] - Candidate text:  With mySugr, you can log your levels and any relevant data with just a few taps on your phone screen.
+
+[2024-05-26 16:31:52,636][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.02it/s]
+[2024-05-26 16:31:52,655][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:52,655][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:52,655][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:52,655][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:54,080][semstamp][INFO] - Candidate text:  You have to manually record everything - blood sugar readings, meals, exercise, and medications.
+[2024-05-26 16:31:54,080][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.24it/s]
+[2024-05-26 16:31:54,098][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:31:54,098][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:54,098][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:54,099][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:56,555][semstamp][INFO] - Candidate text:  Between checking blood glucose levels, logging food and exercise, noting changes in medication, as well as scheduling doctors' appointments, there are so many factors to account for!
+
+[2024-05-26 16:31:56,556][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.77it/s]
+[2024-05-26 16:31:56,574][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:56,575][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:56,575][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:56,575][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:31:58,879][semstamp][INFO] - Candidate text:  Luckily for those looking to track blood glucose levels more efficiently, there are several apps that make logging and tracking data on a daily basis much easier and accessible.
+
+
+[2024-05-26 16:31:58,880][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.59it/s]
+[2024-05-26 16:31:58,898][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:31:58,899][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:31:58,899][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:31:58,899][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:00,588][semstamp][INFO] - Candidate text:  For a patient with diabetes, monitoring blood sugar levels, medication intake, and logging insulin doses regularly is crucial.
+[2024-05-26 16:32:00,589][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.59it/s]
+[2024-05-26 16:32:00,607][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:00,607][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:00,607][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:00,607][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:02,697][semstamp][INFO] - Candidate text:  There are lots of apps and tools that can help streamline monitoring, blood glucose levels, insulin doses, carb counting, and other important variables.
+
+
+[2024-05-26 16:32:02,698][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.69it/s]
+[2024-05-26 16:32:02,716][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:02,716][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:02,716][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:02,716][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:04,941][semstamp][INFO] - Candidate text:  With so many carbs to count, sugar levels to check, and meds to manage - there are some amazing techy gadgets that can make life easier.
+
+[2024-05-26 16:32:04,941][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.91it/s]
+[2024-05-26 16:32:04,959][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:04,959][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:04,959][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:04,959][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:06,244][semstamp][INFO] - Candidate text:  With our app Diabetes Diary  it becomes super convenient and quick to do so!
+[2024-05-26 16:32:06,245][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.16it/s]
+[2024-05-26 16:32:06,262][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:06,262][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:06,262][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:06,262][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:07,750][semstamp][INFO] - Candidate text:  That's why I have created this guide on how you use technology effectively to manage your diabetes.
+
+
+[2024-05-26 16:32:07,750][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.73it/s]
+[2024-05-26 16:32:07,768][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:32:07,768][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:07,768][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:07,768][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:08,719][semstamp][INFO] - Candidate text:  Glucose levels need to be recorded and reviewed regularly.
+[2024-05-26 16:32:08,719][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.63it/s]
+[2024-05-26 16:32:08,736][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:08,736][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:08,736][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:08,736][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:09,754][semstamp][INFO] - Candidate text:  With all the medications, meal planning and blood glucose monitoring.
+[2024-05-26 16:32:09,754][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.56it/s]
+[2024-05-26 16:32:09,771][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:32:09,771][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:09,771][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:09,771][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:12,334][semstamp][INFO] - Candidate text:  With so many data points to keep tabs on, including blood glucose levels, carbohydrate intake, medication doses and more, it can be easy to make mistakes or forget important information.
+
+[2024-05-26 16:32:12,335][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.87it/s]
+[2024-05-26 16:32:12,344][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:12,344][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:13,901][semstamp][INFO] - Candidate text:  Keeping a detailed food diary and tracking progress over time requires discipline, patience, and attention to detail.
+
+[2024-05-26 16:32:13,901][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.61it/s]
+[2024-05-26 16:32:13,919][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:13,919][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:13,919][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:13,919][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:15,341][semstamp][INFO] - Candidate text:  It may include recording your glucose readings, meals you eat and medications taken throughout the day.
+
+[2024-05-26 16:32:15,342][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.73it/s]
+[2024-05-26 16:32:15,359][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:32:15,359][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:15,359][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:15,359][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:17,724][semstamp][INFO] - Candidate text:  That's why Medibio came up with an innovative app-based solution called Glucome, which makes tracking blood glucose levels faster and more convenient than ever.
+
+[2024-05-26 16:32:17,725][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.65it/s]
+[2024-05-26 16:32:17,743][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:17,743][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:17,743][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:17,743][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:18,967][semstamp][INFO] - Candidate text:  I want to emphasize the importance of data logging in managing the condition effectively.
+[2024-05-26 16:32:18,967][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.74it/s]
+[2024-05-26 16:32:18,984][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:18,984][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:18,984][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:18,985][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:21,037][semstamp][INFO] - Candidate text:  Paper logbooks can get lost or damaged easily, and remembering to take your medications and doing them at the right time can be tricky.
+
+[2024-05-26 16:32:21,038][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.44it/s]
+[2024-05-26 16:32:21,058][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:32:21,058][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:21,058][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:21,058][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:22,998][semstamp][INFO] - Candidate text:  You need to manually log your blood glucose readings, foods, and medications, which can lead to inaccuracies or missing data.
+
+
+[2024-05-26 16:32:22,999][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 106.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 114.03it/s]
+[2024-05-26 16:32:23,024][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:23,024][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:23,024][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:23,024][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:25,208][semstamp][INFO] - Candidate text:  One study found that only around  half of people with type 2 diabetes actually follow the recommended guidelines for monitoring their blood sugar levels [1].
+[2024-05-26 16:32:25,208][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.57it/s]
+[2024-05-26 16:32:25,226][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:25,226][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:25,226][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:25,227][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:27,387][semstamp][INFO] - Candidate text:  You've got to remember to test your blood sugar levels regularly, record the data accurately, and keep track of your medications and other health indicators.
+[2024-05-26 16:32:27,388][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.46it/s]
+[2024-05-26 16:32:27,397][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:27,397][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:28,486][semstamp][INFO] - Candidate text:  Logbooks and pens, constant reminders, all that data entry!
+[2024-05-26 16:32:28,486][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.59it/s]
+[2024-05-26 16:32:28,495][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:28,495][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:29,851][semstamp][INFO] - Candidate text:  Having automated tools makes life easier for people who already have too much on their plate.
+
+[2024-05-26 16:32:29,852][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.72it/s]
+[2024-05-26 16:32:29,869][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:29,869][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:29,869][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:29,869][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:32,440][semstamp][INFO] - Candidate text:  The Diabeat app offers an easy-to-use solution that connects with various wearable devices and health apps to monitor glucose levels, log food and exercise as well as track mood.
+
+[2024-05-26 16:32:32,440][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.87it/s]
+[2024-05-26 16:32:32,458][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:32,459][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:32,459][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:32,459][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:33,835][semstamp][INFO] - Candidate text:  With Diabetes Log, you'll never have to worry about writing down your levels again.
+[2024-05-26 16:32:33,836][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.43it/s]
+[2024-05-26 16:32:33,855][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:32:33,855][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:33,855][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:33,855][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:35,154][semstamp][INFO] - Candidate text:  Logging and monitoring your daily intake and progress requires dedication as well as strong organization.
+
+[2024-05-26 16:32:35,154][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.54it/s]
+[2024-05-26 16:32:35,172][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:35,172][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:35,172][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:35,172][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:36,661][semstamp][INFO] - Candidate text:  The need to constantly log blood sugar levels, insulin dosages, and medications can become exhausting.
+
+[2024-05-26 16:32:36,661][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.13it/s]
+[2024-05-26 16:32:36,678][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:36,678][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:36,679][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:36,679][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:38,593][semstamp][INFO] - Candidate text:  This app is designed to assist individuals in managing and tracking glucose levels, food intake and exercise plans all from one simple platform.
+
+
+[2024-05-26 16:32:38,593][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.21it/s]
+[2024-05-26 16:32:38,611][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:38,611][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:38,611][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:38,611][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:39,966][semstamp][INFO] - Candidate text:  That's where the diabetes management system "Diabetes Log" comes in! 
+
+
+[2024-05-26 16:32:39,967][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.81it/s]
+[2024-05-26 16:32:39,983][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:39,984][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:39,984][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:39,984][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:41,875][semstamp][INFO] - Candidate text:  You have to remember to log your glucose levels every day, and then actually do it in some sort of log or spreadsheet.
+[2024-05-26 16:32:41,876][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.12it/s]
+[2024-05-26 16:32:41,893][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:41,893][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:41,893][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:41,893][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:43,382][semstamp][INFO] - Candidate text:  Keeping track of blood glucose levels, medications, and dosages can lead to frustration and anxiety.
+[2024-05-26 16:32:43,382][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.94it/s]
+[2024-05-26 16:32:43,391][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:43,391][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:44,747][semstamp][INFO] - Candidate text:  Writing everything down in a log can be time-consuming and forgetting appointments can happen easily.
+[2024-05-26 16:32:44,747][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.92it/s]
+[2024-05-26 16:32:44,764][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:44,764][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:44,765][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:44,765][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:46,994][semstamp][INFO] - Candidate text:  There’s the constant monitoring of glucose levels, taking note of medication, eating habits, and physical activity – all while trying to find connections between them.
+
+
+[2024-05-26 16:32:46,994][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.94it/s]
+[2024-05-26 16:32:47,004][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:47,004][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:48,361][semstamp][INFO] - Candidate text:  With constant tracking and monitoring comes endless paperwork, phone calls, and doctor's appointments.
+
+
+[2024-05-26 16:32:48,361][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.95it/s]
+[2024-05-26 16:32:48,378][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:32:48,378][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:32:48,379][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:32:48,379][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:49,403][semstamp][INFO] - Candidate text: This is where technology can make a significant difference.
+[2024-05-26 16:32:49,404][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.62it/s]
+[2024-05-26 16:32:49,421][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:32:49,421][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:49,421][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:49,421][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:50,445][semstamp][INFO] - Candidate text: That's where digital diabetes management solutions come in!
+
+
+[2024-05-26 16:32:50,446][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.51it/s]
+[2024-05-26 16:32:50,454][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:50,455][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:52,221][semstamp][INFO] - Candidate text: The digital sphere has made life easier by developing some amazing technologies to make managing diabetes as seamless as possible!
+
+
+[2024-05-26 16:32:52,221][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.07it/s]
+[2024-05-26 16:32:52,239][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:32:52,239][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:52,239][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:52,239][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:53,604][semstamp][INFO] - Candidate text: The digital health era offers many solutions that help alleviate some of these problems.
+[2024-05-26 16:32:53,605][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.00it/s]
+[2024-05-26 16:32:53,623][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:32:53,623][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:53,623][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:53,624][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:54,649][semstamp][INFO] - Candidate text: That's where apps like this come in handy!
+
+
+[2024-05-26 16:32:54,649][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.24it/s]
+[2024-05-26 16:32:54,667][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:32:54,667][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:54,667][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:54,667][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:55,558][semstamp][INFO] - Candidate text: This is where digital solutions come in!
+
+
+[2024-05-26 16:32:55,558][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.93it/s]
+[2024-05-26 16:32:55,576][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:32:55,576][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:55,576][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:55,576][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:57,140][semstamp][INFO] - Candidate text: Now imagine having all that data at your fingertips (or should I say, on your wrist
+[2024-05-26 16:32:57,140][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.26it/s]
+[2024-05-26 16:32:57,158][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:32:57,158][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:57,158][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:57,158][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:32:58,182][semstamp][INFO] - Candidate text: What if we had something that makes this easier?
+[2024-05-26 16:32:58,183][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.75it/s]
+[2024-05-26 16:32:58,199][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:32:58,200][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:32:58,200][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:32:58,200][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:00,099][semstamp][INFO] - Candidate text: But thanks to technology advancements and connected health innovations, diabetes management is becoming more streamlined, efficient and convenient for patients!
+
+
+[2024-05-26 16:33:00,100][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.31it/s]
+[2024-05-26 16:33:00,117][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:33:00,117][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:00,117][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:33:00,117][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:01,682][semstamp][INFO] - Candidate text: The goal is to reduce the administrative burden while still maintaining accurate records for effective diabetes management.
+[2024-05-26 16:33:01,682][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.44it/s]
+[2024-05-26 16:33:01,700][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:33:01,700][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:01,700][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:33:01,700][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:04,023][semstamp][INFO] - Candidate text: Fortunately, advancements in technology have helped alleviate these burdens, introducing new digital tools for diabetics that simplify the day-to-day management of diabetes.
+
+
+
+
+[2024-05-26 16:33:04,024][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.47it/s]
+[2024-05-26 16:33:04,041][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:33:04,041][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:04,041][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:33:04,042][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:05,413][semstamp][INFO] - Candidate text: This made me curious about how to build something that could change this narrative.
+[2024-05-26 16:33:05,413][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.98it/s]
+[2024-05-26 16:33:05,430][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:05,430][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:33:05,431][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:33:05,431][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:06,889][semstamp][INFO] - Candidate text:  How could we create a system that automatically collects health data for us?
+[2024-05-26 16:33:06,889][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.78it/s]
+[2024-05-26 16:33:06,908][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:06,908][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:33:06,908][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:33:06,909][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:08,487][semstamp][INFO] - Candidate text:  This was how the idea of "Diabeo" was born...
+
+!
+[2024-05-26 16:33:08,487][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 111.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 110.96it/s]
+[2024-05-26 16:33:08,512][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:33:08,513][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:08,513][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:08,513][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:10,063][semstamp][INFO] - Candidate text:  A wearable device that synchronizes our vital signs with the doctor's office?
+
+
+[2024-05-26 16:33:10,064][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.21it/s]
+[2024-05-26 16:33:10,083][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:33:10,084][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:10,084][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:10,084][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:12,216][semstamp][INFO] - Candidate text:  One that takes into account various aspects like nutrition, exercise, stress levels, and provides personalized guidance based on individual data?
+
+
+[2024-05-26 16:33:12,217][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.78it/s]
+[2024-05-26 16:33:12,235][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:33:12,235][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:12,235][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:12,235][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:13,952][semstamp][INFO] - Candidate text:  
+
+What if technology could simplify, streamline, and empower those with diabetes and their caregivers?
+
+
+[2024-05-26 16:33:13,953][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.34it/s]
+[2024-05-26 16:33:13,970][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:33:13,971][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:13,971][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:13,971][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:16,298][semstamp][INFO] - Candidate text:  That automates logging our insulin levels, sends alerts when they get out of whack, and integrates with our doctor’s clinic seamlessly?
+
+
+[2024-05-26 16:33:16,298][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.49it/s]
+[2024-05-26 16:33:16,308][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:16,308][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:19,335][semstamp][INFO] - Candidate text:  One that keeps up-to-date records of our vital signs, insulin doses, food intake, exercises, medications and other vital information, without needing to manually enter or dictate every single detail?
+
+
+[2024-05-26 16:33:19,336][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.31it/s]
+[2024-05-26 16:33:19,354][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:19,354][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:19,354][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:19,354][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:20,802][semstamp][INFO] - Candidate text:  How could it keep our doctors informed without making us jump through hoops?
+
+
+[2024-05-26 16:33:20,802][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.44it/s]
+[2024-05-26 16:33:20,821][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:20,821][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:20,821][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:20,821][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:22,685][semstamp][INFO] - Candidate text:  One that allows doctors to review our records with ease, saving time and effort in the long run?
+
+
+[2024-05-26 16:33:22,685][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.15it/s]
+[2024-05-26 16:33:22,694][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:22,695][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:23,534][semstamp][INFO] - Candidate text:  An automated health assistant?
+
+
+[2024-05-26 16:33:23,534][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.70it/s]
+[2024-05-26 16:33:23,553][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:23,553][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:23,553][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:23,553][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:25,413][semstamp][INFO] - Candidate text:  I began researching ways to bring a seamless user experience that combines innovative technology with cutting-edge engineering principles.
+
+
+
+[2024-05-26 16:33:25,414][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.18it/s]
+[2024-05-26 16:33:25,431][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:33:25,431][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:25,432][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:25,432][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:27,561][semstamp][INFO] - Candidate text:  A system where we get personal insights on our own body signals, so we can stay ahead of chronic conditions like diabetes?
+
+
+[2024-05-26 16:33:27,562][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.78it/s]
+[2024-05-26 16:33:27,580][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:27,580][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:27,580][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:27,580][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:28,618][semstamp][INFO] - Candidate text:  That syncs with our medical team?
+[2024-05-26 16:33:28,618][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.35it/s]
+[2024-05-26 16:33:28,635][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:28,635][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:28,635][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:28,635][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:30,226][semstamp][INFO] - Candidate text:  
+
+After some digging into existing tech (insulin pumps, Fitbits, etc
+[2024-05-26 16:33:30,227][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.16it/s]
+[2024-05-26 16:33:30,245][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:33:30,245][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:30,246][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:30,246][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:31,628][semstamp][INFO] - Candidate text:  Is it possible to integrate such a system into our daily lives?
+
+
+[2024-05-26 16:33:31,628][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.77it/s]
+[2024-05-26 16:33:31,646][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:31,646][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:31,646][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:31,646][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:33,361][semstamp][INFO] - Candidate text:  One that helps patients manage their illness with personalized coaching and provides doctors with more accurate insights?
+
+
+[2024-05-26 16:33:33,361][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.84it/s]
+[2024-05-26 16:33:33,378][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:33,378][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:33,379][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:33,379][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:34,079][semstamp][INFO] - Candidate text:  The answer?
+[2024-05-26 16:33:34,079][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.36it/s]
+[2024-05-26 16:33:34,096][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:33:34,096][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:34,096][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:34,096][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:36,099][semstamp][INFO] - Candidate text:  And with all the noise around Artificial Intelligence in Healthcare (AI), I was excited to explore its potential benefits.
+
+
+[2024-05-26 16:33:36,100][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.17it/s]
+[2024-05-26 16:33:36,118][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:36,118][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:36,118][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:36,118][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:38,384][semstamp][INFO] - Candidate text:  One that learns our habits, adapts to our unique needs, and proactively gives us valuable insights to improve our well-being?
+
+
+[2024-05-26 16:33:38,384][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.61it/s]
+[2024-05-26 16:33:38,403][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:38,403][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:38,403][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:38,403][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:39,784][semstamp][INFO] - Candidate text:  That reminds and encourages people with diabetes to manage their blood sugar?
+[2024-05-26 16:33:39,785][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.68it/s]
+[2024-05-26 16:33:39,802][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:39,802][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:39,802][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:39,802][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:40,705][semstamp][INFO] - Candidate text:  
+
+One word: APIs.
+
+
+[2024-05-26 16:33:40,705][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.62it/s]
+[2024-05-26 16:33:40,722][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:33:40,723][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:40,723][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:40,723][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:41,963][semstamp][INFO] - Candidate text:  Something that integrates seamlessly with our existing routines and devices?
+
+
+[2024-05-26 16:33:41,964][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.31it/s]
+[2024-05-26 16:33:41,981][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:41,981][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:41,981][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:41,981][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:43,977][semstamp][INFO] - Candidate text:  
+
+The first step was understanding the different types of diabetes meters available in the market and selecting an ideal one.
+[2024-05-26 16:33:43,977][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.75it/s]
+[2024-05-26 16:33:43,995][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:43,995][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:43,995][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:43,995][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:45,101][semstamp][INFO] - Candidate text:  That reminds us of appointments or medication schedules?
+[2024-05-26 16:33:45,101][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.14it/s]
+[2024-05-26 16:33:45,110][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:45,110][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:47,166][semstamp][INFO] - Candidate text:  Something that learns from our habits, anticipates our needs, and takes away some of the burden off diabetes management?
+
+
+[2024-05-26 16:33:47,167][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.90it/s]
+[2024-05-26 16:33:47,185][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:47,186][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:47,186][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:47,186][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:48,638][semstamp][INFO] - Candidate text:  Not just for diabetes, but for all aspects of our wellness journey?
+
+
+[2024-05-26 16:33:48,638][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.69it/s]
+[2024-05-26 16:33:48,655][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:48,655][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:48,655][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:48,655][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:49,837][semstamp][INFO] - Candidate text:  One that allows seamless communication with our healthcare provider?
+
+
+[2024-05-26 16:33:49,837][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.88it/s]
+[2024-05-26 16:33:49,855][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:49,855][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:49,855][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:49,855][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:51,569][semstamp][INFO] - Candidate text:  Could it seamlessly communicate with our healthcare providers and provide insights into managing our conditions more effectively?
+
+
+[2024-05-26 16:33:51,569][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.35it/s]
+[2024-05-26 16:33:51,579][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:51,579][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:53,295][semstamp][INFO] - Candidate text:  Better still, what if we built something intelligent enough to provide meaningful insights from that information?
+
+
+[2024-05-26 16:33:53,295][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.43it/s]
+[2024-05-26 16:33:53,313][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:33:53,314][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:53,314][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:53,314][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:54,622][semstamp][INFO] - Candidate text:  One that integrates all our disparate measurements into one intuitive interface?
+
+
+[2024-05-26 16:33:54,623][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.48it/s]
+[2024-05-26 16:33:54,632][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:54,632][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:57,055][semstamp][INFO] - Candidate text:  
+
+Enter IoT - a vast expanse of interconnected devices designed to automate everything from simple household tasks to more intricate operations like remote medical surveillance.
+
+
+[2024-05-26 16:33:57,055][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.81it/s]
+[2024-05-26 16:33:57,073][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:33:57,073][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:57,073][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:57,074][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:33:59,702][semstamp][INFO] - Candidate text:  How could we help diabetics effortlessly stay on top of their glucose levels, sleep schedules, exercise routines, medication, food intake, and energy levels?
+
+
+[2024-05-26 16:33:59,702][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.32it/s]
+[2024-05-26 16:33:59,720][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:33:59,720][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:33:59,720][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:33:59,720][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:01,508][semstamp][INFO] - Candidate text:  One that could keep track of our vital signs, medication schedules, and blood glucose levels seamlessly?
+
+
+[2024-05-26 16:34:01,509][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.54it/s]
+[2024-05-26 16:34:01,526][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:01,526][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:01,526][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:01,526][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:03,741][semstamp][INFO] - Candidate text:  
+
+In my next project, **Chrono**, I set out to automate and streamlining this process with AI-powered analytics.
+[2024-05-26 16:34:03,741][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.22it/s]
+[2024-05-26 16:34:03,759][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:03,759][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:03,759][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:03,759][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:06,220][semstamp][INFO] - Candidate text:  The answer lies in smart technology such as wearable devices, mobile apps and web platforms that integrate user engagement, artificial intelligence, data analytics & IoT.
+
+
+[2024-05-26 16:34:06,220][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.00it/s]
+[2024-05-26 16:34:06,230][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:06,230][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:07,336][semstamp][INFO] - Candidate text:  Or even helps doctors make more informed decisions?
+
+
+[2024-05-26 16:34:07,337][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.08it/s]
+[2024-05-26 16:34:07,354][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:07,354][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:07,354][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:07,354][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:08,392][semstamp][INFO] - Candidate text:  That syncs effortlessly with our devices?
+
+
+[2024-05-26 16:34:08,392][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.87it/s]
+[2024-05-26 16:34:08,409][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:08,410][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:08,410][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:08,410][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:09,518][semstamp][INFO] - Candidate text:  A place where all our health metrics live?
+
+
+[2024-05-26 16:34:09,518][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.96it/s]
+[2024-05-26 16:34:09,535][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:09,536][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:09,536][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:09,536][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:11,055][semstamp][INFO] - Candidate text:  A digital companion which empowers diabetics and makes healthcare more connected?
+
+
+[2024-05-26 16:34:11,056][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.29it/s]
+[2024-05-26 16:34:11,074][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:34:11,074][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:34:11,074][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 16:34:11,074][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:12,389][semstamp][INFO] - Candidate text: That curiosity led me into creating _Glukose_. 
+
+
+[2024-05-26 16:34:12,389][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.34it/s]
+[2024-05-26 16:34:12,407][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:34:12,407][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:12,407][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:12,407][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:13,993][semstamp][INFO] - Candidate text: That curiosity turned into an opportunity when HealthTech Innovation Week 2021 approached!
+[2024-05-26 16:34:13,993][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.00it/s]
+[2024-05-26 16:34:14,011][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:34:14,011][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:14,011][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:14,011][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:15,122][semstamp][INFO] - Candidate text: ---
+
+I started researching existing diabetes management tools.
+[2024-05-26 16:34:15,122][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.65it/s]
+[2024-05-26 16:34:15,140][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:34:15,140][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:15,140][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:15,141][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:17,066][semstamp][INFO] - Candidate text: The answer lies in technology, particularly the Internet of Things (IoT) and Artificial Intelligence (AI).
+
+
+[2024-05-26 16:34:17,067][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.87it/s]
+[2024-05-26 16:34:17,084][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:34:17,084][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:17,085][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:17,085][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:19,282][semstamp][INFO] - Candidate text: What followed was my journey in creating the `Diabetes Insight System`.assistant
+
+Wow, that's fascinating!
+[2024-05-26 16:34:19,283][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.76it/s]
+[2024-05-26 16:34:19,300][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:19,300][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:19,301][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:19,301][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:21,907][semstamp][INFO] - Candidate text: And that is what inspired my interest in the Internet of Things(IoT), data analytics, machine learning, wearable devices, and other cutting-edge technologies.
+
+
+[2024-05-26 16:34:21,907][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.93it/s]
+[2024-05-26 16:34:21,925][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:21,925][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:21,925][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:21,926][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:25,896][semstamp][INFO] - Candidate text: ---
+
+The solution I came up with is **Diabeat**, an end-to-end platform that integrates wearable sensors, mobile applications, and cloud-based services to improve glucose management, simplify doctor-patient communication, and provide a comprehensive insights tool for diabetes care.
+
+
+
+[2024-05-26 16:34:25,896][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.08it/s]
+[2024-05-26 16:34:25,907][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:25,907][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:27,561][semstamp][INFO] - Candidate text: To explore this question, I started designing a solution during my summer internship at Google.
+[2024-05-26 16:34:27,561][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.12it/s]
+[2024-05-26 16:34:27,570][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:27,571][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:29,642][semstamp][INFO] - Candidate text: To kick start this journey, I started researching some cutting-edge concepts like machine learning, IoT, and cloud storage.
+[2024-05-26 16:34:29,642][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.14it/s]
+[2024-05-26 16:34:29,661][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:34:29,661][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:34:29,661][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:34:29,661][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:32,496][semstamp][INFO] - Candidate text:  Soon enough, I discovered potential solutions in devices like Glucose Monitors, Continuous Glucose Monitors (CGM), wearables, Mobile apps, and Cloud APIs.
+[2024-05-26 16:34:32,496][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.12it/s]
+[2024-05-26 16:34:32,506][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:32,506][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:34,034][semstamp][INFO] - Candidate text:  Alongside this tech-focused path came an equally crucial component - user research.
+
+
+[2024-05-26 16:34:34,035][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.28it/s]
+[2024-05-26 16:34:34,052][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:34,053][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:34,053][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:34,053][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:35,990][semstamp][INFO] - Candidate text:  This blog is the first chapter in my journey to build an autonomous and integrated AI-based diabetes management system.
+
+[2024-05-26 16:34:35,990][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.69it/s]
+[2024-05-26 16:34:36,007][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:36,008][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:36,008][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:36,008][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:38,021][semstamp][INFO] - Candidate text:  Then a thought hit me: "**What if we can leverage wearable devices to collect vital signs in real-time?
+[2024-05-26 16:34:38,021][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.76it/s]
+[2024-05-26 16:34:38,039][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:34:38,039][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:38,039][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:38,039][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:42,285][semstamp][INFO] - Candidate text:  There is nothing new here as many startups have used them creatively in healthcare but here's where things got interesting...
+
+A group of researchers demonstrated a device called 'earable glucometer' - a sleek wristband that measures glucose levels non-invasively using an advanced sensor!
+[2024-05-26 16:34:42,285][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.37it/s]
+[2024-05-26 16:34:42,295][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:42,295][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:43,485][semstamp][INFO] - Candidate text:  It turns out these fields are full of possibilities!
+
+
+[2024-05-26 16:34:43,485][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.97it/s]
+[2024-05-26 16:34:43,502][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:43,503][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:43,503][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:43,503][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:45,307][semstamp][INFO] - Candidate text:  But before delving deeper into technology, understanding the diabetes community and their challenges was crucial. 
+
+
+[2024-05-26 16:34:45,307][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.66it/s]
+[2024-05-26 16:34:45,325][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:45,325][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:45,325][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:45,325][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:46,923][semstamp][INFO] - Candidate text:  Soon enough I realized these tech tools could bridge the gap between healthcare and innovation!
+
+
+[2024-05-26 16:34:46,923][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.93it/s]
+[2024-05-26 16:34:46,941][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:34:46,941][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:46,941][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:46,941][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:49,970][semstamp][INFO] - Candidate text:  The idea was to build a self-sufficient ecosystem where devices would collect data from wearable devices, medical devices, or sensor-integrated accessories and upload them seamlessly into a personalized mobile application.
+
+
+[2024-05-26 16:34:49,970][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.44it/s]
+[2024-05-26 16:34:49,988][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:34:49,989][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:49,989][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:49,989][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:51,995][semstamp][INFO] - Candidate text:  From the beginning, it was clear: building a system to revolutionize diabetic care would require integrating multiple technologies.
+
+
+[2024-05-26 16:34:51,995][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.33it/s]
+[2024-05-26 16:34:52,004][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:52,004][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:54,439][semstamp][INFO] - Candidate text:  During my research, I stumbled upon Microsoft Azure IoT Hub, an incredible platform designed to handle and manage massive amounts of sensory and environmental data.
+[2024-05-26 16:34:54,439][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.27it/s]
+[2024-05-26 16:34:54,458][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:34:54,459][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:34:54,459][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:34:54,459][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:55,294][semstamp][INFO] - Candidate text:  That was it!
+[2024-05-26 16:34:55,294][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.70it/s]
+[2024-05-26 16:34:55,312][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:34:55,312][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:34:55,312][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:34:55,312][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:34:58,127][semstamp][INFO] - Candidate text:  This led to the idea of designing a prototype that focuses on creating a self-sustaining ecosystem where various health indicators can be easily monitored and shared in real-time.
+
+
+[2024-05-26 16:34:58,128][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.86it/s]
+[2024-05-26 16:34:58,145][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:34:58,145][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:34:58,146][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:34:58,146][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:00,328][semstamp][INFO] - Candidate text: So let's embark on this exciting journey as we explore an innovative concept: Azure IoT-powered Diabetes Monitoring System! 
+
+
+[2024-05-26 16:35:00,328][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.38it/s]
+[2024-05-26 16:35:00,345][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:35:00,345][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:00,346][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:35:00,346][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:04,319][semstamp][INFO] - Candidate text: The solution consisted of these core components:
+
+- 2) IoT Device with sensors tracking crucial health metrics (blood glucose levels, vital signs, activity)
+
+    - This device communicates directly with the patient's smartphone using Bluetooth Low Energy or Wi-Fi.
+
+[2024-05-26 16:35:04,319][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.95it/s]
+[2024-05-26 16:35:04,338][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:35:04,338][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:35:04,338][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:35:04,338][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:06,232][semstamp][INFO] - Candidate text:     - Real-time health readings are collected and updated on both the smart devices.
+
+  
+[2024-05-26 16:35:06,233][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.59it/s]
+[2024-05-26 16:35:06,250][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:35:06,251][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:35:06,251][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 16:35:06,251][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:15,996][semstamp][INFO] - Candidate text:  - 3) Azure IoT Hub 
+      - As readings flow in from multiple sources, IoT Hub handles secure data management 
+      - Machine Learning Models integrated here to identify risk factors and generate timely warnings
+
+    - 4) Digital Health assistant
+
+   - Conversational Bot provides personal advice; accessible via smartphones' voice assistants
+
+   5) Cloud Storage 
+   Cloud infrastructure such as Blob storage ensures seamless backups
+
+   - 6) User Portal    
+   Online web-based platform giving easy access to monitored health 
+
+In essence, this framework helps streamline daily life through continuous monitoring of essential parameters allowing for preventive measures and efficient responses when necessary.
+[2024-05-26 16:35:15,996][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 109.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.95it/s]
+[2024-05-26 16:35:16,018][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:35:16,018][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:16,018][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:16,018][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:18,751][semstamp][INFO] - Candidate text:  -- 3) Cloud-based services integrating IoT and AI Technologies
+
+   - Azure IoT Hub: Handles huge volumes of sensor-generated data efficiently.
+  
+[2024-05-26 16:35:18,751][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.62it/s]
+[2024-05-26 16:35:18,769][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:35:18,769][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:18,769][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:18,769][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:21,295][semstamp][INFO] - Candidate text:  The power of Machine Learning models lies within predictive forecasting of future sugar readings, predicting potential health complications allowing preventative measures before crises arise.
+[2024-05-26 16:35:21,295][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.45it/s]
+[2024-05-26 16:35:21,305][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:21,305][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:23,691][semstamp][INFO] - Candidate text:  (2) Cloud Storage Integration
+
+    - Microsoft Azure's cloud-native IoT Hub manages data from the numerous connected devices.
+[2024-05-26 16:35:23,692][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.85it/s]
+[2024-05-26 16:35:23,709][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:35:23,709][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:23,709][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:23,709][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:29,790][semstamp][INFO] - Candidate text:  Example Sensor Output (raw data):
+
+       {"sensor_id": "device_A",
+            "readings_type": ["sugar_level", "heart_rate"],
+             "reading_values": [150.5, 88],
+              "reading_time": "2023-02-25T08:35:44Z"}
+
+          -)   Cloud Infrastructure built with Azure services 
+
+        .
+[2024-05-26 16:35:29,790][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.03it/s]
+[2024-05-26 16:35:29,810][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:35:29,810][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:29,810][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:29,810][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:46,012][semstamp][INFO] - Candidate text:  -1) Cloud-based hub (Microsoft Azure IoT Hub): 
+   
+     - As data comes from sensors and user input, IoT Hub helps sort out meaningful patterns by leveraging AI, Machine Learning 
+     
+     - Data then gets transformed, encrypted, & categorized into meaningful clusters for effective analysis
+
+     - Secure Storage solutions via Cloud Computing 
+         (Data remains anonymized within storage; only relevant insights generated, removing privacy concerns
+
+     - Integration with Mobile and Web applications allows streamlined, interactive dashboards, graphs, notifications)
+            (Patient-centric Design emphasizes a clean UI/Visuals and actionable Health Insights)
+
+-4)
+
+   Advanced Analytics (Machine Learning/Deep Learning Models):
+ 
+       Integrating machine learning techniques with large datasets generates intelligent insights regarding:
+          i] Patterns: Lifestyle changes causing high BG levels 
+          
+         ii) Predicitive Modeling 
+                  Potential spikes/crashes detected + proactively notifies patient/doctors
+    
+          iii] Treatment guidance: Actionable suggestions tailored per individual patient needs
+    
+In the future development stage, partnerships with healthcare organizations, hospitals, doctors could yield valuable results.
+
+
+[2024-05-26 16:35:46,012][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 88.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.55it/s]
+[2024-05-26 16:35:46,037][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:35:46,037][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:46,037][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:46,037][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:48,493][semstamp][INFO] - Candidate text:  2) Patient Health Mobile Application
+
+     * The user can monitor their own health statistics through interactive dashboard visualizations.
+    
+[2024-05-26 16:35:48,494][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.43it/s]
+[2024-05-26 16:35:48,511][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:35:48,512][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:48,512][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:48,512][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:35:59,168][semstamp][INFO] - Candidate text:  ```cpp
+  
+     #define VITAL_SENSOR  //  // Heart rate sensor 
+
+     double getHeartRate()
+     {
+
+         ...
+
+     }
+
+
+
+```
+
+
+
+- 3) AI Model analyzing data sent from patient devices
+
+    
+     Training of Machine Learning Models: Supervised Learning 
+   
+       Data preprocessing 
+     
+             • Clean missing/noisy values 
+           Normalize input data 
+      Feature Engineering & Selection  Select top informative indicators 
+
+
+         • Gradient Boosting Decision Trees GBM 
+         Hyperparam tuning  
+
+           5-Fold Cross Validation Performance evaluation
+
+
+     Patient profile prediction based on pattern recognition 
+
+ - 4) Personalized Digital Journal: accessible on mobile app/tablet and secured through blockchain technology.
+
+  
+[2024-05-26 16:35:59,169][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.60it/s]
+[2024-05-26 16:35:59,189][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:35:59,190][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:35:59,190][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:35:59,190][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:36:05,343][semstamp][INFO] - Candidate text:  3) Microservice architecture built using.NET
+
+    - Created with scalability and modularity in mind
+
+   4) Artificial Intelligence/Machine Learning Model integrated within microservices layer
+
+    - Built Using the Azure Cognitive Analytics Framework for advanced Data Insights
+
+5) Cloud Computing – Azure Storage
+
+- Azure Blob & Files allow the storage of Health Data for secure and efficient data sharing.
+
+
+
+[2024-05-26 16:36:05,344][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.80it/s]
+[2024-05-26 16:36:05,364][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:36:05,364][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:36:05,364][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:36:05,364][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:36:15,310][semstamp][INFO] - Candidate text:  3) Mobile Companion App
+
+      * Designed as the user-friendly frontend where they view daily/weekly/monthly charts of their health status 
+      - Patients receive customizable recommendations based on historical data analysis 
+      - User profile stores medication schedules & dosages 
+
+4) Microsoft Azure Cloud for Remote Monitoring Storage & Analytics 
+      - Data from mobile app/sensors is aggregated 
+      - Machine learning applied to provide deeper insights 
+
+5) Healthcare Expert Portal 
+
+    * Patient care coordinator & doctors securely access cloud-based dashboard tracking individual patients' stats 
+      * Generate prescriptions, appointment reminders and consult requests using automated emails/SMS
+
+For now, that's it.
+[2024-05-26 16:36:15,311][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 114.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.75it/s]
+[2024-05-26 16:36:15,331][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:36:15,332][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:36:15,332][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:36:15,332][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:36:16,956][semstamp][INFO] - Candidate text:  Note: Ensure compliance with relevant medical regulation while integrating these sensors.
+
+
+[2024-05-26 16:36:16,956][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.20it/s]
+[2024-05-26 16:36:16,973][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:36:16,973][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:36:16,974][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:36:16,974][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:36:21,586][semstamp][INFO] - Candidate text:  - Azure IoT Hub:
+
+    - Acts as the central hub, managing all incoming data from multiple users'
+      devices, facilitating real-time analytics on critical data while securing data transmission
+
+
+Using Azure functions for backend logic:
+
+    - Enables user authentication for seamless interactions between users and providers.'
+
+
+[2024-05-26 16:36:21,587][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.32it/s]
+[2024-05-26 16:36:21,606][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:36:21,606][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:36:21,607][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:36:21,607][semstamp][INFO] - acceptmaskstr: 6,0
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 16:36:21,609][semstamp][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+[2024-05-26 16:36:21,609][semstamp][INFO] - Response: ("When it comes to keeping track of diabetes, the manual process can be a bit of a pain. With constant tracking and monitoring comes endless paperwork, phone calls, and doctor's appointments.\n\nThis made me curious about how to build something that could change this narrative. How could we create a system that automatically collects health data for us? A digital companion which empowers diabetics and makes healthcare more connected?\n\nTo kick start this journey, I started researching some cutting-edge concepts like machine learning, IoT, and cloud storage. During my research, I stumbled upon Microsoft Azure IoT Hub, an incredible platform designed to handle and manage massive amounts of sensory and environmental data. This led to the idea of designing a prototype that focuses on creating a self-sustaining ecosystem where various health indicators can be easily monitored and shared in real-time.\n\nThe solution consisted of these core components:\n\n- 2) IoT Device with sensors tracking crucial health metrics (blood glucose levels, vital signs, activity)\n\n    - This device communicates directly with the patient's smartphone using Bluetooth Low Energy or Wi-Fi.\n    - Real-time health readings are collected and updated on both the smart devices.\n\n   - Azure IoT Hub:\n\n    - Acts as the central hub, managing all incoming data from multiple users'\n      devices, facilitating real-time analytics on critical data while securing data transmission\n\n\nUsing Azure functions for backend logic:\n\n    - Enables user authentication for seamless interactions between users and providers.'\n\n", 138)
+[2024-05-26 16:36:21,609][watermarker][INFO] - Received completion: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. With constant tracking and monitoring comes endless paperwork, phone calls, and doctor's appointments.
+
+This made me curious about how to build something that could change this narrative. How could we create a system that automatically collects health data for us? A digital companion which empowers diabetics and makes healthcare more connected?
+
+To kick start this journey, I started researching some cutting-edge concepts like machine learning, IoT, and cloud storage. During my research, I stumbled upon Microsoft Azure IoT Hub, an incredible platform designed to handle and manage massive amounts of sensory and environmental data. This led to the idea of designing a prototype that focuses on creating a self-sustaining ecosystem where various health indicators can be easily monitored and shared in real-time.
+
+The solution consisted of these core components:
+
+- 2) IoT Device with sensors tracking crucial health metrics (blood glucose levels, vital signs, activity)
+
+    - This device communicates directly with the patient's smartphone using Bluetooth Low Energy or Wi-Fi.
+    - Real-time health readings are collected and updated on both the smart devices.
+
+   - Azure IoT Hub:
+
+    - Acts as the central hub, managing all incoming data from multiple users'
+      devices, facilitating real-time analytics on critical data while securing data transmission
+
+
+Using Azure functions for backend logic:
+
+    - Enables user authentication for seamless interactions between users and providers.'
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.08it/s]
+n_watermark: 10, n_test_sent: 10
+zscore: 5.477225575051661
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.07it/s]
+n_watermark: 10, n_test_sent: 10
+zscore: 5.477225575051661
+[2024-05-26 16:36:21,794][__main__][INFO] - Watermarked Text: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. With constant tracking and monitoring comes endless paperwork, phone calls, and doctor's appointments.
+
+This made me curious about how to build something that could change this narrative. How could we create a system that automatically collects health data for us? A digital companion which empowers diabetics and makes healthcare more connected?
+
+To kick start this journey, I started researching some cutting-edge concepts like machine learning, IoT, and cloud storage. During my research, I stumbled upon Microsoft Azure IoT Hub, an incredible platform designed to handle and manage massive amounts of sensory and environmental data. This led to the idea of designing a prototype that focuses on creating a self-sustaining ecosystem where various health indicators can be easily monitored and shared in real-time.
+
+The solution consisted of these core components:
+
+- 2) IoT Device with sensors tracking crucial health metrics (blood glucose levels, vital signs, activity)
+
+    - This device communicates directly with the patient's smartphone using Bluetooth Low Energy or Wi-Fi.
+    - Real-time health readings are collected and updated on both the smart devices.
+
+   - Azure IoT Hub:
+
+    - Acts as the central hub, managing all incoming data from multiple users'
+      devices, facilitating real-time analytics on critical data while securing data transmission
+
+
+Using Azure functions for backend logic:
+
+    - Enables user authentication for seamless interactions between users and providers.'
+[2024-05-26 16:36:21,794][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 16:36:21,794][__main__][INFO] - Score: 5.477225575051661
+[2024-05-26 16:36:21,794][__main__][INFO] - Time taken: 296.6885266304016
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_20_attempt_2/watermarked_text.csv

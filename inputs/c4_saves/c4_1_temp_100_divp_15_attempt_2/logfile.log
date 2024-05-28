@@ -1,0 +1,987 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 14:45:16,272][__main__][INFO] - Starting to watermark...
+[2024-05-26 14:45:16,274][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-05-26 14:45:16,274][__main__][INFO] - Getting the watermarker...
+[2024-05-26 14:45:16,274][watermarker][INFO] - Using device: cuda
+[2024-05-26 14:45:16,275][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 14:45:19,804][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 14:45:27,149][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 14:45:28,811][semstamp][INFO] - Setting up generating components...
+[2024-05-26 14:45:28,814][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 14:45:28,814][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 14:45:28,814][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 14:45:29,647][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 14:45:29,711][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 14:45:29,712][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 14:45:29,712][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.53it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.53it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 14:45:32,026][semstamp][INFO] - Candidate text:  The story follows her origins and takes place during the early days of S.H.I.E.L.D.
+
+
+[2024-05-26 14:45:32,027][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.19it/s]
+[2024-05-26 14:45:32,048][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:45:32,049][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:32,049][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:32,049][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:34,263][semstamp][INFO] - Candidate text:  We've got some big questions about the events of Avengers: Endgame, and we're hoping that Captain Marvel will have some answers.
+[2024-05-26 14:45:34,263][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.64it/s]
+[2024-05-26 14:45:34,281][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:45:34,281][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:34,281][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:34,281][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:36,030][semstamp][INFO] - Candidate text:  Here you have the list of best movies of all time with their ratings, release date and genre.
+[2024-05-26 14:45:36,031][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.13it/s]
+[2024-05-26 14:45:36,048][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:36,048][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:36,049][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:36,049][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:38,061][semstamp][INFO] - Candidate text:  Captain Marvel is a 2019 superhero film directed by Anna Boden and Ryan Fleck and produced by Marvel Studios.
+[2024-05-26 14:45:38,061][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.04it/s]
+[2024-05-26 14:45:38,080][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:45:38,080][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:45:38,081][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:38,081][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:39,812][semstamp][INFO] - Candidate text:  It is based on the Marvel Comics character Carol Danvers, played by Brie Larson.
+
+[2024-05-26 14:45:39,813][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.54it/s]
+[2024-05-26 14:45:39,830][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:39,831][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:45:39,831][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:45:39,831][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:42,227][semstamp][INFO] - Candidate text: The movie follows Carol Danvers (Brie Larson) a powerful warrior who has been embedded with Kree DNA, giving her incredible abilities.
+[2024-05-26 14:45:42,227][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.96it/s]
+[2024-05-26 14:45:42,246][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:45:42,246][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:42,246][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:42,246][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:48,448][semstamp][INFO] - Candidate text: Captain Marvel (2019) - Cast & Crew - IMDb Captain Marvel (2019) - Cast & Crew - IMDb captain marvel movie wikipedia captain marvel trailer captain marvel wiki captain marvel powers captain marvel actress captain marvel release date captain marvel imdb captain marvel review captain marvel cast captain marvel movie rating captain marvel rotten tomatoes captain marvel budget captain marvel box office captain marvel full movie download hd captain marvel hindi dubbed movie download 720p.
+[2024-05-26 14:45:48,449][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 113.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.63it/s]
+[2024-05-26 14:45:48,470][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:45:48,470][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:48,470][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:48,470][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:49,782][semstamp][INFO] - Candidate text: Captain Marvel (2019) - Plot Summary - IMDb.
+
+[2024-05-26 14:45:49,783][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 98.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.03it/s]
+[2024-05-26 14:45:49,804][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:45:49,804][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:49,804][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:49,804][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:50,913][semstamp][INFO] - Candidate text: Captain Marvel Trailer (2019) YouTube.
+
+[2024-05-26 14:45:50,913][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.41it/s]
+[2024-05-26 14:45:50,932][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:50,932][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:50,932][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:50,932][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:53,937][semstamp][INFO] - Candidate text: Captain Marvel (2019) - Rotten Tomatoe
+
+Captain Marvel follows Carol Danvers as she tries to piece together her past and stop an intergalactic war from reaching Earth.
+[2024-05-26 14:45:53,937][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.78it/s]
+[2024-05-26 14:45:53,955][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:53,955][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:53,955][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:53,955][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:56,011][semstamp][INFO] - Candidate text: The movie follows Carol Danvers (Brie Larson) as she becomes one of the galaxy's mightiest heroes.
+[2024-05-26 14:45:56,011][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.49it/s]
+[2024-05-26 14:45:56,029][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:56,029][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:56,029][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:56,029][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:45:58,491][semstamp][INFO] - Candidate text: The story follows Carol Danvers, a former Air Force fighter pilot who gains extraordinary powers after her DNA is fused with that of an alien warrior.
+[2024-05-26 14:45:58,491][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.20it/s]
+[2024-05-26 14:45:58,509][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:45:58,509][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:45:58,509][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:45:58,509][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:01,243][semstamp][INFO] - Candidate text: Captain Marvel was one of the first movies to be part of the Marvel Cinematic Universe (MCU) wave that kicked off in 2008 with Iron Man.
+[2024-05-26 14:46:01,244][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.69it/s]
+[2024-05-26 14:46:01,262][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:01,263][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:01,263][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:01,263][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:09,314][semstamp][INFO] - Candidate text: Captain Marvel movie review: Brie Larson shines as the titular hero in Marvel's latest blockbuster | Entertainment News,The Indian Express - Entertainment News, Indian Express"
+'Captain Marvel': Review - Hollywood Reporter"
+Captain Marvel (2019) - IMDb"assistant
+
+Here are some key points about the movie Captain Marvel:
+
+**Plot**: The movie is set in the 1990s and follows Carol Danvers, an Air Force officer who becomes one of the universe's most powerful heroes after Earth gets involved in a galactic war between aliens.
+
+
+[2024-05-26 14:46:09,315][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 101.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.31it/s]
+[2024-05-26 14:46:09,337][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:09,338][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:09,338][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:09,338][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:12,074][semstamp][INFO] - Candidate text: The movie follows Carol Danvers (Brie Larson), a human-Kree hybrid with superhuman strength, speed, agility, durability, and the ability to fly.
+[2024-05-26 14:46:12,074][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.57it/s]
+[2024-05-26 14:46:12,084][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:12,084][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:17,199][semstamp][INFO] - Candidate text: Directed by Anna Boden and Ryan Fleck, the film stars Brie Larson as Carol Danvers / Captain Marvel, Samuel L. Jackson as Nick Fury, Ben Mendelsohn as Talos, Djimon Hounsou as Korath, Lee Pace as Ronan the Accuser, and Jude Law as Yon-Rogg.
+[2024-05-26 14:46:17,200][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 114.79it/s]
+[2024-05-26 14:46:17,211][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:17,211][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:18,322][semstamp][INFO] - Candidate text: Captain Marvel (2019) - IMDb.
+
+[2024-05-26 14:46:18,322][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.65it/s]
+[2024-05-26 14:46:18,332][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:18,332][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:22,088][semstamp][INFO] - Candidate text: In the 1990s, Captain Marvel (Brie Larson) crashes on Earth, but soon finds herself in the middle of an intergalactic conflict between her people, the Kree, and their enemies, the Skrulls.
+[2024-05-26 14:46:22,089][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.78it/s]
+[2024-05-26 14:46:22,109][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:22,110][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:22,110][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:22,110][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:27,160][semstamp][INFO] - Candidate text: Captain Marvel (2019) - Plot Summary - IMDb Captain Marvel (2019) - Plot Summary - IMDb https://www.imdb.com/title/tt4154796/plotsummary In the late 1980s, the Kree Empire is at war with the Skrulls, who are attempting to take over the galaxy.
+[2024-05-26 14:46:27,160][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 117.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.15it/s]
+[2024-05-26 14:46:27,181][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:46:27,181][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:27,181][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:27,182][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:29,104][semstamp][INFO] - Candidate text: Captain Marvel (2019) - IMDb Captain Marvel: Directed by Anna Boden, Ryan Fleck.
+[2024-05-26 14:46:29,105][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.54it/s]
+[2024-05-26 14:46:29,122][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:46:29,122][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:29,122][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:29,122][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:33,425][semstamp][INFO] - Candidate text: Captain Marvel (2019) - Rotten Tomatoes - Movie Trailers Reviews Critics Consensus: Packed with action, humor, and heart, Captain Marvel is a fun, thrilling ride that establishes Brie Larson as a force to be reckoned with in the MCU. 
+[2024-05-26 14:46:33,425][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 116.58it/s]
+[2024-05-26 14:46:33,436][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:33,436][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:34,817][semstamp][INFO] - Candidate text: Captain Marvel Trailer & Teaser trailer (2019) YouTube.
+
+[2024-05-26 14:46:34,817][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.16it/s]
+[2024-05-26 14:46:34,834][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:34,835][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:34,835][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:34,835][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:37,300][semstamp][INFO] - Candidate text: Captain Marvel - Movies on Google Play Captain Marvel: The Official Handbook (Marvel Handbook) eBook: Marvel Comics: Amazon.co.uk: Kindle Store.
+[2024-05-26 14:46:37,300][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.94it/s]
+[2024-05-26 14:46:37,318][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:46:37,318][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:37,318][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:37,318][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:39,988][semstamp][INFO] - Candidate text: Captain Marvel has grossed over $1.13 billion at the global box office, making it one of the highest-grossing films of 2019.
+[2024-05-26 14:46:39,989][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.53it/s]
+[2024-05-26 14:46:40,006][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:46:40,007][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:40,007][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:40,007][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:44,309][semstamp][INFO] - Candidate text: Captain Marvel 2 Cast News, Plot Updates and Release Date Everything We Know So Far Marvel Cinematic Universe fans are eagerly waiting for Captain Marvel 2 to arrive, especially after the events of Avengers: Endgame left them wondering about the future of Captain Marvel (Carol Danvers).
+[2024-05-26 14:46:44,309][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.99it/s]
+[2024-05-26 14:46:44,329][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:44,330][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:44,330][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:44,330][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:46,049][semstamp][INFO] - Candidate text: Captain Marvel (2019) - IMDb Directed by Anna Boden, Ryan Fleck.
+[2024-05-26 14:46:46,049][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.27it/s]
+[2024-05-26 14:46:46,067][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:46:46,067][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:46,067][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:46,067][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:47,313][semstamp][INFO] - Candidate text: Captain Marvel Official Trailer (2019) - YouTube.
+[2024-05-26 14:46:47,314][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.16it/s]
+[2024-05-26 14:46:47,331][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:47,331][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:47,331][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:47,331][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:48,442][semstamp][INFO] - Candidate text: Captain Marvel (2019) - IMDb.
+
+[2024-05-26 14:46:48,442][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.58it/s]
+[2024-05-26 14:46:48,451][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:48,451][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:50,103][semstamp][INFO] - Candidate text: Captain Marvel: Everything You Need To Know Before Seeing The Movie CNET Inverse.
+
+[2024-05-26 14:46:50,103][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.99it/s]
+[2024-05-26 14:46:50,120][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:46:50,121][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:50,121][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:50,121][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:53,265][semstamp][INFO] - Candidate text: The story takes place in 1995, with Vers (Brie Larson), a Kree warrior, living on the planet Hala with her mentor Yon-Rogg (Jude Law).
+[2024-05-26 14:46:53,266][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.19it/s]
+[2024-05-26 14:46:53,275][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:53,276][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:54,386][semstamp][INFO] - Candidate text: Captain Marvel (film) - Wikipedi.
+[2024-05-26 14:46:54,386][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.13it/s]
+[2024-05-26 14:46:54,395][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:54,395][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:55,640][semstamp][INFO] - Candidate text: Captain Marvel - Trailer Deutsch (2020) YouTube.
+[2024-05-26 14:46:55,641][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.97it/s]
+[2024-05-26 14:46:55,658][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:46:55,658][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:55,658][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:55,658][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:58,396][semstamp][INFO] - Candidate text: The movie follows the story of Carol Danvers, aka Captain Marvel, an air force pilot who gains incredible powers after her DNA is fused with that of an alien.
+[2024-05-26 14:46:58,396][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.23it/s]
+[2024-05-26 14:46:58,414][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:46:58,414][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:58,414][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:58,414][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:46:59,795][semstamp][INFO] - Candidate text: Captain Marvel (2019) - IMDb CaptaiMarve.
+
+[2024-05-26 14:46:59,795][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.26it/s]
+[2024-05-26 14:46:59,813][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:46:59,813][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:46:59,813][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:46:59,813][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:03,775][semstamp][INFO] - Candidate text: Captain Marvel is a 2019 American superhero film based on the Marvel Comics character of the same name.Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 21st film in the Marvel Cinematic Universe (MCU).
+[2024-05-26 14:47:03,776][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.71it/s]
+[2024-05-26 14:47:03,787][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:47:03,787][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:07,615][semstamp][INFO] - Candidate text: The movie takes place in 1995, during the Kree-Skrull War, with Vers (Brie Larson), a skilled warrior, serving under the command of Yon-Rogg (Jude Law) in the Kree Empire.
+[2024-05-26 14:47:07,615][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.17it/s]
+[2024-05-26 14:47:07,635][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:47:07,635][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:47:07,635][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:47:07,635][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:10,185][semstamp][INFO] - Candidate text:  However, when Vers' spaceship crashes on Earth, she begins to experience strange visions and memories that suggest she may have a past on the planet.
+[2024-05-26 14:47:10,186][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.91it/s]
+[2024-05-26 14:47:10,204][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:47:10,204][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:10,204][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:10,204][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:13,859][semstamp][INFO] - Candidate text:  After crash-landing on Earth, Vers meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D., and together they uncover the truth about her past and the secrets of her powers.
+[2024-05-26 14:47:13,859][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 117.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.66it/s]
+[2024-05-26 14:47:13,880][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:13,880][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:13,880][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:13,881][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:17,623][semstamp][INFO] - Candidate text:  After an encounter with a Skrull, Talos (Ben Mendelsohn), Vers crashes lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a low-ranking S.H.I.E.L.D.
+[2024-05-26 14:47:17,624][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.91it/s]
+[2024-05-26 14:47:17,644][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:17,645][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:17,645][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:17,645][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:20,870][semstamp][INFO] - Candidate text:  After an encounter with the Skrulls, Vers crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+[2024-05-26 14:47:20,871][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.03it/s]
+[2024-05-26 14:47:20,891][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:20,891][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:20,891][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:20,891][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:22,816][semstamp][INFO] - Candidate text:  However, Vers starts to experience strange dreams and visions that make her question her past and her identity.
+[2024-05-26 14:47:22,817][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.65it/s]
+[2024-05-26 14:47:22,834][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:47:22,834][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:22,834][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:22,834][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:25,099][semstamp][INFO] - Candidate text:  Vers has amnesia and no memory of her past, but she has incredible powers that make her nearly unbeatable in battle.
+[2024-05-26 14:47:25,099][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.52it/s]
+[2024-05-26 14:47:25,117][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:47:25,117][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:25,117][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:25,117][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:27,112][semstamp][INFO] - Candidate text:  When Vers begins to experience strange visions and memories, she sets out to uncover the truth about her past.
+[2024-05-26 14:47:27,113][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.37it/s]
+[2024-05-26 14:47:27,131][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:47:27,131][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:27,131][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:27,131][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:28,510][semstamp][INFO] - Candidate text:  However, her memories of her past are fragmented and unclear.
+[2024-05-26 14:47:28,510][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.55it/s]
+[2024-05-26 14:47:28,527][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:47:28,527][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:47:28,527][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:47:28,527][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:32,035][semstamp][INFO] - Candidate text:  After being captured by Skrulls, Vers escapes and crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), who is a lower-ranking agent at S.H.I.E.L.D.
+[2024-05-26 14:47:32,036][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.93it/s]
+[2024-05-26 14:47:32,056][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:32,056][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:32,056][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:32,056][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:35,838][semstamp][INFO] - Candidate text:  After a mission goes wrong, Vers crashes on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent at S.H.I.E.L.D., who helps her uncover her past and the source of her powers.
+
+[2024-05-26 14:47:35,838][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.44it/s]
+[2024-05-26 14:47:35,858][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:35,858][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:35,859][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:35,859][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:39,437][semstamp][INFO] - Candidate text:  After Vers discovers a Skrull ship containing an important artifact, she escapes but ends up on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+
+[2024-05-26 14:47:39,437][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.59it/s]
+[2024-05-26 14:47:39,457][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:39,458][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:39,458][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:39,458][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:42,828][semstamp][INFO] - Candidate text:  When Vers' ship is attacked by Skrulls, led by Talos (Ben Mendelsohn), she crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson).
+[2024-05-26 14:47:42,828][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.07it/s]
+[2024-05-26 14:47:42,846][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:42,846][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:42,846][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:42,846][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:45,874][semstamp][INFO] - Candidate text:  The Kree Empire discovers a Skrull ship that contains information about a light-speed engine developed by Dr. Wendy Lawson (Annette Bening), which could end the war.
+
+[2024-05-26 14:47:45,874][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.23it/s]
+[2024-05-26 14:47:45,891][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:47:45,891][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:45,891][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:45,891][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:49,673][semstamp][INFO] - Candidate text:  Vers escapes from the Skrulls, who are trying to extract information from her, and crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+
+
+[2024-05-26 14:47:49,674][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.96it/s]
+[2024-05-26 14:47:49,692][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:49,692][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:49,692][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:49,692][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:52,515][semstamp][INFO] - Candidate text:  When she escapes to Earth, she meets Nick Fury (Samuel L. Jackson) and together they unravel the truth about her past and the secrets behind her powers.
+[2024-05-26 14:47:52,515][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.92it/s]
+[2024-05-26 14:47:52,533][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:52,533][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:52,533][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:52,533][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:55,697][semstamp][INFO] - Candidate text:  While on a mission to rescue a group of Kree refugees from the Skrulls, Vers crashes on Earth and meets Nick Fury (Samuel L. Jackson), who becomes her ally.
+
+[2024-05-26 14:47:55,697][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.41it/s]
+[2024-05-26 14:47:55,715][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:55,715][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:55,715][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:55,715][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:47:58,606][semstamp][INFO] - Candidate text:  During a mission, she crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+
+
+[2024-05-26 14:47:58,607][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.32it/s]
+[2024-05-26 14:47:58,624][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:47:58,625][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:47:58,625][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:47:58,625][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:02,957][semstamp][INFO] - Candidate text:  During a mission to rescue a group of Kree refugees from the Skrulls, Vers crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D., and Phil Coulson (Clark Gregg).
+
+[2024-05-26 14:48:02,957][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.18it/s]
+[2024-05-26 14:48:02,976][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:02,976][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:02,976][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:02,976][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:05,937][semstamp][INFO] - Candidate text:  She escapes to Earth, where she crash-lands in Los Angeles and meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+[2024-05-26 14:48:05,938][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.86it/s]
+[2024-05-26 14:48:05,955][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:05,955][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:05,955][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:05,956][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:09,189][semstamp][INFO] - Candidate text:  When Vers crash-lands on Earth, she meets young Nick Fury (Samuel L. Jackson) and together they try to uncover the truth about her past and the Skrulls' intentions.
+[2024-05-26 14:48:09,189][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.11it/s]
+[2024-05-26 14:48:09,207][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:09,207][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:09,207][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:09,207][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:12,990][semstamp][INFO] - Candidate text:  After a mission goes awry, Vers escapes to Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D., and Phil Coulson (Clark Gregg), a rookie agent.
+
+[2024-05-26 14:48:12,991][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.69it/s]
+[2024-05-26 14:48:13,009][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:48:13,009][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:13,009][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:13,010][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:15,968][semstamp][INFO] - Candidate text:  While on a mission, she crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+
+[2024-05-26 14:48:15,969][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.63it/s]
+[2024-05-26 14:48:15,986][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:15,987][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:15,987][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:15,987][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:19,495][semstamp][INFO] - Candidate text:  During a mission to rescue a group of abducted humans from Skrulls, Vers crashes on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D.
+
+
+[2024-05-26 14:48:19,495][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.21it/s]
+[2024-05-26 14:48:19,514][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:19,514][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:19,514][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:19,514][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:22,405][semstamp][INFO] - Candidate text:  She escapes from the Kree spaceship and crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson) and Phil Coulson (Clark Gregg).
+
+[2024-05-26 14:48:22,405][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.71it/s]
+[2024-05-26 14:48:22,423][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:48:22,423][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:22,423][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:22,423][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:25,450][semstamp][INFO] - Candidate text:  During a mission to rescue a group of Skrulls, Vers is captured and interrogated by Talos (Ben Mendelsohn), a high-ranking Skrull officer.
+[2024-05-26 14:48:25,451][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.58it/s]
+[2024-05-26 14:48:25,460][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:25,460][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:29,380][semstamp][INFO] - Candidate text:  During a mission to rescue an undercover agent from a Skrull spaceship, Vers encounters a group of Skrulls, led by Talos (Ben Mendelsohn), who probe her mind and reveal flashes of her human life on Earth.
+
+[2024-05-26 14:48:29,381][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.87it/s]
+[2024-05-26 14:48:29,399][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 14:48:29,399][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:48:29,400][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:48:29,400][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:32,246][semstamp][INFO] - Candidate text: Vers escapes and crash-lands on Earth, where she meets a young Nick Fury (Samuel L. Jackson), a SHIELD agent at the time.
+[2024-05-26 14:48:32,247][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.37it/s]
+[2024-05-26 14:48:32,264][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:32,264][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:32,264][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:48:32,265][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:35,733][semstamp][INFO] - Candidate text: Vers escapes and crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young agent of S.H.I.E.L.D., and Phil Coulson (Clark Gregg).
+[2024-05-26 14:48:35,733][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.16it/s]
+[2024-05-26 14:48:35,751][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:35,752][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:35,752][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:48:35,752][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:39,703][semstamp][INFO] - Candidate text: Determined to uncover the truth about her past, Vers escapes from Yon-Rogg's ship and crash-lands on Earth, where she meets Nick Fury (Samuel L. Jackson), a young S.H.I.E.L.D.
+[2024-05-26 14:48:39,703][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 80.21it/s]
+[2024-05-26 14:48:39,729][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:39,729][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:39,729][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:48:39,729][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:42,093][semstamp][INFO] - Candidate text: With the help of Nick Fury (Samuel L. Jackson), a young and ambitious S.H.I.E.L.D.
+[2024-05-26 14:48:42,093][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.92it/s]
+[2024-05-26 14:48:42,111][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:48:42,111][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:48:42,111][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:48:42,111][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:43,936][semstamp][INFO] - Candidate text:  agent, Vers escapes from the Kree Empire and crash-lands on Earth.
+[2024-05-26 14:48:43,937][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.04it/s]
+[2024-05-26 14:48:43,954][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:48:43,954][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:43,954][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:48:43,954][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:46,471][semstamp][INFO] - Candidate text:  agent, Vers sets out to uncover the truth about her past and stop the war between the Kree and the Skrulls.
+[2024-05-26 14:48:46,471][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.05it/s]
+[2024-05-26 14:48:46,489][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:48:46,489][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:46,489][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:48:46,489][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:50,046][semstamp][INFO] - Candidate text:  agent, and Goose, a cat-like creature that turns out to be a Flerken, a powerful alien being, Vers sets out to uncover the truth about her past and her connection to the Earth.
+
+
+[2024-05-26 14:48:50,046][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.30it/s]
+[2024-05-26 14:48:50,064][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:48:50,064][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:50,064][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:48:50,064][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:53,689][semstamp][INFO] - Candidate text:  agent, Vers escapes and crash-lands on Earth, where she begins to uncover her past identity as Carol Danvers, an Air Force pilot who gained incredible powers after absorbing the energy of a destroyed alien engine.
+[2024-05-26 14:48:53,689][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.54it/s]
+[2024-05-26 14:48:53,707][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:53,707][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:48:53,707][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:48:53,707][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:56,479][semstamp][INFO] - Candidate text:  As Danvers, she embarks on a quest to stop the Kree-Skrull conflict and discover the secrets of her past.
+
+
+[2024-05-26 14:48:56,479][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.69it/s]
+[2024-05-26 14:48:56,488][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:48:56,488][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:48:59,455][semstamp][INFO] - Candidate text:  As she delves deeper into her past, she learns about her connections to the Kree and her involvement in their war against the Skrulls.
+
+
+[2024-05-26 14:48:59,455][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.81it/s]
+[2024-05-26 14:48:59,473][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:48:59,473][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:48:59,473][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:48:59,473][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:03,625][semstamp][INFO] - Candidate text:  As she delves deeper into her past, she discovers that her mentor, Dr. Wendy Lawson (Annette Bening), was killed by the Kree, and that she has been manipulated and controlled by them throughout her military career.
+
+[2024-05-26 14:49:03,625][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.13it/s]
+[2024-05-26 14:49:03,644][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:49:03,644][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:03,645][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:03,645][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:06,751][semstamp][INFO] - Candidate text:  As she pieces together her forgotten history, she must also confront Ronan the Accuser (Lee Pace), a rogue Kree commander seeking to destroy the Earth.
+
+[2024-05-26 14:49:06,752][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.19it/s]
+[2024-05-26 14:49:06,769][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:49:06,769][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:06,769][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:06,769][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:10,363][semstamp][INFO] - Candidate text:  As she delves deeper into her past, she must confront her nemesis, Minn-Erva (Gemma Chan), and stop the war between the Krees and Skrulls.
+
+
+[2024-05-26 14:49:10,364][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.31it/s]
+[2024-05-26 14:49:10,381][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:49:10,381][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:10,381][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:10,381][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:15,024][semstamp][INFO] - Candidate text:  As Vers learns more about her past and her connection to Dr. Wendy Lawson (Annette Bening), a scientist working for the U.S. government, she also discovers that the Kree are seeking to destroy the Skrulls, who are fleeing their home planet.
+
+[2024-05-26 14:49:15,024][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.36it/s]
+[2024-05-26 14:49:15,042][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:49:15,042][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:15,043][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:15,043][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:18,289][semstamp][INFO] - Candidate text:  As Carol struggles to regain control over her abilities and memories, she uncovers a sinister plot by the Kree to use their advanced technology to invade and conquer other planets.
+
+
+[2024-05-26 14:49:18,289][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.56it/s]
+[2024-05-26 14:49:18,307][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:49:18,307][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:18,307][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:18,307][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:21,762][semstamp][INFO] - Candidate text:  As she learns more about herself, she also discovers that she has been manipulated by the Kree and must confront her own identity crisis while dealing with the threat of the Skrulls.
+
+[2024-05-26 14:49:21,763][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.15it/s]
+[2024-05-26 14:49:21,780][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:49:21,781][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:21,781][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:21,781][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:24,887][semstamp][INFO] - Candidate text:  As she learns more about herself, she must confront her enemies and uncover the truth about her past while stopping the war between the Kree and Skrulls.
+
+[2024-05-26 14:49:24,888][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.87it/s]
+[2024-05-26 14:49:24,905][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:49:24,905][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:24,905][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:24,905][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:27,804][semstamp][INFO] - Candidate text:  As Carol regains her memories, she sets out to stop the Kree-Skrull conflict, protect Earth, and discover her true origins.
+
+
+[2024-05-26 14:49:27,804][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.99it/s]
+[2024-05-26 14:49:27,822][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:49:27,822][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:49:27,822][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:27,822][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:31,418][semstamp][INFO] - Candidate text:  As she navigates her new surroundings and confronts her adversaries, Vers must come to terms with her dual identities and find a way to stop the war between the Kree and Skrulls.
+
+
+[2024-05-26 14:49:31,418][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.29it/s]
+[2024-05-26 14:49:31,436][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:49:31,436][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:49:31,436][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:49:31,436][semstamp][INFO] - acceptmaskstr: 6,0
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/stats.csv
+[2024-05-26 14:49:31,438][semstamp][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-05-26 14:49:31,438][semstamp][INFO] - Response: ("Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Captain Marvel is a 2019 superhero film directed by Anna Boden and Ryan Fleck and produced by Marvel Studios. It is based on the Marvel Comics character Carol Danvers, played by Brie Larson.\nThe movie takes place in 1995, during the Kree-Skrull War, with Vers (Brie Larson), a skilled warrior, serving under the command of Yon-Rogg (Jude Law) in the Kree Empire. However, her memories of her past are fragmented and unclear. During a mission to rescue an undercover agent from a Skrull spaceship, Vers encounters a group of Skrulls, led by Talos (Ben Mendelsohn), who probe her mind and reveal flashes of her human life on Earth.\nWith the help of Nick Fury (Samuel L. Jackson), a young and ambitious S.H.I.E.L.D. agent, Vers escapes and crash-lands on Earth, where she begins to uncover her past identity as Carol Danvers, an Air Force pilot who gained incredible powers after absorbing the energy of a destroyed alien engine. As she navigates her new surroundings and confronts her adversaries, Vers must come to terms with her dual identities and find a way to stop the war between the Kree and Skrulls.\n\n", 81)
+[2024-05-26 14:49:31,438][watermarker][INFO] - Received completion: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Captain Marvel is a 2019 superhero film directed by Anna Boden and Ryan Fleck and produced by Marvel Studios. It is based on the Marvel Comics character Carol Danvers, played by Brie Larson.
+The movie takes place in 1995, during the Kree-Skrull War, with Vers (Brie Larson), a skilled warrior, serving under the command of Yon-Rogg (Jude Law) in the Kree Empire. However, her memories of her past are fragmented and unclear. During a mission to rescue an undercover agent from a Skrull spaceship, Vers encounters a group of Skrulls, led by Talos (Ben Mendelsohn), who probe her mind and reveal flashes of her human life on Earth.
+With the help of Nick Fury (Samuel L. Jackson), a young and ambitious S.H.I.E.L.D. agent, Vers escapes and crash-lands on Earth, where she begins to uncover her past identity as Carol Danvers, an Air Force pilot who gained incredible powers after absorbing the energy of a destroyed alien engine. As she navigates her new surroundings and confronts her adversaries, Vers must come to terms with her dual identities and find a way to stop the war between the Kree and Skrulls.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.18it/s]
+n_watermark: 8, n_test_sent: 8
+zscore: 4.898979485566357
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.52it/s]
+n_watermark: 8, n_test_sent: 8
+zscore: 4.898979485566357
+[2024-05-26 14:49:31,592][__main__][INFO] - Watermarked Text: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Captain Marvel is a 2019 superhero film directed by Anna Boden and Ryan Fleck and produced by Marvel Studios. It is based on the Marvel Comics character Carol Danvers, played by Brie Larson.
+The movie takes place in 1995, during the Kree-Skrull War, with Vers (Brie Larson), a skilled warrior, serving under the command of Yon-Rogg (Jude Law) in the Kree Empire. However, her memories of her past are fragmented and unclear. During a mission to rescue an undercover agent from a Skrull spaceship, Vers encounters a group of Skrulls, led by Talos (Ben Mendelsohn), who probe her mind and reveal flashes of her human life on Earth.
+With the help of Nick Fury (Samuel L. Jackson), a young and ambitious S.H.I.E.L.D. agent, Vers escapes and crash-lands on Earth, where she begins to uncover her past identity as Carol Danvers, an Air Force pilot who gained incredible powers after absorbing the energy of a destroyed alien engine. As she navigates her new surroundings and confronts her adversaries, Vers must come to terms with her dual identities and find a way to stop the war between the Kree and Skrulls.
+[2024-05-26 14:49:31,592][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 14:49:31,592][__main__][INFO] - Score: 4.898979485566357
+[2024-05-26 14:49:31,592][__main__][INFO] - Time taken: 241.87974071502686
+Data appended to ./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_2/watermarked_text.csv

@@ -1,0 +1,919 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 14:35:45,868][__main__][INFO] - Starting to watermark...
+[2024-05-26 14:35:45,872][__main__][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Healthtech startup Health2Sync, which launched at the Hardware Battlefield at CES 2014, wants to change all that with a cheap accessory that connects to most standard glucose meters and syncs your blood glucose levels straight to your phone.
+The company announced today it has secured a $3 million Series A round led by WI Harper Group, with participation in the round by Cherubic Ventures, iSeed Ventures and SparkLabs Global Ventures.
+According to the company’s press release, Health2Sync will use the funding to continue product development and accelerate growth overseas in markets like Japan, China and Southeast Asia.
+At its core, the Health2Sync is a cable that connects your smartphone to your glucose meter via the headphone jack to get the two devices talking. Once these devices are connected, data stored on your glucose meter will sync with your smartphone via the Health2Sync app.
+The app is available for both Android and iOS and the cable comes in two varieties — one for legacy glucose meters, and another for more modern meters that transmit data via infrared.
+In addition to displaying the data both numerically and graphically, users of the Health2Sync app can add family members so these loved ones can help them manage their diabetes. It also lets you send data to your physician and diabetic educator so these professional caregivers can do the same.
+And the company claims it gets results. According to a press release, the average HbA1c levels of patients dropped from 8.6 percent to 6.89 percent in patients who had been using Health2Sync for 120 days, which led to significant drops in the risk of health complications in these patients.
+Patients are typically considered to be in control when HbA1c levels are at or below 7-8 percent, according to Mayo Clinic.
+With an additional $3 million in the bank, Health2Sync should be able to make advances in their technology that help people take better control of their diabetes, especially in areas like Japan, China and Southeast Asia that the company is targeting.
+We can’t wait to see how they do. We also can’t wait to see the next round of future success stories in the Battlefield at Disrupt SF 2016, which takes place in just a few short weeks, September 12-14 at San Francisco’s Pier 48.
+[2024-05-26 14:35:45,872][__main__][INFO] - Getting the watermarker...
+[2024-05-26 14:35:45,872][watermarker][INFO] - Using device: cuda
+[2024-05-26 14:35:45,873][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 14:35:49,495][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 14:35:58,025][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 14:35:59,866][semstamp][INFO] - Setting up generating components...
+[2024-05-26 14:35:59,869][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.8, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 14:35:59,870][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 14:35:59,870][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 14:36:00,728][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 14:36:00,787][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 14:36:00,788][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 14:36:00,788][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.60it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.60it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 14:36:04,046][semstamp][INFO] - Candidate text:  Between doctor's appointments, managing medication schedules, tracking test strips (and those tedious logs), exercising regularly, as well as counting all them precious carbs; staying on top feels rather overwhelming.
+
+[2024-05-26 14:36:04,047][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.32it/s]
+[2024-05-26 14:36:04,062][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:36:04,062][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:06,555][semstamp][INFO] - Candidate text:  With CareKit, patients will have control over their own health, tracking glucose readings, meals and insulin dosages which all sync beautifully with this device for easier self-management.
+
+[2024-05-26 14:36:06,556][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.69it/s]
+[2024-05-26 14:36:06,573][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 14:36:06,573][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:06,574][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:36:06,574][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:08,996][semstamp][INFO] - Candidate text:  Fortunately, technology has stepped in and provided us with many tools to monitor blood glucose levels, receive alerts and reminders and keep track of carbohydrates consumption all within our fingertips.
+[2024-05-26 14:36:08,997][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.48it/s]
+[2024-05-26 14:36:09,014][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:36:09,014][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:36:09,014][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:36:09,014][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:10,398][semstamp][INFO] - Candidate text:  This advancement in technology has indeed made living with diabetes much easier!
+
+[2024-05-26 14:36:10,399][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 82.63it/s]
+[2024-05-26 14:36:10,414][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:10,414][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:11,569][semstamp][INFO] - Candidate text:  Yes!, with various health apps available out there!
+[2024-05-26 14:36:11,569][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.96it/s]
+[2024-05-26 14:36:11,586][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:11,586][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:11,586][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:11,587][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:12,808][semstamp][INFO] - Candidate text:  Here are some tech-tastic apps for managing Diabetes.
+
+[2024-05-26 14:36:12,808][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.69it/s]
+[2024-05-26 14:36:12,825][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:12,825][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:12,826][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:12,826][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:14,587][semstamp][INFO] - Candidate text:  Diabetes-related apps are growing increasingly popular today as they assist individuals dealing with this severe ailment.
+
+[2024-05-26 14:36:14,588][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.79it/s]
+[2024-05-26 14:36:14,605][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:14,605][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:14,605][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:14,605][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:16,234][semstamp][INFO] - Candidate text:   Diabetes app development has opened doors to improved health management for patients around the world.
+
+
+[2024-05-26 14:36:16,234][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.54it/s]
+[2024-05-26 14:36:16,252][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:16,252][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:16,252][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:16,252][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:18,759][semstamp][INFO] - Candidate text:  Let’s take a peek at some best Diabetes tracking app: Read More »
+The digital world has greatly advanced in monitoring and taking care of diabetic needs.
+[2024-05-26 14:36:18,759][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.50it/s]
+[2024-05-26 14:36:18,770][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:18,770][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:23,174][semstamp][INFO] - Candidate text:  Here's a look at some iPhone apps for monitoring diabetes:
+Log Your Sugar Levels-Track diabetes related info such as medications, carbs counted and more:
+1 Diabetes Tracker: This iPhone app allows users to log, view, compare, search daily journal records or history logs along side graphical stats.
+[2024-05-26 14:36:23,175][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.59it/s]
+[2024-05-26 14:36:23,195][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:23,195][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:23,195][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:23,195][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:24,620][semstamp][INFO] - Candidate text:  Below listed are some diabetic apps that help you better understand glucose management.
+
+
+[2024-05-26 14:36:24,620][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.90it/s]
+[2024-05-26 14:36:24,638][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:36:24,639][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:36:24,639][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:24,639][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:25,271][semstamp][INFO] - Candidate text: 1.
+[2024-05-26 14:36:25,272][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.19it/s]
+[2024-05-26 14:36:25,288][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:36:25,288][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:25,289][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:25,289][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:26,392][semstamp][INFO] - Candidate text: **10 Diabetes Management Tools:**
+1.
+[2024-05-26 14:36:26,393][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.63it/s]
+[2024-05-26 14:36:26,410][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:26,410][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:26,410][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:26,410][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:27,581][semstamp][INFO] - Candidate text: Here is the final part of Diabetic Series!
+[2024-05-26 14:36:27,581][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.97it/s]
+[2024-05-26 14:36:27,599][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:36:27,599][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:27,599][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:27,599][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:29,989][semstamp][INFO] - Candidate text: -1. mySugr:
+The ultimate logbook companion for insulin therapy users providing personalized reports, graphs, insights and medication trackers.
+[2024-05-26 14:36:29,989][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.09it/s]
+[2024-05-26 14:36:29,999][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:29,999][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:31,374][semstamp][INFO] - Candidate text: [Image for diabetes]
+```
+Diabetic Apps:
+1.
+[2024-05-26 14:36:31,375][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.61it/s]
+[2024-05-26 14:36:31,392][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:31,393][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:31,393][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:31,393][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:33,376][semstamp][INFO] - Candidate text: ---
+
+Here is a concise list of 24 Diabetic apps with varying features:
+
+### Monitoring Diabetes:
+
+1.
+[2024-05-26 14:36:33,376][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.94it/s]
+[2024-05-26 14:36:33,394][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:33,394][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:33,394][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:33,394][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:38,570][semstamp][INFO] - Candidate text: **1._MyFitnessPal app_**
+With MyFitness Pal you can log your daily food diary, track macronutrients, maintain carbohydrate, sugar or calorie intake which is especially helpful for people managing insulin levels
+
+**2._MedCoach App__** 
+Set custom medication notifications so you never forget to take necessary prescription for glucose control.
+
+
+[2024-05-26 14:36:38,571][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.92it/s]
+[2024-05-26 14:36:38,582][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:38,582][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:42,671][semstamp][INFO] - Candidate text: **iProven glucometer & logbook app**
+
+* This mobile app measures Blood Glucose (in mmol/l or mg/dL) at various meal stages throughout the day using smart strip integration and wirelessly sends reading directly into the smartphone.
+  
+  
+[2024-05-26 14:36:42,672][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.78it/s]
+[2024-05-26 14:36:42,691][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:42,691][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:42,691][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:42,691][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:44,339][semstamp][INFO] - Candidate text:  
+
+<b>
+
+* MyFitnessPal: A calorie tracking app for monitoring your diet.
+[2024-05-26 14:36:44,339][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.36it/s]
+[2024-05-26 14:36:44,356][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:36:44,357][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:36:44,357][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:44,357][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:54,499][semstamp][INFO] - Candidate text:  Includes large food databases from over 500k foods and beverages along with an active online support community.</li>
+        
+<li>Glooko Diabetes Tracker: Helps you discover trends and correlations through an auto-tracking blood glucose graph while managing daily diabetes logging.</li>
+
+<li>Glucose Buddy Diabetes Manager: Allows instant chart tracking which displays information with graphs helping to set personal alarm setting with customized dosage based medication reminder.</li>&emsp;
+
+*&nbsp; CGM Guardian Connect: Mobile tracking system linked to the CGMs data displaying continuous glucose numbers enabling on-the-go monitoring & receiving notifications at important milestones or threshold exceeding points and other features allowing health providers & friends stay involved ensuring real-time assistance as well in remote care situations
+[2024-05-26 14:36:54,499][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 98.52it/s]
+[2024-05-26 14:36:54,513][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:54,513][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:56,100][semstamp][INFO] - Candidate text:  
+
+* Logbook App: Track carb counting for insulin dosage calculation. 
+   
+
+[2024-05-26 14:36:56,100][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.63it/s]
+[2024-05-26 14:36:56,118][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:56,118][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:56,118][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:56,118][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:36:58,996][semstamp][INFO] - Candidate text:  Track carbohydrate intake using this app.</b>
+
+*
+
+<b>
+
+* Glucose Buddy Diabetes App </b>: Comprehensive glucose tracking, record measurements manually and share with doctors or caregivers.
+
+
+[2024-05-26 14:36:58,997][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.34it/s]
+[2024-05-26 14:36:59,016][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:36:59,017][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:36:59,017][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:36:59,017][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:04,010][semstamp][INFO] - Candidate text:  It also features food databases of nutrition information
+
+</b>\*
+
+* <i Diabetes Companion:** Records blood sugar readings, exercise plans and carb consumption for precise data-driven insights.</i>
+
+</a>
+
+\_
+
+*\_Glooko:\_**Tracks glucose metrics and patterns with data integrations from various diabetes devices including sensors.
+[2024-05-26 14:37:04,011][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 77.37it/s]
+[2024-05-26 14:37:04,035][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:04,036][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:04,036][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:04,036][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:05,895][semstamp][INFO] - Candidate text:  
+</b>
+This application has an extensive nutritional content knowledge base which covers numerous diverse food categories.
+[2024-05-26 14:37:05,895][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.05it/s]
+[2024-05-26 14:37:05,912][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:05,913][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:05,913][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:05,913][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:07,635][semstamp][INFO] - Candidate text:   
+It can connect directly with your health device and provides insights on carbohydrate consumption.
+ 
+  
+
+
+[2024-05-26 14:37:07,636][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.51it/s]
+[2024-05-26 14:37:07,653][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 14:37:07,653][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:07,653][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:07,653][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:10,192][semstamp][INFO] - Candidate text:  
+
+*</b> </li>
+ 
+*b> 
+
+* MySugr: Get personalized logging features and get your data synced easily and conveniently.
+[2024-05-26 14:37:10,193][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.34it/s]
+[2024-05-26 14:37:10,210][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:10,211][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:10,211][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:10,211][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:11,662][semstamp][INFO] - Candidate text:  </b> This food diary records daily intake enabling effortless carbohydrate counting.
+
+
+[2024-05-26 14:37:11,662][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.52it/s]
+[2024-05-26 14:37:11,680][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:11,680][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:11,680][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:11,680][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:13,676][semstamp][INFO] - Candidate text:  
+*A quick scan or typing down food item fetch details like calories consumed and macronutrient content.  
+
+[2024-05-26 14:37:13,677][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.12it/s]
+[2024-05-26 14:37:13,695][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:13,695][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:13,695][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:13,695][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:19,031][semstamp][INFO] - Candidate text:  Track sugar intake and get carb counting.</b>
+
+<img alt='My Fitness Pal' src={{'../styles/image/mfg.png'} styles= {{width: 30}}/>
+
+ * One Drop - Diabetes Management: Track blood glucose measurements, track logbooks and stay synced to healthcare providers, access analytics and stay informed about diabetes-related questions on forums.
+ 
+
+[2024-05-26 14:37:19,031][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.04it/s]
+[2024-05-26 14:37:19,051][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:19,051][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:19,051][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:19,052][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:30,592][semstamp][INFO] - Candidate text:  Provides accurate nutrient data, barcodes scanner</a>
+
+<b>* Glooko: Digital logbook enabling patients to track medications, carbs, exercise</a> and upload pump/MG data; provides graphs/trends analysis, personalized coaching</b><a></a>
+
+* Dario: Holistic digital solution allowing individuals manage T1/T2: tracks BG levels </li>, insulin dose, active exercise, carb log </li>, integrates wearable devices &amp; offers actionable insights</b><b>
+
+<a name='5'>*</iBlue: Connects people living without type 2 diabetes offering resources to educate users around healthy lifestyle behaviors like nutrition, hydration,and exercises while integrating existing medication</b><a>()
+
+Some tips from experts on using those apps effectively-
+
+1 - Consistency is key.
+
+[2024-05-26 14:37:30,592][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 100.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.19it/s]
+[2024-05-26 14:37:30,615][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:30,615][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:30,616][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:30,616][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:34,067][semstamp][INFO] - Candidate text:  Create meals on the fly and search an exhaustive 700k food database including carbs per meal 
+ 
+
+* Carb Counter-TrackYourMedals: Simple way of logging carbohydrates using customizable daily targets with automatic calculations.
+[2024-05-26 14:37:34,068][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 65.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 71.87it/s]
+[2024-05-26 14:37:34,103][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:34,103][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:34,103][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:34,103][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:38,762][semstamp][INFO] - Candidate text:  </b>  
+* LogIt: For recording food, meds, insulin doses, and test results  
+*b.GlucoCheck: Displays averages and patterns from self-checked meter data  
+
+
+
+If someone from another generation walks in wearing these contraptions, I wonder if any thought of calling 911!
+
+
+[2024-05-26 14:37:38,762][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.85it/s]
+[2024-05-26 14:37:38,782][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:38,782][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:38,782][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:38,782][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:40,367][semstamp][INFO] - Candidate text:  Input food intake and this app will tally caloric count along with carb counts.
+
+[2024-05-26 14:37:40,367][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.87it/s]
+[2024-05-26 14:37:40,385][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:40,385][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:40,385][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:40,385][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:48,189][semstamp][INFO] - Candidate text:  This app has an inbuilt database with millions of foods.</b>
+<ul>
+  <li>
+
+Glucosmart by Hygieia : An innovative iPhone app designed to track insulin & carb intake; send medication reminders and analyze patterns through charts.</li>
+
+ <li>MySugr Companion: This is the companion app for mySugr handheld glucometers but it's useable on other devices too for tracking bg levels; logging carbohydrate intakes and exercising plus taking note med/insulin dosing reminders.  
+[2024-05-26 14:37:48,190][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 99.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 99.02it/s]
+[2024-05-26 14:37:48,215][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:48,216][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:48,216][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:48,216][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:37:59,534][semstamp][INFO] - Candidate text:  It also calculates calories burned during various activities throughout the day helping you manage carbs for glucose control.</b>
+
+ <ul type='•'>
+ <li>One Drop Chrome: Tracks health metrics such as insulin usage carb counting workouts stress levels and mood swings providing more insights glucose control.</li></ul>
+
+
+<b,GLUtags: An FDA-cleared Bluetooth-enabled blood glucose meter automatically tracks readings logs food & exercises and monitors daily patterns.</li>
+<ul type='–>
+ <li>Diabetes Journal: Allows monitoring of blood sugar and medications records exercise habits plus tracks sleep weight goals and medication dose which enables personalized diabetes management through graphical representations analytics summaries email reports</li>`assistant
+
+It looks like you were trying to create a list of diabetic apps that can help with glucose management.
+[2024-05-26 14:37:59,534][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 86.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 103.12it/s]
+[2024-05-26 14:37:59,561][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:37:59,561][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:37:59,561][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:37:59,561][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:01,353][semstamp][INFO] - Candidate text:   
+  
+
+    
+</b>> This application helps users follow low-cholesterol diets.
+  
+
+
+[2024-05-26 14:38:01,353][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.06it/s]
+[2024-05-26 14:38:01,370][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:01,371][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:01,371][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:01,371][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:04,862][semstamp][INFO] - Candidate text:  It contains vast library of foods along with carb details.</b>
+* MySugr Diary: One stop diabetes diary to log and track your daily carbohydrate consumption, medication,insulin intake,glucose readings etc.
+[2024-05-26 14:38:04,862][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.48it/s]
+[2024-05-26 14:38:04,882][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:04,882][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:04,883][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:04,883][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:06,402][semstamp][INFO] - Candidate text:  </b>
+
+
+<b>
+*Meter+: An easy method tracking carb tracking.
+[2024-05-26 14:38:06,402][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.48it/s]
+[2024-05-26 14:38:06,419][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:06,419][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:06,419][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:06,419][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:07,463][semstamp][INFO] - Candidate text:  One of the most reliable calorie counters.
+
+[2024-05-26 14:38:07,464][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.95it/s]
+[2024-05-26 14:38:07,481][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:07,481][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:07,481][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:07,481][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:27,885][semstamp][INFO] - Candidate text:  With a vast database of foods you consume it offers detailed information about nutrients and calories intake.</b></font>
+<b>
+
+* One Drop - Blood Glucose Tracker: An easy to use comprehensive digital logbook helps users take charge of their diabetes care by syncing the data from various devices such glucometer or CGM with this intuitive app and provides insights on managing diabetes.</b</br>
+<b>
+
+Diabetes Planner: Organize all tasks around Diabetes Care easily and stay focused - whether its recording blood sugar insulin doses meds nutrition levels and any medication - it keeps everything handy giving user control over their disease - including customising goals as required</br>
+<b>BiteSized: Carbohydrate Tracking Assistant</b>
+
+* Glucocoalorie Counter : A perfect assistant to monitor carbs daily targets setting customized carb goals plus offering macronutrients nutrient tracking food barcode scanning feature more health statistics reports etc., thus catering dietary needs while balancing the delicate diabetes</r>
+
+</p> </td> <!-- Column Three of the main content -->
+
+
+
+<table cellpadding="1">
+<td valign="top" width="" style="border:none;padding:40px" ;>
+
+<IMAGE src="{{'/content/themes/tf/images/image2.jpg'|asset_url }}"
+
+
+ width="300">
+
+
+<style>.cimage { ="max-width=300"></style>
+
+<b>Moving Beyond Data Tracking and into AI Technology <I/>
+
+We now dwell in artificial worlds.
+[2024-05-26 14:38:27,885][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 48.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 91.05it/s]
+[2024-05-26 14:38:27,922][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:27,923][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:27,923][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:27,923][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:33,601][semstamp][INFO] - Candidate text:  </b>
+<b>
+It has an extensive food database covering about 6000+ foods enabling users </b>
+<b>
+to maintain food logs quickly and accurately.</b>
+
+<i>* Diabetic App Pro by Bevtracker:</i> (for iOS users) Monitor your blood sugar readings, insulin dosage <br>
+and track your lifestyle patterns which contributes largely on sugar levels.
+[2024-05-26 14:38:33,602][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 113.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.38it/s]
+[2024-05-26 14:38:33,623][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:38:33,623][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:33,623][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:33,623][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:36,503][semstamp][INFO] - Candidate text:  
+* Continuous Glucose Monitor by Medtronic: It receives data transmitted wirelessly from a sensor on your arm, monitoring blood glucose levels continuously throughout the day and night.
+
+[2024-05-26 14:38:36,503][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.34it/s]
+[2024-05-26 14:38:36,520][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:38:36,521][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:38:36,521][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:36,521][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:50,612][semstamp][INFO] - Candidate text: &#x20;
+* Glooko: It is digital diabetes logbook which helps patients record their daily intake and physical activities.
+* OnTrack Diabetes, an innovative way to manage diabetes by receiving personalized alerts reminders &amp;amp; health tips, while tracking  BG readings, medication, carb counting and exercises, syncs with iXtbg Meter also providing HbA1c tracking feature., 
+    * gluconeers an AI-powered predictive analytics that allows predicting post-meal Blood Glucose levels, thus allowing diabetics and healthcare professionals make informed decisions,
+</b>
+
+Now I'm going to explore each item, adding insights based on my own experiences or opinions:
+
+### <br></i><u>MyFitnessPal<br></u><i> :</iT>
+
+Although designed primarily as a diet-tracking companion, **this robust tool also offers comprehensive carb-tracking facilities** - extremely beneficial for type-1/type-2 diabetic individuals seeking fine-grained control over their carbohydrate consumption.
+[2024-05-26 14:38:50,613][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 77.93it/s]
+[2024-05-26 14:38:50,628][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:50,628][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:38:52,352][semstamp][INFO] - Candidate text:  This helps calculate carbohydrates, proteins and fats for users, aiding them in calculating insulin dose.
+[2024-05-26 14:38:52,352][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.75it/s]
+[2024-05-26 14:38:52,369][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:38:52,369][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:38:52,370][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:38:52,370][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:02,475][semstamp][INFO] - Candidate text:  </b></br>
+ <b> * LogFrog: Tracks various aspects of life including food intake, dosage, insulin injection and even tracks activity level ensuring overall well-round information.</b></br>
+ 
+
+<b>OneTouch Reveal : An easy-to-understand user interface shows both short and long-term glucose trends while also providing medication reminders.</b><Br>
+ 
+
+ 
+<b>*One Drop:
+Track carbohydrate ratio, provide meal planning suggestions, offer access to expert assistance, all accessible directly through app's message box.</b>
+ <br
+ 
+<b>GLook Glass Diabetes Tracker :</b>This device resembles smart wearables, it allows continuous, automatic tracking while simultaneously showing the results graphically.
+[2024-05-26 14:39:02,475][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 89.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 96.92it/s]
+[2024-05-26 14:39:02,502][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:39:02,502][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:39:02,502][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:02,502][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:06,287][semstamp][INFO] - Candidate text:  The data can seamlessly sync up devices like smartphones and tablets alike </br>
+
+</b>MobiSense Diabetes Logger:</b>The most comprehensive diabetes-related monitoring system offers personalized tracking options allowing monitoring vital signs along with health conditions.
+
+[2024-05-26 14:39:06,288][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.02it/s]
+[2024-05-26 14:39:06,308][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:39:06,308][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:06,308][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:06,308][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:08,283][semstamp][INFO] - Candidate text:  This real-time data monitoring is what puts GLook above all others in today’s age.
+
+
+
+[2024-05-26 14:39:08,283][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.90it/s]
+[2024-05-26 14:39:08,300][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:39:08,301][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:08,301][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:08,301][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:12,642][semstamp][INFO] - Candidate text:  Thus minimizing manual interaction when keeping watch over fluctuations.</b><br>
+  
+  One of the notable things I found out about using glucose checking diabetiapps apps, they significantly contribute towards effective managing sugars as demonstrated through the improvement within data after prolonged use.
+[2024-05-26 14:39:12,642][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.37it/s]
+[2024-05-26 14:39:12,663][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:39:12,663][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:12,663][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:12,663][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:15,404][semstamp][INFO] - Candidate text:  <BR>
+
+Let's get more on these diabetic apps!</Br>
+Remember, always consult before adjusting your treatment plan based from application's insights.
+[2024-05-26 14:39:15,404][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.89it/s]
+[2024-05-26 14:39:15,422][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:39:15,422][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:15,422][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:15,422][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:18,231][semstamp][INFO] - Candidate text:  <br />
+  
+
+<b>+Labs Diabetes Health :</b> Integrates various healthcare devices like wearable meters, fitness tracker allowing comprehensive monitoring.
+ 
+
+
+
+
+
+
+
+
+[2024-05-26 14:39:18,231][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.91it/s]
+[2024-05-26 14:39:18,249][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:39:18,249][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:18,249][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:18,249][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:21,963][semstamp][INFO] - Candidate text:  You will never have to bother entering data manually since the glucometer takes instantaneously logs values after testing.</br>
+  
+
+So the idea here is not to recommend just one app as everyone has different needs.
+[2024-05-26 14:39:21,964][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.29it/s]
+[2024-05-26 14:39:21,984][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:39:21,984][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:21,984][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:21,984][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:26,746][semstamp][INFO] - Candidate text:  It provides detailed reports too<Br>
+<b>  
+Diabit -A personalized application designed especially For Indians where user gets tailored insights, nutritional advise and tracking facility specific to local cuisines </b><BR>
+
+
+Technology-based apps aid to bring diabetes under control in various unique ways as demonstrated.
+[2024-05-26 14:39:26,746][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.81it/s]
+[2024-05-26 14:39:26,767][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:39:26,767][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:39:26,767][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:26,767][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:32,085][semstamp][INFO] - Candidate text:  </b><br>
+
+* <b>PredictBGL </b>- This free service calculates potential BG rise &amp; fall predictions helping diabetic decide on ideal time &amp; quantity of foods / meds according their BGL fluctuations </br>
+
+These smartphone applications make lives simpler by streamlining numerous variables that affect the sugar levels.
+[2024-05-26 14:39:32,086][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.95it/s]
+[2024-05-26 14:39:32,106][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:39:32,106][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:39:32,106][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:39:32,107][semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/stats.csv
+[2024-05-26 14:39:32,108][semstamp][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+[2024-05-26 14:39:32,109][semstamp][INFO] - Response: ("When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has stepped in and provided us with many tools to monitor blood glucose levels, receive alerts and reminders and keep track of carbohydrates consumption all within our fingertips. Below listed are some diabetic apps that help you better understand glucose management.\n\n \n\n<b>\n\n* MyFitnessPal: A calorie tracking app for monitoring your diet. This helps calculate carbohydrates, proteins and fats for users, aiding them in calculating insulin dose. </b></br>\n <b> * LogFrog: Tracks various aspects of life including food intake, dosage, insulin injection and even tracks activity level ensuring overall well-round information.</b></br>\n \n\n<b>OneTouch Reveal : An easy-to-understand user interface shows both short and long-term glucose trends while also providing medication reminders.</b><Br>\n \n\n \n<b>*One Drop:\nTrack carbohydrate ratio, provide meal planning suggestions, offer access to expert assistance, all accessible directly through app's message box.</b>\n <br\n \n<b>GLook Glass Diabetes Tracker :</b>This device resembles smart wearables, it allows continuous, automatic tracking while simultaneously showing the results graphically. </b><br>\n\n* <b>PredictBGL </b>- This free service calculates potential BG rise &amp; fall predictions helping diabetic decide on ideal time &amp; quantity of foods / meds according their BGL fluctuations </br>\n\nThese smartphone applications make lives simpler by streamlining numerous variables that affect the sugar levels.", 54)
+[2024-05-26 14:39:32,109][watermarker][INFO] - Received completion: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has stepped in and provided us with many tools to monitor blood glucose levels, receive alerts and reminders and keep track of carbohydrates consumption all within our fingertips. Below listed are some diabetic apps that help you better understand glucose management.
+
+ 
+
+<b>
+
+* MyFitnessPal: A calorie tracking app for monitoring your diet. This helps calculate carbohydrates, proteins and fats for users, aiding them in calculating insulin dose. </b></br>
+ <b> * LogFrog: Tracks various aspects of life including food intake, dosage, insulin injection and even tracks activity level ensuring overall well-round information.</b></br>
+ 
+
+<b>OneTouch Reveal : An easy-to-understand user interface shows both short and long-term glucose trends while also providing medication reminders.</b><Br>
+ 
+
+ 
+<b>*One Drop:
+Track carbohydrate ratio, provide meal planning suggestions, offer access to expert assistance, all accessible directly through app's message box.</b>
+ <br
+ 
+<b>GLook Glass Diabetes Tracker :</b>This device resembles smart wearables, it allows continuous, automatic tracking while simultaneously showing the results graphically. </b><br>
+
+* <b>PredictBGL </b>- This free service calculates potential BG rise &amp; fall predictions helping diabetic decide on ideal time &amp; quantity of foods / meds according their BGL fluctuations </br>
+
+These smartphone applications make lives simpler by streamlining numerous variables that affect the sugar levels.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.92it/s]
+n_watermark: 6, n_test_sent: 6
+zscore: 4.242640687119286
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 107.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.11it/s]
+n_watermark: 6, n_test_sent: 6
+zscore: 4.242640687119286
+[2024-05-26 14:39:32,232][__main__][INFO] - Watermarked Text: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has stepped in and provided us with many tools to monitor blood glucose levels, receive alerts and reminders and keep track of carbohydrates consumption all within our fingertips. Below listed are some diabetic apps that help you better understand glucose management.
+
+ 
+
+<b>
+
+* MyFitnessPal: A calorie tracking app for monitoring your diet. This helps calculate carbohydrates, proteins and fats for users, aiding them in calculating insulin dose. </b></br>
+ <b> * LogFrog: Tracks various aspects of life including food intake, dosage, insulin injection and even tracks activity level ensuring overall well-round information.</b></br>
+ 
+
+<b>OneTouch Reveal : An easy-to-understand user interface shows both short and long-term glucose trends while also providing medication reminders.</b><Br>
+ 
+
+ 
+<b>*One Drop:
+Track carbohydrate ratio, provide meal planning suggestions, offer access to expert assistance, all accessible directly through app's message box.</b>
+ <br
+ 
+<b>GLook Glass Diabetes Tracker :</b>This device resembles smart wearables, it allows continuous, automatic tracking while simultaneously showing the results graphically. </b><br>
+
+* <b>PredictBGL </b>- This free service calculates potential BG rise &amp; fall predictions helping diabetic decide on ideal time &amp; quantity of foods / meds according their BGL fluctuations </br>
+
+These smartphone applications make lives simpler by streamlining numerous variables that affect the sugar levels.
+[2024-05-26 14:39:32,232][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 14:39:32,232][__main__][INFO] - Score: 4.242640687119286
+[2024-05-26 14:39:32,232][__main__][INFO] - Time taken: 211.44388246536255
+Data appended to ./inputs/c4_saves/c4_3_temp_180_divp_0_attempt_1/watermarked_text.csv

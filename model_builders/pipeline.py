@@ -1,46 +1,16 @@
-import os
-import torch
-from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration, AutoModel
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 from langchain_core.prompts import PromptTemplate
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-import textwrap
+from utils import mixtral_format_instructions, parse_llama_output
 
 from dotenv import load_dotenv, find_dotenv
 from langchain_openai import ChatOpenAI
 import logging
 import hydra
 
-
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
-
-# Utility functions for different LLMs
-
-# TODO: We should ideally import these from utils.py.
-def mixtral_format_instructions(prompt):
-    return textwrap.dedent(f"""
-    [INST]
-    {prompt}
-    [/INST]
-
-    Answer:""")
-
-def strip_up_to(response, delimiter):
-    # Find the position of the delimiter
-    pos = response.rfind(delimiter)
-    
-    # If the delimiter is found, return the part of the string after it
-    if pos != -1:
-        # Adjust the position to remove the delimiter itself
-        return response[pos + len(delimiter):].strip()
-    return response
-
-def parse_llama_output(response):
-    delimiter = "<|end_header_id|>"
-    response = strip_up_to(response, delimiter)
-    response = response[:-9] if response.endswith('assistant') else response
-    return response
 
 class PipeLineBuilder:
     def __init__(self, cfg):
@@ -186,7 +156,7 @@ class PipeLineBuilder:
 def main(cfg):
     # Create or get existing pipeline builders for generator, oracle, and mutator.
     mutator_pipeline_builder = PipeLineBuilder(cfg.mutator_args)
-    prompt = "Who's the last president of the US?"
+    prompt = "Describe the main responsibilities of a U.S. Senator."
     response = mutator_pipeline_builder(prompt)
     print(response)
 

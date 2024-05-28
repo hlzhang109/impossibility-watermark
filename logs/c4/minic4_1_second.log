@@ -1,87 +1,59 @@
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
   warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-25 18:59:18,113][__main__][INFO] - Starting to watermark...
+[2024-05-25 18:59:18,115][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-05-25 18:59:18,115][__main__][INFO] - Getting the watermarker...
+[2024-05-25 18:59:18,115][watermarker][INFO] - Using device: cuda
+[2024-05-25 18:59:18,116][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-25 18:59:21,415][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
 Traceback (most recent call last):
-  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 3, in <module>
-    from utils import get_watermarker, save_to_csv, get_prompt_or_output, count_csv_entries
-  File "/local1/borito1907/impossibility-watermark/utils.py", line 191, in <module>
-    from umd import UMDWatermarker
-  File "/local1/borito1907/impossibility-watermark/umd.py", line 2, in <module>
-    from watermarker import Watermarker
-  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 5, in <module>
-    from model_builders.pipeline import PipeLineBuilder
-  File "/local1/borito1907/impossibility-watermark/model_builders/__init__.py", line 1, in <module>
-    from .pipeline import PipeLineBuilder
-  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 3, in <module>
-    from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration, AutoModel
-  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/import_utils.py", line 1354, in __getattr__
-    module = self._get_module(self._class_to_module[name])
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/import_utils.py", line 1364, in _get_module
-    return importlib.import_module("." + module_name, self.__name__)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/importlib/__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 49, in <module>
-    from .audio_classification import AudioClassificationPipeline
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/audio_classification.py", line 21, in <module>
-    from .base import PIPELINE_INIT_ARGS, Pipeline
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/pipelines/base.py", line 34, in <module>
-    from ..modelcard import ModelCard
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/modelcard.py", line 48, in <module>
-    from .training_args import ParallelMode
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/training_args.py", line 70, in <module>
-    from accelerate.state import AcceleratorState, PartialState
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/__init__.py", line 16, in <module>
-    from .accelerator import Accelerator
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/accelerator.py", line 35, in <module>
-    from .checkpointing import load_accelerator_state, load_custom_state, save_accelerator_state, save_custom_state
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/checkpointing.py", line 24, in <module>
-    from .utils import (
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/utils/__init__.py", line 172, in <module>
-    from .fsdp_utils import load_fsdp_model, load_fsdp_optimizer, save_fsdp_model, save_fsdp_optimizer
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/accelerate/utils/fsdp_utils.py", line 26, in <module>
-    import torch.distributed.checkpoint as dist_cp
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/checkpoint/__init__.py", line 7, in <module>
-    from .state_dict_loader import load_state_dict, load
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/checkpoint/state_dict_loader.py", line 12, in <module>
-    from .default_planner import DefaultLoadPlanner
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/checkpoint/default_planner.py", line 14, in <module>
-    from torch.distributed._tensor import DTensor
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_tensor/__init__.py", line 6, in <module>
-    import torch.distributed._tensor.ops
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_tensor/ops/__init__.py", line 2, in <module>
-    from .embedding_ops import *  # noqa: F403
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_tensor/ops/embedding_ops.py", line 5, in <module>
-    from torch.distributed._tensor.op_schema import OpSchema, OutputSharding
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_tensor/op_schema.py", line 6, in <module>
-    from torch.distributed._tensor.placement_types import DTensorSpec
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_tensor/placement_types.py", line 7, in <module>
-    import torch.distributed._functional_collectives as funcol
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/distributed/_functional_collectives.py", line 26, in <module>
-    from torch._dynamo.external_utils import is_compiling as is_torchdynamo_compiling
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/_dynamo/__init__.py", line 2, in <module>
-    from . import allowed_functions, convert_frame, eval_frame, resume_execution
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/_dynamo/allowed_functions.py", line 30, in <module>
-    from .utils import hashable, is_safe_constant, NP_SUPPORTED_MODULES
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/_dynamo/utils.py", line 89, in <module>
-    import torch.fx.experimental.symbolic_shapes
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/fx/experimental/symbolic_shapes.py", line 38, in <module>
-    from torch.utils._sympy.functions import FloorDiv, Mod, IsNonOverlappingAndDenseIndicator
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/torch/utils/_sympy/functions.py", line 1, in <module>
-    import sympy
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/sympy/__init__.py", line 30, in <module>
-    from sympy.core.cache import lazy_function
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/sympy/core/__init__.py", line 9, in <module>
-    from .expr import Expr, AtomicExpr, UnevaluatedExpr
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/sympy/core/expr.py", line 43, in <module>
-    class Expr(Basic, EvalfMixin):
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/sympy/core/expr.py", line 113, in Expr
-    @cacheit
-     ^^^^^^^
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/sympy/core/cache.py", line 66, in func_wrapper
-    def func_wrapper(func):
-
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 44, in <module>
+    test()
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 22, in test
+    watermarker = get_watermarker(cfg)
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 204, in get_watermarker
+    return SemStampWatermarker(cfg, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/semstamp.py", line 28, in __init__
+    super().__init__(cfg, pipeline, n_attempts, is_completion)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 22, in __init__
+    self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 58, in __init__
+    self._init_model(self.cfg)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 83, in _init_model
+    self.model = AutoGPTQForCausalLM.from_quantized(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/auto.py", line 140, in from_quantized
+    return quant_func(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_base.py", line 1258, in from_quantized
+    load_checkpoint_in_model(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/utils/accelerate_utils.py", line 159, in load_checkpoint_in_model
+    loaded_checkpoint = load_state_dict(checkpoint_file, device_map=device_map)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/accelerate/utils/modeling.py", line 1435, in load_state_dict
+    return safe_load_file(checkpoint_file, device=list(device_map.values())[0])
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/safetensors/torch.py", line 313, in load_file
+    result[k] = f.get_tensor(k)
 KeyboardInterrupt

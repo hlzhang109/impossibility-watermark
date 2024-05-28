@@ -2,7 +2,7 @@ defaults:
     - _self_
     - watermark_args: semstamp
     # - attack_args: c4_generation
-    - attack_args: prompt_based_generation
+    # - attack_args: prompt_based_generation
     # - attack_args: mixtral_regular_attack
     # - generator_args: large_mixtral
     # - oracle_args: llama3
@@ -27,7 +27,7 @@ attack_args:
     num_successful_steps: 20 # how many successful mutations before stopping
     results_dir: './semstamp_attacks/c4/'
     model_cache_dir: "./local1/borito1907/.cache/"
-    save_name: '05_23_c4_1.csv' # if None, it defaults to attack_{timestamp}.csv
+    save_name: '05_26_trial_csv.csv' # if None, it defaults to attack_{timestamp}.csv
     use_watermark: True # when running with GPT-4, disregard the watermark
     backtrack_patience: 25 # how many unsuccessful mutations before backtrack
     # For completion
@@ -37,7 +37,7 @@ attack_args:
     # For continuations
     is_continuation: False
     prev_csv_file:  # If you're running a continuation, this should be the name of the previous CSV file.
-    cuda: "0,1,2,3,4,5,6,7"
+    cuda: "4"
 
 generator_args:
     # model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -57,6 +57,7 @@ generator_args:
     watermark_score_threshold: 5.0
     diversity_penalty: 15.0 # default is 0.0. Increase to make the output more diverse. This helps with SemStamp generation.
     cuda: "${attack_args.cuda}"
+    generation_stats_csv_path: "./logs/trial.csv"
 
 oracle_args:
     # model_id: "prometheus-eval/prometheus-8x7b-v2.0" # "prometheus-eval/prometheus-8x7b-v2.0", "prometheus-eval/prometheus-7b-v2.0"

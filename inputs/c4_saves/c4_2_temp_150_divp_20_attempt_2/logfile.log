@@ -1,0 +1,240 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 15:36:32,569][__main__][INFO] - Starting to watermark...
+[2024-05-26 15:36:32,571][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-26 15:36:32,572][__main__][INFO] - Getting the watermarker...
+[2024-05-26 15:36:32,572][watermarker][INFO] - Using device: cuda
+[2024-05-26 15:36:32,572][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 15:36:36,236][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 15:36:43,323][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 15:36:44,968][semstamp][INFO] - Setting up generating components...
+[2024-05-26 15:36:44,971][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 15:36:44,971][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 15:36:44,971][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 15:36:45,808][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 15:36:45,873][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 15:36:45,874][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 15:36:45,874][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.90it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.90it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 15:36:52,425][semstamp][INFO] - Candidate text:  One can just imagine the panic button being pressed behind closed doors, as frantic board members confer with their lawyers and PR experts about how best to contain the damage (read: lie, least untruthfully) after another day, another outbreak.
+
+[2024-05-26 15:36:52,425][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.89it/s]
+[2024-05-26 15:36:52,449][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 15:36:52,449][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:52,450][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:52,450][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:36:53,847][semstamp][INFO] - Candidate text:  The burritos still good (if pricey), but the shtick is starting to grate.
+[2024-05-26 15:36:53,847][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.03it/s]
+[2024-05-26 15:36:53,864][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:36:53,864][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:53,864][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:53,864][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:36:56,257][semstamp][INFO] - Candidate text:  This popular burrito joint has been slammed with food safety concerns, with reports of customers getting sick in multiple states, and some locations shut down after norovirus outbreaks.
+
+
+[2024-05-26 15:36:56,257][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.77it/s]
+[2024-05-26 15:36:56,275][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:36:56,275][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:56,275][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:56,275][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:01,747][semstamp][INFO] - Candidate text:  One moment, you think your beloved burrito is safe and the next thing you know... pic.twitter.com/5XrDjJx4cB — Kevin (@kclements20) October 28, 2019 But let's not overlook the most important aspect of this situation: there are reports that customers have been experiencing " gastrointestinal issues" after eating at Chipotle in recent weeks.
+[2024-05-26 15:37:01,747][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.54it/s]
+[2024-05-26 15:37:01,769][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:37:01,769][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:01,769][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:01,769][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:03,035][semstamp][INFO] - Candidate text:  #ChipotleScare," tweeted Sarah Smith, 25, from Los Angeles.
+
+[2024-05-26 15:37:03,035][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.33it/s]
+[2024-05-26 15:37:03,044][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:03,044][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:04,842][semstamp][INFO] - Candidate text:  Chipotle Mexican Grill recently said it's stopping the sales of pork in some markets because a supplier didn't meet company standards.
+
+[2024-05-26 15:37:04,842][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.90it/s]
+[2024-05-26 15:37:04,859][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:37:04,859][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:04,860][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:04,860][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:05,463][semstamp][INFO] - Candidate text:  The burrito wars have arrived.
+[2024-05-26 15:37:05,464][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.56it/s]
+[2024-05-26 15:37:05,480][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:37:05,481][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:05,481][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:05,481][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:08,009][semstamp][INFO] - Candidate text:  On top of the E Coli and Salmonella concerns that led to an ongoing outbreak, the fast-casual brand has had its fair share of struggles with supply chain management.
+
+[2024-05-26 15:37:08,010][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.89it/s]
+[2024-05-26 15:37:08,027][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 15:37:08,027][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:08,027][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:08,027][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:09,564][semstamp][INFO] - Candidate text:  The Mexican-food chain announced that it will start testing vegan meat alternatives in some locations across the United States.
+
+[2024-05-26 15:37:09,564][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.18it/s]
+[2024-05-26 15:37:09,574][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:09,574][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:12,436][semstamp][INFO] - Candidate text:  😕 It’s not just the food supply chain that has problems with safety; it could be just one person, a new employee who isn’t trained properly and accidentally contaminates a big batch of lettuce.
+[2024-05-26 15:37:12,436][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.75it/s]
+[2024-05-26 15:37:12,456][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:37:12,456][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:12,456][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:12,456][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:16,120][semstamp][INFO] - Candidate text:  🙅"
+      },
+      {
+        id: 3,
+        profile_picture: "https://randomuser.me/api/portraits/men/44.jpg",
+        name: "Chris Hernandez",
+        comment_body: "That burrito bowl was SO GOOD!
+[2024-05-26 15:37:16,120][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.38it/s]
+[2024-05-26 15:37:16,140][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 15:37:16,140][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:16,140][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:16,140][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:23,363][semstamp][INFO] - Candidate text:  https://t.co/5y1DvJb7Oe pic.twitter.com/AhXp4fQ3wB — CNN Breaking News (@cnnbrk) November 11, 2015 The Mexican food chain had earlier warned of potential financial fallout amid an outbreak of E. coli...
+Monsanto Roundup Verdict Upheld; Award To Be Decided This Week July 10, 2020 Bayer’s appeal against the Monsanto Roundup verdict has been rejected by the California appeals court.
+[2024-05-26 15:37:23,364][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.24it/s]
+[2024-05-26 15:37:23,385][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:37:23,385][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:37:23,386][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:37:23,386][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:26,286][semstamp][INFO] - Candidate text:   As per a press release from California Appeals Court on Wednesday, the decision supports the previous jury finding that glyphosate, the active ingredient in Roundup weed killer, was...
+[2024-05-26 15:37:26,287][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.91it/s]
+[2024-05-26 15:37:26,305][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 15:37:26,305][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:26,305][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:37:26,305][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:31,220][semstamp][INFO] - Candidate text:  This means that the trial judge's decision will stand,... Read more... Category: Blog Category: Health Related Topics Tags: cancer, class act...
+New Study Reveals the Deadly Consequences of Prolonged Sitting May 25, 2022 Sitting has become a way of life for many individuals in today's world.
+[2024-05-26 15:37:31,220][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.18it/s]
+[2024-05-26 15:37:31,241][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 15:37:31,241][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:37:31,241][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:37:31,241][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:43,427][semstamp][INFO] - Candidate text:  The award to plaintiff Dewayne Johnson will...
+Greta Thunberg Slams Leaders, Warns Humanity at Risk December 13, 2022 Young climate activist Greta Thunberg spoke directly to world leaders on stage at COP25 (2020's United Nations Climate Change conference), telling them they... #GretaThunberg...
+AOC Demands Climate Justice September 23, 2022 During a speech from outside the U.N. headquarters today Rep. Alexandria Ocasio-Cortez urged international cooperation and declared: "we stand for CLIMATE JUSTICE and w...
+#TrumpTajMahal Closure Confirmed in Atlantic City March 9, 2020 A 31-year era is ending with the formal announcement that Trump Taj Mahal Casino Resort in Atlantic City will permanently close its doors on October 10th.
+[2024-05-26 15:37:43,427][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 100.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.46it/s]
+[2024-05-26 15:37:43,450][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:37:43,451][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:37:43,451][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:37:43,451][semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/stats.csv
+[2024-05-26 15:37:43,454][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-26 15:37:43,454][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. https://t.co/5y1DvJb7Oe pic.twitter.com/AhXp4fQ3wB — CNN Breaking News (@cnnbrk) November 11, 2015 The Mexican food chain had earlier warned of potential financial fallout amid an outbreak of E. coli...\nMonsanto Roundup Verdict Upheld; Award To Be Decided This Week July 10, 2020 Bayer’s appeal against the Monsanto Roundup verdict has been rejected by the California appeals court. The award to plaintiff Dewayne Johnson will...\nGreta Thunberg Slams Leaders, Warns Humanity at Risk December 13, 2022 Young climate activist Greta Thunberg spoke directly to world leaders on stage at COP25 (2020\'s United Nations Climate Change conference), telling them they... #GretaThunberg...\nAOC Demands Climate Justice September 23, 2022 During a speech from outside the U.N. headquarters today Rep. Alexandria Ocasio-Cortez urged international cooperation and declared: "we stand for CLIMATE JUSTICE and w...\n#TrumpTajMahal Closure Confirmed in Atlantic City March 9, 2020 A 31-year era is ending with the formal announcement that Trump Taj Mahal Casino Resort in Atlantic City will permanently close its doors on October 10th.', 15)
+[2024-05-26 15:37:43,454][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. https://t.co/5y1DvJb7Oe pic.twitter.com/AhXp4fQ3wB — CNN Breaking News (@cnnbrk) November 11, 2015 The Mexican food chain had earlier warned of potential financial fallout amid an outbreak of E. coli...
+Monsanto Roundup Verdict Upheld; Award To Be Decided This Week July 10, 2020 Bayer’s appeal against the Monsanto Roundup verdict has been rejected by the California appeals court. The award to plaintiff Dewayne Johnson will...
+Greta Thunberg Slams Leaders, Warns Humanity at Risk December 13, 2022 Young climate activist Greta Thunberg spoke directly to world leaders on stage at COP25 (2020's United Nations Climate Change conference), telling them they... #GretaThunberg...
+AOC Demands Climate Justice September 23, 2022 During a speech from outside the U.N. headquarters today Rep. Alexandria Ocasio-Cortez urged international cooperation and declared: "we stand for CLIMATE JUSTICE and w...
+#TrumpTajMahal Closure Confirmed in Atlantic City March 9, 2020 A 31-year era is ending with the formal announcement that Trump Taj Mahal Casino Resort in Atlantic City will permanently close its doors on October 10th.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 84.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.88it/s]
+n_watermark: 2, n_test_sent: 2
+zscore: 2.4494897427831783
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.59it/s]
+n_watermark: 2, n_test_sent: 2
+zscore: 2.4494897427831783
+[2024-05-26 15:37:43,514][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. https://t.co/5y1DvJb7Oe pic.twitter.com/AhXp4fQ3wB — CNN Breaking News (@cnnbrk) November 11, 2015 The Mexican food chain had earlier warned of potential financial fallout amid an outbreak of E. coli...
+Monsanto Roundup Verdict Upheld; Award To Be Decided This Week July 10, 2020 Bayer’s appeal against the Monsanto Roundup verdict has been rejected by the California appeals court. The award to plaintiff Dewayne Johnson will...
+Greta Thunberg Slams Leaders, Warns Humanity at Risk December 13, 2022 Young climate activist Greta Thunberg spoke directly to world leaders on stage at COP25 (2020's United Nations Climate Change conference), telling them they... #GretaThunberg...
+AOC Demands Climate Justice September 23, 2022 During a speech from outside the U.N. headquarters today Rep. Alexandria Ocasio-Cortez urged international cooperation and declared: "we stand for CLIMATE JUSTICE and w...
+#TrumpTajMahal Closure Confirmed in Atlantic City March 9, 2020 A 31-year era is ending with the formal announcement that Trump Taj Mahal Casino Resort in Atlantic City will permanently close its doors on October 10th.
+[2024-05-26 15:37:43,514][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 15:37:43,514][__main__][INFO] - Score: 2.4494897427831783
+[2024-05-26 15:37:43,514][__main__][INFO] - Time taken: 57.6402473449707
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_20_attempt_2/watermarked_text.csv

@@ -2,12 +2,13 @@ import os, sys, argparse, time
 
 import numpy as np
 from transformers import AutoTokenizer
-from mersenne import mersenne_rng
-
 import pyximport
+
+from watermarkers.mersenne import mersenne_rng
+
 pyximport.install(reload_support=True, language_level=sys.version_info[0],
                   setup_args={'include_dirs':np.get_include()})
-from levenshtein import levenshtein
+from watermarkers.levenshtein import levenshtein
 
 def permutation_test(tokens,key,n,k,vocab_size,n_runs=100):
     rng = mersenne_rng(key)

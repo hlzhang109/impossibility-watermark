@@ -1,8 +1,8 @@
-import os, argparse
-
+import argparse
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
-from mersenne import mersenne_rng
+
+from watermarkers.mersenne import mersenne_rng
 
 def generate_shift(model,prompt,vocab_size,n,m,key):
     rng = mersenne_rng(key)

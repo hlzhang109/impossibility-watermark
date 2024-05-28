@@ -8,16 +8,16 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 class Watermarker(ABC):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        self.cfg = cfg # config.watermark_args
+    def __init__(self, cfg, pipeline=None, n_attempts=10, only_detect=True):
+        self.cfg = cfg # the entire config is passed, since we want to look at the generation_args as well
         self.n_attempts = n_attempts
         self.pipeline = pipeline
-        self.is_completion = is_completion
+        self.only_detect = only_detect
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
         log.info(f"Using device: {self.device}")
 
-        if not self.cfg.watermark_args.only_detect:
+        if not self.only_detect or "semstamp" not in self.cfg.watermark_args.name:
             if not isinstance(self.pipeline, PipeLineBuilder):
                 self.pipeline = PipeLineBuilder(self.cfg.generator_args)
             
@@ -52,7 +52,7 @@ class Watermarker(ABC):
 
             log.info(f"Received completion: {completion}")
 
-            if not self.is_completion:
+            if not self.cfg.is_completion:
                 completion = completion.replace(prompt, '', 1).strip()
 
             # Check if watermark succeeded

@@ -5,14 +5,14 @@ import torch
 from transformers import LogitsProcessorList
 
 # EXP
-from exp_generate import generate_shift
-from exp_detect import permutation_test
+from watermarkers.exp_generate import generate_shift
+from watermarkers.exp_detect import permutation_test
 
 log = logging.getLogger(__name__)
 
 class EXPWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
+        super().__init__(cfg, pipeline, n_attempts, **kwargs)
 
     def _setup_watermark_components(self):
         torch.manual_seed(self.cfg.watermark_args.seed)

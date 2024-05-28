@@ -5,13 +5,13 @@ import torch
 from transformers import LogitsProcessorList
 
 # UMD
-from extended_watermark_processor import WatermarkLogitsProcessor, WatermarkDetector
+from watermarkers.extended_watermark_processor import WatermarkLogitsProcessor, WatermarkDetector
 
 log = logging.getLogger(__name__)
 
 class UMDWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
+        super().__init__(cfg, pipeline, n_attempts, **kwargs)
 
     def _setup_watermark_components(self):
         self.watermark_processor = WatermarkLogitsProcessor(

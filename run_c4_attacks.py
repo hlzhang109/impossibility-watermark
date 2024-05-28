@@ -21,6 +21,7 @@ def run_command(command, filepath):
         return None, e.stderr
 
 def main():
+    # TODO: Adjust to new config.
     results = []
 
     for prompt_num in range(1,2):
@@ -34,7 +35,6 @@ def main():
                   f"++attack_args.watermarked_text_num=1 " \
                   f"++attack_args.results_dir='./semstamp_attacks/c4/' " \
                   f"++watermark_args.save_file_name='c4_{prompt_num}.csv' " \
-                  f"++watermark_args.only_detect=True " \
                   f"++attack_args.is_completion=True " 
 
         stdout, stderr = run_command(command, log_filepath)

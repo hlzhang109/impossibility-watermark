@@ -25,8 +25,8 @@ import torch
 from tokenizers import Tokenizer
 from transformers import LogitsProcessor
 
-from normalizers import normalization_strategy_lookup
-from alternative_prf_schemes import prf_lookup, seeding_scheme_lookup
+from watermarkers.normalizers import normalization_strategy_lookup
+from watermarkers.alternative_prf_schemes import prf_lookup, seeding_scheme_lookup
 
 
 class WatermarkBase:

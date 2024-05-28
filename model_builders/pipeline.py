@@ -95,11 +95,11 @@ class PipeLineBuilder:
             "model": self.model,
             "tokenizer": self.tokenizer,
             "max_new_tokens": cfg.max_new_tokens,
-            "do_sample": cfg.do_sample,
-            "temperature": cfg.temperature,
-            "top_p": cfg.top_p,
-            "top_k": cfg.top_k,
-            "repetition_penalty": cfg.repetition_penalty,
+            # "do_sample": cfg.do_sample,
+            # "temperature": cfg.temperature,
+            # "top_p": cfg.top_p,
+            # "top_k": cfg.top_k,
+            # "repetition_penalty": cfg.repetition_penalty,
         }
 
         if 'Llama' in cfg.model_name_or_path:
@@ -108,7 +108,7 @@ class PipeLineBuilder:
             self.pipeline_config['eos_token_id'] = [self.tokenizer.eos_token_id, stop_token_id]
         
         if 'Mixtral' in cfg.model_name_or_path:
-            self.pipeline_config["return_full_text"] = False
+            # self.pipeline_config["return_full_text"] = False
             self.requires_INST_tokens = True
 
     def generate_text(self, prompt: PromptTemplate):

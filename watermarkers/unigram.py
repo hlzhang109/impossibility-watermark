@@ -4,13 +4,13 @@ from watermarker import Watermarker
 import torch
 from transformers import LogitsProcessorList
 
-from gptwm import GPTWatermarkLogitsWarper, GPTWatermarkDetector
+from watermarkers.gptwm import GPTWatermarkLogitsWarper, GPTWatermarkDetector
 
 log = logging.getLogger(__name__)
 
 class UnigramWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
+        super().__init__(cfg, pipeline, n_attempts, **kwargs)
 
     def _setup_watermark_components(self):
         assert self.tokenizer.vocab_size == self.model.config.vocab_size, f"Tokenizer vocab size {self.tokenizer.vocab_size} does not match model vocab size {self.model.config.vocab_size}"

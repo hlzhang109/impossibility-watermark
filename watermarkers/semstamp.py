@@ -1,17 +1,18 @@
 import logging
-from watermarker import Watermarker
 
 import nltk
 import os
-from transformers import GenerationConfig, StoppingCriteriaList
-from SemStamp.sbert_lsh_model import SBERTLSHModel
 from sentence_transformers import SentenceTransformer
-from SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
-from SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
-from SemStamp.detection_utils import detect_lsh
+from transformers import GenerationConfig, StoppingCriteriaList
 from nltk.tokenize import sent_tokenize
-from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
 import textwrap
+
+from watermarker import Watermarker
+from watermarkers.SemStamp.sbert_lsh_model import SBERTLSHModel
+from watermarkers.SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
+from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
+from watermarkers.SemStamp.detection_utils import detect_lsh
+from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
 
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
 # from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
@@ -37,8 +38,8 @@ def list_to_comma_separated_string(int_list):
 
 class SemStampWatermarker(Watermarker):
     # TODO: Remove the is_completion. We can already access it using the config.
-    def __init__(self, cfg, pipeline=None, n_attempts=10, is_completion=False):
-        super().__init__(cfg, pipeline, n_attempts, is_completion)
+    def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
+        super().__init__(cfg, pipeline, n_attempts, **kwargs)
 
     def _setup_generating_components(self):
         """
@@ -78,7 +79,7 @@ class SemStampWatermarker(Watermarker):
         # NOTE: currently, no batching.
 
         # We don't want to initialize Llama when we only want to detect.
-        if not self.cfg.watermark_args.only_detect:
+        if not self.only_detect:
             log.info("Setting up generating components...")
             self._setup_generating_components()
 
@@ -275,11 +276,11 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
     
     def _lsh_generate_watermarked_outputs(self,prompt):
         # If it's a completion, only use the first len_prompt many tokens.
-        if self.cfg.attack_args.is_completion:
+        if self.cfg.is_completion:
             prompt = extract_prompt_from_text(prompt, self.cfg.watermark_args.len_prompt)
 
         log.info(f"Passing the following prompt to the LSH reject completion function:\n {prompt}")
-        response = self.lsh_reject_completion(prompt, stats_csv_path = self.cfg.generator_args.generation_stats_csv_path)
+        response = self.lsh_reject_completion(prompt, stats_csv_path = self.cfg.generation_stats_file_path)
         
         log.info(f"Prompt: {prompt}")
         log.info(f"Response: {response}")

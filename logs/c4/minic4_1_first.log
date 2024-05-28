@@ -1,0 +1,611 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-23 23:19:51,692][__main__][INFO] - Starting to watermark...
+[2024-05-23 23:19:51,695][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-05-23 23:19:51,695][__main__][INFO] - Getting the watermarker...
+[2024-05-23 23:19:51,695][watermarker][INFO] - Using device: cuda
+[2024-05-23 23:19:51,695][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-23 23:19:56,665][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-23 23:20:10,235][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at /local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'LlamaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MvpForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+[2024-05-23 23:20:13,931][semstamp][INFO] - Setting up generating components...
+[2024-05-23 23:20:13,933][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.0, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-23 23:20:13,933][semstamp][INFO] - Initializing embedder model.
+[2024-05-23 23:20:13,933][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-05-23 23:20:14,776][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-23 23:20:14,825][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-23 23:20:14,826][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-23 23:20:14,826][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.81it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.81it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:18,243][semstamp][INFO] - Candidate text:  Captain marvel streaming: watch captain marvel online for free without registration or download.
+[2024-05-23 23:20:18,244][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.86it/s]
+[2024-05-23 23:20:18,262][semstamp][INFO] - LSH Candidate: 2
+[2024-05-23 23:20:18,262][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:20,230][semstamp][INFO] - Candidate text:  This film has a lot to offer: impressive visuals, action-packed sequences, and a strong performance from Brie Larson.
+[2024-05-23 23:20:20,230][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.52it/s]
+[2024-05-23 23:20:20,246][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:20:20,246][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:23,286][semstamp][INFO] - Candidate text:  When an alien crash lands on Earth, he is befriended by a young girl named Sophie who tries to help him get back home.
+
+[2024-05-23 23:20:23,287][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.73it/s]
+[2024-05-23 23:20:23,302][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 23:20:23,302][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:25,207][semstamp][INFO] - Candidate text:  Brie Larson stars in the title role, alongside Samuel L Jackson, Ben Mendelsohn and Jude Law.
+
+
+[2024-05-23 23:20:25,207][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.81it/s]
+[2024-05-23 23:20:25,222][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:20:25,222][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:26,667][semstamp][INFO] - Candidate text:  The movie will explore her past and how she became the person she is today.
+
+
+[2024-05-23 23:20:26,667][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.63it/s]
+[2024-05-23 23:20:26,682][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 23:20:26,683][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:28,064][semstamp][INFO] - Candidate text:  The movie is set to release on March 8, 2019.
+
+[2024-05-23 23:20:28,064][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 106.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.52it/s]
+[2024-05-23 23:20:28,082][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:20:28,083][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:43,380][semstamp][INFO] - Candidate text: Directed by: Anna Boden and Ryan Fleck Written by: Geneva Robertson-Dworet, Nicole Perlman, Meg LeFauve Cast: Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg Music by: Pinar Toprak Produced by: Marvel Studios Distributed by: Walt Disney Studios Motion Pictures #CaptainMarvel #BrieLarson #MarvelStudios #AvengersEndgame #MarvelCinematicUniverse #MCU Follow me on Instagram for more updates - instagram.com/the_movie_buff/ Facebook - facebook.com/themoviebuff/
+What if Captain Marvel was introduced earlier in the MCU?
+[2024-05-23 23:20:43,381][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 110.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.78it/s]
+[2024-05-23 23:20:43,402][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:20:43,402][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:44,518][semstamp][INFO] - Candidate text:  Let's explore that possibility!
+[2024-05-23 23:20:44,519][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.06it/s]
+[2024-05-23 23:20:44,534][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:20:44,534][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:45,582][semstamp][INFO] - Candidate text:  The possibilities are endless!
+[2024-05-23 23:20:45,582][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.76it/s]
+[2024-05-23 23:20:45,597][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:20:45,598][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:47,385][semstamp][INFO] - Candidate text:  Would it have changed the course of events leading up to Avengers: Endgame?
+[2024-05-23 23:20:47,386][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.02it/s]
+[2024-05-23 23:20:47,401][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:20:47,401][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:48,786][semstamp][INFO] - Candidate text:  Would Avengers: Infinity War have turned out differently?
+[2024-05-23 23:20:48,786][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.40it/s]
+[2024-05-23 23:20:48,801][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:20:48,801][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:52,005][semstamp][INFO] - Candidate text:  💥 If she had been introduced alongside Iron Man, Thor, Hulk, Black Widow, Hawkeye and Loki, how would that have affected the storylines of previous Marvel movies?
+[2024-05-23 23:20:52,005][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.23it/s]
+[2024-05-23 23:20:52,021][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:20:52,021][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:53,606][semstamp][INFO] - Candidate text:  What if Avengers: Age of Ultron had a different climax?
+[2024-05-23 23:20:53,606][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.65it/s]
+[2024-05-23 23:20:53,621][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:20:53,621][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:55,474][semstamp][INFO] - Candidate text:  Would it have changed the outcome of Avengers: Infinity War and Avengers: Endgame?
+[2024-05-23 23:20:55,475][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.08it/s]
+[2024-05-23 23:20:55,490][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:20:55,490][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:56,672][semstamp][INFO] - Candidate text:  Let me know what you think!
+[2024-05-23 23:20:56,672][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.02it/s]
+[2024-05-23 23:20:56,687][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:20:56,687][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:20:57,868][semstamp][INFO] - Candidate text:  My thought process:
+Subscribe Here!
+[2024-05-23 23:20:57,869][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.44it/s]
+[2024-05-23 23:20:57,884][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:20:57,884][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:01,191][semstamp][INFO] - Candidate text:  : https://goo.gl/L7cTqK Follow Me On Twitter : https://twitter.com/TheMovieBuff95 What if Captain Marvel was introduced earlier in the MCU?
+[2024-05-23 23:21:01,192][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.38it/s]
+[2024-05-23 23:21:01,210][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:21:01,210][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:03,336][semstamp][INFO] - Candidate text:  🤩👉 bit.ly/2CQq3oP Join The Discord Server!
+[2024-05-23 23:21:03,337][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.88it/s]
+[2024-05-23 23:21:03,352][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:21:03,352][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:05,565][semstamp][INFO] - Candidate text:  👈 bit.ly/2E4y7ZM Merchandise!
+[2024-05-23 23:21:05,565][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.79it/s]
+[2024-05-23 23:21:05,580][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:21:05,580][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:08,871][semstamp][INFO] - Candidate text:  👉 discord.gg/wTgRm7Z The Marvel Cinematic Universe (MCU) has been around for over a decade now, and we've seen some incredible stories unfold.
+[2024-05-23 23:21:08,871][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.42it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:11,156][semstamp][INFO] - Candidate text:  🎧👉 discord.gg/n5r6mVb Donate to Help Me Make More Videos!
+[2024-05-23 23:21:11,156][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.50it/s]
+[2024-05-23 23:21:11,172][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:21:11,172][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:14,332][semstamp][INFO] - Candidate text:  👇 discord.gg/JtWp5qA The Marvel Cinematic Universe has been planning its storyline from the start, but what if they had introduced Captain Marvel earlier on?
+[2024-05-23 23:21:14,332][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.84it/s]
+[2024-05-23 23:21:14,348][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:14,348][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:16,556][semstamp][INFO] - Candidate text:  👈 discord.gg/WJj4yKk What if Captain Marvel was introduced earlier in the MCU?
+[2024-05-23 23:21:16,556][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.72it/s]
+[2024-05-23 23:21:16,572][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:16,572][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:18,172][semstamp][INFO] - Candidate text:  discord.gg/SyHrD6K Become A Patron!
+[2024-05-23 23:21:18,172][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.05it/s]
+[2024-05-23 23:21:18,187][semstamp][INFO] - LSH Candidate: 5
+[2024-05-23 23:21:18,187][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:19,864][semstamp][INFO] - Candidate text:  patreon.com/TheFilmTheorist Support Me On Ko-Fi!
+[2024-05-23 23:21:19,864][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.89it/s]
+[2024-05-23 23:21:19,879][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:21:19,879][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:22,206][semstamp][INFO] - Candidate text:  ko-fi.com/filmtheorist Follow Me On Twitter!
+[2024-05-23 23:21:22,206][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.49it/s]
+[2024-05-23 23:21:22,222][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:21:22,222][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:25,138][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Captain Marvel has finally arrived in the Marvel Cinematic Universe, but what if she had been introduced earlier?
+[2024-05-23 23:21:25,138][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.69it/s]
+[2024-05-23 23:21:25,154][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:25,154][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:26,844][semstamp][INFO] - Candidate text:  ko-fi.com/filmtheorist Film Theory Merch!
+[2024-05-23 23:21:26,844][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.47it/s]
+[2024-05-23 23:21:26,860][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:21:26,860][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:31,138][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist The Avengers are no doubt some of the most iconic characters in the Marvel Cinematic Universe (MCU), but have you ever stopped to think what would happen if Captain Marvel was introduced earlier in the franchise?
+[2024-05-23 23:21:31,139][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.94it/s]
+[2024-05-23 23:21:31,157][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:31,157][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:32,917][semstamp][INFO] - Candidate text:  ko-fi.com/filmtheorist I'm on Twitter!
+[2024-05-23 23:21:32,917][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.13it/s]
+[2024-05-23 23:21:32,933][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:21:32,933][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:35,168][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist What if Captain Marvel was introduced earlier in the MCU?
+[2024-05-23 23:21:35,168][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.98it/s]
+[2024-05-23 23:21:35,184][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:35,184][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:38,375][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video, I explore what would happen if Captain Marvel was introduced earlier in the Marvel Cinematic Universe (MCU).
+[2024-05-23 23:21:38,375][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.75it/s]
+[2024-05-23 23:21:38,391][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:38,391][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:41,514][semstamp][INFO] - Candidate text:  ko-fi.com/TheFilmTheorist In this video, I explore what would happen if Captain Marvel was introduced earlier in the Marvel Cinematic Universe (MCU).
+[2024-05-23 23:21:41,514][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.23it/s]
+[2024-05-23 23:21:41,530][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:41,530][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:43,156][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter!
+[2024-05-23 23:21:43,157][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 173.09it/s]
+[2024-05-23 23:21:43,172][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:21:43,173][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:46,024][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist #CaptainMarvel #Avengers #MCU What If Captain Marvel Was Introduced Earlier In The MCU?
+
+[2024-05-23 23:21:46,024][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.20it/s]
+[2024-05-23 23:21:46,040][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:46,040][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:53,517][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Website: thefilmtheorist.com Twitter: twitter.com/TheFilmTheorist Tumblr: thefilmtheorist.tumblr.com Facebook: facebook.com/thefilmtheorist Reddit: reddit.com/r/TheFilmTheorist Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.
+[2024-05-23 23:21:53,517][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 113.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.91it/s]
+[2024-05-23 23:21:53,537][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:21:53,537][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:55,230][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Merchandise!
+[2024-05-23 23:21:55,230][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.26it/s]
+[2024-05-23 23:21:55,246][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:21:55,246][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:21:58,168][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video, I explore what would have happened if Captain Marvel had been introduced earlier in the MCU.
+[2024-05-23 23:21:58,168][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.89it/s]
+[2024-05-23 23:21:58,184][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:21:58,184][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:00,014][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Follow Me On Twitter!
+[2024-05-23 23:22:00,014][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.21it/s]
+[2024-05-23 23:22:00,029][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:22:00,029][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:01,656][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter!
+[2024-05-23 23:22:01,656][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.94it/s]
+[2024-05-23 23:22:01,672][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:22:01,672][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:06,721][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter: twitter.com/FilmTheorist Facebook: facebook.com/TheFilmTheorist/ Merch: teespring.com/stores/the-film-theorist #CaptainMarvel #MCU #Marvel What if Captain Marvel was introduced earlier in the MCU?
+[2024-05-23 23:22:06,721][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 68.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 74.00it/s]
+[2024-05-23 23:22:06,754][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:22:06,754][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:08,388][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter!
+[2024-05-23 23:22:08,388][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.26it/s]
+[2024-05-23 23:22:08,405][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:22:08,405][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:15,449][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter: twitter.com/TheFilmTheorist Instagram: instagram.com/thefilmtheorist Facebook: facebook.com/thefilmtheorist 🎥 The Film Theorist 📽️ Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.
+[2024-05-23 23:22:15,450][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.19it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:17,223][semstamp][INFO] - Candidate text:  ko-fi.com/filmtheorist Want To Send Something?
+[2024-05-23 23:22:17,223][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.18it/s]
+[2024-05-23 23:22:17,239][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:22:17,239][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:23,292][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Instagram - instagram.com/thefilmtheorist Twitter - twitter.com/thefilmtheorist Website - thefilmtheorist.com #CaptainMarvel #MCU #AvengersEndgame The Film Theorist analyzes the film industry with a focus on Marvel Cinematic Universe (MCU) movies and other franchises.
+
+[2024-05-23 23:22:23,292][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.01it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:26,636][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video, I explore what would have happened if Captain Marvel had been introduced earlier in the Marvel Cinematic Universe (MCU).
+[2024-05-23 23:22:26,637][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.68it/s]
+[2024-05-23 23:22:26,653][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:22:26,653][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:31,972][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter 📱 twitter.com/TheFilmTheorist Facebook 👥 facebook.com/TheFilmTheorist Instagram 📸 instagram.com/TheFilmTheorist In this video, we explore what could have happened if Captain Marvel had been introduced earlier in the Marvel Cinematic Universe.
+[2024-05-23 23:22:31,972][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.12it/s]
+[2024-05-23 23:22:31,989][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:22:31,989][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:34,639][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist #CaptainMarvel #MCU What If Captain Marvel Was Introduced Earlier In The MCU?
+[2024-05-23 23:22:34,639][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.59it/s]
+[2024-05-23 23:22:34,655][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:22:34,655][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:36,216][semstamp][INFO] - Candidate text:  ko-fi.com/filmtheorist Twitter!
+[2024-05-23 23:22:36,217][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 174.75it/s]
+[2024-05-23 23:22:36,233][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:22:36,233][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:38,064][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Follow Me On Twitter!
+[2024-05-23 23:22:38,065][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.81it/s]
+[2024-05-23 23:22:38,080][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:22:38,080][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:41,892][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter: twitter.com/TheFilmTheorist Instagram: instagram.com/thefilmtheorist Facebook: facebook.com/thefilmtheorist Film Theory Merchandise!
+[2024-05-23 23:22:41,892][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.78it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:44,828][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video, I explore what would have happened if Captain Marvel had been introduced earlier in the MCU.
+[2024-05-23 23:22:44,828][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.65it/s]
+[2024-05-23 23:22:44,845][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:22:44,845][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:22:46,609][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Donate Via PayPal!
+[2024-05-23 23:22:46,609][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.47it/s]
+[2024-05-23 23:22:46,625][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:22:46,625][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:00,055][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter: twitter.com/thefilmtheorist Instagram: instagram.com/thefilmtheorist Facebook: facebook.com/thefilmtheorist TikTok: tiktok.com/@thefilmtheorist Reddit: reddit.com/r/FilmTheory Merchandise: teespring.com/stores/the-film-theorist Donate To My Channel: Streamlabs Link ( streamlabs.com/the-film-theorist/tip) or PayPal Donation (paypal.me/TheFilmTheorist) Music Used In This Video: "Epic" by Vexento #CaptainMarvel #MCU #Theory #Marvel #FilmTheory #WhatIf #Avengers #Endgame #Phase4 #FilmAnalysis #MovieTheory #MarvelCinematicUniverse The Film Theorist (formerly known as The Movie Buff) presents a new series called "What If?"
+[2024-05-23 23:23:00,055][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 103.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.43it/s]
+[2024-05-23 23:23:00,077][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:23:00,077][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:03,274][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video I discuss how introducing Captain Marvel earlier in the MCU could have affected the overall story and characters of the franchise.
+[2024-05-23 23:23:03,274][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.31it/s]
+[2024-05-23 23:23:03,290][semstamp][INFO] - LSH Candidate: 1
+[2024-05-23 23:23:03,291][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:07,242][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist I know some people were disappointed with how Captain Marvel (Carol Danvers) was handled in Avengers: Endgame, but what if she had been introduced even earlier in the MCU?
+[2024-05-23 23:23:07,242][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.81it/s]
+[2024-05-23 23:23:07,260][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:23:07,261][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:43,440][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist **Social Media Links:** Twitter: twitter.com/FilmTheorist Instagram: instagram.com/filmtheorist TikTok: tiktok.com/@filmtheorist Twitch: twitch.tv/filmtheorist **Music Credit:** "Techno Syndrome" by The Immortals #CaptainMarvel #MCU #AvengersEndgame #InfinityWar #Thanos #FilmTheory #MovieAnalysis #FilmAnalysis #ComicBookMovies #SuperheroMovies #MarvelCinematicUniverse #BrieLarson #CaptainMarvelReview #MarvelPhase4 #Avengers5 #MarvelFuture #MCUFuture #SuperheroesInSpace #CosmicAdventure #TheoriesAboutCaptainMarvel #WhyIsCaptainMarvelSoPowerful #HowStrongIsCaptainMarvel #CouldCaptainMarvelHaveBeatenThanos #CaptainMarvelVsThanos #ThePowerOfCaptainMarvel #CaptainMarvelsPotential #AlternateTimeline #ParallelUniverses #MultiverseInMCU #CaptainMarvelInTheMultiverse #CaptainMarvelOriginStory #CaptainMarvelBackstory #CaptainMarvelHistory #WhoIsCarolDanvers #WhoIsCaptainMarvel #CaptainMarvelBiography #CaptainMarvelWikipedia #CaptainMarvelFacts #CaptainMarvelTrivia #DidYouKnowAboutCaptainMarvel #FunFactsAboutCaptainMarvel #CaptainMarvelBehindTheScenes #CaptainMarvelCast #CaptainMarvelActors #CaptainMarvelCharacters #NickFuryAndCaptainMarvel #AgentCoulsonAndCaptainMarvel #PhilCoulsonAndCaptainMarvel #KreeSkrullWar #TalosAndCaptainMarvel #BenMendelsohnsCharacter #JudeLawAsYonRogg #AnnetteBeningAsSupremeIntelligence #SamuelLJacksonAsNickFury #ClarkGreggAsAgentCoulson #GemmaChanAsMinnErva #LeePaceAsRonanTheAccuser #DjimonHounsouAsKorath #CaptainMarvelPlot #CaptainMarvelSynopsis #CaptainMarvelStoryline #CaptainMarvelScript #CaptainMarvelScreenplay #CaptainMarvelDirector #AnnaBodenAndRyanFleck #GenevaRobertsonDworet #NicolePerlman #MegLeFauve #PinarToprak #KevinFeige #MarvelStudios #Disney #WaltDisneyPictures #MarvelEntertainment **FAIR USE NOTICE** This video contains copyrighted material the use of which has not been specifically authorized by the copyright owner.
+[2024-05-23 23:23:43,441][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 51.84it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:45,091][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter!
+[2024-05-23 23:23:45,092][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.74it/s]
+[2024-05-23 23:23:45,107][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:23:45,107][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:47,009][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Follow Me On Social Media!
+[2024-05-23 23:23:47,009][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.08it/s]
+[2024-05-23 23:23:47,025][semstamp][INFO] - LSH Candidate: 4
+[2024-05-23 23:23:47,025][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:50,225][semstamp][INFO] - Candidate text:  ko-fi.com/FilmTheorist In today's video, we're going to explore what would happen if Captain Marvel was introduced earlier in the Marvel Cinematic Universe.
+[2024-05-23 23:23:50,225][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.38it/s]
+[2024-05-23 23:23:50,241][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:23:50,241][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:54,538][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Twitter 👉 @thefilmtheorist Instagram 👉 @thefilmtheorist Facebook 👉 @thefilmtheorist What If Captain Marvel Was Introduced Earlier In The MCU?
+[2024-05-23 23:23:54,539][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.23it/s]
+[2024-05-23 23:23:54,557][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:23:54,557][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:57,690][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist In this video, I'll be exploring the concept of what would happen if Captain Marvel was introduced earlier in the MCU.
+[2024-05-23 23:23:57,691][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.53it/s]
+[2024-05-23 23:23:57,707][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:23:57,707][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:23:59,951][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Like & Share This Video If You Enjoyed It!
+[2024-05-23 23:23:59,951][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.92it/s]
+[2024-05-23 23:23:59,967][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:23:59,967][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:06,394][semstamp][INFO] - Candidate text:  ko-fi.com/FilmTheorist Instagram filmtheorist Facebook FilmTheorist Twitter @FilmTheorist [Intro Music] Energetic Rock Guitar Music Royalty Free by audiosocket [Outro Music] Funky Vibes Groove Royalty Free by audiosocket #CaptainMarvel #MCU #Marvel #Theories What if Captain Marvel was introduced earlier in the MCU?
+
+[2024-05-23 23:24:06,395][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.03it/s]
+[2024-05-23 23:24:06,414][semstamp][INFO] - LSH Candidate: 3
+[2024-05-23 23:24:06,415][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:08,590][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist 👉🏼Follow me on Twitter!
+[2024-05-23 23:24:08,590][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.51it/s]
+[2024-05-23 23:24:08,607][semstamp][INFO] - LSH Candidate: 0
+[2024-05-23 23:24:08,607][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:10,372][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Buy Merchandise!
+[2024-05-23 23:24:10,372][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.27it/s]
+[2024-05-23 23:24:10,388][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:24:10,388][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:12,220][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Film Theory Merchandise!
+[2024-05-23 23:24:12,220][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.76it/s]
+[2024-05-23 23:24:12,236][semstamp][INFO] - LSH Candidate: 6
+[2024-05-23 23:24:12,236][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:14,547][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist Hey Guys, Welcome Back To The Film Theorist!
+[2024-05-23 23:24:14,548][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.42it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-23 23:24:19,951][semstamp][INFO] - Candidate text:  ko-fi.com/thefilmtheorist #CaptainMarvel #MCU #MarvelStudios #TheFilmTheorist **Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.
+[2024-05-23 23:24:19,951][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.04it/s]
+[2024-05-23 23:24:19,969][semstamp][INFO] - LSH Candidate: 7
+[2024-05-23 23:24:19,970][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-23 23:24:19,970][semstamp][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-05-23 23:24:19,970][semstamp][INFO] - Response: ('Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe\'s most powerful heroes after earth gets involved in a galactic war between alien. The movie is set to release on March 8, 2019.\nDirected by: Anna Boden and Ryan Fleck Written by: Geneva Robertson-Dworet, Nicole Perlman, Meg LeFauve Cast: Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg Music by: Pinar Toprak Produced by: Marvel Studios Distributed by: Walt Disney Studios Motion Pictures #CaptainMarvel #BrieLarson #MarvelStudios #AvengersEndgame #MarvelCinematicUniverse #MCU Follow me on Instagram for more updates - instagram.com/the_movie_buff/ Facebook - facebook.com/themoviebuff/\nWhat if Captain Marvel was introduced earlier in the MCU? My thought process:\nSubscribe Here! 🤩👉 bit.ly/2CQq3oP Join The Discord Server! discord.gg/SyHrD6K Become A Patron! patreon.com/TheFilmTheorist Support Me On Ko-Fi! ko-fi.com/thefilmtheorist #CaptainMarvel #MCU #MarvelStudios #TheFilmTheorist **Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.', 69)
+[2024-05-23 23:24:19,970][watermarker][INFO] - Received completion: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. The movie is set to release on March 8, 2019.
+Directed by: Anna Boden and Ryan Fleck Written by: Geneva Robertson-Dworet, Nicole Perlman, Meg LeFauve Cast: Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg Music by: Pinar Toprak Produced by: Marvel Studios Distributed by: Walt Disney Studios Motion Pictures #CaptainMarvel #BrieLarson #MarvelStudios #AvengersEndgame #MarvelCinematicUniverse #MCU Follow me on Instagram for more updates - instagram.com/the_movie_buff/ Facebook - facebook.com/themoviebuff/
+What if Captain Marvel was introduced earlier in the MCU? My thought process:
+Subscribe Here! 🤩👉 bit.ly/2CQq3oP Join The Discord Server! discord.gg/SyHrD6K Become A Patron! patreon.com/TheFilmTheorist Support Me On Ko-Fi! ko-fi.com/thefilmtheorist #CaptainMarvel #MCU #MarvelStudios #TheFilmTheorist **Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.10it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.61it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+[2024-05-23 23:24:20,097][__main__][INFO] - Watermarked Text: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. The movie is set to release on March 8, 2019.
+Directed by: Anna Boden and Ryan Fleck Written by: Geneva Robertson-Dworet, Nicole Perlman, Meg LeFauve Cast: Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Djimon Hounsou, Lee Pace, Lashana Lynch, Gemma Chan, Annette Bening, Clark Gregg Music by: Pinar Toprak Produced by: Marvel Studios Distributed by: Walt Disney Studios Motion Pictures #CaptainMarvel #BrieLarson #MarvelStudios #AvengersEndgame #MarvelCinematicUniverse #MCU Follow me on Instagram for more updates - instagram.com/the_movie_buff/ Facebook - facebook.com/themoviebuff/
+What if Captain Marvel was introduced earlier in the MCU? My thought process:
+Subscribe Here! 🤩👉 bit.ly/2CQq3oP Join The Discord Server! discord.gg/SyHrD6K Become A Patron! patreon.com/TheFilmTheorist Support Me On Ko-Fi! ko-fi.com/thefilmtheorist #CaptainMarvel #MCU #MarvelStudios #TheFilmTheorist **Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research.
+[2024-05-23 23:24:20,097][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-23 23:24:20,097][__main__][INFO] - Score: 4.58257569495584
+[2024-05-23 23:24:20,097][__main__][INFO] - Time taken: 245.27044320106506
+Data appended to ./inputs/c4_1.csv

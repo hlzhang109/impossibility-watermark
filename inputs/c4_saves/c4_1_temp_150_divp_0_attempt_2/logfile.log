@@ -1,0 +1,739 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 14:53:37,637][__main__][INFO] - Starting to watermark...
+[2024-05-26 14:53:37,640][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-05-26 14:53:37,640][__main__][INFO] - Getting the watermarker...
+[2024-05-26 14:53:37,640][watermarker][INFO] - Using device: cuda
+[2024-05-26 14:53:37,640][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 14:53:41,130][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 14:53:49,810][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 14:53:51,638][semstamp][INFO] - Setting up generating components...
+[2024-05-26 14:53:51,641][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 14:53:51,641][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 14:53:51,642][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 14:53:52,484][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 14:53:52,544][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 14:53:52,545][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 14:53:52,545][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.55it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.55it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 14:53:54,800][semstamp][INFO] - Candidate text:  And they just announced that it will not be available for download on release date either due to.
+[2024-05-26 14:53:54,801][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.57it/s]
+[2024-05-26 14:53:54,823][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:53:54,823][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:53:54,823][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:53:54,823][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:53:57,990][semstamp][INFO] - Candidate text:  Captain Marvel, The Marvel Cinematic Universe film, starring Brie Larson as Carol Danvers aka Captain Marvel in her origins story with Samuel L. Jackon playing Nick Fury when he still has two eyes!
+[2024-05-26 14:53:57,991][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.89it/s]
+[2024-05-26 14:53:58,009][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:53:58,010][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:53:58,010][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:53:58,010][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:00,504][semstamp][INFO] - Candidate text:  While I think Captain Marvel is a little too confident for its own good (it relies heavily on nostalgia and familiar MCU beats), this was always the plan.
+
+[2024-05-26 14:54:00,504][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.10it/s]
+[2024-05-26 14:54:00,522][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:00,523][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:00,523][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:00,523][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:02,204][semstamp][INFO] - Candidate text:  We've also listed some additional sources for finding royalty-free music or songs with Creative Commons licensing.
+[2024-05-26 14:54:02,204][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.47it/s]
+[2024-05-26 14:54:02,221][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:54:02,222][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:02,222][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:02,222][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:03,837][semstamp][INFO] - Candidate text:  It offers the typical origin story elements that are expected from a Marvel superhero movie: an.
+[2024-05-26 14:54:03,837][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.47it/s]
+[2024-05-26 14:54:03,854][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:54:03,855][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:03,855][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:03,855][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:04,933][semstamp][INFO] - Candidate text:  Download this movie (2019) here:. "
+[2024-05-26 14:54:04,934][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 99.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.75it/s]
+[2024-05-26 14:54:04,954][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:54:04,955][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:04,955][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:04,955][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:08,175][semstamp][INFO] - Candidate text: Avengers: Endgame" picks up where its predecessor left off, with the survivors reeling from Thanos' devastating Decimation - the Snap that wiped out half of all life in the universe.
+[2024-05-26 14:54:08,176][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.14it/s]
+[2024-05-26 14:54:08,195][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:08,195][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:08,195][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:08,195][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:09,582][semstamp][INFO] - Candidate text:  Here are some additional behind-the-scenes stills and promos:.
+[2024-05-26 14:54:09,583][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.95it/s]
+[2024-05-26 14:54:09,601][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:09,601][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:09,601][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:09,602][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:12,550][semstamp][INFO] - Candidate text:  After surviving and adapting to her new powers and past events, Carol Danvers now spends her days helping those in need around the galaxy and keeping the peace for the benefit of humanity.
+[2024-05-26 14:54:12,550][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.64it/s]
+[2024-05-26 14:54:12,569][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:12,569][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:12,569][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:12,569][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:15,380][semstamp][INFO] - Candidate text:  However, Captain Marvel is more or less the origin story of Captain Marvel and it takes us through Carol Danvers journey into becoming one of the universe’s most powerful beings.
+[2024-05-26 14:54:15,380][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.24it/s]
+[2024-05-26 14:54:15,398][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:15,398][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:15,399][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:15,399][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:17,530][semstamp][INFO] - Candidate text:  Avengers: Endgame is a 2019 American superhero film directed by Anthony and Joe Russo and produced by Marvel Studios.
+[2024-05-26 14:54:17,531][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.03it/s]
+[2024-05-26 14:54:17,548][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:54:17,549][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:17,549][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:17,549][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:20,020][semstamp][INFO] - Candidate text:  This means you can download movies and music directly to your smartphone or tablet without worrying about taking up space on your device or using up data allowance.
+[2024-05-26 14:54:20,020][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.12it/s]
+[2024-05-26 14:54:20,039][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:54:20,039][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:20,039][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:20,039][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:22,451][semstamp][INFO] - Candidate text:  Free Download and Watch Online Latest Movies and TV Shows in Full HD for free in 1080p or 720p at BollywoodMovie.
+[2024-05-26 14:54:22,451][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.99it/s]
+[2024-05-26 14:54:22,470][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:54:22,470][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:22,470][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:22,470][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:24,540][semstamp][INFO] - Candidate text:  Here are some tips for safely downloading movies and TV shows: Be cautious when clicking on websites offering free movie downloads.
+[2024-05-26 14:54:24,540][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.28it/s]
+[2024-05-26 14:54:24,558][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:54:24,558][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:24,558][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:24,558][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:26,218][semstamp][INFO] - Candidate text:  This means that Avengers: Endgame Full Movie Free Download will surely make it big.
+[2024-05-26 14:54:26,219][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.56it/s]
+[2024-05-26 14:54:26,236][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:54:26,236][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:26,237][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:26,237][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:28,306][semstamp][INFO] - Candidate text:  The new film is directed by John Krasinski, who co-wrote it with Bryan Woods and Scott Beck.
+[2024-05-26 14:54:28,307][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.80it/s]
+[2024-05-26 14:54:28,324][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:54:28,324][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:28,324][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:28,325][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:31,215][semstamp][INFO] - Candidate text:  You just need is to go through below mentioned links and start the download: Download Link: Avengers End Game Watch Online Free; Free Movie Site Avengers End Game (2019).
+[2024-05-26 14:54:31,215][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.93it/s]
+[2024-05-26 14:54:31,234][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:54:31,234][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:31,234][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:31,234][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:33,785][semstamp][INFO] - Candidate text:  Disney has also said it plans to launch in Western Europe, including the UK, Germany, France, Italy, and Spain, during the course of.
+[2024-05-26 14:54:33,785][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.28it/s]
+[2024-05-26 14:54:33,808][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:33,808][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:33,808][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:33,808][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:36,648][semstamp][INFO] - Candidate text:  It looks like some Avengers: Endgame footage is being sold for an absurd amount online The piratebay movies 2019 list of movies for streaming or download torrent.
+[2024-05-26 14:54:36,648][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.26it/s]
+[2024-05-26 14:54:36,667][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:54:36,667][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:36,667][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:36,667][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:39,125][semstamp][INFO] - Candidate text:  FreeMovieDownloads offers a vast selection of full-length movies in DVD, DIVX, iPod, PSP formats for download.
+[2024-05-26 14:54:39,125][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.46it/s]
+[2024-05-26 14:54:39,146][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:54:39,146][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:39,146][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:54:39,146][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:41,087][semstamp][INFO] - Candidate text:  Movie4u is one of the best websites to watch full HD Bollywood movies online for free.
+[2024-05-26 14:54:41,087][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.10it/s]
+[2024-05-26 14:54:41,106][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:54:41,106][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:41,106][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:41,106][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:42,948][semstamp][INFO] - Candidate text:  Get latest news updates & reviews on Avengers Endgame trailer online only at Bollywood Hungama.
+[2024-05-26 14:54:42,948][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.91it/s]
+[2024-05-26 14:54:42,965][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:54:42,966][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:54:42,966][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 14:54:42,966][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:45,192][semstamp][INFO] - Candidate text:  But, if it did, you might be able to torrent the movie, but please don't do that!
+[2024-05-26 14:54:45,192][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.64it/s]
+[2024-05-26 14:54:45,209][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:54:45,209][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:45,209][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:45,209][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:46,197][semstamp][INFO] - Candidate text:  It's easy!
+[2024-05-26 14:54:46,197][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.54it/s]
+[2024-05-26 14:54:46,214][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 14:54:46,214][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:46,214][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:46,214][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:48,442][semstamp][INFO] - Candidate text:  Avengers Endgame will be streaming exclusively on Disney+, which means you won’t find it on Netflix anytime soon!
+[2024-05-26 14:54:48,443][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.50it/s]
+[2024-05-26 14:54:48,460][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:54:48,460][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:48,461][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:48,461][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:52,150][semstamp][INFO] - Candidate text:  Stream Avengers: Endgame HD Online Free In addition, the film is available on Amazon Prime Video, Google Play, iTunes, Vudu and DVD/Blu-ray discs which are now streaming on Digital platforms. 
+[2024-05-26 14:54:52,150][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.04it/s]
+[2024-05-26 14:54:52,169][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:54:52,169][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:52,169][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:52,169][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:54,330][semstamp][INFO] - Candidate text:  You'll need to be logged into the streaming service on multiple devices to ensure uninterrupted playback across the board.
+[2024-05-26 14:54:54,330][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.25it/s]
+[2024-05-26 14:54:54,348][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:54:54,348][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:54,348][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:54,348][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:54:58,443][semstamp][INFO] - Candidate text:  Watch online, stream, rent or buy End Game - Start of the end #5: You are watching a Movie Trailer from 2019 and it's available on various platforms like Vudu, Tubi, Peacock, Xumo etc.
+[2024-05-26 14:54:58,444][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.43it/s]
+[2024-05-26 14:54:58,462][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:54:58,462][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:54:58,462][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:54:58,462][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:03,112][semstamp][INFO] - Candidate text:  Here are some possible ways you might be able to download Avengers: Endgame legally in Australia: Amazon Prime Video: Avengers: Endgame may eventually make its way to Amazon Prime Video, which offers a vast library of movies and TV shows for streaming, including original content and exclusives.
+[2024-05-26 14:55:03,112][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.23it/s]
+[2024-05-26 14:55:03,122][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:55:03,122][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:04,938][semstamp][INFO] - Candidate text:  But if I had my preference then there is an easier way i'd suggest.
+[2024-05-26 14:55:04,938][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.59it/s]
+[2024-05-26 14:55:04,956][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:55:04,956][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:55:04,956][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:55:04,956][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:07,399][semstamp][INFO] - Candidate text:  The service launched on November 12, 2019, with a slew of Marvel content available, including some MCU titles.
+[2024-05-26 14:55:07,400][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.73it/s]
+[2024-05-26 14:55:07,417][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:55:07,417][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:07,417][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:07,417][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:09,445][semstamp][INFO] - Candidate text:  Watch Trailers For AVENGERS: ENDGAME (English Version) AvengersEndGame. 
+[2024-05-26 14:55:09,445][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.42it/s]
+[2024-05-26 14:55:09,462][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:55:09,463][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:09,463][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:09,463][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:12,598][semstamp][INFO] - Candidate text:  Avengers: Endgame Trailer – Official Trailer Release Date: April 26th, 2019 The first trailer for Avengers: Endgame officially titled just Avengers: Endgame.
+[2024-05-26 14:55:12,598][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.02it/s]
+[2024-05-26 14:55:12,617][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:55:12,617][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:12,617][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:12,617][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:14,370][semstamp][INFO] - Candidate text:  Here, read how you can free download Avengers: Endgame HD trailer.
+[2024-05-26 14:55:14,371][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.74it/s]
+[2024-05-26 14:55:14,388][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:55:14,388][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:14,388][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:14,388][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:16,899][semstamp][INFO] - Candidate text:  Watch the video avengers endgame tamilrockers 720p torrent file download from tamil rockers 2019 hd print!
+[2024-05-26 14:55:16,899][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.70it/s]
+[2024-05-26 14:55:16,917][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:55:16,917][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:16,917][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:16,917][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:19,499][semstamp][INFO] - Candidate text:  When trying to run the Avengers ENDGAME iso file I am asked to insert disc into drive f but I have downloaded iso onto desktop?
+[2024-05-26 14:55:19,500][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.49it/s]
+[2024-05-26 14:55:19,517][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:19,518][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:19,518][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:19,518][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:22,859][semstamp][INFO] - Candidate text:  Endgame is available in Digital HD exclusively on Amazon Video beginning August 19 th and on 4K, Blu-ray, DVD, and On-Demand services on August 27 th.
+[2024-05-26 14:55:22,859][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.86it/s]
+[2024-05-26 14:55:22,877][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:55:22,877][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:22,877][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:22,877][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:26,359][semstamp][INFO] - Candidate text:  In fact, according to Marvel Studios' head Kevin Feige, they were going to release the deleted scene after Endgame was released digitally but they ended up holding onto it for the Blu-ray instead.
+[2024-05-26 14:55:26,359][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.81it/s]
+[2024-05-26 14:55:26,377][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:26,378][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:26,378][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:26,378][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:28,130][semstamp][INFO] - Candidate text:  com for the first time, it will create a new account for you.
+[2024-05-26 14:55:28,130][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.88it/s]
+[2024-05-26 14:55:28,147][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 14:55:28,148][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:55:28,148][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 14:55:28,148][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:31,782][semstamp][INFO] - Candidate text:  Avengers: Endgame (4K UHD Blu-ray + Digital Copy) [SteelBook] by Amazon Studios [Blu-ray] 0 Review(s) Add To Shopping Bag | Your Price $34.
+[2024-05-26 14:55:31,783][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.50it/s]
+[2024-05-26 14:55:31,801][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:55:31,801][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:31,801][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:55:31,801][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:34,047][semstamp][INFO] - Candidate text:  Download Avengers: Endgame (2019) Full Movie in HD 720p avi mp4 for free.
+[2024-05-26 14:55:34,047][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.72it/s]
+[2024-05-26 14:55:34,065][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:55:34,065][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:34,066][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:55:34,066][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:35,273][semstamp][INFO] - Candidate text:  Marvel Entertainment; Universal Music Group;.
+[2024-05-26 14:55:35,273][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.67it/s]
+[2024-05-26 14:55:35,291][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:55:35,291][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:35,291][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:55:35,291][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:37,397][semstamp][INFO] - Candidate text:  It can be very frustrating when your internet connection is slow and you cannot download your desired content quickly.
+[2024-05-26 14:55:37,397][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.55it/s]
+[2024-05-26 14:55:37,415][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:37,415][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:55:37,415][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 14:55:37,415][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:38,977][semstamp][INFO] - Candidate text:  Download latest hindi songs or watch freeonline movies in hd.
+[2024-05-26 14:55:38,977][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.13it/s]
+[2024-05-26 14:55:38,994][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:55:38,994][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:38,994][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:55:38,995][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:40,209][semstamp][INFO] - Candidate text:  95 per month ($19.
+[2024-05-26 14:55:40,209][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.41it/s]
+[2024-05-26 14:55:40,226][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:40,227][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:40,227][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:55:40,227][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:41,788][semstamp][INFO] - Candidate text:  This means that fans have been eagerly anticipating Avengers 4.
+[2024-05-26 14:55:41,788][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.88it/s]
+[2024-05-26 14:55:41,805][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 14:55:41,806][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:55:41,806][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 14:55:41,806][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:44,490][semstamp][INFO] - Candidate text:  However, they are still facing issues like buffering while watching Avengers: Endgame on their Roku device, and more users have experienced this lately.
+[2024-05-26 14:55:44,491][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+[2024-05-26 14:55:44,509][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 14:55:44,509][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:44,509][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:44,509][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:45,939][semstamp][INFO] - Candidate text:  Torrent Download; Server Fshare; Openload.
+[2024-05-26 14:55:45,939][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.44it/s]
+[2024-05-26 14:55:45,956][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:45,956][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:45,956][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:45,956][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:47,594][semstamp][INFO] - Candidate text:  Avengers : Endgame is not available to download in your region.
+[2024-05-26 14:55:47,595][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.57it/s]
+[2024-05-26 14:55:47,612][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:47,612][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:47,612][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:47,612][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:50,994][semstamp][INFO] - Candidate text:  The next installment in the Marvel Cinematic Universe (MCU) is Spider-Man: Far From Home, which drops into theaters this summer after a successful release in China earlier this week. 
+[2024-05-26 14:55:50,994][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.97it/s]
+[2024-05-26 14:55:51,013][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 14:55:51,013][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:51,013][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:51,013][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:53,837][semstamp][INFO] - Candidate text:  Watch Online Avenger End Game Movies Full HD On Putlockerc The Download Hindi English Dubbed Telugu Tamil AvenerEndGame 500Mb.
+[2024-05-26 14:55:53,837][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.23it/s]
+[2024-05-26 14:55:53,855][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:55:53,855][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:53,855][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:53,855][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:56,819][semstamp][INFO] - Candidate text:  Here are some top options of streaming platforms where you can download and watch Avengers: Endgame legally: Netflix (NOT currently available) Amazon Prime Video; Disney+.
+[2024-05-26 14:55:56,819][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.77it/s]
+[2024-05-26 14:55:56,837][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:55:56,837][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:55:56,837][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 14:55:56,837][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:55:58,843][semstamp][INFO] - Candidate text:  The website’s algorithms offer a list of movies suggested based on users viewing preferences.
+[2024-05-26 14:55:58,844][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.15it/s]
+[2024-05-26 14:55:58,861][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:55:58,861][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:55:58,861][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:55:58,862][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:01,567][semstamp][INFO] - Candidate text:  While searching for downloading avengers endgame online free, please be careful not get into any website which claims to offer free downloads.
+[2024-05-26 14:56:01,568][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.23it/s]
+[2024-05-26 14:56:01,578][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:01,578][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:07,167][semstamp][INFO] - Candidate text:  Avengers: Endgame: How You Can Get Your Favorite Heroes' Look in No Time Avengers: Endgame premiered at Los Angeles in April and was released theatrically later that month worldwide, to positive reviews, praising the directors, actors, visuals effects, and overall closure of MCU's Infinity Saga The film set many box office records.
+[2024-05-26 14:56:07,167][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.01it/s]
+[2024-05-26 14:56:07,188][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:56:07,188][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:56:07,188][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:07,188][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:11,295][semstamp][INFO] - Candidate text:  And though we won't give away any spoilers just yet, rest assured that Avengers: Endgame wraps up more than a decade's worth of Marvel Cinematic Universe storytelling with flair, heart, and one mighty impressive climactic battle.
+[2024-05-26 14:56:11,295][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 70.31it/s]
+[2024-05-26 14:56:11,322][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 14:56:11,322][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:56:11,322][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:11,322][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:12,626][semstamp][INFO] - Candidate text:  You can watch it free.
+[2024-05-26 14:56:12,627][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.73it/s]
+[2024-05-26 14:56:12,644][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:56:12,644][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:56:12,644][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:12,644][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:13,740][semstamp][INFO] - Candidate text:  In fact.
+[2024-05-26 14:56:13,741][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.43it/s]
+[2024-05-26 14:56:13,758][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 14:56:13,758][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:56:13,758][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:13,758][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:15,902][semstamp][INFO] - Candidate text:  A complete list of download free Avengers: Endgame subtitles is included beneath the download links.
+[2024-05-26 14:56:15,903][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.11it/s]
+[2024-05-26 14:56:15,912][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:15,912][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:21,500][semstamp][INFO] - Candidate text:  How to download Avengers Endgame Torrent Movie in HD | Quora May 24, 2019 · Unfortunately, downloading torrent files of movies like Avengers Endgame that are still running in theatres and being widely distributed through legal channels (e.g., theaters, home video releases) is generally not recommended or even legal in many jurisdictions.
+[2024-05-26 14:56:21,500][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.78it/s]
+[2024-05-26 14:56:21,520][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 14:56:21,520][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 14:56:21,520][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:21,520][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:24,157][semstamp][INFO] - Candidate text:  As of now, Avengers: Endgame will not be available to stream or purchase on Disney+, despite being owned by Disney.
+[2024-05-26 14:56:24,157][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.50it/s]
+[2024-05-26 14:56:24,175][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 14:56:24,175][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 14:56:24,175][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 14:56:24,175][semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/stats.csv
+[2024-05-26 14:56:24,177][semstamp][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-05-26 14:56:24,177][semstamp][INFO] - Response: ('Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe\'s most powerful heroes after earth gets involved in a galactic war between alien. Download this movie (2019) here:. "Avengers: Endgame" picks up where its predecessor left off, with the survivors reeling from Thanos\' devastating Decimation - the Snap that wiped out half of all life in the universe. This means you can download movies and music directly to your smartphone or tablet without worrying about taking up space on your device or using up data allowance. Disney has also said it plans to launch in Western Europe, including the UK, Germany, France, Italy, and Spain, during the course of. FreeMovieDownloads offers a vast selection of full-length movies in DVD, DIVX, iPod, PSP formats for download. Get latest news updates & reviews on Avengers Endgame trailer online only at Bollywood Hungama. But if I had my preference then there is an easier way i\'d suggest. com for the first time, it will create a new account for you. It can be very frustrating when your internet connection is slow and you cannot download your desired content quickly. This means that fans have been eagerly anticipating Avengers 4. Here are some top options of streaming platforms where you can download and watch Avengers: Endgame legally: Netflix (NOT currently available) Amazon Prime Video; Disney+. As of now, Avengers: Endgame will not be available to stream or purchase on Disney+, despite being owned by Disney.', 61)
+[2024-05-26 14:56:24,177][watermarker][INFO] - Received completion: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Download this movie (2019) here:. "Avengers: Endgame" picks up where its predecessor left off, with the survivors reeling from Thanos' devastating Decimation - the Snap that wiped out half of all life in the universe. This means you can download movies and music directly to your smartphone or tablet without worrying about taking up space on your device or using up data allowance. Disney has also said it plans to launch in Western Europe, including the UK, Germany, France, Italy, and Spain, during the course of. FreeMovieDownloads offers a vast selection of full-length movies in DVD, DIVX, iPod, PSP formats for download. Get latest news updates & reviews on Avengers Endgame trailer online only at Bollywood Hungama. But if I had my preference then there is an easier way i'd suggest. com for the first time, it will create a new account for you. It can be very frustrating when your internet connection is slow and you cannot download your desired content quickly. This means that fans have been eagerly anticipating Avengers 4. Here are some top options of streaming platforms where you can download and watch Avengers: Endgame legally: Netflix (NOT currently available) Amazon Prime Video; Disney+. As of now, Avengers: Endgame will not be available to stream or purchase on Disney+, despite being owned by Disney.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.18it/s]
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.09it/s]
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+[2024-05-26 14:56:24,392][__main__][INFO] - Watermarked Text: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Download this movie (2019) here:. "Avengers: Endgame" picks up where its predecessor left off, with the survivors reeling from Thanos' devastating Decimation - the Snap that wiped out half of all life in the universe. This means you can download movies and music directly to your smartphone or tablet without worrying about taking up space on your device or using up data allowance. Disney has also said it plans to launch in Western Europe, including the UK, Germany, France, Italy, and Spain, during the course of. FreeMovieDownloads offers a vast selection of full-length movies in DVD, DIVX, iPod, PSP formats for download. Get latest news updates & reviews on Avengers Endgame trailer online only at Bollywood Hungama. But if I had my preference then there is an easier way i'd suggest. com for the first time, it will create a new account for you. It can be very frustrating when your internet connection is slow and you cannot download your desired content quickly. This means that fans have been eagerly anticipating Avengers 4. Here are some top options of streaming platforms where you can download and watch Avengers: Endgame legally: Netflix (NOT currently available) Amazon Prime Video; Disney+. As of now, Avengers: Endgame will not be available to stream or purchase on Disney+, despite being owned by Disney.
+[2024-05-26 14:56:24,392][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 14:56:24,392][__main__][INFO] - Score: 6.0
+[2024-05-26 14:56:24,392][__main__][INFO] - Time taken: 151.84683394432068
+Data appended to ./inputs/c4_saves/c4_1_temp_150_divp_0_attempt_2/watermarked_text.csv

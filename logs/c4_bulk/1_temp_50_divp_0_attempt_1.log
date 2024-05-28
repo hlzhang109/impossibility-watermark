@@ -1,0 +1,51 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 11:27:33,290][__main__][INFO] - Starting to watermark...
+[2024-05-26 11:27:33,295][__main__][INFO] - Prompt: Write a 250-word short story about a married American tourist called Evan falling in love with a barista called Emily at a Parisian cafe. Only respond with the story.
+[2024-05-26 11:27:33,295][__main__][INFO] - Getting the watermarker...
+[2024-05-26 11:27:33,295][watermarker][INFO] - Using device: cuda
+[2024-05-26 11:27:33,295][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 44, in <module>
+    test()
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 22, in test
+    watermarker = get_watermarker(cfg)
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 204, in get_watermarker
+    return SemStampWatermarker(cfg, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/semstamp.py", line 28, in __init__
+    super().__init__(cfg, pipeline, n_attempts, is_completion)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 22, in __init__
+    self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 58, in __init__
+    self._init_model(self.cfg)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 83, in _init_model
+    self.model = AutoGPTQForCausalLM.from_quantized(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/auto.py", line 140, in from_quantized
+    return quant_func(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_base.py", line 1023, in from_quantized
+    make_quant(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_utils.py", line 126, in make_quant
+    new_layer = QuantLinear(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/nn_modules/qlinear/qlinear_exllamav2.py", line 140, in __init__
+    torch.zeros((infeatures // 32 * self.bits, outfeatures), dtype=torch.int32),
+KeyboardInterrupt

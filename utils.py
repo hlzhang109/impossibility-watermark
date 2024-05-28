@@ -24,11 +24,21 @@ def save_to_csv(data, file_path, rewrite=False):
     
     print(f"Data saved to {file_path}")
 
+def save_to_csv_with_filepath(data, file_path, rewrite=False):
+    df_out = pd.DataFrame(data)
+    if os.path.exists(file_path) and not rewrite:
+        df_out.to_csv(file_path, mode='a', header=False, index=False)  # Append without writing headers
+    else:
+        # os.makedirs(dir, exist_ok=True)
+        df_out.to_csv(file_path, index=False)  # Create new file with headers
+    print(f"Data appended to {file_path}")
+
 def count_csv_entries(file_path):
-    # Read the CSV file into a DataFrame
-    df = pd.read_csv(file_path)
-    # Return the number of entries (rows) in the DataFrame
-    return len(df)
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+        return len(df)
+    else:
+        return 0
     
 def load_data(filename):
     """Load JSON data from a file."""
@@ -212,10 +222,15 @@ def strip_up_to(response, delimiter):
         return response[pos + len(delimiter):].strip()
     return response
 
+def replace_multiple_commas(s):
+    # Replace multiple commas with a single comma
+    return re.sub(r',+', ',', s)
+
 def parse_llama_output(response):
     delimiter = "<|end_header_id|>"
     response = strip_up_to(response, delimiter)
     response = response[:-9] if response.endswith('assistant') else response
+    response = replace_multiple_commas(response)
     return response
 
 from watermarkers import UMDWatermarker, UnigramWatermarker, EXPWatermarker, SemStampWatermarker
@@ -227,7 +242,7 @@ def get_watermarker(cfg, **kwargs):
         return UnigramWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "exp":
         return EXPWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "semstamp":
+    elif cfg.watermark_args.name == "semstamp_lsh":
         return SemStampWatermarker(cfg, **kwargs)
     else:
         raise NotImplementedError
@@ -317,3 +332,4 @@ def extract_response_info(sentence):
             return ["response a", comparison]
     else:
         return ["", ""]
+    

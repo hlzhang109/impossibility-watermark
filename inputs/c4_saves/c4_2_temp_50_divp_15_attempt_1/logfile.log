@@ -1,0 +1,1073 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 13:03:42,136][__main__][INFO] - Starting to watermark...
+[2024-05-26 13:03:42,138][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-26 13:03:42,138][__main__][INFO] - Getting the watermarker...
+[2024-05-26 13:03:42,138][watermarker][INFO] - Using device: cuda
+[2024-05-26 13:03:42,138][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 13:03:45,428][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 13:03:52,502][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 13:03:54,248][semstamp][INFO] - Setting up generating components...
+[2024-05-26 13:03:54,251][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 0.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 13:03:54,251][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 13:03:54,251][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 13:03:55,078][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 13:03:55,140][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 13:03:55,141][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 13:03:55,141][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.41it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.41it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 13:03:58,318][semstamp][INFO] - Candidate text:  The burrito chain is dealing with an E. coli outbreak that has sickened dozens of people in several states, as well as a norovirus outbreak at one location in California.
+
+[2024-05-26 13:03:58,319][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.19it/s]
+[2024-05-26 13:03:58,341][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:03:58,341][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:03:58,341][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:03:58,341][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:03:59,873][semstamp][INFO] - Candidate text:  The burrito chain is facing its third food safety crisis in six months, and investors are getting anxious.
+
+[2024-05-26 13:03:59,873][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.61it/s]
+[2024-05-26 13:03:59,883][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:03:59,883][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:05,762][semstamp][INFO] - Candidate text:  First,â€¦ https://t.co/7Jl5xVnQ8k #Chipotle #FoodSafety #NorovirusOutbreak about 1 hour ago from Twitter Web Client Reply Retweet Favorite More »
+@CathySiegelMD @DrMauriceFrias @DrEricaSchulman @DrSuneelKamat @MedPageToday @JAMA_current Thanks for sharing!
+[2024-05-26 13:04:05,762][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.59it/s]
+[2024-05-26 13:04:05,783][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:04:05,783][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:04:05,783][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:04:05,783][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:15,140][semstamp][INFO] - Candidate text:  ðŸ¤“ðŸ’¡ about 2 hours ago from Twitter Web Client in reply to CathySiegelMD Reply Retweet Favorite More »
+RT @CathySiegelMD : Great discussion on the intersection of #medicine and #socialmedia with @DrMauriceFrias, @DrEricaSchulman, @DrSuneelKamat â€¦ about 2 hours ago from Twitter Web Client Reply Retweet Favorite More » More Tweets » More Tweets » « Back to top » Contact Us | Terms of Use | Privacy Policy | Sitemap ÂŠ 2016 DoctorCPR.com, LLC.
+[2024-05-26 13:04:15,141][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 102.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.52it/s]
+[2024-05-26 13:04:15,164][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:15,164][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:15,164][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:04:15,164][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:19,592][semstamp][INFO] - Candidate text:  ðŸ‘ðŸ’¡ about 2 hours ago from Twitter Web Client Reply Retweet Favorite More »
+@DrEricaSchulman @DrSuneelKamat @MedPageToday @JAMA_current Great discussion on the importance of hand hygiene in healthcare settings!
+[2024-05-26 13:04:19,593][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.94it/s]
+[2024-05-26 13:04:19,612][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:19,612][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:19,612][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:04:19,612][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:24,745][semstamp][INFO] - Candidate text:  ðŸ’¡ðŸ‘ about 2 hours ago from Twitter Web Client Reply Retweet Favorite More » Show All Tweets Â» Â Â»
+Dr. Eric Coleman is the Director of the Care Transitions Program at the University of Colorado Anschutz Medical Campus and the author of "The Care Transitions Intervention."
+[2024-05-26 13:04:24,745][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 107.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.97it/s]
+[2024-05-26 13:04:24,765][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:04:24,766][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:04:24,766][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:04:24,766][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:27,111][semstamp][INFO] - Candidate text:  He is a professor of medicine at the University of Colorado School of Medicine and a geriatrician at the Denver VA Medical Center.
+[2024-05-26 13:04:27,112][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.84it/s]
+[2024-05-26 13:04:27,129][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:04:27,129][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:27,129][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:04:27,129][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:29,270][semstamp][INFO] - Candidate text:  He is a nationally recognized expert in care transitions and has worked with numerous healthcare organizations to improve their transitional care processes.
+
+[2024-05-26 13:04:29,271][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.20it/s]
+[2024-05-26 13:04:29,289][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:29,289][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:04:29,289][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:04:29,289][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:31,939][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving health outcomes for patients with complex needs, particularly those with chronic conditions and those who are transitioning between healthcare settings.
+[2024-05-26 13:04:31,939][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.39it/s]
+[2024-05-26 13:04:31,957][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:04:31,958][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:31,958][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:31,958][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:34,746][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication between healthcare providers, patients, and caregivers during times of transition (e.g., hospital discharge, emergency department visit).
+[2024-05-26 13:04:34,746][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.46it/s]
+[2024-05-26 13:04:34,764][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:04:34,764][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:34,764][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:34,765][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:37,277][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication and coordination between healthcare providers during patient handoffs, reducing readmissions, and enhancing patient safety.
+[2024-05-26 13:04:37,277][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.89it/s]
+[2024-05-26 13:04:37,295][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:37,295][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:37,295][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:37,295][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:40,149][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient transitions between different healthcare settings, such as from hospital to home or from one provider to another.
+[2024-05-26 13:04:40,150][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.17it/s]
+[2024-05-26 13:04:40,159][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:40,159][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:42,673][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by empowering patients and their caregivers to take an active role in their care.
+[2024-05-26 13:04:42,673][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.64it/s]
+[2024-05-26 13:04:42,691][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:04:42,691][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:42,691][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:42,691][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:45,204][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes by ensuring that patients receive high-quality, coordinated care as they transition between different healthcare settings.
+[2024-05-26 13:04:45,205][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.14it/s]
+[2024-05-26 13:04:45,222][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:45,222][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:45,222][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:45,223][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:47,395][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication and collaboration between healthcare providers, patients, and caregivers during care transitions.
+[2024-05-26 13:04:47,396][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.60it/s]
+[2024-05-26 13:04:47,413][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:04:47,413][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:47,413][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:47,413][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:50,679][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient care as they transition between different healthcare settings, such as from hospital to home or from skilled nursing facility to community-based care.
+[2024-05-26 13:04:50,680][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.67it/s]
+[2024-05-26 13:04:50,689][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:50,689][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:52,929][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:04:52,930][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.38it/s]
+[2024-05-26 13:04:52,947][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:52,947][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:52,947][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:52,947][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:55,187][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:04:55,187][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.83it/s]
+[2024-05-26 13:04:55,205][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:04:55,205][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:55,205][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:55,205][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:04:57,787][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by empowering patients and their caregivers to take an active role in their health care.
+[2024-05-26 13:04:57,788][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.90it/s]
+[2024-05-26 13:04:57,805][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:04:57,805][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:04:57,805][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:04:57,806][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:00,320][semstamp][INFO] - Candidate text: Dr. Coleman's research focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety during times of transition.
+[2024-05-26 13:05:00,320][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.01it/s]
+[2024-05-26 13:05:00,338][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:05:00,338][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:00,338][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:00,338][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:03,194][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions for patients with complex needs, particularly those with multiple chronic conditions, frailty, or cognitive impairment.
+[2024-05-26 13:05:03,195][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.92it/s]
+[2024-05-26 13:05:03,212][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:03,213][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:03,213][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:03,213][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:05,386][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient care as they transition between different healthcare settings.
+[2024-05-26 13:05:05,386][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.65it/s]
+[2024-05-26 13:05:05,395][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:05,395][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:07,500][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication between healthcare providers, patients, and caregivers during transitions of care.
+[2024-05-26 13:05:07,501][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+[2024-05-26 13:05:07,518][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:07,518][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:07,518][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:07,518][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:10,579][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient care as they move across different healthcare settings, such as from hospital to home or from one provider to another.
+[2024-05-26 13:05:10,579][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.89it/s]
+[2024-05-26 13:05:10,596][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:10,597][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:10,597][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:10,597][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:13,795][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving health outcomes for patients with complex needs, particularly during times of transition, such as when they are discharged from the hospital or move between different healthcare settings.
+[2024-05-26 13:05:13,795][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.89it/s]
+[2024-05-26 13:05:13,812][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:13,813][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:13,813][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:13,813][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:16,395][semstamp][INFO] - Candidate text: Dr. Coleman received his medical degree from the University of California, San Francisco, and completed his residency in internal medicine at the University of Chicago.
+[2024-05-26 13:05:16,396][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.92it/s]
+[2024-05-26 13:05:16,413][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:16,413][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:16,413][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:16,413][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:18,585][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions through the development of evidence-based interventions and tools.
+[2024-05-26 13:05:18,586][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.48it/s]
+[2024-05-26 13:05:18,602][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:18,603][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:18,603][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:18,603][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:21,254][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by empowering patients and families through education, support, and guidance during times of transition.
+[2024-05-26 13:05:21,255][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.63it/s]
+[2024-05-26 13:05:21,272][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:21,273][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:21,273][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:21,273][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:24,266][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of patient care as they transition between different healthcare settings, such as from hospital to home or from skilled nursing facility to home.
+[2024-05-26 13:05:24,266][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.14it/s]
+[2024-05-26 13:05:24,284][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:24,284][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:24,284][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:24,284][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:26,730][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by addressing the needs of patients as they move across different healthcare settings.
+[2024-05-26 13:05:26,730][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.38it/s]
+[2024-05-26 13:05:26,740][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:26,740][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:29,050][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by identifying and addressing the root causes of hospital readmissions.
+[2024-05-26 13:05:29,050][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.78it/s]
+[2024-05-26 13:05:29,068][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:29,068][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:29,068][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:29,068][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:34,188][semstamp][INFO] - Candidate text: Latest articles by Dr. Eric Coleman:
+Why Care Transitions Matter: The Case for Improving Patient Handoffs (Part 1)
+Why Care Transitions Matter: The Case for Improving Patient Handoffs (Part 2) 
+Dr. David Nash is the Founding Dean Emeritus of the Jefferson College of Population Health.
+[2024-05-26 13:05:34,188][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.44it/s]
+[2024-05-26 13:05:34,206][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 13:05:34,207][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:34,207][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:34,207][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:37,406][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the safety and quality of patient care as patients move between different healthcare settings, such as from hospital to home or from nursing facility to primary care provider.
+[2024-05-26 13:05:37,406][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.52it/s]
+[2024-05-26 13:05:37,424][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:37,424][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:37,424][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:37,424][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:39,871][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving health outcomes for patients with complex medical needs by enhancing communication and coordination between healthcare providers and settings.
+[2024-05-26 13:05:39,871][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.60it/s]
+[2024-05-26 13:05:39,889][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:39,889][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:39,889][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:39,889][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:42,199][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the safety and quality of care transitions, particularly for older adults with complex health needs.
+[2024-05-26 13:05:42,199][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.85it/s]
+[2024-05-26 13:05:42,216][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:42,217][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:42,217][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:42,217][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:45,142][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of patient care as they transition between healthcare settings, such as from hospital to home or from one healthcare provider to another.
+[2024-05-26 13:05:45,142][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.08it/s]
+[2024-05-26 13:05:45,159][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:45,160][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:45,160][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:45,160][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:47,606][semstamp][INFO] - Candidate text: Dr. Coleman's research focuses on developing and testing innovative interventions to improve care transitions, reduce hospital readmissions, and enhance patient outcomes.
+[2024-05-26 13:05:47,606][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.20it/s]
+[2024-05-26 13:05:47,615][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:47,615][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:50,678][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication between healthcare providers and patients, particularly during times of transition, such as when patients are discharged from the hospital or transferred between healthcare settings.
+[2024-05-26 13:05:50,679][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.19it/s]
+[2024-05-26 13:05:50,697][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:05:50,697][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:50,697][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:50,697][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:05:53,211][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety during times of transition.
+[2024-05-26 13:05:53,212][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.62it/s]
+[2024-05-26 13:05:53,229][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:05:53,229][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:05:53,229][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:05:53,229][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:08,787][semstamp][INFO] - Candidate text: Latest posts by Dr. Eric Coleman ( see all )
+Care Transitions: The Elephant in the Room - August 24, 2016 Â 
+The Importance of Medication Reconciliation in Care Transitions - July 20, 2016 Â 
+The Role of Family Members in Care Transitions - June 22, 2016 Â 
+The Impact of Care Transitions on Patient Outcomes - May 25, 2016 Â 
+Why Care Transitions Matter - April 27, 2016 Â  Â 
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â 
+[2024-05-26 13:07:08,788][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 50.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 75.91it/s]
+[2024-05-26 13:07:08,826][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:07:08,826][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:08,826][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:08,827][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:11,070][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:07:11,070][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.43it/s]
+[2024-05-26 13:07:11,087][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:11,088][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:11,088][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:11,088][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:13,331][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:07:13,332][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.37it/s]
+[2024-05-26 13:07:13,349][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:13,349][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:13,349][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:13,349][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:15,593][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:07:15,593][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.16it/s]
+[2024-05-26 13:07:15,610][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:15,610][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:15,610][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:15,611][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:18,059][semstamp][INFO] - Candidate text: Dr. Coleman's research focuses on improving the quality of care for vulnerable populations, particularly older adults, as they transition between healthcare settings.
+[2024-05-26 13:07:18,059][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.47it/s]
+[2024-05-26 13:07:18,076][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:18,077][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:18,077][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:18,077][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:21,141][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient care during times of transition, such as when patients are discharged from the hospital or move between different healthcare settings.
+[2024-05-26 13:07:21,141][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.92it/s]
+[2024-05-26 13:07:21,158][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:21,158][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:21,158][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:21,158][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:24,359][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication between healthcare providers and patients during transitions of care, such as when a patient is discharged from the hospital or moves from one care setting to another.
+[2024-05-26 13:07:24,360][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.05it/s]
+[2024-05-26 13:07:24,377][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:07:24,377][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:24,377][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:24,377][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:26,279][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes and reducing readmissions through effective care transitions.
+[2024-05-26 13:07:26,280][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.79it/s]
+[2024-05-26 13:07:26,297][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:26,297][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:26,297][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:26,297][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:28,882][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by empowering patients and family caregivers to take a more active role in their care.
+[2024-05-26 13:07:28,883][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.16it/s]
+[2024-05-26 13:07:28,900][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:07:28,900][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:28,900][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:28,900][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:31,143][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:07:31,144][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.04it/s]
+[2024-05-26 13:07:31,161][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:31,161][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:31,161][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:31,161][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:33,404][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:07:33,405][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.32it/s]
+[2024-05-26 13:07:33,421][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:33,422][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:33,422][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:33,422][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:35,870][semstamp][INFO] - Candidate text: Dr. Coleman's research focuses on improving the quality of care transitions from hospitals to other settings, such as home or skilled nursing facilities.
+[2024-05-26 13:07:35,870][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.74it/s]
+[2024-05-26 13:07:35,880][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:35,880][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:37,920][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes during transitions from hospital to home or other care settings.
+[2024-05-26 13:07:37,920][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.87it/s]
+[2024-05-26 13:07:37,937][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:37,938][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:37,938][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:37,938][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:40,864][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of patient care as they transition between different healthcare settings, such as from hospital to home or from one provider to another.
+[2024-05-26 13:07:40,865][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.76it/s]
+[2024-05-26 13:07:40,882][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:07:40,882][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:40,883][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:40,883][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:43,947][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by addressing the root causes of readmissions, including inadequate communication, incomplete medication reconciliation, and poor follow-up care.
+[2024-05-26 13:07:43,947][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.43it/s]
+[2024-05-26 13:07:43,964][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:07:43,965][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:43,965][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:43,965][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:46,550][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of transitional care, particularly for high-risk patients, by addressing the root causes of readmissions.
+[2024-05-26 13:07:46,551][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.80it/s]
+[2024-05-26 13:07:46,568][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:46,569][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:46,569][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:46,569][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:49,292][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes during transitions between healthcare settings, such as from hospital to home or from skilled nursing facility to community dwelling.
+[2024-05-26 13:07:49,293][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.62it/s]
+[2024-05-26 13:07:49,302][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:49,302][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:51,750][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving health outcomes for patients with complex needs, particularly those with multiple chronic conditions and/or frailty.
+[2024-05-26 13:07:51,750][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.71it/s]
+[2024-05-26 13:07:51,767][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:07:51,768][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:51,768][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:51,768][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:53,806][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes during transitions from hospital to home or other care settings.
+[2024-05-26 13:07:53,807][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.86it/s]
+[2024-05-26 13:07:53,823][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:53,824][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:53,824][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:53,824][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:56,547][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by addressing the needs of patients with complex medical conditions as they move across different healthcare settings.
+[2024-05-26 13:07:56,547][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.13it/s]
+[2024-05-26 13:07:56,565][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:07:56,565][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:56,565][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:56,565][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:07:59,571][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes during care transitions by enhancing communication between healthcare providers and patients, and by empowering patients to take an active role in their care.
+[2024-05-26 13:07:59,572][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.97it/s]
+[2024-05-26 13:07:59,593][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:07:59,593][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:07:59,593][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:07:59,593][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:02,659][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the safety and quality of patient care as patients move across different healthcare settings, such as from hospital to home or from one provider to another.
+[2024-05-26 13:08:02,660][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.05it/s]
+[2024-05-26 13:08:02,677][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:02,677][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:02,678][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:02,678][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:05,510][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving health outcomes and reducing hospital readmissions by enhancing the transition from hospital to home or other post-acute settings.
+[2024-05-26 13:08:05,511][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 105.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 110.32it/s]
+[2024-05-26 13:08:05,537][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:05,537][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:05,537][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:05,537][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:07,783][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety.
+[2024-05-26 13:08:07,783][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.22it/s]
+[2024-05-26 13:08:07,800][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:07,800][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:07,800][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:07,800][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:10,316][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of transitional care, reducing hospital readmissions, and enhancing patient safety during care handoffs.
+[2024-05-26 13:08:10,317][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.59it/s]
+[2024-05-26 13:08:10,334][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:10,334][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:10,334][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:10,334][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:12,578][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by addressing the needs of patients with complex care requirements.
+[2024-05-26 13:08:12,578][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.31it/s]
+[2024-05-26 13:08:12,595][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:08:12,596][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:12,596][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:12,596][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:15,869][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality and safety of patient care as patients transition between different healthcare settings, such as from hospital to home or from skilled nursing facility to community-based care.
+[2024-05-26 13:08:15,869][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.72it/s]
+[2024-05-26 13:08:15,888][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:08:15,889][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:15,889][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:15,889][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:18,474][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving patient outcomes during transitions between healthcare settings, such as from hospital to home or from nursing facility to community.
+[2024-05-26 13:08:18,474][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.94it/s]
+[2024-05-26 13:08:18,484][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:18,484][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:20,933][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety during these transitions.
+[2024-05-26 13:08:20,934][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.59it/s]
+[2024-05-26 13:08:20,943][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:20,943][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:24,008][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions by identifying high-risk patients, developing personalized transition plans, and empowering patients to take an active role in their care.
+[2024-05-26 13:08:24,008][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.71it/s]
+[2024-05-26 13:08:24,025][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:24,026][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:24,026][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:24,026][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:26,544][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, reducing hospital readmissions, and enhancing patient safety during times of transition.
+[2024-05-26 13:08:26,544][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.46it/s]
+[2024-05-26 13:08:26,562][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:26,562][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:26,562][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:26,562][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:29,695][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving communication between healthcare providers, patients, and caregivers during transitions in care settings, such as when patients are discharged from the hospital or transferred between facilities.
+[2024-05-26 13:08:29,695][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.09it/s]
+[2024-05-26 13:08:29,712][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:08:29,713][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:29,713][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:29,713][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:30,453][semstamp][INFO] - Candidate text: 1.
+[2024-05-26 13:08:30,454][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.36it/s]
+[2024-05-26 13:08:30,470][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:08:30,470][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:30,471][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:30,471][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:33,259][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions, particularly for high-risk patients, by providing them with support and resources during times of transition.
+[2024-05-26 13:08:33,259][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.63it/s]
+[2024-05-26 13:08:33,277][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:33,277][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:33,277][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:33,277][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:35,862][semstamp][INFO] - Candidate text: Dr. Coleman's work focuses on improving the quality of care transitions for patients with complex needs, particularly older adults and those with multiple chronic conditions.
+[2024-05-26 13:08:35,862][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.13it/s]
+[2024-05-26 13:08:35,880][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:08:35,880][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:35,880][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:35,880][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:38,465][semstamp][INFO] - Candidate text: Dr. Coleman's research focuses on improving the quality of transitional care, particularly for vulnerable populations such as older adults and those with multiple chronic conditions.
+[2024-05-26 13:08:38,466][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.30it/s]
+[2024-05-26 13:08:38,483][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:38,483][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:38,483][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:38,483][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:41,477][semstamp][INFO] - Candidate text: 10:00 AM - 11:00 AM ET (US)
+To participate, simply tune in to this webpage at the scheduled time and click on "Join the Discussion."
+
+[2024-05-26 13:08:41,478][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.90it/s]
+[2024-05-26 13:08:41,495][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:08:41,495][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:08:41,495][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:08:41,495][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:43,379][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to editor@hcpro.com.
+[2024-05-26 13:08:43,380][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.42it/s]
+[2024-05-26 13:08:43,397][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:08:43,397][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:43,397][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:43,397][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:45,967][semstamp][INFO] - Candidate text: Please note that this is not an interactive Q&A session, but rather a live broadcast featuring Dr. Coleman's insights on care transitions.
+[2024-05-26 13:08:45,968][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.87it/s]
+[2024-05-26 13:08:45,985][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:08:45,985][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:45,985][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:45,985][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:47,458][semstamp][INFO] - Candidate text: Note: This event will not be recorded or archived.
+[2024-05-26 13:08:47,458][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.61it/s]
+[2024-05-26 13:08:47,476][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:47,476][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:47,476][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:47,476][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:49,360][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to [email protected].
+[2024-05-26 13:08:49,360][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.95it/s]
+[2024-05-26 13:08:49,377][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:49,377][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:49,377][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:49,377][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:51,398][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to us at [email protected].
+
+[2024-05-26 13:08:51,399][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.07it/s]
+[2024-05-26 13:08:51,416][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:51,416][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:51,416][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:51,416][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:53,368][semstamp][INFO] - Candidate text: Note: The archived discussion will be available after the event, but only for registered participants.
+
+[2024-05-26 13:08:53,369][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.53it/s]
+[2024-05-26 13:08:53,386][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:08:53,386][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:53,386][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:53,386][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:55,339][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to editor@healthleadersmedia.com.
+[2024-05-26 13:08:55,339][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.30it/s]
+[2024-05-26 13:08:55,356][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:08:55,356][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:55,356][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:55,357][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:57,308][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to editor@healthleadersmedia.com.
+[2024-05-26 13:08:57,308][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.80it/s]
+[2024-05-26 13:08:57,325][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:08:57,325][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:08:57,325][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:57,325][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:08:59,965][semstamp][INFO] - Candidate text: You can also submit questions in advance by emailing them to our moderator, Brian McDonagh, at bmcdonagh@ihi.org.
+
+[2024-05-26 13:08:59,965][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.87it/s]
+[2024-05-26 13:08:59,983][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:08:59,983][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:08:59,983][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:08:59,983][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:03,126][semstamp][INFO] - Candidate text: About Our Guest:
+Dr. Eric A. Coleman is a Professor of Medicine at the University of Colorado Anschutz Medical Campus and the Director of the Care Transitions Program.
+[2024-05-26 13:09:03,126][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.88it/s]
+[2024-05-26 13:09:03,144][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:09:03,144][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:09:03,144][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:09:03,144][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:05,181][semstamp][INFO] - Candidate text: We encourage you to share your own experiences and insights related to improving care transitions during the discussion.
+[2024-05-26 13:09:05,182][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.61it/s]
+[2024-05-26 13:09:05,199][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:09:05,199][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:09:05,199][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:09:05,199][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:06,890][semstamp][INFO] - Candidate text: We encourage you to share your thoughts and experiences related to the topic.
+[2024-05-26 13:09:06,890][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.02it/s]
+[2024-05-26 13:09:06,907][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:09:06,907][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:09:06,907][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:09:06,907][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:08,761][semstamp][INFO] - Candidate text:  Your input will help shape the discussion and provide valuable insights for others.
+
+[2024-05-26 13:09:08,761][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.48it/s]
+[2024-05-26 13:09:08,778][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:09:08,779][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:09:08,779][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:09:08,779][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:11,174][semstamp][INFO] - Candidate text:  Your input will help shape the discussion and inform others who are working to improve patient safety and quality of care.
+
+[2024-05-26 13:09:11,175][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.09it/s]
+[2024-05-26 13:09:11,192][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 13:09:11,192][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:09:11,192][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:09:11,192][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:13,106][semstamp][INFO] - Candidate text:  The conversation will be moderated to ensure that everyone has a chance to contribute.
+
+[2024-05-26 13:09:13,106][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.15it/s]
+[2024-05-26 13:09:13,123][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 13:09:13,124][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:09:13,124][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:09:13,124][semstamp][INFO] - acceptmaskstr: 6,2
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/stats.csv
+[2024-05-26 13:09:13,125][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-26 13:09:13,126][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. First,â€¦ https://t.co/7Jl5xVnQ8k #Chipotle #FoodSafety #NorovirusOutbreak about 1 hour ago from Twitter Web Client Reply Retweet Favorite More »\n@CathySiegelMD @DrMauriceFrias @DrEricaSchulman @DrSuneelKamat @MedPageToday @JAMA_current Thanks for sharing! ðŸ’¡ðŸ‘\x8d about 2 hours ago from Twitter Web Client Reply Retweet Favorite More » Show All Tweets Â» Â\xa0Â»\nDr. Eric Coleman is the Director of the Care Transitions Program at the University of Colorado Anschutz Medical Campus and the author of "The Care Transitions Intervention." He is a nationally recognized expert in care transitions and has worked with numerous healthcare organizations to improve their transitional care processes.\n10:00 AM - 11:00 AM ET (US)\nTo participate, simply tune in to this webpage at the scheduled time and click on "Join the Discussion."\nYou can also submit questions in advance by emailing them to our moderator, Brian McDonagh, at bmcdonagh@ihi.org.\nWe encourage you to share your thoughts and experiences related to the topic. The conversation will be moderated to ensure that everyone has a chance to contribute.\n', 91)
+[2024-05-26 13:09:13,126][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. First,â€¦ https://t.co/7Jl5xVnQ8k #Chipotle #FoodSafety #NorovirusOutbreak about 1 hour ago from Twitter Web Client Reply Retweet Favorite More »
+@CathySiegelMD @DrMauriceFrias @DrEricaSchulman @DrSuneelKamat @MedPageToday @JAMA_current Thanks for sharing! ðŸ’¡ðŸ‘ about 2 hours ago from Twitter Web Client Reply Retweet Favorite More » Show All Tweets Â» Â Â»
+Dr. Eric Coleman is the Director of the Care Transitions Program at the University of Colorado Anschutz Medical Campus and the author of "The Care Transitions Intervention." He is a nationally recognized expert in care transitions and has worked with numerous healthcare organizations to improve their transitional care processes.
+10:00 AM - 11:00 AM ET (US)
+To participate, simply tune in to this webpage at the scheduled time and click on "Join the Discussion."
+You can also submit questions in advance by emailing them to our moderator, Brian McDonagh, at bmcdonagh@ihi.org.
+We encourage you to share your thoughts and experiences related to the topic. The conversation will be moderated to ensure that everyone has a chance to contribute.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.11it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.20it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+[2024-05-26 13:09:13,264][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. First,â€¦ https://t.co/7Jl5xVnQ8k #Chipotle #FoodSafety #NorovirusOutbreak about 1 hour ago from Twitter Web Client Reply Retweet Favorite More »
+@CathySiegelMD @DrMauriceFrias @DrEricaSchulman @DrSuneelKamat @MedPageToday @JAMA_current Thanks for sharing! ðŸ’¡ðŸ‘ about 2 hours ago from Twitter Web Client Reply Retweet Favorite More » Show All Tweets Â» Â Â»
+Dr. Eric Coleman is the Director of the Care Transitions Program at the University of Colorado Anschutz Medical Campus and the author of "The Care Transitions Intervention." He is a nationally recognized expert in care transitions and has worked with numerous healthcare organizations to improve their transitional care processes.
+10:00 AM - 11:00 AM ET (US)
+To participate, simply tune in to this webpage at the scheduled time and click on "Join the Discussion."
+You can also submit questions in advance by emailing them to our moderator, Brian McDonagh, at bmcdonagh@ihi.org.
+We encourage you to share your thoughts and experiences related to the topic. The conversation will be moderated to ensure that everyone has a chance to contribute.
+[2024-05-26 13:09:13,264][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 13:09:13,264][__main__][INFO] - Score: 4.58257569495584
+[2024-05-26 13:09:13,264][__main__][INFO] - Time taken: 318.12285113334656
+Data appended to ./inputs/c4_saves/c4_2_temp_50_divp_15_attempt_1/watermarked_text.csv

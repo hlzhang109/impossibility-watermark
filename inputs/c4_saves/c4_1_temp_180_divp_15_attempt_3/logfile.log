@@ -1,0 +1,996 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 16:41:10,875][__main__][INFO] - Starting to watermark...
+[2024-05-26 16:41:10,878][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-05-26 16:41:10,878][__main__][INFO] - Getting the watermarker...
+[2024-05-26 16:41:10,878][watermarker][INFO] - Using device: cuda
+[2024-05-26 16:41:10,879][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 16:41:14,273][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 16:41:21,489][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 16:41:23,173][semstamp][INFO] - Setting up generating components...
+[2024-05-26 16:41:23,176][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.8, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 16:41:23,176][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 16:41:23,176][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 16:41:24,061][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 16:41:24,122][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 16:41:24,123][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 16:41:24,124][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.76it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.76it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 16:41:27,696][semstamp][INFO] - Candidate text:  Marvel Studios 'Captain Marvel' Is a Joyful, Empowering Romp Through Space and Time Directed by Anna Boden and Ryan Fleckker, this new superhero film is an absolute blast.
+[2024-05-26 16:41:27,697][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.80it/s]
+[2024-05-26 16:41:27,719][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:41:27,719][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:41:27,719][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:41:27,719][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:31,630][semstamp][INFO] - Candidate text:  By Kate Erbland Dec 12, 2018 11:15 am @katetflix Share This Article Tumblr Reddit LinkedIn WhatsApp Email Print Talk Get Ready for Some Serious MCU Fun The arrival of Captain Marvel, starring Brie Larson as.
+
+[2024-05-26 16:41:31,631][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.19it/s]
+[2024-05-26 16:41:31,650][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:41:31,651][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:31,651][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:41:31,651][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:33,705][semstamp][INFO] - Candidate text:  The latest from the Marvel Cinematic Universe serves up action-packed entertainment that also happens to feature a fiercely independent heroine.
+
+[2024-05-26 16:41:33,706][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.35it/s]
+[2024-05-26 16:41:33,723][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:41:33,723][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:33,723][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:41:33,723][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:36,047][semstamp][INFO] - Candidate text:  In just three months, Marvel's Captain Marvel will make her debut on the big screen, starring Brie Larson as the iconic hero.
+[2024-05-26 16:41:36,048][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.02it/s]
+[2024-05-26 16:41:36,065][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:41:36,065][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:41:36,065][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:41:36,065][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:37,049][semstamp][INFO] - Candidate text:  It was a clever bit of.
+
+[2024-05-26 16:41:37,049][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 96.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.22it/s]
+[2024-05-26 16:41:37,070][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:41:37,070][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:37,070][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:37,070][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:38,595][semstamp][INFO] - Candidate text:  But how did Carol Danvers become one of the most powerful beings in.
+
+[2024-05-26 16:41:38,595][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.67it/s]
+[2024-05-26 16:41:38,612][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:41:38,612][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:38,612][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:38,612][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:40,137][semstamp][INFO] - Candidate text:  The film's trailers have gotten fans excited, but they've also sparked.
+
+[2024-05-26 16:41:40,137][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.63it/s]
+[2024-05-26 16:41:40,154][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:41:40,154][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:40,154][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:40,154][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:41,680][semstamp][INFO] - Candidate text:  A few months ago, we got our first look at Captain Marvel through.
+
+[2024-05-26 16:41:41,680][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.71it/s]
+[2024-05-26 16:41:41,697][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:41:41,697][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:41,697][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:41,697][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:43,495][semstamp][INFO] - Candidate text:  Captain Marvel is the culmination of our 23-film journey from Avengers 1 to now.
+[2024-05-26 16:41:43,496][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.62it/s]
+[2024-05-26 16:41:43,514][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:41:43,514][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:43,514][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:43,514][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:45,721][semstamp][INFO] - Candidate text:  If you've paid any attention to the movies or comic books lately, you may have heard whispers about the Kree and.
+
+[2024-05-26 16:41:45,721][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.09it/s]
+[2024-05-26 16:41:45,739][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:41:45,739][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:41:45,739][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:41:45,739][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:48,341][semstamp][INFO] - Candidate text: Marvel s latest movie follows Carol Danvers played by Brie Larson as she uncovers her troubled past while saving Earth from an intergalactic catastrophe..
+[2024-05-26 16:41:48,341][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.58it/s]
+[2024-05-26 16:41:48,359][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:41:48,359][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:48,359][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:41:48,359][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:49,871][semstamp][INFO] - Candidate text: Marvel Studios is proud to present "Captain Marvel" in theaters now!
+[2024-05-26 16:41:49,871][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.92it/s]
+[2024-05-26 16:41:49,889][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:41:49,889][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:49,889][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:41:49,889][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:52,765][semstamp][INFO] - Candidate text: 2019/02/28 · Read here for our Captain Marvel review The biggest hurdle that Captain Marvel faces, despite being a highly enjoyable and empowering cinematic experience. '
+[2024-05-26 16:41:52,766][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+[2024-05-26 16:41:52,783][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:41:52,783][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:52,783][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:41:52,783][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:55,388][semstamp][INFO] - Candidate text: 28/02/2019 · The Captain Marvel movie has only been out for two weeks, but it’s already breaking records at the box office.
+[2024-05-26 16:41:55,389][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.70it/s]
+[2024-05-26 16:41:55,406][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:41:55,406][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:41:55,406][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:41:55,406][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:57,290][semstamp][INFO] - Candidate text:  The movie has grossed over $500 million domestically, surpassing Deadpool 2's weekend.
+[2024-05-26 16:41:57,290][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.72it/s]
+[2024-05-26 16:41:57,307][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:41:57,307][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:57,307][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:41:57,307][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:41:59,326][semstamp][INFO] - Candidate text:  According to reports, it became the fastest film to reach $500 million domestically in just 11 days!.
+[2024-05-26 16:41:59,326][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.36it/s]
+[2024-05-26 16:41:59,343][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:41:59,344][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:41:59,344][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:41:59,344][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:00,748][semstamp][INFO] - Candidate text:  And yet, the conversation around it remains somewhat tumultuous..
+[2024-05-26 16:42:00,749][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.50it/s]
+[2024-05-26 16:42:00,766][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:42:00,766][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:00,766][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:00,766][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:03,128][semstamp][INFO] - Candidate text:  Fans love Carol Danvers, the fiercely independent pilot-turned-superhero, played flawlessly by Brie Larson.And while Captain.
+[2024-05-26 16:42:03,129][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.27it/s]
+[2024-05-26 16:42:03,146][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:42:03,146][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:03,146][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:03,146][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:06,128][semstamp][INFO] - Candidate text:  As the highest-grossing film led by a solo female lead, according to The Hollywood Reporter, it’s clear that audiences are responding to this powerful story and groundbreaking representation.
+[2024-05-26 16:42:06,129][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.86it/s]
+[2024-05-26 16:42:06,146][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:42:06,146][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:06,146][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:06,146][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:07,413][semstamp][INFO] - Candidate text:  The latest addition to the Marvel Cinematic Universe.
+[2024-05-26 16:42:07,413][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.53it/s]
+[2024-05-26 16:42:07,430][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:42:07,430][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:07,430][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:07,430][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:09,587][semstamp][INFO] - Candidate text:  And based on where it left off, it sets up some interesting possibilities for future Marvel Cinematic Universe installments.
+
+[2024-05-26 16:42:09,587][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.02it/s]
+[2024-05-26 16:42:09,604][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:42:09,604][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:09,604][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:09,604][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:11,897][semstamp][INFO] - Candidate text:  While we think the film rocks some fans aren't entirely happy with how certain characters were portrayed – specifically some of the villains.
+[2024-05-26 16:42:11,898][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.76it/s]
+[2024-05-26 16:42:11,914][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:42:11,915][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:11,915][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:11,915][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:14,620][semstamp][INFO] - Candidate text:  The film, which was released on March 8, has grossed over $760 million worldwide, with $455 million of that coming from international markets.
+[2024-05-26 16:42:14,621][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.10it/s]
+[2024-05-26 16:42:14,638][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:42:14,638][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:14,638][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:14,638][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:16,384][semstamp][INFO] - Candidate text:  Despite trolls’ attempts to boycott the film and tank its Rotten Tomatoes score.
+
+[2024-05-26 16:42:16,384][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.59it/s]
+[2024-05-26 16:42:16,393][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:16,393][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:18,412][semstamp][INFO] - Candidate text:  It had the sixth-biggest opening weekend of all time, raking in over $465 million domestically.
+[2024-05-26 16:42:18,413][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.47it/s]
+[2024-05-26 16:42:18,430][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:42:18,430][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:18,430][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:18,430][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:21,961][semstamp][INFO] - Candidate text:  One record that stands out is its dominance over Rotten Tomatoes’ list of the highest-grossing films with 4.2 billion or more at the domestic box office, currently holding slots one through five.
+[2024-05-26 16:42:21,961][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.43it/s]
+[2024-05-26 16:42:21,979][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:42:21,979][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:21,979][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:21,979][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:24,548][semstamp][INFO] - Candidate text:  And judging by the audience reaction, Carol Danvers’ solo outing seems to be winning over both lifelong fans of the character and those who. 
+[2024-05-26 16:42:24,548][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.39it/s]
+[2024-05-26 16:42:24,558][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:24,558][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:27,952][semstamp][INFO] - Candidate text:  As of Wednesday, Captain Marvel has made over $548 million worldwide — which means it could pass Avengers: Age of Ultron’s opening weekend and maybe even approach The Dark Knight’s cumulative haul as well!
+[2024-05-26 16:42:27,952][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.27it/s]
+[2024-05-26 16:42:27,971][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:42:27,971][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:42:27,971][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:27,971][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:29,512][semstamp][INFO] - Candidate text:  There will no doubt be more MCU connections down the line.
+[2024-05-26 16:42:29,512][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.89it/s]
+[2024-05-26 16:42:29,529][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:42:29,530][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:29,530][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:42:29,530][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:31,002][semstamp][INFO] - Candidate text:  Marvel has had so many iconic superpowered beings that.
+[2024-05-26 16:42:31,002][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.81it/s]
+[2024-05-26 16:42:31,019][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:42:31,020][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:31,020][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:42:31,020][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:31,942][semstamp][INFO] - Candidate text:  Wowza!
+[2024-05-26 16:42:31,943][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.47it/s]
+[2024-05-26 16:42:31,959][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 16:42:31,959][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:31,959][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:42:31,959][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:33,088][semstamp][INFO] - Candidate text:  Not too shabby for.
+[2024-05-26 16:42:33,088][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.59it/s]
+[2024-05-26 16:42:33,104][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:42:33,105][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:42:33,105][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 16:42:33,105][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:35,891][semstamp][INFO] - Candidate text:  Captain Marvel é um super-herói da Marvel Comics criado pelo escritor Roger Stern e pelo desenhista John Romita Jr.[1].
+[2024-05-26 16:42:35,891][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.12it/s]
+[2024-05-26 16:42:35,901][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:35,901][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:37,858][semstamp][INFO] - Candidate text:  Marvel Studios' Captain Marvel takes aim at gender expectations and intergalactic enemies with ease.
+[2024-05-26 16:42:37,858][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.17it/s]
+[2024-05-26 16:42:37,875][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:42:37,875][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:37,875][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:37,875][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:41,352][semstamp][INFO] - Candidate text:  The long-in-development "Captain Marvel" finally arrives on Marvel Cinematic Universe MCU scene courtesy of co-writers/directors Anna Boden and Ryan Fleckcher, boasting a nostalgic blend of.
+[2024-05-26 16:42:41,352][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.80it/s]
+[2024-05-26 16:42:41,370][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:42:41,371][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:41,371][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:41,371][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:45,265][semstamp][INFO] - Candidate text:  Marvel Comics News Marvel Cinematic Universe Marvel Entertainment Captain marvel News & Articles Film Movies Comics 7 views In "Uncle" Spider-Fran and 8 more 4/11 More Photos And Video From Captain Mar-Ve.
+
+[2024-05-26 16:42:45,265][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.86it/s]
+[2024-05-26 16:42:45,283][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:42:45,283][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:45,283][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:45,283][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:47,654][semstamp][INFO] - Candidate text:  Captain Marvel is directed by Anna Boden and Ryan Fleckkar, making their feature directing debuts with the film.
+[2024-05-26 16:42:47,655][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.69it/s]
+[2024-05-26 16:42:47,671][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:42:47,672][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:47,672][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:47,672][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:49,215][semstamp][INFO] - Candidate text:  Captain Marvel is available now on Blu-ray™ and DVD.
+[2024-05-26 16:42:49,216][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.62it/s]
+[2024-05-26 16:42:49,232][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:42:49,232][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:42:49,232][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:49,232][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:50,846][semstamp][INFO] - Candidate text:  Check latest release dates and get set reminders for the latest releases!.
+[2024-05-26 16:42:50,847][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.53it/s]
+[2024-05-26 16:42:50,863][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 16:42:50,863][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:42:50,864][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 16:42:50,864][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:52,829][semstamp][INFO] - Candidate text:  The movie was not perfect, with some fans having issues with the storyline and the editing.
+[2024-05-26 16:42:52,829][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.53it/s]
+[2024-05-26 16:42:52,846][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:42:52,847][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:42:52,847][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 16:42:52,847][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:55,308][semstamp][INFO] - Candidate text:  Nonetheless, it is still a great addition to the Marvel Cinematic Universe and fans are waiting to see when Captain Marvel’s.
+
+[2024-05-26 16:42:55,309][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.26it/s]
+[2024-05-26 16:42:55,326][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:42:55,326][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:42:55,326][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 16:42:55,326][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:42:57,959][semstamp][INFO] - Candidate text: 03/07/2019 · Marvel Studios is hard at work getting its next slate of MCU movies prepared for audiences everywhere.
+[2024-05-26 16:42:57,960][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.93it/s]
+[2024-05-26 16:42:57,969][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:42:57,969][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:01,220][semstamp][INFO] - Candidate text: 23/03/2019 · Marvel fans got a behind-the-scenes look at how directors Anna Boden and Ryan Fleck shot some incredible scenes for "Captain Marvel."
+[2024-05-26 16:43:01,220][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.05it/s]
+[2024-05-26 16:43:01,238][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:43:01,239][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:01,239][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:43:01,239][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:02,469][semstamp][INFO] - Candidate text: Captain Marvel - Wikipedia.
+
+[2024-05-26 16:43:02,469][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.56it/s]
+[2024-05-26 16:43:02,486][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:43:02,486][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:02,486][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:43:02,486][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:04,203][semstamp][INFO] - Candidate text: The Movie is Out: What Does it Mean for Captain.
+
+[2024-05-26 16:43:04,203][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.16it/s]
+[2024-05-26 16:43:04,220][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:04,220][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:43:04,220][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 16:43:04,220][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:07,408][semstamp][INFO] - Candidate text: 17/03/2018 · After 11 years, 19 MCU films, and countless hints throughout the series, Captain Marvel has finally flown onto the scene.
+[2024-05-26 16:43:07,408][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.37it/s]
+[2024-05-26 16:43:07,425][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:43:07,425][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:07,425][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:07,425][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:11,592][semstamp][INFO] - Candidate text: 17/09/2018 · Fans were left guessing when Marvel announced last fall that they would be introducing "Avengers" assemblage, leading into "Infinity War," then, suddenly, changed its title to "Captain Marvel."
+[2024-05-26 16:43:11,592][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.35it/s]
+[2024-05-26 16:43:11,602][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:11,602][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:14,090][semstamp][INFO] - Candidate text: 28/03/2019 · Captain Marvel Movie Review- Spoiler Free - Duration: 6:41.
+[2024-05-26 16:43:14,090][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.44it/s]
+[2024-05-26 16:43:14,107][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:43:14,107][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:14,108][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:14,108][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:16,037][semstamp][INFO] - Candidate text: Get Captain Marvel DVD and Blu-ray release date, trailer and movie stats.
+[2024-05-26 16:43:16,038][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.13it/s]
+[2024-05-26 16:43:16,054][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:43:16,054][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:16,055][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:16,055][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:20,574][semstamp][INFO] - Candidate text: 04/03/2019 · Now that the movie has arrived, it’s clear there were more layers to her character development all along—and it speaks well to Feige and Larson’s vision for Carol Danvers/Captain Marvel in today’s cinematic landscape.
+[2024-05-26 16:43:20,574][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.56it/s]
+[2024-05-26 16:43:20,592][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:20,592][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:20,593][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:20,593][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:24,778][semstamp][INFO] - Candidate text: 11/03/2019 · With its cinematic outing now playing to packed theatres and rave reviews, we decided to delve into the Marvel Cinematic Universe's MCU 21st entry – what does the movie mean for Captain Marvel?
+[2024-05-26 16:43:24,779][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 116.79it/s]
+[2024-05-26 16:43:24,790][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:24,790][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:27,990][semstamp][INFO] - Candidate text: 15/03/2019 · After weeks of anticipation, Captain Marvel has finally arrived on Netflix US – so it looks like it'll soon start streaming elsewhere.
+[2024-05-26 16:43:27,990][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.82it/s]
+[2024-05-26 16:43:28,009][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:43:28,010][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:28,010][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:28,010][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:29,485][semstamp][INFO] - Candidate text: 11 Apriles Captain Marvel movie reviews:.
+[2024-05-26 16:43:29,485][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.63it/s]
+[2024-05-26 16:43:29,495][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:29,495][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:33,665][semstamp][INFO] - Candidate text: 05/06/2019 · The movie, titled "Captain Marvel" and directed by Annah Boden and Ryan Fleck, features Brie Larson playing the titular character Carol Danvers aka Capitain Marvel and Jude Law,.
+[2024-05-26 16:43:33,665][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 113.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.30it/s]
+[2024-05-26 16:43:33,686][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:33,686][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:33,686][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:33,686][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:35,828][semstamp][INFO] - Candidate text: 10/03/2019 · CAPTAIN MARVEL MOVIE SPOILER!
+[2024-05-26 16:43:35,829][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.53it/s]
+[2024-05-26 16:43:35,845][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:35,845][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:35,846][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:35,846][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:38,751][semstamp][INFO] - Candidate text: 01/03/2019 · The Captain Marvel movie finally answers the mystery of Nick Fury’s fateful pager message from Avengers: Infinity War.
+[2024-05-26 16:43:38,752][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.37it/s]
+[2024-05-26 16:43:38,769][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:38,769][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:38,769][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:38,769][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:40,633][semstamp][INFO] - Candidate text: Here we go again, the highly anticipated follow up of Captain Marvel!
+[2024-05-26 16:43:40,633][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.11it/s]
+[2024-05-26 16:43:40,650][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:43:40,650][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:40,651][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:40,651][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:44,958][semstamp][INFO] - Candidate text: 03/12/2019 · Ever since the very first image from CAPTAIN MARVEL debuted, back in May 2018, MCU fandom collectively lost their minds speculating about Nick Fury 'eyebrow-less, 90s.
+[2024-05-26 16:43:44,958][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.51it/s]
+[2024-05-26 16:43:44,975][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:43:44,976][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:44,976][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:44,976][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:47,116][semstamp][INFO] - Candidate text: 31/12/2009 · Watch This Marvel Movie Marathon leading up to Captain Marvel.
+[2024-05-26 16:43:47,116][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.45it/s]
+[2024-05-26 16:43:47,133][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:43:47,133][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:47,133][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:47,133][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:50,249][semstamp][INFO] - Candidate text: 04/03/2018 · Captain Marvel will finally have its own solo movie, titled “Captain Marvel,” scheduled for March 6, 2020.
+[2024-05-26 16:43:50,250][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.88it/s]
+[2024-05-26 16:43:50,267][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:43:50,268][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:50,268][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:50,268][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:53,244][semstamp][INFO] - Candidate text: 09/03/2019 · How does the arrival of CAPTAIN MARVEL affect the bigger MCU picture & THE AVENGERS ENDGAME?
+[2024-05-26 16:43:53,245][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.80it/s]
+[2024-05-26 16:43:53,261][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:53,262][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:53,262][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:53,262][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:56,238][semstamp][INFO] - Candidate text: 31/03/2019 · The post-credit sequence in "Captain Marvel" sets up the events leading into "Avengers: Endgame."
+[2024-05-26 16:43:56,239][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.25it/s]
+[2024-05-26 16:43:56,256][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:56,256][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:56,256][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:56,256][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:43:59,790][semstamp][INFO] - Candidate text: 05/03/2018 · Directed by Anna Boden and Ryan Fleck, the Captain Marvel movie tells the origin story of the titular character, Carol Danvers AKA Captain Marvel.
+[2024-05-26 16:43:59,791][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.70it/s]
+[2024-05-26 16:43:59,808][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:43:59,808][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:43:59,808][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:43:59,808][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:02,785][semstamp][INFO] - Candidate text: 22/03/2019 · So now that the movie is out, let’s discuss what it means for the Marvel Cinematic Universe moving forward!
+[2024-05-26 16:44:02,786][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.14it/s]
+[2024-05-26 16:44:02,803][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:44:02,803][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:02,803][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:02,803][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:03,966][semstamp][INFO] - Candidate text: Captain Marvel Movie.
+[2024-05-26 16:44:03,967][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.40it/s]
+[2024-05-26 16:44:03,983][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:03,984][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:03,984][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:03,984][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:05,772][semstamp][INFO] - Candidate text: 03/06/2013 · You want Captain Marvel news?
+[2024-05-26 16:44:05,772][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.03it/s]
+[2024-05-26 16:44:05,789][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:44:05,789][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:05,789][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:05,789][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:08,417][semstamp][INFO] - Candidate text: Marvel Studio President Kevin Feige teased that there are more characters connected to the events of Captain Marvel during the recent press tour."
+[2024-05-26 16:44:08,418][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.85it/s]
+[2024-05-26 16:44:08,435][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:08,435][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:08,435][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:08,435][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:12,533][semstamp][INFO] - Candidate text: 04/03/2019 · Captain Marvel, the twenty-first movie released within the Marvel Cinematic Universe MCU, has been out for three weekends and, in that time frame, has managed to amass $902 million worldwide!
+[2024-05-26 16:44:12,534][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.72it/s]
+[2024-05-26 16:44:12,543][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:12,543][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:16,149][semstamp][INFO] - Candidate text: 26/03/2019 · While Captain Marvel had to save the world from Ronan the Accuser in Guardians of the Galaxy, it seems a good deal of her backstory was skipped over.
+[2024-05-26 16:44:16,150][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.58it/s]
+[2024-05-26 16:44:16,167][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:16,167][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:16,167][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:16,167][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:18,446][semstamp][INFO] - Candidate text: The wait is finally over – Captain Marvel 2, officially titled The Marvels, is happening!
+[2024-05-26 16:44:18,447][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.75it/s]
+[2024-05-26 16:44:18,463][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:44:18,463][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:18,463][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:18,464][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:22,138][semstamp][INFO] - Candidate text: 24/03/2019 · As the MCU makes history again with "Captain Marvel," what does the Kree-Skrull War mean for Carol Danvers and where could we go from here?
+[2024-05-26 16:44:22,139][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.26it/s]
+[2024-05-26 16:44:22,156][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:22,156][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:22,156][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:22,156][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:26,393][semstamp][INFO] - Candidate text: 04/03/2019 · Captain Marvel just had its best opening day in Japan while it has begun its seventh week atop China where has cumulatively grossed about 580 million yuan $87 million since February 5 launch. 
+[2024-05-26 16:44:26,393][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.84it/s]
+[2024-05-26 16:44:26,403][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:26,403][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:30,711][semstamp][INFO] - Candidate text: 15/03/2019 · "What's so fascinating about CAPTAIN MARVEL is how Carol navigates her dual identities: being a human Kree hybrid & fighting on both sides" A film buff praises the movie for its representation!
+[2024-05-26 16:44:30,711][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.49it/s]
+[2024-05-26 16:44:30,731][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:44:30,731][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:30,731][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:30,732][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:33,988][semstamp][INFO] - Candidate text: In other words, since we now know that Carol Danvers AKA Captain Marvel didn't come to Earth until very recent time—i.e., post-Ant-Man.
+[2024-05-26 16:44:33,989][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.01it/s]
+[2024-05-26 16:44:34,006][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:34,006][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:34,006][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:34,006][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:35,727][semstamp][INFO] - Candidate text: What does “CAPTAIN MARVEL” tell us?
+
+[2024-05-26 16:44:35,727][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.16it/s]
+[2024-05-26 16:44:35,743][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 16:44:35,744][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:35,744][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:35,744][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:38,931][semstamp][INFO] - Candidate text: 27/03/2019 · With "Captain Marvel" released last month and racking up box office success, let's look at what Marvel might do next!
+[2024-05-26 16:44:38,931][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.26it/s]
+[2024-05-26 16:44:38,949][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 16:44:38,949][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:38,949][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:38,949][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:41,998][semstamp][INFO] - Candidate text: 05/03/2019 · We're live after seeing Captain Marvel the day it opened, bringing our first reactions to this much-debated movie.
+[2024-05-26 16:44:41,999][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.66it/s]
+[2024-05-26 16:44:42,015][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:44:42,016][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:42,016][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:42,016][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:45,848][semstamp][INFO] - Candidate text: 26/01/2019 · With over half a billion dollars earned within its first week of international ticket sales alone, Marvel Studio’s Captain Marvel certainly made an explosive entrance onto the cinematic universe’s center stage!
+[2024-05-26 16:44:45,848][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.19it/s]
+[2024-05-26 16:44:45,858][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:45,858][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:48,075][semstamp][INFO] - Candidate text: The Marvel sequel has crossed $100 million in tickets sold globally, according to Box Office Mojo.
+[2024-05-26 16:44:48,076][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.46it/s]
+[2024-05-26 16:44:48,093][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:44:48,093][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:48,093][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:48,093][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:50,303][semstamp][INFO] - Candidate text: The Captain Marvel movie is still several years away, but the MCU is already planning its impact.
+[2024-05-26 16:44:50,303][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.33it/s]
+[2024-05-26 16:44:50,319][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:44:50,320][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:50,320][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:50,320][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:53,993][semstamp][INFO] - Candidate text: 07/03/2019 · So, now that Captain Marvel the movie has arrived, we should revisit those points, plus explore what its ending hints at, including Avengers: Endgame and beyond!
+[2024-05-26 16:44:53,993][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.72it/s]
+[2024-05-26 16:44:54,010][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 16:44:54,011][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:54,011][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:54,011][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:56,290][semstamp][INFO] - Candidate text: Here's our handy guide to everything you need to know about Captain Marvel ahead of the Marvel movie!
+[2024-05-26 16:44:56,290][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.13it/s]
+[2024-05-26 16:44:56,306][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 16:44:56,307][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:56,307][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:56,307][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:44:59,917][semstamp][INFO] - Candidate text: 11/03/2019 · With Captain Marvel hitting theaters worldwide, fans everywhere have officially joined the Marvel Cinematic Universe MCU’s latest era: The Infinity Saga Post-Endgame Chapter One.
+[2024-05-26 16:44:59,918][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.01it/s]
+[2024-05-26 16:44:59,935][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 16:44:59,935][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 16:44:59,935][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:44:59,935][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:45:01,656][semstamp][INFO] - Candidate text: In preparation for the release of CAPTAIN MARVEL.
+[2024-05-26 16:45:01,657][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.27it/s]
+[2024-05-26 16:45:01,665][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:45:01,666][semstamp][INFO] - acceptmaskstr: 6,0
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:45:05,343][semstamp][INFO] - Candidate text: 23/04/2019 · Marvel Studios’ "Captain Marvel" broke through the fourth wall last month with impressive opening-day numbers and shattered another obstacle Tuesday afternoon — surpassing $500M at.
+[2024-05-26 16:45:05,343][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.49it/s]
+[2024-05-26 16:45:05,360][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 16:45:05,360][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 16:45:05,360][semstamp][INFO] - acceptmasklist: [6, 0]
+[2024-05-26 16:45:05,360][semstamp][INFO] - acceptmaskstr: 6,0
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/stats.csv
+[2024-05-26 16:45:05,362][semstamp][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-05-26 16:45:05,362][semstamp][INFO] - Response: ('Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe\'s most powerful heroes after earth gets involved in a galactic war between alien. Marvel Studios \'Captain Marvel\' Is a Joyful, Empowering Romp Through Space and Time Directed by Anna Boden and Ryan Fleckker, this new superhero film is an absolute blast. In just three months, Marvel\'s Captain Marvel will make her debut on the big screen, starring Brie Larson as the iconic hero. If you\'ve paid any attention to the movies or comic books lately, you may have heard whispers about the Kree and.\n28/02/2019 · The Captain Marvel movie has only been out for two weeks, but it’s already breaking records at the box office. As of Wednesday, Captain Marvel has made over $548 million worldwide — which means it could pass Avengers: Age of Ultron’s opening weekend and maybe even approach The Dark Knight’s cumulative haul as well! Not too shabby for. Check latest release dates and get set reminders for the latest releases!. The movie was not perfect, with some fans having issues with the storyline and the editing. Nonetheless, it is still a great addition to the Marvel Cinematic Universe and fans are waiting to see when Captain Marvel’s.\nThe Movie is Out: What Does it Mean for Captain.\n23/04/2019 · Marvel Studios’ "Captain Marvel" broke through the fourth wall last month with impressive opening-day numbers and shattered another obstacle Tuesday afternoon — surpassing $500M at.', 85)
+[2024-05-26 16:45:05,362][watermarker][INFO] - Received completion: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Marvel Studios 'Captain Marvel' Is a Joyful, Empowering Romp Through Space and Time Directed by Anna Boden and Ryan Fleckker, this new superhero film is an absolute blast. In just three months, Marvel's Captain Marvel will make her debut on the big screen, starring Brie Larson as the iconic hero. If you've paid any attention to the movies or comic books lately, you may have heard whispers about the Kree and.
+28/02/2019 · The Captain Marvel movie has only been out for two weeks, but it’s already breaking records at the box office. As of Wednesday, Captain Marvel has made over $548 million worldwide — which means it could pass Avengers: Age of Ultron’s opening weekend and maybe even approach The Dark Knight’s cumulative haul as well! Not too shabby for. Check latest release dates and get set reminders for the latest releases!. The movie was not perfect, with some fans having issues with the storyline and the editing. Nonetheless, it is still a great addition to the Marvel Cinematic Universe and fans are waiting to see when Captain Marvel’s.
+The Movie is Out: What Does it Mean for Captain.
+23/04/2019 · Marvel Studios’ "Captain Marvel" broke through the fourth wall last month with impressive opening-day numbers and shattered another obstacle Tuesday afternoon — surpassing $500M at.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.87it/s]
+n_watermark: 11, n_test_sent: 11
+zscore: 5.744562646538029
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.42it/s]
+n_watermark: 11, n_test_sent: 11
+zscore: 5.744562646538029
+[2024-05-26 16:45:05,558][__main__][INFO] - Watermarked Text: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. Marvel Studios 'Captain Marvel' Is a Joyful, Empowering Romp Through Space and Time Directed by Anna Boden and Ryan Fleckker, this new superhero film is an absolute blast. In just three months, Marvel's Captain Marvel will make her debut on the big screen, starring Brie Larson as the iconic hero. If you've paid any attention to the movies or comic books lately, you may have heard whispers about the Kree and.
+28/02/2019 · The Captain Marvel movie has only been out for two weeks, but it’s already breaking records at the box office. As of Wednesday, Captain Marvel has made over $548 million worldwide — which means it could pass Avengers: Age of Ultron’s opening weekend and maybe even approach The Dark Knight’s cumulative haul as well! Not too shabby for. Check latest release dates and get set reminders for the latest releases!. The movie was not perfect, with some fans having issues with the storyline and the editing. Nonetheless, it is still a great addition to the Marvel Cinematic Universe and fans are waiting to see when Captain Marvel’s.
+The Movie is Out: What Does it Mean for Captain.
+23/04/2019 · Marvel Studios’ "Captain Marvel" broke through the fourth wall last month with impressive opening-day numbers and shattered another obstacle Tuesday afternoon — surpassing $500M at.
+[2024-05-26 16:45:05,558][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 16:45:05,558][__main__][INFO] - Score: 5.744562646538029
+[2024-05-26 16:45:05,558][__main__][INFO] - Time taken: 221.43435335159302
+Data appended to ./inputs/c4_saves/c4_1_temp_180_divp_15_attempt_3/watermarked_text.csv

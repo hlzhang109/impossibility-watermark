@@ -1,0 +1,2029 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 13:31:00,235][__main__][INFO] - Starting to watermark...
+[2024-05-26 13:31:00,238][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-26 13:31:00,238][__main__][INFO] - Getting the watermarker...
+[2024-05-26 13:31:00,238][watermarker][INFO] - Using device: cuda
+[2024-05-26 13:31:00,238][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 13:31:03,778][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 13:31:11,064][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 13:31:12,557][semstamp][INFO] - Setting up generating components...
+[2024-05-26 13:31:12,562][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 13:31:12,562][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 13:31:12,562][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 13:31:13,610][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 13:31:13,670][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 13:31:13,671][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 13:31:13,671][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.82it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.82it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 13:31:17,720][semstamp][INFO] - Candidate text:  #Chipotle #FoodSafety pic.twitter.com/L0pOw9nXW5 — Dr. Ian Smith (@DoctorIanSmith) December 10, 2015 At least Chipotle has acknowledged the issue and is working on fixing it!
+[2024-05-26 13:31:17,720][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 99.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.20it/s]
+[2024-05-26 13:31:17,745][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:17,746][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:17,746][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:31:17,746][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:20,141][semstamp][INFO] - Candidate text:  🤕 First,ced beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end?
+[2024-05-26 13:31:20,142][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.01it/s]
+[2024-05-26 13:31:20,159][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:31:20,159][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:31:20,159][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:31:20,159][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:27,080][semstamp][INFO] - Candidate text:  #ChipotleProblems pic.twitter.com/1K8V5FQq3e — Mocha Mishap (@MochaMishaps) August 23, 2017 According to Food Safety News, Chipotle has faced several food safety incidents in recent years, including: • 2015 E. coli outbreak: In October and November of that year, multiple locations were linked to an E. coli outbreak that sickened more than 50 people across nine states.
+[2024-05-26 13:31:27,080][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 113.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.53it/s]
+[2024-05-26 13:31:27,102][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:27,102][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:27,102][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:27,102][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:30,383][semstamp][INFO] - Candidate text:  #ChipotleProbs
+
+---
+
+[2] @CaliDreaming89 (Simi Valley resident)
+Ugh just found out the Chipotle in Simi Valley had an OUTBREAK of norovirus!
+[2024-05-26 13:31:30,384][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.46it/s]
+[2024-05-26 13:31:30,403][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:31:30,403][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:31:30,403][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:30,403][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:32,607][semstamp][INFO] - Candidate text:  My friends and I were just there last week... hope we're not infected 🤢 Anyone else get sick after eating there
+[2024-05-26 13:31:32,607][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.25it/s]
+[2024-05-26 13:31:32,625][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:32,625][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:32,625][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:32,625][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:33,865][semstamp][INFO] - Candidate text:  I swear I got food poisoning from there last month!
+[2024-05-26 13:31:33,866][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.06it/s]
+[2024-05-26 13:31:33,884][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:31:33,884][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:33,884][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:33,884][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:35,192][semstamp][INFO] - Candidate text:  I ate there LAST WEEK Anyone else get sick after eating there
+[2024-05-26 13:31:35,192][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.66it/s]
+[2024-05-26 13:31:35,209][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:35,209][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:35,209][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:35,209][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:36,381][semstamp][INFO] - Candidate text:  My friend got SO sick after eating there last week
+[2024-05-26 13:31:36,381][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.82it/s]
+[2024-05-26 13:31:36,397][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:31:36,398][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:36,398][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:36,398][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:37,099][semstamp][INFO] - Candidate text:  So gross!
+[2024-05-26 13:31:37,100][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.28it/s]
+[2024-05-26 13:31:37,116][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:31:37,116][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:31:37,116][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:37,116][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:39,099][semstamp][INFO] - Candidate text:  I love their burritos but not sure if I can eat there again... anyone else feeling uneasy about this?
+[2024-05-26 13:31:39,099][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.71it/s]
+[2024-05-26 13:31:39,116][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:31:39,116][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:39,116][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:39,116][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:40,492][semstamp][INFO] - Candidate text:  I got sick after eating there last month... anyone else experience this
+[2024-05-26 13:31:40,492][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.97it/s]
+[2024-05-26 13:31:40,509][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:40,510][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:40,510][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:40,510][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:41,953][semstamp][INFO] - Candidate text:  Was thinking of grabbing lunch there today too... glad I didn't.
+[2024-05-26 13:31:41,954][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.54it/s]
+[2024-05-26 13:31:41,971][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:31:41,971][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:41,972][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:41,972][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:42,810][semstamp][INFO] - Candidate text:  Anyone else hear about this
+[2024-05-26 13:31:42,810][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.76it/s]
+[2024-05-26 13:31:42,827][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 13:31:42,827][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:42,827][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:42,827][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:44,203][semstamp][INFO] - Candidate text:  Was just there last week... hope I don't get sick!
+[2024-05-26 13:31:44,203][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.86it/s]
+[2024-05-26 13:31:44,220][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:31:44,220][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:44,220][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:44,220][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:47,754][semstamp][INFO] - Candidate text:  Anyone else get sick from there?assistant
+
+Here are two social media posts related to the Chipotle crisis:
+
+**Post 1**
+@FoodSafetyFan 
+Tough time to be a Chipotle lover.
+[2024-05-26 13:31:47,755][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.02it/s]
+[2024-05-26 13:31:47,773][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:31:47,773][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:47,773][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:47,773][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:49,149][semstamp][INFO] - Candidate text:  Glad I didn't eat there recently Anyone else affected by this?
+[2024-05-26 13:31:49,150][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.16it/s]
+[2024-05-26 13:31:49,166][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:31:49,167][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:49,167][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:49,167][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:50,543][semstamp][INFO] - Candidate text:  Avoid that place like the plague if you value your stomach health!
+[2024-05-26 13:31:50,544][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.94it/s]
+[2024-05-26 13:31:50,561][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 13:31:50,561][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:50,561][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:50,561][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:52,207][semstamp][INFO] - Candidate text:  Guess I won't be eating there for a while... anyone else affected by this?
+
+
+[2024-05-26 13:31:52,208][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.24it/s]
+[2024-05-26 13:31:52,225][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:31:52,226][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:31:52,226][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:52,226][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:53,333][semstamp][INFO] - Candidate text:  Can't believe I ate there last week.
+[2024-05-26 13:31:53,334][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.90it/s]
+[2024-05-26 13:31:53,350][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:31:53,350][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:31:53,351][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:31:53,351][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:54,934][semstamp][INFO] - Candidate text:  Guess that explains why I've been feeling so under the weather... anybody else affected
+[2024-05-26 13:31:54,934][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.82it/s]
+[2024-05-26 13:31:54,951][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:31:54,952][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:31:54,952][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:31:54,952][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:31:58,374][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare
+
+---
+
+[3] @FoodSafetyMatters (Food Safety Expert)
+Just received word about a norovirus outbreak at a Chipotle location in Simi Valley, CA.
+[2024-05-26 13:31:58,374][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.96it/s]
+[2024-05-26 13:31:58,394][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:31:58,394][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:31:58,395][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:31:58,395][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:03,105][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleNightmareassistant
+
+Here are two examples of tweets that could be related to a food safety issue at Chipotle:
+
+**Tweet 1:**
+@FoodSafetyMaven (food safety advocate)
+Tough time to be a Chipotle lover.
+[2024-05-26 13:32:03,105][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.96it/s]
+[2024-05-26 13:32:03,116][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:03,116][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:06,943][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #SimiValley
+
+---
+
+[3] @FoodSafetyGuy 
+Just got word of another food safety issue at Chipotle... this time, a norovirus outbreak at their Simi Valley location.
+[2024-05-26 13:32:06,943][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.16it/s]
+[2024-05-26 13:32:06,962][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:06,962][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:06,963][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:06,963][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:11,947][semstamp][INFO] - Candidate text:  by this? #NorovirusOutbreak #Chipotle
+
+---
+
+[3] @FoodSafetynotice (government account)
+**URGENT FOOD SAFETY NOTICE**
+
+The Ventura County Environmental Health Division has confirmed a norovirus outbreak linked to the Chipotle Mexican Grill location in Simi Valley, CA.
+
+
+[2024-05-26 13:32:11,947][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.15it/s]
+[2024-05-26 13:32:11,967][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:11,967][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:11,967][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:11,967][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:14,033][semstamp][INFO] - Candidate text: ? #ChipotleOutbreak #Norovirus
+
+---
+```
+
+This dataset is a small sample from Twitter.
+[2024-05-26 13:32:14,033][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.49it/s]
+[2024-05-26 13:32:14,050][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:14,050][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:14,050][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:14,051][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:17,605][semstamp][INFO] - Candidate text: ? 🤢 #NorovirusNightmare #ChipotleFailassistant
+
+Here are the two tweets:
+
+Tweet 1:
+@FoodieFanatic 
+Tough time to be a Chipotle lover.
+[2024-05-26 13:32:17,606][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.34it/s]
+[2024-05-26 13:32:17,624][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:17,625][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:17,625][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:17,625][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:21,112][semstamp][INFO] - Candidate text: ? #ChipotleOutbreak
+
+---
+
+[3] @FoodSafetyNews (Reputable food safety news outlet)
+Breaking: Chipotle Mexican Grill location in Simi Valley, CA linked to norovirus outbreak.
+[2024-05-26 13:32:21,113][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.09it/s]
+[2024-05-26 13:32:21,131][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:21,132][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:21,132][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:21,132][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:24,280][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #Chipotle Failassistant
+
+Here are the two rewritten tweets:
+
+[1] @FoodieFan101 
+Bad news for Chipotle fans!
+[2024-05-26 13:32:24,281][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.37it/s]
+[2024-05-26 13:32:24,300][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:24,300][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:24,300][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:24,300][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:28,128][semstamp][INFO] - Candidate text:  by this?! 
+
+---
+
+[3] @SushiLover22 
+Went to the doctor today and they said I have norovirus... after eating at Chipotle in Simi Valley LAST WEEK Anyone else get sick from that place too
+[2024-05-26 13:32:28,129][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.10it/s]
+[2024-05-26 13:32:28,147][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:32:28,148][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:32:28,148][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:28,148][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:30,958][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyPro (Food Safety Expert)
+Breaking: Norovirus outbreak linked to Chipotle Mexican Grill location in Simi Valley, CA.
+[2024-05-26 13:32:30,958][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.31it/s]
+[2024-05-26 13:32:30,976][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:32:30,976][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:32:30,976][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:30,976][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:36,029][semstamp][INFO] - Candidate text: ? 🤢 #Norovirus #Chipotle Failassistant
+
+Here are two possible social media responses from Chipotle:
+
+**Response 1: Acknowledge and Apologize**
+
+@ChipotleTweets 
+We're deeply sorry to hear about the norovirus outbreak at our Simi Valley location.
+[2024-05-26 13:32:36,029][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.44it/s]
+[2024-05-26 13:32:36,049][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:36,049][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:36,049][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:36,049][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:39,265][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #Chipotle Failassistant
+
+Here are two examples of social media posts related to a norovirus outbreak at a Chipotle location:
+
+1.
+[2024-05-26 13:32:39,266][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.53it/s]
+[2024-05-26 13:32:39,283][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:39,283][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:39,283][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:39,283][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:42,363][semstamp][INFO] - Candidate text: ? 😷 #NorovirusNightmare
+
+---
+
+[3] @NewsAlertsNow 
+Breaking: Norovirus Outbreak Linked to Chipotle in Simi Valley, California.
+[2024-05-26 13:32:42,363][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.38it/s]
+[2024-05-26 13:32:42,380][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:32:42,380][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:32:42,380][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:42,380][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:44,986][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @ChipotleSupport (Official Chipotle Support Account)
+@CaliDreaming89 Sorry to hear you're not feeling well.
+[2024-05-26 13:32:44,986][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.88it/s]
+[2024-05-26 13:32:45,003][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:32:45,003][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:45,003][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:45,004][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:46,796][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodieFanatic (Los Angeles food blogger)
+Breaking news!
+[2024-05-26 13:32:46,797][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.66it/s]
+[2024-05-26 13:32:46,806][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:46,806][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:50,701][semstamp][INFO] - Candidate text: ?! #NorovirusOutbreak #ChipotleFailed
+
+---
+
+[3] @FoodSafetyMatters (non-profit organization focused on food safety)
+BREAKING:Norovirus outbreak linked to Chipotle Mexican Grill in Simi Valley, CA.
+[2024-05-26 13:32:50,702][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.60it/s]
+[2024-05-26 13:32:50,720][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:32:50,720][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:50,721][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:50,721][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:52,514][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @JenLovesFoodie (food blogger)
+Oh no!
+[2024-05-26 13:32:52,514][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.39it/s]
+[2024-05-26 13:32:52,531][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 13:32:52,531][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:32:52,531][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:52,531][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:32:56,562][semstamp][INFO] - Candidate text: ?!assistant
+
+Here are two tweets that demonstrate concern and frustration with Chipotle's recent health issues:
+
+**Tweet 1**
+@FoodieFan42 (username indicates they're a food enthusiast)
+Tough time to be a Chipotle lover.
+[2024-05-26 13:32:56,563][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.25it/s]
+[2024-05-26 13:32:56,582][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:32:56,582][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:32:56,582][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:32:56,582][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:00,682][semstamp][INFO] - Candidate text:  by this?! 😷🤢 #NorovirusOutbreak #SimiValley #Chipotle
+
+---
+
+[3] @ChipotleSupport (Official Chipotle Support Account)
+@CaliDreaming89 Sorry to hear you're not feeling well!
+[2024-05-26 13:33:00,683][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.35it/s]
+[2024-05-26 13:33:00,700][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:00,701][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:00,701][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:00,701][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:09,582][semstamp][INFO] - Candidate text:  by this?! 🤢 #NorovirusNightmareassistant
+
+Here are the results:
+
+**Tweet aker Score:**
+
+* [1] @FoodSafetyNerd: 7/10 (informative and concise, but lacks emotional resonance)
+* [2] @CaliDreaming89: 9/10 (engaging, relatable, and emotive; uses hashtags effectively)
+
+**Reasons for Scores:**
+
+* [1] While @FoodSafetyNerd's tweet is informative and concisely summarizes the situation, it lacks a personal touch and emotional resonance.
+[2024-05-26 13:33:09,583][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.61it/s]
+[2024-05-26 13:33:09,603][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:09,603][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:09,603][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:09,603][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:12,480][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyPro (Food Safety Professional)
+Breaking: Norovirus Outbreak Linked to Chipotle Mexican Grill Location in Simi Valley, CA.
+[2024-05-26 13:33:12,481][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.53it/s]
+[2024-05-26 13:33:12,498][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:12,498][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:12,498][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:12,498][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:14,156][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodieFanatic 
+Not again, Chipotle!
+[2024-05-26 13:33:14,157][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.54it/s]
+[2024-05-26 13:33:14,174][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:33:14,174][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:14,174][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:14,174][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:16,850][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyGov (Official government food safety account)
+Important recall alert: Certain Chipotle locations have reported cases of norovirus.
+[2024-05-26 13:33:16,851][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.73it/s]
+[2024-05-26 13:33:16,869][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:16,869][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:16,869][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:16,870][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:21,583][semstamp][INFO] - Candidate text: ?!?! 😷assistant
+
+Here are two social media posts related to a food safety issue at Chipotle:
+
+**Post 1:**
+Username: @FoodSafetyFanatic 
+Date: January 12, 2023 
+Tweet:
+"Tough time to be a Chipotle lover.
+[2024-05-26 13:33:21,583][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.84it/s]
+[2024-05-26 13:33:21,601][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:21,602][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:21,602][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:21,602][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:24,276][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyFirst (Food Safety advocate)
+Breaking: Norovirus outbreak reported at Chipotle location in Simi Valley, CA!
+[2024-05-26 13:33:24,276][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.58it/s]
+[2024-05-26 13:33:24,293][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:24,294][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:24,294][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:24,294][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:29,619][semstamp][INFO] - Candidate text: ?assistant
+
+Here are two social media posts:
+
+**Post 1**
+
+User: @FoodSafetyMatters 
+Tweet: "Tough time to be a Chipotle lover. First, ceded beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end?
+[2024-05-26 13:33:29,619][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.61it/s]
+[2024-05-26 13:33:29,638][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:29,638][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:29,638][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:29,638][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:32,178][semstamp][INFO] - Candidate text: ? 
+
+---
+
+[3] @FoodSafetyNews 
+UPDATE: Norovirus outbreak linked to Chipotle Mexican Grill in Simi Valley, CA.
+[2024-05-26 13:33:32,179][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.03it/s]
+[2024-05-26 13:33:32,196][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:32,196][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:32,196][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:32,196][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:37,388][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #SimiValley #FoodPoisoning
+
+---
+
+[3] @TheSavvyEater (Food Safety Expert)
+Important update for all you Chipotle fans: the company is dealing with yet another food safety crisis - this time, a norovirus outbreak at their Simi Valley location.
+[2024-05-26 13:33:37,389][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.78it/s]
+[2024-05-26 13:33:37,408][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:37,408][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:37,409][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:37,409][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:42,057][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleNightmareassistant
+
+Here are two social media posts about a norovirus outbreak at a Chipotle location in Simi Valley:
+
+**Post 1**
+
+@FoodieFan22: "Tough time to be a Chipotle lover.
+[2024-05-26 13:33:42,057][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.77it/s]
+[2024-05-26 13:33:42,076][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:42,076][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:42,076][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:42,076][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:46,520][semstamp][INFO] - Candidate text:  by this? #NorovirusNightmare #SimiValleyProbs
+
+---
+
+[3] @FoodSafetyGuy (Food Safety Expert)
+Just analyzed the recent Chipotle outbreaks & found some disturbing trends: lax food handling practices, inadequate staff training, and poor supply chain management.
+[2024-05-26 13:33:46,520][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.10it/s]
+[2024-05-26 13:33:46,539][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:46,539][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:46,540][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:46,540][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:51,252][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare #ChipotleFailassistant
+
+Here are two possible responses from Chipotle's social media team:
+
+**Response 1: Acknowledge and Apologize**
+
+Hi [username], we're so sorry to hear about the recent issues at our Simi Valley location.
+[2024-05-26 13:33:51,252][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.89it/s]
+[2024-05-26 13:33:51,271][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:33:51,271][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:33:51,271][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:51,271][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:52,930][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @SavvyShopper33 
+Hey fellow shoppers!
+[2024-05-26 13:33:52,930][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.65it/s]
+[2024-05-26 13:33:52,947][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:33:52,947][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:33:52,947][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:52,947][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:33:57,729][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleFailassistant
+
+Here are two possible crisis communications responses from Chipotle:
+
+**Response 1: Acknowledge and Apologize**
+
+"@CaliDreaming89 Sorry to hear you're not feeling well after eating at our Simi Valley location.
+[2024-05-26 13:33:57,729][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.44it/s]
+[2024-05-26 13:33:57,740][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:33:57,740][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:00,552][semstamp][INFO] - Candidate text:  by this?
+
+---
+
+[3] @FoodSafetyMaven (food safety expert)
+Norovirus outbreak linked to Chipotle's Simi Valley location... not surprised.
+[2024-05-26 13:34:00,552][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.49it/s]
+[2024-05-26 13:34:00,570][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:00,570][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:00,571][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:00,571][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:04,010][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyGuru (food safety expert)
+Important update for those who dined at Chipotle's Simi Valley location: public health officials confirm norovirus outbreak affecting multiple customers.
+[2024-05-26 13:34:04,011][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.07it/s]
+[2024-05-26 13:34:04,028][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:04,029][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:04,029][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:04,029][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:07,922][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @SimiValleyNews (local news source)
+Breaking: Health Officials Confirm Norovirus Outbreak at Simi Valley Chipotle Location Multiple customers have reported symptoms; restaurant has voluntarily closed for cleaning and staff education.
+
+
+[2024-05-26 13:34:07,923][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 51.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 68.51it/s]
+[2024-05-26 13:34:07,962][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:07,963][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:07,963][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:07,963][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:12,352][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare #Chipotle Failassistant
+
+Here are two possible responses from Chipotle:
+
+**Response 1: Apologetic and Informative**
+
+@ChipotleTweets:
+Sorry to hear about the recent issues at our Simi Valley location.
+[2024-05-26 13:34:12,352][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.80it/s]
+[2024-05-26 13:34:12,371][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:12,372][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:12,372][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:12,372][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:15,658][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare
+
+---
+
+[3] @HealthNews247 (Health News Network)
+**Breaking**: Norovirus outbreak confirmed at Chipotle Mexican Grill in Simi Valley, CA.
+[2024-05-26 13:34:15,658][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.16it/s]
+[2024-05-26 13:34:15,676][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:15,677][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:15,677][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:15,677][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:18,906][semstamp][INFO] - Candidate text: ? #NorovirusNightmare
+
+---
+
+[3] @FoodSafetyPro (Food safety expert)
+Important update for #Chipotle fans: Norovirus outbreak reported at Simi Valley location.
+[2024-05-26 13:34:18,907][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.31it/s]
+[2024-05-26 13:34:18,924][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:18,924][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:18,924][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:18,925][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:24,575][semstamp][INFO] - Candidate text: ?assistant
+
+Here are the two tweets with annotations:
+
+**Tweet 1**
+@BreakingNews22 (News Organization)
+Tough time to be a Chipotle lover. First, ceded beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end?
+[2024-05-26 13:34:24,576][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 69.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 72.56it/s]
+[2024-05-26 13:34:24,609][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:24,609][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:24,609][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:24,609][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:27,351][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @ChipotleApologist (Self-proclaimed Chipotle defender)
+Everyone needs to calm down about this norovirus thing... accidents happen!
+[2024-05-26 13:34:27,351][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.99it/s]
+[2024-05-26 13:34:27,368][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:27,369][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:27,369][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:27,369][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:30,721][semstamp][INFO] - Candidate text: ?assistant
+
+Based on these tweets, it appears that there are some concerns about food safety and quality control at Chipotle Mexican Grill restaurants. Here's a breakdown of the issues mentioned:
+
+1.
+[2024-05-26 13:34:30,721][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.25it/s]
+[2024-05-26 13:34:30,739][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:30,739][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:30,739][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:30,739][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:33,686][semstamp][INFO] - Candidate text: ?!?
+
+---
+
+[3] @NewsBreaker3000 (Breaking news account)
+**BREAKING**: Norovirus outbreak confirmed at Simi Valley, CA Chipotle location.
+[2024-05-26 13:34:33,686][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.93it/s]
+[2024-05-26 13:34:33,703][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:33,703][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:33,703][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:33,703][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:36,525][semstamp][INFO] - Candidate text: ? #NorovirusNightmareassistant
+
+Here are two rewritten tweets with emojis and hashtags:
+
+[1] 😷 Bad news for Chipotle fans!
+[2024-05-26 13:34:36,526][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.86it/s]
+[2024-05-26 13:34:36,544][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:36,544][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:36,544][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:36,544][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:40,033][semstamp][INFO] - Candidate text:  by this? #NorovirusOutbreak #ChipotleNightmareassistant
+
+Here are two tweets that can be used as social media posts:
+
+**Tweet 1**
+Bad news for Chipotle fans!
+[2024-05-26 13:34:40,033][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.69it/s]
+[2024-05-26 13:34:40,053][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:40,053][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:40,053][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:40,053][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:43,203][semstamp][INFO] - Candidate text: ? 
+
+---
+
+[3] @LAWoman95 (food blogger)
+Not surprised about the latest Chipotle scandal... recall after recall, and now a norovirus outbreak in Simi Valley
+[2024-05-26 13:34:43,203][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.23it/s]
+[2024-05-26 13:34:43,220][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:43,220][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:43,220][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:43,220][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:47,937][semstamp][INFO] - Candidate text:  by this?! #NorovirusNightmareassistant
+
+Here are two social media posts discussing a norovirus outbreak at a Chipotle location in Simi Valley:
+
+**Post 1**
+Username: @FoodieFan4Life 
+Tweet:
+"Tough time to be a Chipotle lover.
+[2024-05-26 13:34:47,937][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.69it/s]
+[2024-05-26 13:34:47,956][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:47,956][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:47,957][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:47,957][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:50,632][semstamp][INFO] - Candidate text:  by this? #NorovirusNightmare
+
+---
+
+[3] @HealthNut3000 (public health advocate)
+Another day, another food safety crisis.
+[2024-05-26 13:34:50,632][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.85it/s]
+[2024-05-26 13:34:50,649][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:34:50,650][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:34:50,650][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:50,650][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:55,089][semstamp][INFO] - Candidate text: ?! #NorovirusOutbreak #ChipotleFailassistant
+
+Here are two possible responses from a crisis communications specialist:
+
+**Response 1: Acknowledge and Apologize**
+
+[@ChipotleSupport]
+Sorry to hear about the recent issues at our Simi Valley location.
+[2024-05-26 13:34:55,090][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.81it/s]
+[2024-05-26 13:34:55,108][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:55,108][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:55,108][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:55,108][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:34:59,546][semstamp][INFO] - Candidate text: ?assistant
+
+Here are the two social media posts:
+
+**Post 1**
+Author: @FoodieFan42 (Twitter username)
+Content: A concerned tweet about Chipotle's recent food safety issues.
+Text: "Tough time to be a Chipotle lover.
+[2024-05-26 13:34:59,547][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.39it/s]
+[2024-05-26 13:34:59,564][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:34:59,565][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:34:59,565][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:34:59,565][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:02,307][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @HealthyEats_CA (California-based healthy eating advocate)
+Newsflash: Another food safety issue for @ChipotleTweets in CA.
+[2024-05-26 13:35:02,308][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.55it/s]
+[2024-05-26 13:35:02,325][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:35:02,325][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:02,325][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:02,325][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:05,952][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleNightmare
+
+---
+
+[3] @FoodSafetyMatters (Food Safety Advocate)
+Chipotle's norovirus outbreak in Simi Valley is more than just an isolated incident.
+[2024-05-26 13:35:05,952][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.22it/s]
+[2024-05-26 13:35:05,970][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:35:05,970][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:05,970][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:05,970][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:07,765][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyGov (Government Food Safety Account)
+Recall alert!
+[2024-05-26 13:35:07,765][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.23it/s]
+[2024-05-26 13:35:07,782][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:35:07,782][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:07,782][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:07,782][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:22,651][semstamp][INFO] - Candidate text: ?assistant
+
+Here are the two tweets with sentiment analysis:
+
+**Tweet 1**
+
+* Sentiment: NEGATIVE (concerned and frustrated tone)
+* Entities:
+	+ Chipotle (company)
+* Events:
+	+ Beef recall (E.Coli contamination)
+	+ Norovirus outbreak (at Simi Valley location)
+
+**Tweet 2**
+
+* Sentiment: NEGATIVE (disgusted and concerned tone)
+* Entities:
+	+ Chipotle (company)
+	+ Simi Valley (location)
+* Events:
+	+ Norovirus outbreak (at Simi Valley location)
+	+ Personal experience (feeling unwell after eating at Chipotle)assistant
+
+Let me know if you need any further assistance or analysis!assistant
+
+These two tweets express negative sentiments towards Chipotle Mexican Grill, a fast-casual restaurant chain. Here's a breakdown of each tweet:
+
+**Tweet 1**
+
+* The user expresses frustration and concern about Chipotle's recent food safety issues.
+
+[2024-05-26 13:35:22,651][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 78.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 93.18it/s]
+[2024-05-26 13:35:22,679][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:35:22,680][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:35:22,680][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:22,680][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:25,432][semstamp][INFO] - Candidate text: ? #NorovirusNightmare
+
+---
+
+[3] @FoodSafetyFanatic 
+Breaking: Norovirus outbreak at Chipotle's Simi Valley location!
+[2024-05-26 13:35:25,432][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.13it/s]
+[2024-05-26 13:35:25,450][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:35:25,450][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:35:25,450][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:25,450][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:27,312][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyNet (Public Health Organization)
+Attention all Chipotle customers!
+[2024-05-26 13:35:27,312][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.80it/s]
+[2024-05-26 13:35:27,322][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:27,322][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:31,015][semstamp][INFO] - Candidate text:  by this?!?! 😷🤢
+
+---
+
+[3] @FastFoodFan4Life (self-proclaimed fast food connoisseur)
+Not surprised about the norovirus outbreak at Chipotle's Simi Valley loc.
+[2024-05-26 13:35:31,015][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.91it/s]
+[2024-05-26 13:35:31,026][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:31,026][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:35,125][semstamp][INFO] - Candidate text:  by this?!assistant
+
+Here are two possible responses from Chipotle's social media team:
+
+**Response 1: Apologetic and Informative**
+
+[@Chipotle] Sorry to hear about the norovirus outbreak at our Simi Valley location.
+[2024-05-26 13:35:35,125][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.05it/s]
+[2024-05-26 13:35:35,145][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:35:35,146][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:35,146][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:35,146][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:37,957][semstamp][INFO] - Candidate text: ?! 
+
+---
+
+[3] @NewsWireAlert (Local news source)
+Breaking: Health officials confirm Norovirus outbreak at Chipotle Mexican Grill in Simi Valley.
+[2024-05-26 13:35:37,958][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.06it/s]
+[2024-05-26 13:35:37,975][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:35:37,975][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:37,975][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:37,975][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:40,785][semstamp][INFO] - Candidate text: ?! 
+
+---
+
+[3] @LuisaGonzalez23 
+OMG did you hear about the norovirus outbreak at the Chipotle in Simi Valley
+[2024-05-26 13:35:40,785][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.02it/s]
+[2024-05-26 13:35:40,802][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:35:40,802][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:35:40,803][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:40,803][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:44,970][semstamp][INFO] - Candidate text:  by this?!assistant
+
+Here are the two tweets with sentiment analysis and entity recognition:
+
+**Tweet 1**
+
+* Sentiment: NEUTRAL/CONCERNED (The tone is neutral, but the language used implies concern about the situation.)
+
+[2024-05-26 13:35:44,970][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.38it/s]
+[2024-05-26 13:35:44,981][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:44,981][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:51,281][semstamp][INFO] - Candidate text:  by this?! #NorovirusNightmareassistant
+
+Here are the tweets with the requested information:
+
+**Tweet 1**
+
+* Username: @FoodSafetyFan1 
+* Location: Not specified 
+* Content: The user is frustrated about the recent food safety issues with Chipotle, mentioning a recall of beef due to potential E.Coli contamination and a norovirus outbreak at a Simi Valley location.
+
+[2024-05-26 13:35:51,281][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 73.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.86it/s]
+[2024-05-26 13:35:51,307][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:35:51,307][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:35:51,307][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:51,307][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:54,322][semstamp][INFO] - Candidate text:  by this? 🤢
+
+---
+
+[3] @BurgerLover95 (Food blogger)
+I'm telling you guys, Chipotle's quality control is a JOKE.
+[2024-05-26 13:35:54,323][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.16it/s]
+[2024-05-26 13:35:54,340][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:35:54,340][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:35:54,340][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:54,340][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:35:57,593][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #Chipotle Failassistant
+
+These two tweets are examples of social media chatter related to a food safety issue at Chipotle Mexican Grill, restaurants.
+[2024-05-26 13:35:57,594][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.42it/s]
+[2024-05-26 13:35:57,604][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:35:57,604][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:01,432][semstamp][INFO] - Candidate text:  by this?!assistant
+
+Here are two tweets about a norovirus outbreak at a Chipotle location in Simi Valley:
+
+Tweet 1:
+@FoodSafetyProbs: "Tough time to be a Chipotle lover.
+[2024-05-26 13:36:01,432][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.86it/s]
+[2024-05-26 13:36:01,450][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:01,450][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:01,450][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:01,450][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:05,752][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @BreakingNewsCA 
+**BREAKING: Chipotle Mexican Grill's Simi Valley Location Shut Down Due to Norovirus Outbreak**
+Multiple customers have reported symptoms of norovirus after eating at the popular fast food chain's Simi Valley location.
+[2024-05-26 13:36:05,753][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.90it/s]
+[2024-05-26 13:36:05,762][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:05,762][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:08,374][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyGuru (Food safety expert)
+Breaking: Another #foodpoisoning outbreak linked to Chipotle Mexican Grill.
+[2024-05-26 13:36:08,375][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.33it/s]
+[2024-05-26 13:36:08,392][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:36:08,393][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:36:08,393][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:08,393][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:12,153][semstamp][INFO] - Candidate text:  by this?! 😷 #NorovirusNightmare #ChipotleFailassistant
+
+These two tweets are examples of social media posts reacting to a crisis situation involving Chipotle Mexican Grill, a fast-casual restaurant chain.
+[2024-05-26 13:36:12,154][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.49it/s]
+[2024-05-26 13:36:12,172][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:12,173][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:12,173][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:12,173][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:14,914][semstamp][INFO] - Candidate text:  by this?! 
+
+---
+
+[3] @FoodSafetyMatters 
+Breaking: Norovirus outbreak linked to Chipotle Mexican Grill in Simi Valley, California.
+[2024-05-26 13:36:14,915][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.79it/s]
+[2024-05-26 13:36:14,932][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:36:14,932][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:36:14,932][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:14,932][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:18,014][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyMaven 
+Breaking News: Norovirus Outbreak Linked to Simi Valley Chipotle Location Important reminder to always prioritize food safety & hygiene practices.
+[2024-05-26 13:36:18,014][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.17it/s]
+[2024-05-26 13:36:18,023][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:18,024][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:22,735][semstamp][INFO] - Candidate text: ? #Norovirus #Chipotle Fail
+
+---
+
+[3] @ChipotleFan42 (Self-proclaimed "super fan" of Chipotle)
+Hate to see all the hate towards my beloved @ChipotleTweets They're taking steps to ensure our safety and making changes to prevent future incidents.
+[2024-05-26 13:36:22,735][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.56it/s]
+[2024-05-26 13:36:22,753][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:22,753][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:22,753][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:22,753][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:26,309][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleNightmareassistant
+
+Here are the annotated conversations:
+
+**Conversation 1**
+
+* **@FoodSafetyMaven**: The username suggests a concern for food safety.
+
+[2024-05-26 13:36:26,309][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.95it/s]
+[2024-05-26 13:36:26,327][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:36:26,327][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:36:26,328][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:26,328][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:29,950][semstamp][INFO] - Candidate text: ? 🤢
+
+---
+
+[3] @FoodSafetyMaven (food safety expert)
+Important update for SoCal residents: Reports are emerging of a norovirus outbreak linked to the Chipotle location in Simi Valley.
+[2024-05-26 13:36:29,951][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.12it/s]
+[2024-05-26 13:36:29,968][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:36:29,968][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:36:29,969][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:29,969][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:32,574][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodieFiasco (Food blogger)
+Norovirus outbreak reported at Chipotle in Simi Valley, local authorities confirm.
+[2024-05-26 13:36:32,575][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.10it/s]
+[2024-05-26 13:36:32,584][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:32,584][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:36,071][semstamp][INFO] - Candidate text:  by this?! #Norovirus #Chipotle
+
+---
+
+[3] @FoodSafetyGuru (Food safety expert)
+Interesting article about the recent #norovirus outbreak at Chipotle's Simi Valley location.
+[2024-05-26 13:36:36,071][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.26it/s]
+[2024-05-26 13:36:36,081][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:36,081][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:40,860][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare #Chipotle Failassistant
+
+Here are two rewritten tweets with a more neutral tone:
+
+---
+
+[1] @FoodSafetyAlert 
+Important update for Chipotle fans: Following a recent beef recall, a Simi Valley location is now investigating a norovirus outbreak.
+[2024-05-26 13:36:40,861][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.70it/s]
+[2024-05-26 13:36:40,879][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:40,879][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:40,879][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:40,879][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:44,774][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #ChipotleFailedMe
+
+---
+
+[3] @NewsBreakFast (Breaking News Account)
+**BREAKING**: Health officials confirm Norovirus outbreak linked to Chipotle Mexican Grill in Simi Valley, CA.
+[2024-05-26 13:36:44,775][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.52it/s]
+[2024-05-26 13:36:44,785][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:44,785][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:51,758][semstamp][INFO] - Candidate text:  by this? #NorovirusNightmare #Chipotle Failassistant
+
+Here are the two tweets with sentiment analysis and entity extraction:
+
+**Tweet 1**
+
+* Sentiment: NEGATIVE (-0.7)
+* Entities:
+	+ Organization: Chipotle (sentiment: -0.5)
+* Keywords: recall, E.Coli, contamination, norovirus, outbreak
+
+Text: "Tough time to be a Chipotle lover.
+[2024-05-26 13:36:51,759][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 109.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 93.57it/s]
+[2024-05-26 13:36:51,784][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:36:51,785][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:36:51,785][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:51,785][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:55,344][semstamp][INFO] - Candidate text: ? 
+
+---
+
+[3] @FoodSafeyNerd (Food safety expert)
+The recent #norovirus outbreak at the Simi Valley @ChipotleMexicanGrill is a serious concern for public health.
+[2024-05-26 13:36:55,344][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.53it/s]
+[2024-05-26 13:36:55,364][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:55,365][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:55,365][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:55,365][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:36:58,853][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleFail
+
+---
+
+[3] @FoodSafetyNews (Food safety publication)
+Breaking: Norovirus outbreak linked to Chipotle Mexican Grill in Simi Valley, CA.
+[2024-05-26 13:36:58,853][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.41it/s]
+[2024-05-26 13:36:58,873][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:36:58,874][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:36:58,874][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:36:58,874][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:01,820][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyMatters 
+Breaking: @ChipotleTweets facing another food safety crisis as customers report falling ill after eating at Simi Valley location.
+[2024-05-26 13:37:01,820][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.09it/s]
+[2024-05-26 13:37:01,839][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:01,839][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:01,839][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:01,839][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:03,498][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyFan1 
+Important update for CA residents!
+[2024-05-26 13:37:03,499][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.74it/s]
+[2024-05-26 13:37:03,516][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:03,517][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:03,517][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:03,517][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:09,522][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleFailassistant
+
+Here are the sentiment analysis results for each tweet:
+
+**Tweet 1**
+- Sentiment: Negative (-0.8)
+- Emotions: Frustration, Disappointment, Concern
+
+The user is expressing frustration and disappointment about the recent issues with Chipotle, including the beef recall and now the norovirus outbreak.
+[2024-05-26 13:37:09,523][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.89it/s]
+[2024-05-26 13:37:09,542][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:37:09,542][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:37:09,542][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:09,542][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:12,352][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @ChipotleApology 
+We're truly sorry to inform you that our Simi Valley location has been linked to a norovirus outbreak.
+[2024-05-26 13:37:12,352][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.27it/s]
+[2024-05-26 13:37:12,369][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:12,369][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:12,369][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:12,369][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:16,399][semstamp][INFO] - Candidate text:  by this? #NorovirusOutbreak #SimiValley #Chipotle
+
+---
+
+[3] @FoodSafetyNews (official account)
+**BREAKING**: Norovirus outbreak reported at Chipotle Mexican Grill location in Simi Valley, CA.
+[2024-05-26 13:37:16,400][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.94it/s]
+[2024-05-26 13:37:16,418][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:16,419][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:16,419][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:16,419][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:19,093][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodSafetyMaven 
+BREAKING: Norovirus outbreak linked to Chipotle Mexican Grill location in Simi Valley, CA.
+[2024-05-26 13:37:19,093][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.75it/s]
+[2024-05-26 13:37:19,110][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:37:19,110][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:37:19,111][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:19,111][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:30,192][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #ChipotleFailassistant
+
+Here are the two tweets with their sentiment analysis:
+
+**Tweet 1**
+
+* Sentiment: Negative 😕 (expresses frustration and disappointment towards Chipotle)
+* Entities mentioned: Chipotle, Beef, E.Coli, Norovirus, Simi Valley
+
+**Tweet 2**
+
+* Sentiment: Negative 😷 (expresses disgust, concern, and frustration towards Chipotle)
+* Entities mentioned: Chipotle, Simi Valley, Norovirus, CaliDreaming89 (username)
+
+In both tweets, the sentiment is negative, indicating dissatisfaction and discomfort towards Chipotle's recent issues with food safety.assistant
+
+Let me provide more details about each tweet.
+
+
+[2024-05-26 13:37:30,192][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 93.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.98it/s]
+[2024-05-26 13:37:30,215][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:37:30,216][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:37:30,216][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:30,216][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:33,365][semstamp][INFO] - Candidate text: ?
+
+---
+
+[3] @FoodieFan45 (food blogger)
+ Chipotle's woes continue... after the beef recall, now reports of norovirus outbreak at their Simi Valley location!
+[2024-05-26 13:37:33,366][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.79it/s]
+[2024-05-26 13:37:33,384][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:33,384][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:33,384][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:33,384][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:37,619][semstamp][INFO] - Candidate text:  by this? 😷assistant
+
+Here are two possible responses from Chipotle's social media team:
+
+**Response 1: Acknowledge and Apologize**
+
+Hi [username], we're so sorry to hear about your concerns regarding our Simi Valley location.
+[2024-05-26 13:37:37,619][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.27it/s]
+[2024-05-26 13:37:37,637][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:37:37,637][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:37,637][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:37,637][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:41,735][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #ChipotleNightmareassistant
+
+Here are two social media posts about Chipotle:
+
+**Post 1**
+Username: @FoodSafetyFanatic 
+Content: "Tough time to be a Chipotle lover.
+[2024-05-26 13:37:41,736][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.51it/s]
+[2024-05-26 13:37:41,754][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:41,754][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:41,754][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:41,754][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:45,241][semstamp][INFO] - Candidate text: ? #Norovirus #SimiValley #Chipotle
+
+---
+
+[3] @FoodSafetyWarrior 
+BREAKING: Confirmed norovirus outbreak at Chipotle location in Simi Valley, CA.
+[2024-05-26 13:37:45,241][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.53it/s]
+[2024-05-26 13:37:45,261][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:45,261][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:45,261][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:45,261][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:47,867][semstamp][INFO] - Candidate text:  by this?!?
+
+---
+
+[3] @FoodSafetyExpert 
+Breaking news: Chipotle's norovirus outbreak in Simi Valley is getting worse.
+[2024-05-26 13:37:47,867][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.38it/s]
+[2024-05-26 13:37:47,884][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:37:47,884][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:37:47,884][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:47,884][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:53,141][semstamp][INFO] - Candidate text: ? #ChipotleNorovirus #FoodPoisoningassistant
+
+These two tweets are examples of social media posts that can help identify food safety issues:
+
+**Tweet 1**
+
+* Identifies a specific issue: recall of beef products due to E.Coli contamination and another incident involving norovirus outbreak at a Chipotle location.
+
+[2024-05-26 13:37:53,142][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 117.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.51it/s]
+[2024-05-26 13:37:53,162][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:37:53,163][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:37:53,163][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:53,163][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:37:56,583][semstamp][INFO] - Candidate text:  by this?!?
+
+---
+
+[3] @BloombergBusiness (news outlet)
+BREAKING: Chipotle Mexican Grill faces new food safety concerns after norovirus outbreak linked to its Simi Valley, California location.
+[2024-05-26 13:37:56,583][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.57it/s]
+[2024-05-26 13:37:56,603][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:37:56,603][semstamp][INFO] - Candidate text is more than one sentence.
+[2024-05-26 13:37:56,603][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:37:56,603][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:00,724][semstamp][INFO] - Candidate text: ? #NorovirusOutbreak #Chipotle
+
+---
+```
+
+In the provided tweets, we can see that both users are expressing concerns about Chipotle, a fast-food chain, due to two separate incidents: a beef recall and a norovirus outbreak.
+
+
+[2024-05-26 13:38:00,724][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 91.34it/s]
+[2024-05-26 13:38:00,738][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:00,738][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:04,225][semstamp][INFO] - Candidate text: ?assistant
+
+Here is the output:
+
+```
+There are 2 tweets about a food safety issue at Chipotle.
+
+Tweet 1:
+@FoodSafetyNews Tough time to be a Chipotle lover.
+[2024-05-26 13:38:04,226][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.13it/s]
+[2024-05-26 13:38:04,246][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:04,246][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:04,246][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:04,246][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:08,346][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #FoodPoisoningSucksassistant
+
+Here are two tweets related to food safety issues with Chipotle:
+
+**Tweet 1**
+@FoodSafetyFan1 
+Tough time to be a Chipotle lover.
+[2024-05-26 13:38:08,347][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.78it/s]
+[2024-05-26 13:38:08,366][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:08,367][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:08,367][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:08,367][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:10,566][semstamp][INFO] - Candidate text: ? 
+
+---
+
+[3] @VibinWithVic 
+News flash: Chipotle's having another major crisis!
+[2024-05-26 13:38:10,566][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.09it/s]
+[2024-05-26 13:38:10,583][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:10,583][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:10,583][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:10,583][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:15,021][semstamp][INFO] - Candidate text: ?! #NorovirusNightmare #Chipotle Failassistant
+
+Here are two social media posts about a food safety issue at a Chipotle location:
+
+**Post 1**
+
+@FoodSafetyFan (Concerned Citizen)
+Tough time to be a Chipotle lover.
+[2024-05-26 13:38:15,021][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.45it/s]
+[2024-05-26 13:38:15,040][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:15,040][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:15,040][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:15,040][semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:21,798][semstamp][INFO] - Candidate text: ? #NorovirusNightmare #Chipotle Failassistant
+
+Here is the annotated data:
+
+**Tweet 1**
+
+* **User**: @FoodSafetyMaven (likely a food safety expert or enthusiast)
+* **Content**: The user expresses frustration and concern about Chipotle's recent food safety issues, mentioning two specific incidents: a beef recall due to E. coli contamination and a norovirus outbreak at a Simi Valley location.
+
+[2024-05-26 13:38:21,798][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.27it/s]
+[2024-05-26 13:38:21,818][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:21,818][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:21,818][semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-05-26 13:38:21,818][semstamp][INFO] - acceptmaskstr: 6,2
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:21,820][semstamp][INFO] - WARNING: desired semantic signature can't be sampled after max_trials 100
+[2024-05-26 13:38:21,820][semstamp][INFO] - CONTEXT: Tough time to be a Chipotle lover. 🤕 First,ced beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end? #ChipotleProbs
+
+---
+
+[2] @CaliDreaming89 (Simi Valley resident)
+Ugh just found out the Chipotle in Simi Valley had an OUTBREAK of norovirus! So gross! Can't believe I ate there last week. Guess that explains why I've been feeling so under the weather... anybody else affected
+[2024-05-26 13:38:21,820][semstamp][INFO] - NOTE: use regular (non-filtered-by-sig) continuation: ? #NorovirusNightmare #Chipotle Failassistant
+
+Here is the annotated data:
+
+**Tweet 1**
+
+* **User**: @FoodSafetyMaven (likely a food safety expert or enthusiast)
+* **Content**: The user expresses frustration and concern about Chipotle's recent food safety issues, mentioning two specific incidents: a beef recall due to E. coli contamination and a norovirus outbreak at a Simi Valley location.
+
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 13:38:29,138][semstamp][INFO] - Candidate text: * **Tone**: Critical, worried, and slightly sarcastic (e.g., "#ChipotleProbs")
+* **Hashtags**: #ChipotleProbs (a playful, critical hashtag)
+
+**Tweet 2**
+
+* **User**: @CaliDreaming89 (a California resident, likely from Simi Valley)
+* **Content**: The user shares their personal experience of eating at the same Chipotle location that had a norovirus outbreak and subsequently falling ill.
+[2024-05-26 13:38:29,139][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.76it/s]
+[2024-05-26 13:38:29,159][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:38:29,159][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:38:29,159][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:29,159][semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/stats.csv
+[2024-05-26 13:38:29,161][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-26 13:38:29,161][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. 🤕 First,ced beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end? #ChipotleProbs\n\n---\n\n[2] @CaliDreaming89 (Simi Valley resident)\nUgh just found out the Chipotle in Simi Valley had an OUTBREAK of norovirus! So gross! Can\'t believe I ate there last week. Guess that explains why I\'ve been feeling so under the weather... anybody else affected? #NorovirusNightmare #Chipotle Failassistant\n\nHere is the annotated data:\n\n**Tweet 1**\n\n* **User**: @FoodSafetyMaven (likely a food safety expert or enthusiast)\n* **Content**: The user expresses frustration and concern about Chipotle\'s recent food safety issues, mentioning two specific incidents: a beef recall due to E. coli contamination and a norovirus outbreak at a Simi Valley location.\n* **Tone**: Critical, worried, and slightly sarcastic (e.g., "#ChipotleProbs")\n* **Hashtags**: #ChipotleProbs (a playful, critical hashtag)\n\n**Tweet 2**\n\n* **User**: @CaliDreaming89 (a California resident, likely from Simi Valley)\n* **Content**: The user shares their personal experience of eating at the same Chipotle location that had a norovirus outbreak and subsequently falling ill.', 121)
+[2024-05-26 13:38:29,162][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. 🤕 First,ced beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end? #ChipotleProbs
+
+---
+
+[2] @CaliDreaming89 (Simi Valley resident)
+Ugh just found out the Chipotle in Simi Valley had an OUTBREAK of norovirus! So gross! Can't believe I ate there last week. Guess that explains why I've been feeling so under the weather... anybody else affected? #NorovirusNightmare #Chipotle Failassistant
+
+Here is the annotated data:
+
+**Tweet 1**
+
+* **User**: @FoodSafetyMaven (likely a food safety expert or enthusiast)
+* **Content**: The user expresses frustration and concern about Chipotle's recent food safety issues, mentioning two specific incidents: a beef recall due to E. coli contamination and a norovirus outbreak at a Simi Valley location.
+* **Tone**: Critical, worried, and slightly sarcastic (e.g., "#ChipotleProbs")
+* **Hashtags**: #ChipotleProbs (a playful, critical hashtag)
+
+**Tweet 2**
+
+* **User**: @CaliDreaming89 (a California resident, likely from Simi Valley)
+* **Content**: The user shares their personal experience of eating at the same Chipotle location that had a norovirus outbreak and subsequently falling ill.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.05it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.11it/s]
+n_watermark: 7, n_test_sent: 7
+zscore: 4.58257569495584
+[2024-05-26 13:38:29,296][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. 🤕 First,ced beef was recalled due to potential E.Coli contamination... now, norovirus outbreak at Simi Valley location... when will it end? #ChipotleProbs
+
+---
+
+[2] @CaliDreaming89 (Simi Valley resident)
+Ugh just found out the Chipotle in Simi Valley had an OUTBREAK of norovirus! So gross! Can't believe I ate there last week. Guess that explains why I've been feeling so under the weather... anybody else affected? #NorovirusNightmare #Chipotle Failassistant
+
+Here is the annotated data:
+
+**Tweet 1**
+
+* **User**: @FoodSafetyMaven (likely a food safety expert or enthusiast)
+* **Content**: The user expresses frustration and concern about Chipotle's recent food safety issues, mentioning two specific incidents: a beef recall due to E. coli contamination and a norovirus outbreak at a Simi Valley location.
+* **Tone**: Critical, worried, and slightly sarcastic (e.g., "#ChipotleProbs")
+* **Hashtags**: #ChipotleProbs (a playful, critical hashtag)
+
+**Tweet 2**
+
+* **User**: @CaliDreaming89 (a California resident, likely from Simi Valley)
+* **Content**: The user shares their personal experience of eating at the same Chipotle location that had a norovirus outbreak and subsequently falling ill.
+[2024-05-26 13:38:29,296][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 13:38:29,296][__main__][INFO] - Score: 4.58257569495584
+[2024-05-26 13:38:29,296][__main__][INFO] - Time taken: 435.62504863739014
+Data appended to ./inputs/c4_saves/c4_2_temp_100_divp_20_attempt_1/watermarked_text.csv

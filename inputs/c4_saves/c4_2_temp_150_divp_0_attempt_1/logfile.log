@@ -1,0 +1,366 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 13:38:36,434][__main__][INFO] - Starting to watermark...
+[2024-05-26 13:38:36,439][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-26 13:38:36,439][__main__][INFO] - Getting the watermarker...
+[2024-05-26 13:38:36,439][watermarker][INFO] - Using device: cuda
+[2024-05-26 13:38:36,439][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 13:38:40,055][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 13:38:47,200][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 13:38:48,704][semstamp][INFO] - Setting up generating components...
+[2024-05-26 13:38:48,707][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 13:38:48,707][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 13:38:48,707][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 13:38:49,577][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 13:38:49,633][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 13:38:49,634][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 13:38:49,634][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.76it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.75it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 13:38:51,357][semstamp][INFO] - Candidate text:  I mean,'t this whole debacle seem similar to what happened with Whole Foods?
+[2024-05-26 13:38:51,358][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.37it/s]
+[2024-05-26 13:38:51,379][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:38:51,379][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:38:51,379][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:38:51,379][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:52,050][semstamp][INFO] - Candidate text:  Another healthy food fiasco!
+
+[2024-05-26 13:38:52,051][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.91it/s]
+[2024-05-26 13:38:52,068][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:38:52,068][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:38:52,069][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:52,069][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:53,545][semstamp][INFO] - Candidate text: Yeah, it's unfortunate that the trust has been shaken in some popular health-oriented brands!
+[2024-05-26 13:38:53,545][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.69it/s]
+[2024-05-26 13:38:53,563][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 13:38:53,563][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:53,563][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:53,563][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:55,709][semstamp][INFO] - Candidate text: Just like when those fancy-pants organic stores realized nope we don't believe organic always means it's 100% safe to eat.
+
+[2024-05-26 13:38:55,710][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.67it/s]
+[2024-05-26 13:38:55,727][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:55,728][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:55,728][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:55,728][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:56,271][semstamp][INFO] - Candidate text: Hey, there!
+[2024-05-26 13:38:56,272][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.37it/s]
+[2024-05-26 13:38:56,289][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:38:56,289][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:56,289][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:56,289][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:57,298][semstamp][INFO] - Candidate text: Well said, @EugeneGurarie!
+[2024-05-26 13:38:57,298][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.72it/s]
+[2024-05-26 13:38:57,316][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:38:57,316][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:38:57,316][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:57,316][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:38:59,793][semstamp][INFO] - Candidate text: Anyway, the good news is that Chipotle Mexican Grill’s (CMG) sales are expected to recover in Q2 despite all the, you know, drama.
+
+[2024-05-26 13:38:59,793][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.62it/s]
+[2024-05-26 13:38:59,811][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:38:59,811][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:38:59,811][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:38:59,811][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:01,802][semstamp][INFO] - Candidate text: And now the menu item changes we've been waiting for... drumroll please...
+Say goodbye to chorizo!
+[2024-05-26 13:39:01,802][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.57it/s]
+[2024-05-26 13:39:01,820][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:39:01,820][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:01,820][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:01,820][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:04,665][semstamp][INFO] - Candidate text: According to Cowen analysts, customer frequency and average transaction value could start recovering by the second quarter as the company implements improvements in food safety, marketing campaigns, and digital investments.
+
+[2024-05-26 13:39:04,665][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.48it/s]
+[2024-05-26 13:39:04,683][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:39:04,684][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:04,684][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:04,684][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:06,200][semstamp][INFO] - Candidate text: Hey, maybe it's not too late for CMG to bounce back!
+
+
+[2024-05-26 13:39:06,200][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.79it/s]
+[2024-05-26 13:39:06,217][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 13:39:06,218][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:06,218][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:06,218][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:08,070][semstamp][INFO] - Candidate text: Now, even though sales might rebound, don't expect things to go back to normal right away.
+[2024-05-26 13:39:08,070][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.04it/s]
+[2024-05-26 13:39:08,088][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 13:39:08,088][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:08,088][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:08,088][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:10,547][semstamp][INFO] - Candidate text: Analysts still cut CMG estimates and price targets citing lingering brand perception issues (wink, wink) yet acknowledge "early signs of improvement."
+
+[2024-05-26 13:39:10,547][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.57it/s]
+[2024-05-26 13:39:10,565][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 13:39:10,565][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:10,566][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:10,566][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:14,379][semstamp][INFO] - Candidate text: The analysts predict same-store sales growth will slow down significantly from 7.3% in FY16 but still reach 3.8% by FY18 due to the company's focus on digital transformation, including online ordering and mobile payments integration.
+
+[2024-05-26 13:39:14,379][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.12it/s]
+[2024-05-26 13:39:14,401][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:39:14,401][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:14,401][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:14,401][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:15,784][semstamp][INFO] - Candidate text: But don‘t count on things getting easier right away.
+[2024-05-26 13:39:15,784][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.86it/s]
+[2024-05-26 13:39:15,802][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:39:15,802][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:15,802][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:15,802][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:18,485][semstamp][INFO] - Candidate text:  Wells Fargo Securities analysts see "a challenging first half of the year" for CMG following multiple norovirus outbreaks, E coli and Salmonella incidents.
+[2024-05-26 13:39:18,486][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.44it/s]
+[2024-05-26 13:39:18,503][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:39:18,504][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:18,504][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:39:18,504][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:20,574][semstamp][INFO] - Candidate text:  As The Motley Fool puts it, "the road to recovery for Chipotle won‘t be easy."
+
+[2024-05-26 13:39:20,575][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.62it/s]
+[2024-05-26 13:39:20,592][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:39:20,593][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:20,593][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 13:39:20,593][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:22,425][semstamp][INFO] - Candidate text: I mean, think about it – Chipotle is literally going back to basics:
+1.
+[2024-05-26 13:39:22,426][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.60it/s]
+[2024-05-26 13:39:22,443][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:39:22,443][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:22,443][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:39:22,443][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:25,232][semstamp][INFO] - Candidate text: There are still some tough times ahead, what with the lingering effects of last year's scare over E coli-tainted food and... wait for it... rodents.
+
+[2024-05-26 13:39:25,232][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.69it/s]
+[2024-05-26 13:39:25,251][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 13:39:25,251][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:25,251][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:39:25,251][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:30,719][semstamp][INFO] - Candidate text: Now might not be the worst time to dip into those tortilla-wrapped savings...
+
+**MarketWatch:**
+US Retail Sales Growth Rate YoY
+
+[0% 10%]
+
+1YR: -7.4%
+5YR: +14%
+
+US retail sales growth rate has fallen since last year, showing signs of weak consumer spending.
+
+
+[2024-05-26 13:39:30,719][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.95it/s]
+[2024-05-26 13:39:30,739][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 13:39:30,739][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:30,739][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 13:39:30,739][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:32,847][semstamp][INFO] - Candidate text: It seems Americans’ love for retail therapy hasn’t entirely disappeared, but it sure has slowed down.
+[2024-05-26 13:39:32,847][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.70it/s]
+[2024-05-26 13:39:32,865][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 13:39:32,865][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 13:39:32,865][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:32,865][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:36,424][semstamp][INFO] - Candidate text: It seems those dollars aren’t stretching far enough…
+
+According to US Census Bureau data released today, retail sales grew only 2.7% YoY in January—the smallest increase since April 2016.
+
+
+[2024-05-26 13:39:36,424][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.56it/s]
+[2024-05-26 13:39:36,442][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 13:39:36,442][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 13:39:36,443][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 13:39:36,443][semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/stats.csv
+[2024-05-26 13:39:36,445][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-26 13:39:36,445][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. I mean,\'t this whole debacle seem similar to what happened with Whole Foods? Another healthy food fiasco!\nAnyway, the good news is that Chipotle Mexican Grill’s (CMG) sales are expected to recover in Q2 despite all the, you know, drama.\nAccording to Cowen analysts, customer frequency and average transaction value could start recovering by the second quarter as the company implements improvements in food safety, marketing campaigns, and digital investments.\nThe analysts predict same-store sales growth will slow down significantly from 7.3% in FY16 but still reach 3.8% by FY18 due to the company\'s focus on digital transformation, including online ordering and mobile payments integration.\nBut don‘t count on things getting easier right away. As The Motley Fool puts it, "the road to recovery for Chipotle won‘t be easy."\nNow might not be the worst time to dip into those tortilla-wrapped savings...\n\n**MarketWatch:**\nUS Retail Sales Growth Rate YoY\n\n[0% 10%]\n\n1YR: -7.4%\n5YR: +14%\n\nUS retail sales growth rate has fallen since last year, showing signs of weak consumer spending.\n\nIt seems those dollars aren’t stretching far enough…\n\nAccording to US Census Bureau data released today, retail sales grew only 2.7% YoY in January—the smallest increase since April 2016.\n\n', 21)
+[2024-05-26 13:39:36,445][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. I mean,'t this whole debacle seem similar to what happened with Whole Foods? Another healthy food fiasco!
+Anyway, the good news is that Chipotle Mexican Grill’s (CMG) sales are expected to recover in Q2 despite all the, you know, drama.
+According to Cowen analysts, customer frequency and average transaction value could start recovering by the second quarter as the company implements improvements in food safety, marketing campaigns, and digital investments.
+The analysts predict same-store sales growth will slow down significantly from 7.3% in FY16 but still reach 3.8% by FY18 due to the company's focus on digital transformation, including online ordering and mobile payments integration.
+But don‘t count on things getting easier right away. As The Motley Fool puts it, "the road to recovery for Chipotle won‘t be easy."
+Now might not be the worst time to dip into those tortilla-wrapped savings...
+
+**MarketWatch:**
+US Retail Sales Growth Rate YoY
+
+[0% 10%]
+
+1YR: -7.4%
+5YR: +14%
+
+US retail sales growth rate has fallen since last year, showing signs of weak consumer spending.
+
+It seems those dollars aren’t stretching far enough…
+
+According to US Census Bureau data released today, retail sales grew only 2.7% YoY in January—the smallest increase since April 2016.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.43it/s]
+n_watermark: 9, n_test_sent: 9
+zscore: 5.196152422706632
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.26it/s]
+n_watermark: 9, n_test_sent: 9
+zscore: 5.196152422706632
+[2024-05-26 13:39:36,616][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. I mean,'t this whole debacle seem similar to what happened with Whole Foods? Another healthy food fiasco!
+Anyway, the good news is that Chipotle Mexican Grill’s (CMG) sales are expected to recover in Q2 despite all the, you know, drama.
+According to Cowen analysts, customer frequency and average transaction value could start recovering by the second quarter as the company implements improvements in food safety, marketing campaigns, and digital investments.
+The analysts predict same-store sales growth will slow down significantly from 7.3% in FY16 but still reach 3.8% by FY18 due to the company's focus on digital transformation, including online ordering and mobile payments integration.
+But don‘t count on things getting easier right away. As The Motley Fool puts it, "the road to recovery for Chipotle won‘t be easy."
+Now might not be the worst time to dip into those tortilla-wrapped savings...
+
+**MarketWatch:**
+US Retail Sales Growth Rate YoY
+
+[0% 10%]
+
+1YR: -7.4%
+5YR: +14%
+
+US retail sales growth rate has fallen since last year, showing signs of weak consumer spending.
+
+It seems those dollars aren’t stretching far enough…
+
+According to US Census Bureau data released today, retail sales grew only 2.7% YoY in January—the smallest increase since April 2016.
+[2024-05-26 13:39:36,616][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 13:39:36,616][__main__][INFO] - Score: 5.196152422706632
+[2024-05-26 13:39:36,616][__main__][INFO] - Time taken: 46.98196983337402
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_0_attempt_1/watermarked_text.csv

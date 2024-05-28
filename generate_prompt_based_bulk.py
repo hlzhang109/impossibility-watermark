@@ -45,13 +45,13 @@ def main():
                 log_filepath = f"./inputs/prompt_based_saves/{folder_name}/logfile.log"
                 
                 command = f"python watermarked_text_generator.py " \
-                        f"++attack_args.prompt_file='./inputs/tests_v1_with_lotr.csv' " \
-                        f"++attack_args.prompt_num={prompt_num} " \
-                        f"++attack_args.is_completion=False " \
+                        f"++prompt_file='./inputs/tests_v1_with_lotr.csv' " \
+                        f"++prompt_num={prompt_num} " \
+                        f"++is_completion=False " \
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \
-                        f"++generator_args.generation_stats_csv_path='./inputs/prompt_based_saves/{folder_name}/stats.csv' " \
-                        f"++watermark_args.save_file_name='prompt_based_saves/{folder_name}/watermarked_text.csv' "
+                        f"++generation_stats_file_path='./inputs/prompt_based_saves/{folder_name}/stats.csv' " \
+                        f"++watermarked_text_file_name='prompt_based_saves/{folder_name}/watermarked_text.csv' "
 
                 
                 stdout, stderr = run_command(command, log_filepath)

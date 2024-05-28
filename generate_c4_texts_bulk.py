@@ -47,13 +47,13 @@ def main():
                 log_filepath = f"./inputs/c4_saves/{folder_name}/logfile.log"
                 
                 command = f"python watermarked_text_generator.py " \
-                        f"++attack_args.input_file='./inputs/mini_c4.csv' " \
-                        f"++attack_args.prompt_num={prompt_num} " \
-                        f"++attack_args.is_completion=True " \
+                        f"++prompt_file='./inputs/mini_c4.csv' " \
+                        f"++prompt_num={prompt_num} " \
+                        f"++is_completion=True " \
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \
-                        f"++generator_args.generation_stats_csv_path='./inputs/c4_saves/{folder_name}/stats.csv' " \
-                        f"++watermark_args.save_file_name='c4_saves/{folder_name}/watermarked_text.csv' "
+                        f"++generation_stats_file_path='./inputs/prompt_based_saves/{folder_name}/stats.csv' " \
+                        f"++watermarked_text_file_name='prompt_based_saves/{folder_name}/watermarked_text.csv' "
 
                 
                 stdout, stderr = run_command(command, log_filepath)

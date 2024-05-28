@@ -1,0 +1,27 @@
+defaults:
+    - _self_
+    - watermark_args: semstamp
+
+prompt:
+prompt_file:
+prompt_num:
+is_completion:
+generation_stats_file_path: 
+watermarked_text_file_name:
+
+
+generator_args:
+  model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ" "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" "gpt-4"
+  revision: "main" 
+  model_cache_dir: "${model_cache_dir}"
+  device_map: "auto"
+  trust_remote_code: True
+  max_new_tokens: 1024
+  min_new_tokens: 768
+  do_sample: True 
+  temperature: 1.0
+  top_p: 0.95 
+  top_k: 40
+  repetition_penalty: 1.1
+  watermark_score_threshold: 5.0
+  diversity_penalty: 10.0 # default is 0.0. Increase to make the output more diverse. This helps with SemStamp generation.

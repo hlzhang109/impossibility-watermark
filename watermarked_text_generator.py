@@ -4,7 +4,7 @@ from utils import get_watermarker, save_to_csv, get_prompt_or_output, count_csv_
 
 log = logging.getLogger(__name__)
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="conf", config_name="gen_conf")
 def test(cfg):
     import time
     import textwrap
@@ -12,9 +12,9 @@ def test(cfg):
     log.info(f"Starting to watermark...")
 
     # Read the prompt and the watermarked text from the input files
-    prompt = cfg.attack_args.prompt
+    prompt = cfg.prompt
     if prompt is None:
-        prompt = get_prompt_or_output(cfg.attack_args.prompt_file, cfg.attack_args.prompt_num) 
+        prompt = get_prompt_or_output(cfg.prompt_file, cfg.prompt_num) 
 
     log.info(f"Prompt: {prompt}")
 
@@ -33,12 +33,12 @@ def test(cfg):
         log.info(f"Score: {score}")
         log.info(f"Time taken: {delta}")
 
-    if cfg.watermark_args.save_file_name is not None:
-        file_path = f"./inputs/{cfg.watermark_args.save_file_name}"
+    if cfg.watermarked_text_file_name is not None:
+        file_path = f"./inputs/{cfg.watermarked_text_file_name}"
         num_entries = count_csv_entries(file_path)
 
         stats = [{'num': num_entries +1, 'text': watermarked_text, 'watermarking_scheme': cfg.watermark_args.name, 'model': cfg.generator_args.model_name_or_path}]
-        save_to_csv(stats, './inputs', cfg.watermark_args.save_file_name)
+        save_to_csv(stats, './inputs', cfg.watermarked_text_file_name)
 
 if __name__ == "__main__":
     test()

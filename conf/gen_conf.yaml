@@ -1,0 +1,26 @@
+defaults:
+    - _self_
+    - watermark_args: umd
+
+prompt: null
+prompt_file: 'inputs/mini_c4.csv'
+prompt_num: 1
+is_completion: True
+generation_stats_file_path: null
+watermarked_text_file_name: null
+
+generator_args:
+  model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ" "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" "gpt-4"
+  revision: "main" 
+  model_cache_dir: "./.cache/"
+  device_map: "auto"
+  trust_remote_code: True
+  max_new_tokens: 1024
+  min_new_tokens: 768
+  do_sample: True 
+  temperature: 1.0
+  top_p: 0.95 
+  top_k: 40
+  repetition_penalty: 1.1
+  watermark_score_threshold: 5.0
+  diversity_penalty: 0.0 # TODO: Change this so only semstamp uses it. default is 0.0. Increase to make the output more diverse. This helps with SemStamp generation.

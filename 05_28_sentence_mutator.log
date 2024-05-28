@@ -1,0 +1,385 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+CUDA_VISIBLE_DEVICES: 1
+WORLD_SIZE: 1
+{'type': 'sentence', 'use_system_profile': True, 'system_profile': 'You are a copy editor tasked to enforce text quality.', 'num_retries': 5, 'model_name_or_path': 'TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ', 'model_cache_dir': '${model_cache_dir}', 'revision': 'main', 'device_map': 'auto', 'trust_remote_code': '${generator_args.trust_remote_code}', 'max_new_tokens': '${generator_args.max_new_tokens}', 'do_sample': '${generator_args.do_sample}', 'temperature': '${generator_args.temperature}', 'top_p': '${generator_args.top_p}', 'top_k': '${generator_args.top_k}', 'repetition_penalty': '${generator_args.repetition_penalty}', 'use_pydantic_parser': True}
+[2024-05-28 02:23:46,763][__main__][INFO] - Type of pipeline was: <class 'NoneType'>
+[2024-05-28 02:23:46,763][__main__][INFO] - Initializing a new Text Mutator pipeline from cfg...
+[2024-05-28 02:23:46,763][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-05-28 02:23:48,510][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-28 02:23:59,198][__main__][INFO] - Sentence to rephrase: Instead, they embrace a more altruistic view of power, recognizing the importance of serving others and doing good.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-28 02:23:59,827][__main__][INFO] - Failed to produce a valid generation, trying again...
+[2024-05-28 02:23:59,829][__main__][INFO] - Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 115, in mutate
+    mutated_analysis = self.rephrase_sentence(text)
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 93, in rephrase_sentence
+    rephrased_sentence = self.chain.invoke(dict_input)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/runnables/base.py", line 2393, in invoke
+    input = step.invoke(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 276, in invoke
+    self.generate_prompt(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 633, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 803, in generate
+    output = self._generate_helper(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 670, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 657, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_community/llms/huggingface_pipeline.py", line 273, in _generate
+    responses = self.pipeline(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 240, in __call__
+    return super().__call__(text_inputs, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1223, in __call__
+    outputs = list(final_iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1149, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 1576, in generate
+    result = self._greedy_search(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 2494, in _greedy_search
+    outputs = self(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+[2024-05-28 02:23:59,830][__main__][INFO] - Sentence to rephrase: Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-28 02:23:59,960][__main__][INFO] - Failed to produce a valid generation, trying again...
+[2024-05-28 02:23:59,960][__main__][INFO] - Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 115, in mutate
+    mutated_analysis = self.rephrase_sentence(text)
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 93, in rephrase_sentence
+    rephrased_sentence = self.chain.invoke(dict_input)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/runnables/base.py", line 2393, in invoke
+    input = step.invoke(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 276, in invoke
+    self.generate_prompt(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 633, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 803, in generate
+    output = self._generate_helper(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 670, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 657, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_community/llms/huggingface_pipeline.py", line 273, in _generate
+    responses = self.pipeline(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 240, in __call__
+    return super().__call__(text_inputs, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1223, in __call__
+    outputs = list(final_iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1149, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 1576, in generate
+    result = self._greedy_search(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 2494, in _greedy_search
+    outputs = self(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+[2024-05-28 02:23:59,961][__main__][INFO] - Sentence to rephrase: As Gandalf says, "The greatest danger of the Ring is the corruption of the bearer."
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-28 02:24:00,201][__main__][INFO] - Failed to produce a valid generation, trying again...
+[2024-05-28 02:24:00,202][__main__][INFO] - Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 115, in mutate
+    mutated_analysis = self.rephrase_sentence(text)
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 93, in rephrase_sentence
+    rephrased_sentence = self.chain.invoke(dict_input)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/runnables/base.py", line 2393, in invoke
+    input = step.invoke(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 276, in invoke
+    self.generate_prompt(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 633, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 803, in generate
+    output = self._generate_helper(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 670, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 657, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_community/llms/huggingface_pipeline.py", line 273, in _generate
+    responses = self.pipeline(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 240, in __call__
+    return super().__call__(text_inputs, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1223, in __call__
+    outputs = list(final_iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1149, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 1576, in generate
+    result = self._greedy_search(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 2494, in _greedy_search
+    outputs = self(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+[2024-05-28 02:24:00,202][__main__][INFO] - Sentence to rephrase: Characters who reject the idea of using power solely for personal gain or selfish reasons are often the most effective in resisting the darkness of the Ring.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-28 02:24:00,332][__main__][INFO] - Failed to produce a valid generation, trying again...
+[2024-05-28 02:24:00,332][__main__][INFO] - Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 115, in mutate
+    mutated_analysis = self.rephrase_sentence(text)
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 93, in rephrase_sentence
+    rephrased_sentence = self.chain.invoke(dict_input)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/runnables/base.py", line 2393, in invoke
+    input = step.invoke(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 276, in invoke
+    self.generate_prompt(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 633, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 803, in generate
+    output = self._generate_helper(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 670, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 657, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_community/llms/huggingface_pipeline.py", line 273, in _generate
+    responses = self.pipeline(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 240, in __call__
+    return super().__call__(text_inputs, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1223, in __call__
+    outputs = list(final_iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1149, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 1576, in generate
+    result = self._greedy_search(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 2494, in _greedy_search
+    outputs = self(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+[2024-05-28 02:24:00,333][__main__][INFO] - Sentence to rephrase: Through the characters of the Lord of the Rings series, Tolkien demonstrates the various forms of power and their effects on individuals and society.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-28 02:24:00,463][__main__][INFO] - Failed to produce a valid generation, trying again...
+[2024-05-28 02:24:00,463][__main__][INFO] - Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 115, in mutate
+    mutated_analysis = self.rephrase_sentence(text)
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 93, in rephrase_sentence
+    rephrased_sentence = self.chain.invoke(dict_input)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/runnables/base.py", line 2393, in invoke
+    input = step.invoke(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 276, in invoke
+    self.generate_prompt(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 633, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 803, in generate
+    output = self._generate_helper(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 670, in _generate_helper
+    raise e
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/language_models/llms.py", line 657, in _generate_helper
+    self._generate(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_community/llms/huggingface_pipeline.py", line 273, in _generate
+    responses = self.pipeline(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 240, in __call__
+    return super().__call__(text_inputs, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1223, in __call__
+    outputs = list(final_iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1149, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
+    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 1576, in generate
+    result = self._greedy_search(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/generation/utils.py", line 2494, in _greedy_search
+    outputs = self(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
+    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 879, in forward
+    final_hidden_states.index_add_(0, top_x, current_hidden_states.to(hidden_states.dtype))
+RuntimeError: CUDA error: invalid configuration argument
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+[2024-05-28 02:24:00,463][__main__][INFO] - Failed to produce a valid generation after 5 tries.
+[2024-05-28 02:24:00,463][__main__][INFO] - Original text: 
+Power is a central theme in J.R.R. Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story. Power can take many forms, including physical strength, political authority, and magical abilities. However, the most significant form of power in the series is the One Ring, created by Sauron to control and enslave the free peoples of Middle-earth.
+The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world. Sauron's desire for the Ring drives much of the plot, as he seeks to reclaim it and use its power to enslave all of Middle-earth. Other characters, such as Gandalf and Frodo, also become obsessed with the Ring's power, leading them down dangerous paths and ultimately contributing to the destruction of their own kingdoms.
+Throughout the series, Tolkien suggests that power corrupts even the noblest of beings. As Gandalf says, "The greatest danger of the Ring is the corruption of the bearer." This becomes manifest as the characters who possess or covet the Ring become increasingly consumed by its power, losing sight of their original goals and values. Even those who begin with the best intentions, like Boromir, are ultimately undone by the temptation of the Ring's power.
+However, Tolkien also suggests that true power lies not in domination but in selflessness and sacrifice. Characters who reject the idea of using power solely for personal gain or selfish reasons are often the most effective in resisting the darkness of the Ring. For example, Aragorn's refusal to claim the throne or Sauron's rightful place as the Dark Lord illustrates this point. Instead, they embrace a more altruistic view of power, recognizing the importance of serving others and doing good.
+In conclusion, the One Ring symbolizes the corrosive nature of power while highlighting the potential for redemption through selflessness and sacrifice. Through the characters of the Lord of the Rings series, Tolkien demonstrates the various forms of power and their effects on individuals and society. He shows that the pursuit of power for personal gain can lead to corruption, but that true power emerges when one puts the needs of others first.
+
+[2024-05-28 02:24:00,463][__main__][INFO] - Mutated text: None
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/sentence.py", line 161, in test
+    log.info(f"Diff: {diff(text, mutated_text)}")
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 256, in diff
+    text2_lines = text2.splitlines()
+AttributeError: 'NoneType' object has no attribute 'splitlines'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

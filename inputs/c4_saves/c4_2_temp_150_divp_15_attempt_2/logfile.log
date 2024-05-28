@@ -1,0 +1,1808 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 15:32:55,799][__main__][INFO] - Starting to watermark...
+[2024-05-26 15:32:55,802][__main__][INFO] - Prompt: Tough time to be a Chipotle lover.
+Chipotle’s week is off to a rough start. Its stock slipped as much as 8% on Monday (Dec. 7) as the fast-casual restaurant chain continued to grapple with an E. coli outbreak that has sickened 52 people in nine states and late on Friday led the company to project its first same-store sales decline since going public.
+“Sales trends during the quarter so far have been extremely volatile,” Chipotle said in a securities filing on Friday. How long could sales be hurt? The last major quick-service restaurant to face an E. coli outbreak was Taco Bell in late 2006. The Centers for Disease Control and Prevention first identified that outbreak in November; by mid-December the CDC was reporting that 71 people had been affected in five states, and that ”shredded lettuce consumed at Taco Bell restaurants in the northeastern United States” was the most likely culprit.
+Should Chipotle’s E. coli outbreak play out similarly, the company could be looking at much more than a single quarter of negative same-store sales. In the days after it closed 43 restaurants in the Pacific Northwest at the end of October, as well as immediately after the CDC announced new E. coli cases in late November, Chipotle says same-store sales tumbled roughly 20%. For all of November—effectively since health officials first said they were investigating E. coli cases linked to Chipotle’s restaurants—sales are down 16%, and Chipotle’s stock is off 15%.
+On the other hand, Darren Tristano, president of food and restaurant consulting firm Technomic, says consumers are generally “very forgiving” and stock prices “not affected longer term” by E. coli outbreaks. Though after years of positive comps, even a single quarter of downturn might feel too long for Chipotle.
+[2024-05-26 15:32:55,802][__main__][INFO] - Getting the watermarker...
+[2024-05-26 15:32:55,802][watermarker][INFO] - Using device: cuda
+[2024-05-26 15:32:55,802][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 15:32:59,723][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 15:33:06,825][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 15:33:08,443][semstamp][INFO] - Setting up generating components...
+[2024-05-26 15:33:08,445][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 15:33:08,445][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 15:33:08,445][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 15:33:09,268][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 15:33:09,330][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 15:33:09,331][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 15:33:09,331][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Tough time to be a Chipotle lover.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.85it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.85it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 15:33:11,647][semstamp][INFO] - Candidate text:  First,'t they have all those e-Coli problems and now it seems like their menu prices are getting out of control!
+
+[2024-05-26 15:33:11,647][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.92it/s]
+[2024-05-26 15:33:11,669][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:33:11,669][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:11,669][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:33:11,669][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:14,065][semstamp][INFO] - Candidate text:  Last year,'t miss an episode oF "Cupcake Wars" and I didnâ€™t know what I was gonna do until they announce the new season!
+[2024-05-26 15:33:14,065][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.88it/s]
+[2024-05-26 15:33:14,082][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:33:14,082][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:14,083][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:33:14,083][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:15,416][semstamp][INFO] - Candidate text:  The stock’s fallen 35% in recent months, largely due to food safety concerns.
+[2024-05-26 15:33:15,416][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.50it/s]
+[2024-05-26 15:33:15,433][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:33:15,433][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:15,433][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:33:15,433][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:16,309][semstamp][INFO] - Candidate text:  Sales are down and analysts are cutting forecasts.
+[2024-05-26 15:33:16,309][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.13it/s]
+[2024-05-26 15:33:16,326][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 15:33:16,326][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:16,326][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:16,326][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:19,064][semstamp][INFO] - Candidate text:  Now, investors are fretting about the impact of higher labor costs from California’s minimum wage hike (the state’s bumping the rate to $15/hour by 2023).
+
+[2024-05-26 15:33:19,064][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.83it/s]
+[2024-05-26 15:33:19,081][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:33:19,082][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:19,082][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:19,082][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:21,152][semstamp][INFO] - Candidate text:  Today, the company announced they're closing all stores nationwide for a few hours on February 8th to discuss these issues with employees.
+
+[2024-05-26 15:33:21,152][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.28it/s]
+[2024-05-26 15:33:21,169][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:33:21,169][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:21,169][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:21,169][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:23,222][semstamp][INFO] - Candidate text: The goal is to retrain staff on proper food handling and preparation procedures, which they hope will restore public trust.
+[2024-05-26 15:33:23,223][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.66it/s]
+[2024-05-26 15:33:23,240][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:23,241][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:23,241][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:23,241][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:24,461][semstamp][INFO] - Candidate text: But investors looking forward want more – they want profits.
+[2024-05-26 15:33:24,462][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.92it/s]
+[2024-05-26 15:33:24,478][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:33:24,479][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:24,479][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:24,479][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:26,925][semstamp][INFO] - Candidate text:  Here's how you know it:
+The conference call this afternoon was supposed to put people at ease...it didn't quite work out that way.
+[2024-05-26 15:33:26,926][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.49it/s]
+[2024-05-26 15:33:26,943][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:33:26,943][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:26,943][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:26,943][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:29,655][semstamp][INFO] - Candidate text:  Today, Chipotle provided some optimism: They think same-store sales will rise between 6-12% this year (that's what you measure as an investor).
+[2024-05-26 15:33:29,656][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.70it/s]
+[2024-05-26 15:33:29,673][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:29,673][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:29,673][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:29,673][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:31,040][semstamp][INFO] - Candidate text:  And unfortunately for Chipotle, those aren't coming back quickly.
+
+[2024-05-26 15:33:31,040][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.46it/s]
+[2024-05-26 15:33:31,057][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:31,057][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:31,057][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:31,057][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:33,432][semstamp][INFO] - Candidate text:  It seems clear that investors believe the "better" days (see: growth) are in the rear-view for this once-beloved stock.
+[2024-05-26 15:33:33,432][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.78it/s]
+[2024-05-26 15:33:33,449][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:33:33,449][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:33,449][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:33,449][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:34,963][semstamp][INFO] - Candidate text:  We discussed our concerns about valuation multiple in the past ( article here ).
+
+[2024-05-26 15:33:34,963][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.03it/s]
+[2024-05-26 15:33:34,980][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 15:33:34,980][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:34,980][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:34,980][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:37,438][semstamp][INFO] - Candidate text:  Chipotle says they'll make $6+ earnings per share next year, but skeptics think it could be closer to $5 and change.
+
+[2024-05-26 15:33:37,439][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.03it/s]
+[2024-05-26 15:33:37,456][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:37,456][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:37,456][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:37,456][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:39,374][semstamp][INFO] - Candidate text:  Chipotle's Q4 results came in below expectations, and same-store sales decreased 14.7%.
+
+[2024-05-26 15:33:39,375][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.50it/s]
+[2024-05-26 15:33:39,392][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:33:39,392][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:39,392][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:39,392][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:41,918][semstamp][INFO] - Candidate text:  And while same-store sales may bounce back when customers get used to the new protocols, it's still uncertain how well they'll truly execute those plans.
+
+[2024-05-26 15:33:41,918][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.05it/s]
+[2024-05-26 15:33:41,935][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:41,935][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:41,935][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:41,935][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:42,774][semstamp][INFO] - Candidate text:  What do you think?
+[2024-05-26 15:33:42,775][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.29it/s]
+[2024-05-26 15:33:42,791][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 15:33:42,791][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:42,792][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:42,792][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:44,102][semstamp][INFO] - Candidate text:  Analysts now forecast earnings will decline this year vs last.
+
+[2024-05-26 15:33:44,102][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.84it/s]
+[2024-05-26 15:33:44,119][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 15:33:44,119][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:44,119][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:44,119][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:45,429][semstamp][INFO] - Candidate text:  The company needs to execute flawlessly and prove critics wrong.
+
+[2024-05-26 15:33:45,430][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.63it/s]
+[2024-05-26 15:33:45,446][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:45,447][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:45,447][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:45,447][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:46,555][semstamp][INFO] - Candidate text:  $CMP
+
+What do you mean better?
+[2024-05-26 15:33:46,555][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.30it/s]
+[2024-05-26 15:33:46,572][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:33:46,572][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:46,572][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:46,572][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:48,693][semstamp][INFO] - Candidate text:  Analysts are skeptical of revenue forecasts and there may be some concern that the burrito giant will struggle to regain momentum.
+[2024-05-26 15:33:48,694][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.46it/s]
+[2024-05-26 15:33:48,711][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:33:48,711][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:48,712][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:48,712][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:50,563][semstamp][INFO] - Candidate text:  As competition increases and prices rise, customers are less eager to join the cult of burrito enthusiasts.
+
+[2024-05-26 15:33:50,563][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.95it/s]
+[2024-05-26 15:33:50,581][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:50,581][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:50,582][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:50,582][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:51,690][semstamp][INFO] - Candidate text:  The main issues at hand are:
+1.
+[2024-05-26 15:33:51,690][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.49it/s]
+[2024-05-26 15:33:51,707][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 15:33:51,707][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:51,707][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:33:51,707][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:53,698][semstamp][INFO] - Candidate text:  Same-Store Sales Decline : Chipotle's same-store sales have been declining since Q3 '15.
+[2024-05-26 15:33:53,698][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.43it/s]
+[2024-05-26 15:33:53,707][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 15:33:53,707][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:56,984][semstamp][INFO] - Candidate text:  Growth has slowed: Chipotle’s same-store sales growth was around 10% annually from 2010-2015, peaking at 16.6% in Q3 of 2014.
+[2024-05-26 15:33:56,984][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.40it/s]
+[2024-05-26 15:33:57,002][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:33:57,002][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:57,002][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 15:33:57,002][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:59,057][semstamp][INFO] - Candidate text:  But since then it's dwindled; Q3 of 2015 only saw a 2% growth.
+
+[2024-05-26 15:33:59,057][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.97it/s]
+[2024-05-26 15:33:59,074][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 15:33:59,074][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:33:59,074][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:33:59,074][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:33:59,808][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:33:59,808][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.27it/s]
+[2024-05-26 15:33:59,824][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:33:59,825][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:33:59,825][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:33:59,825][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:00,556][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:00,556][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.51it/s]
+[2024-05-26 15:34:00,572][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:00,572][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:00,572][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:00,572][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:01,305][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:01,305][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.38it/s]
+[2024-05-26 15:34:01,321][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:01,321][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:01,321][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:01,321][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:02,052][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:02,053][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.58it/s]
+[2024-05-26 15:34:02,069][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:02,069][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:02,069][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:02,069][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:02,801][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:02,801][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.46it/s]
+[2024-05-26 15:34:02,817][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:02,817][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:02,818][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:02,818][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:05,802][semstamp][INFO] - Candidate text: Food safety scares have hit profits hard, and some are wondering whether they've fully recovered from last year's incidents, such as a Salmonella outbreak affecting Minnesota Chipotle customers.
+
+[2024-05-26 15:34:05,802][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.42it/s]
+[2024-05-26 15:34:05,819][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:34:05,819][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:05,820][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:05,820][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:06,557][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:06,558][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.25it/s]
+[2024-05-26 15:34:06,574][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:06,574][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:06,574][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:06,574][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:07,306][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:07,306][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.15it/s]
+[2024-05-26 15:34:07,322][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:07,322][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:07,322][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:07,322][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:08,055][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:08,055][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.01it/s]
+[2024-05-26 15:34:08,071][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:08,071][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:08,071][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:08,071][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:08,803][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:08,803][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.51it/s]
+[2024-05-26 15:34:08,819][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:08,819][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:08,819][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:08,819][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:09,550][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:09,550][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.68it/s]
+[2024-05-26 15:34:09,566][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:09,566][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:09,567][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:09,567][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:10,300][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:10,301][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.14it/s]
+[2024-05-26 15:34:10,319][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:10,320][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:10,320][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:10,320][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:11,054][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:11,054][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.43it/s]
+[2024-05-26 15:34:11,073][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:11,073][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:11,073][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:11,073][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:11,807][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:11,808][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.10it/s]
+[2024-05-26 15:34:11,826][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:11,826][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:11,826][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:11,826][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:12,559][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:12,560][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.13it/s]
+[2024-05-26 15:34:12,577][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:12,578][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:12,578][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:12,578][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:13,310][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:13,310][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.89it/s]
+[2024-05-26 15:34:13,327][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:13,327][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:13,327][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:13,327][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:14,059][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:14,059][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.50it/s]
+[2024-05-26 15:34:14,076][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:14,076][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:14,076][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:14,076][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:14,808][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:14,808][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.75it/s]
+[2024-05-26 15:34:14,824][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:14,824][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:14,824][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:14,825][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:15,556][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:15,557][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.60it/s]
+[2024-05-26 15:34:15,572][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:15,573][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:15,573][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:15,573][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:16,303][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:16,303][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.75it/s]
+[2024-05-26 15:34:16,319][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:16,320][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:16,320][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:16,320][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:17,051][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:17,051][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.06it/s]
+[2024-05-26 15:34:17,067][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:17,067][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:17,067][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:17,067][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:17,799][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:17,799][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.98it/s]
+[2024-05-26 15:34:17,815][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:17,815][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:17,815][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:17,815][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:18,546][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:18,546][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.69it/s]
+[2024-05-26 15:34:18,562][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:18,562][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:18,562][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:18,562][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:20,452][semstamp][INFO] - Candidate text: Why you care: Declining growth means less money coming in (and less enthusiasm among investors).
+
+[2024-05-26 15:34:20,452][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.17it/s]
+[2024-05-26 15:34:20,469][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 15:34:20,469][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:20,469][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:20,469][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:21,201][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:21,202][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.85it/s]
+[2024-05-26 15:34:21,218][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:21,218][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:21,218][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:21,218][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:21,950][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:21,950][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.64it/s]
+[2024-05-26 15:34:21,966][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:21,967][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:21,967][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:21,967][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:24,336][semstamp][INFO] - Candidate text: This raises concern as competition grows: Fast-casual industry players like Panera, Shake Shack & Habit Burgers keep expanding.
+
+[2024-05-26 15:34:24,336][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.15it/s]
+[2024-05-26 15:34:24,355][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:34:24,355][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:24,355][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:24,355][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:25,088][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:25,089][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.19it/s]
+[2024-05-26 15:34:25,105][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:25,105][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:25,105][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:25,105][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:25,836][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:25,837][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.91it/s]
+[2024-05-26 15:34:25,853][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:25,853][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:25,853][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:25,853][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:26,585][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:26,585][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.18it/s]
+[2024-05-26 15:34:26,601][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:26,601][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:26,601][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:26,601][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:27,334][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:27,334][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.52it/s]
+[2024-05-26 15:34:27,350][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:27,350][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:27,350][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:27,350][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:28,082][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:28,083][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.96it/s]
+[2024-05-26 15:34:28,099][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:28,099][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:28,099][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:28,099][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:28,830][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:28,831][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.59it/s]
+[2024-05-26 15:34:28,847][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:28,847][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:28,847][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:28,847][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:29,579][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:29,579][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.70it/s]
+[2024-05-26 15:34:29,595][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:29,596][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:29,596][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:29,596][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:30,327][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:30,328][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.59it/s]
+[2024-05-26 15:34:30,344][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:30,344][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:30,344][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:30,344][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:31,076][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:31,076][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.54it/s]
+[2024-05-26 15:34:31,092][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:31,092][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:31,092][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:31,092][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:31,824][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:31,824][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.89it/s]
+[2024-05-26 15:34:31,840][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:31,841][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:31,841][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:31,841][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:32,573][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:32,573][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.03it/s]
+[2024-05-26 15:34:32,589][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:32,590][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:32,590][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:32,590][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:33,322][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:33,322][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.26it/s]
+[2024-05-26 15:34:33,339][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:33,339][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:33,339][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:33,339][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:34,072][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:34,072][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.54it/s]
+[2024-05-26 15:34:34,088][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:34,088][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:34,089][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:34,089][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:34,821][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:34,821][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.07it/s]
+[2024-05-26 15:34:34,837][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:34,838][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:34,838][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:34,838][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:35,570][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:35,570][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.39it/s]
+[2024-05-26 15:34:35,586][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:35,587][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:35,587][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:35,587][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:36,318][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:36,318][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.43it/s]
+[2024-05-26 15:34:36,334][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:36,334][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:36,334][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:36,335][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:37,066][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:37,067][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.66it/s]
+[2024-05-26 15:34:37,083][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:37,083][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:37,083][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:37,083][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:37,815][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:37,815][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.94it/s]
+[2024-05-26 15:34:37,831][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:37,831][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:37,831][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:37,832][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:38,564][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:38,564][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.35it/s]
+[2024-05-26 15:34:38,580][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:38,580][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:38,580][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:38,581][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:39,312][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:39,313][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.75it/s]
+[2024-05-26 15:34:39,329][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:39,329][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:39,329][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:39,329][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:40,062][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:40,062][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.50it/s]
+[2024-05-26 15:34:40,078][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:40,078][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:40,078][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:40,078][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:40,810][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:40,810][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.70it/s]
+[2024-05-26 15:34:40,827][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:40,827][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:40,827][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:40,827][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:41,559][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:41,559][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.28it/s]
+[2024-05-26 15:34:41,575][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:41,575][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:41,575][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:41,575][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:42,306][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:42,307][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.24it/s]
+[2024-05-26 15:34:42,323][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:42,323][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:42,323][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:42,323][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:43,056][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:43,056][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.36it/s]
+[2024-05-26 15:34:43,072][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:43,072][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:43,072][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:43,072][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:43,804][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:43,805][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.03it/s]
+[2024-05-26 15:34:43,821][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:43,821][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:43,821][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:43,821][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:44,553][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:44,553][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.10it/s]
+[2024-05-26 15:34:44,569][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:44,570][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:44,570][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:44,570][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:45,302][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:45,302][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.61it/s]
+[2024-05-26 15:34:45,318][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:45,318][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:45,318][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:45,319][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:46,050][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:46,050][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.52it/s]
+[2024-05-26 15:34:46,066][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:46,067][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:46,067][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:46,067][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:46,798][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:46,799][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.69it/s]
+[2024-05-26 15:34:46,815][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:46,815][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:46,815][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:46,815][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:47,547][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:47,548][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.41it/s]
+[2024-05-26 15:34:47,564][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:47,564][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:47,564][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:47,564][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:48,297][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:48,297][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.70it/s]
+[2024-05-26 15:34:48,315][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:48,315][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:48,315][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:48,315][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:49,046][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:49,046][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.21it/s]
+[2024-05-26 15:34:49,063][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:49,063][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:49,063][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:49,063][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:49,796][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:49,796][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.21it/s]
+[2024-05-26 15:34:49,812][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:49,813][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:49,813][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:49,813][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:50,545][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:50,545][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.18it/s]
+[2024-05-26 15:34:50,561][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:50,561][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:50,561][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:50,561][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:51,294][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:51,294][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.55it/s]
+[2024-05-26 15:34:51,310][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:51,310][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:51,310][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:51,310][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:52,042][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:52,043][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.34it/s]
+[2024-05-26 15:34:52,059][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:52,059][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:52,059][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:52,059][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:52,792][semstamp][INFO] - Candidate text: 3.
+[2024-05-26 15:34:52,792][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.52it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.17it/s]
+[2024-05-26 15:34:52,809][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:52,809][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:52,809][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:52,809][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:53,541][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:53,541][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.26it/s]
+[2024-05-26 15:34:53,557][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:53,557][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:53,557][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:53,557][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:54,290][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:54,290][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.36it/s]
+[2024-05-26 15:34:54,306][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:54,307][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:54,307][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:54,307][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:55,038][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:55,038][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.08it/s]
+[2024-05-26 15:34:55,054][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:55,054][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:55,054][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:55,054][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:55,787][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:55,787][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.98it/s]
+[2024-05-26 15:34:55,803][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:55,803][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:55,803][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:55,803][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:56,535][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:56,535][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.24it/s]
+[2024-05-26 15:34:56,551][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:56,552][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:56,552][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:56,552][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:57,284][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:57,284][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.17it/s]
+[2024-05-26 15:34:57,301][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:57,301][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:57,301][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:57,301][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:58,032][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:58,033][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.65it/s]
+[2024-05-26 15:34:58,049][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:58,049][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:58,049][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:58,049][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:58,781][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:58,782][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.74it/s]
+[2024-05-26 15:34:58,798][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:58,798][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:58,798][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:58,798][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:34:59,530][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:34:59,531][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.58it/s]
+[2024-05-26 15:34:59,547][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:34:59,547][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:34:59,548][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:34:59,548][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:00,279][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:00,280][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.34it/s]
+[2024-05-26 15:35:00,296][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:00,296][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:00,296][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:00,296][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:01,029][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:01,029][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.40it/s]
+[2024-05-26 15:35:01,045][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:01,045][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:01,045][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:01,045][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:01,777][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:01,778][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.56it/s]
+[2024-05-26 15:35:01,794][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:01,794][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:01,794][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:01,794][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:02,526][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:02,526][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.73it/s]
+[2024-05-26 15:35:02,543][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:02,543][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:02,543][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:02,543][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:03,274][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:03,275][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.49it/s]
+[2024-05-26 15:35:03,291][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:03,291][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:03,291][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:03,291][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:04,023][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:04,023][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.61it/s]
+[2024-05-26 15:35:04,039][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:04,039][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:04,040][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:04,040][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:04,772][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:04,773][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.70it/s]
+[2024-05-26 15:35:04,789][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:04,789][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:04,789][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:04,789][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:05,522][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:05,522][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.25it/s]
+[2024-05-26 15:35:05,538][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:05,539][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:05,539][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:05,539][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:06,271][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:06,271][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.16it/s]
+[2024-05-26 15:35:06,287][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:06,288][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:06,288][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:06,288][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:07,020][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:07,020][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.56it/s]
+[2024-05-26 15:35:07,036][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:07,037][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:07,037][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:07,037][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:07,769][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:07,769][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.78it/s]
+[2024-05-26 15:35:07,785][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:07,786][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:07,786][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:07,786][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:08,518][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:08,518][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.53it/s]
+[2024-05-26 15:35:08,534][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:08,534][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:08,534][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:08,534][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:09,267][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:09,267][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.66it/s]
+[2024-05-26 15:35:09,283][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:09,284][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:09,284][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:09,284][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:10,016][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:10,016][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.50it/s]
+[2024-05-26 15:35:10,033][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:10,033][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:10,033][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:10,033][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:10,902][semstamp][INFO] - Candidate text:     2.
+[2024-05-26 15:35:10,902][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.95it/s]
+[2024-05-26 15:35:10,918][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:10,919][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:10,919][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:10,919][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:11,651][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:11,651][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.22it/s]
+[2024-05-26 15:35:11,668][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:11,668][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:11,668][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:11,668][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:12,401][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:12,402][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.20it/s]
+[2024-05-26 15:35:12,418][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:12,418][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:12,418][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:12,418][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:13,150][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:13,150][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.57it/s]
+[2024-05-26 15:35:13,166][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:13,166][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:13,166][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:13,166][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:13,899][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:13,899][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.32it/s]
+[2024-05-26 15:35:13,915][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:13,915][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:13,915][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:13,915][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:14,647][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:14,648][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.83it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.97it/s]
+[2024-05-26 15:35:14,664][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:14,664][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:14,664][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:14,664][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:15,398][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:15,398][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.07it/s]
+[2024-05-26 15:35:15,414][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:15,414][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:15,415][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:15,415][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:16,146][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:16,146][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.20it/s]
+[2024-05-26 15:35:16,162][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:16,162][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:16,162][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:16,162][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:16,894][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:16,895][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.73it/s]
+[2024-05-26 15:35:16,911][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:16,911][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:16,911][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:16,911][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:17,643][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:17,644][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.07it/s]
+[2024-05-26 15:35:17,660][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:17,660][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:17,660][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:17,660][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:18,393][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:18,393][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.54it/s]
+[2024-05-26 15:35:18,409][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:18,410][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:18,410][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:18,410][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:19,142][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 15:35:19,142][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.73it/s]
+[2024-05-26 15:35:19,158][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:19,158][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:19,158][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 15:35:19,158][semstamp][INFO] - acceptmaskstr: 6,3
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:19,160][semstamp][INFO] - WARNING: desired semantic signature can't be sampled after max_trials 100
+[2024-05-26 15:35:19,160][semstamp][INFO] - CONTEXT: Tough time to be a Chipotle lover. The stock’s fallen 35% in recent months, largely due to food safety concerns. Today, the company announced they're closing all stores nationwide for a few hours on February 8th to discuss these issues with employees.
+But investors looking forward want more – they want profits. It seems clear that investors believe the "better" days (see: growth) are in the rear-view for this once-beloved stock. The main issues at hand are:
+1. Growth has slowed: Chipotle’s same-store sales growth was around 10% annually from 2010-2015, peaking at 16.6% in Q3 of 2014. But since then it's dwindled; Q3 of 2015 only saw a 2% growth.
+
+[2024-05-26 15:35:19,160][semstamp][INFO] - NOTE: use regular (non-filtered-by-sig) continuation: 2.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 15:35:21,390][semstamp][INFO] - Candidate text:  Profit margins have taken a hit: Food and labor costs went up amidst increased competition from other fast-casual chains.
+
+[2024-05-26 15:35:21,391][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.31it/s]
+[2024-05-26 15:35:21,400][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:21,400][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:25,276][semstamp][INFO] - Candidate text:  Food safety concerns continue: Chipotle just can’t shake those pesky recalls and illness outbreaks, making it tougher to re-gain customers' trust (and investor confidence)
+Chipotle is up about 1% today after yesterday's decline.
+[2024-05-26 15:35:25,276][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 117.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.04it/s]
+[2024-05-26 15:35:25,297][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:35:25,297][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:25,297][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:25,297][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:27,737][semstamp][INFO] - Candidate text:  Increased competition: With the rise of other fast-casual chains like Shake Shack and Panera Bread, the competition is heating up.
+
+[2024-05-26 15:35:27,738][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.84it/s]
+[2024-05-26 15:35:27,755][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:35:27,755][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:27,755][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:27,755][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:29,787][semstamp][INFO] - Candidate text:  Rivals like Moe's Southwest Grill, Panera Bread, and Habit Restaurants keep stealing market share.
+[2024-05-26 15:35:29,787][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.90it/s]
+[2024-05-26 15:35:29,804][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:35:29,805][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:29,805][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:29,805][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:31,494][semstamp][INFO] - Candidate text:  Profit margins have compressed: As food and labor costs rise, profit margins shrink.
+[2024-05-26 15:35:31,494][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.85it/s]
+[2024-05-26 15:35:31,511][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:31,512][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:31,512][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:31,512][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:34,024][semstamp][INFO] - Candidate text:  Rising Competition: Panera Bread and others have updated their menus, adding health-conscious options that now compete directly with Chipotle's value proposition.
+
+[2024-05-26 15:35:34,025][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.36it/s]
+[2024-05-26 15:35:34,043][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:35:34,043][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:34,043][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:34,043][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:36,351][semstamp][INFO] - Candidate text:  Margins are getting squeezed: Higher wage costs, increased expenses on marketing efforts, and higher beef prices have pushed margins down.
+[2024-05-26 15:35:36,352][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.29it/s]
+[2024-05-26 15:35:36,369][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:36,370][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:36,370][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:36,370][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:39,297][semstamp][INFO] - Candidate text:  Competition is heating up: As consumer preferences swing toward better-for-you options and more sustainable practices, competitors like Panera Bread, Sweetgreen, and Dig Inn gain traction.
+
+[2024-05-26 15:35:39,298][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.07it/s]
+[2024-05-26 15:35:39,315][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:35:39,315][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:39,316][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:39,316][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:41,899][semstamp][INFO] - Candidate text:  Brand image: The recent E. coli outbreaks and associated food safety concerns will probably continue affecting sales and the company’s rep until this storm passes.
+
+[2024-05-26 15:35:41,900][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.79it/s]
+[2024-05-26 15:35:41,910][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:41,910][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:44,491][semstamp][INFO] - Candidate text:  Expanding costs and flat profit margins: While top-line revenue is up, bottom line earnings haven’t followed as quickly, causing worry among shareholders.
+[2024-05-26 15:35:44,491][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.71it/s]
+[2024-05-26 15:35:44,509][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 15:35:44,509][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:35:44,509][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:44,509][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:46,178][semstamp][INFO] - Candidate text:  As sales continue growing but expenses grow faster, those margin worries persist.
+
+[2024-05-26 15:35:46,178][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.11it/s]
+[2024-05-26 15:35:46,195][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:46,195][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:46,195][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:46,196][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:47,932][semstamp][INFO] - Candidate text:  Food costs increased by $21M YoY in Q3 '15.
+
+[2024-05-26 15:35:47,932][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.51it/s]
+[2024-05-26 15:35:47,950][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:47,950][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:47,950][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:47,950][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:49,892][semstamp][INFO] - Candidate text:  Analysts predict Chipotle might experience flat or even negative earnings growth in the next year.
+
+
+[2024-05-26 15:35:49,892][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.00it/s]
+[2024-05-26 15:35:49,909][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:35:49,910][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:49,910][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:49,910][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:52,125][semstamp][INFO] - Candidate text:  Costs such as labor, materials, marketing and expansion expenses have been rising faster than sales, squeezing profit margins.
+
+[2024-05-26 15:35:52,125][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.55it/s]
+[2024-05-26 15:35:52,143][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:52,143][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:52,143][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:52,143][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:54,085][semstamp][INFO] - Candidate text:  Some point to an increasing cost structure and pressure from increased marketing expenses and store count initiatives.
+
+[2024-05-26 15:35:54,085][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.85it/s]
+[2024-05-26 15:35:54,102][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:35:54,103][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:54,103][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:54,103][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:55,565][semstamp][INFO] - Candidate text:  Margins were compressed by higher labor and marketing expenses.
+
+[2024-05-26 15:35:55,565][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.88it/s]
+[2024-05-26 15:35:55,582][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 15:35:55,582][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:55,582][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:55,582][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:57,114][semstamp][INFO] - Candidate text:  Chipotle invested heavily in new store openings and marketing campaigns.
+
+[2024-05-26 15:35:57,114][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.15it/s]
+[2024-05-26 15:35:57,131][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 15:35:57,131][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:35:57,131][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:57,131][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:35:59,484][semstamp][INFO] - Candidate text:  Profit margins have remained stagnant due to increases in store opening costs and higher labor expenses, which might impact future earning potential.
+
+[2024-05-26 15:35:59,484][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.24it/s]
+[2024-05-26 15:35:59,493][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:35:59,494][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:01,573][semstamp][INFO] - Candidate text:  A significant rise in worker's comp claims and ongoing brand revamp spend further eats into those margins.
+
+[2024-05-26 15:36:01,573][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.49it/s]
+[2024-05-26 15:36:01,582][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:01,582][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:04,417][semstamp][INFO] - Candidate text:  Expenses have jumped alongside labor cost increases, marketing push-ups, and investments in technology, supply chain oversight, and customer perks like mobile ordering and delivery services.
+
+[2024-05-26 15:36:04,417][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.06it/s]
+[2024-05-26 15:36:04,435][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:36:04,435][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:04,435][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:04,435][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:06,447][semstamp][INFO] - Candidate text:  Food costs have increased with prices not raised sufficiently enough to compensate, which weighs down on profitability.
+
+[2024-05-26 15:36:06,447][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.53it/s]
+[2024-05-26 15:36:06,464][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:36:06,465][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:06,465][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:06,465][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:08,407][semstamp][INFO] - Candidate text:  They blame increased marketing expenses and menu cost pressures, plus rising labor and other operational expenses.
+
+[2024-05-26 15:36:08,408][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.08it/s]
+[2024-05-26 15:36:08,417][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:08,417][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:10,838][semstamp][INFO] - Candidate text:  Increasing employee benefits, tech investments, and marketing efforts continue to chip away at their already-slim profit margin (~18%).
+
+[2024-05-26 15:36:10,839][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.66it/s]
+[2024-05-26 15:36:10,856][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:36:10,856][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:10,856][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:10,857][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:13,347][semstamp][INFO] - Candidate text:  Increased spending on marketing and staffing may improve brand trust & customer satisfaction eventually… but that's harder to prove than the cost itself.
+
+[2024-05-26 15:36:13,348][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.81it/s]
+[2024-05-26 15:36:13,365][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 15:36:13,366][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:36:13,366][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 15:36:13,366][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:16,287][semstamp][INFO] - Candidate text: To be successful again, Chipotle should focus on improving their food quality, safety, and efficiency across their network to drive sales...and eventually profit margin rebounds.
+[2024-05-26 15:36:16,288][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.52it/s]
+[2024-05-26 15:36:16,305][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 15:36:16,306][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:36:16,306][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 15:36:16,306][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:18,004][semstamp][INFO] - Candidate text:  Perhaps that day off for employee education will be the catalyst 💪.
+[2024-05-26 15:36:18,004][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.56it/s]
+[2024-05-26 15:36:18,021][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 15:36:18,021][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:18,021][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:18,021][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:23,887][semstamp][INFO] - Candidate text:  Then maybe investors will crave those burritos once again 😋"
+— Chris, Founder, HedgeHugger 📊 (Originally published on February 2, 2016)
+#stockmarket #business #chowdown #fastfoodindustrypoets #
+When to Reap what you Sowed and When to Replan - Investment Mistakes to Avoid!
+[2024-05-26 15:36:23,888][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.75it/s]
+[2024-05-26 15:36:23,907][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 15:36:23,907][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 15:36:23,907][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:23,907][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:26,020][semstamp][INFO] - Candidate text:  Meanwhile, share buybacks or cost-cutting could boost EPS expectations, appeasing jittery investors.
+[2024-05-26 15:36:26,020][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.30it/s]
+[2024-05-26 15:36:26,037][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 15:36:26,038][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 15:36:26,038][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 15:36:26,038][semstamp][INFO] - acceptmaskstr: 7,2
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/stats.csv
+[2024-05-26 15:36:26,040][semstamp][INFO] - Prompt: Tough time to be a Chipotle lover.
+[2024-05-26 15:36:26,040][semstamp][INFO] - Response: ('Tough time to be a Chipotle lover. The stock’s fallen 35% in recent months, largely due to food safety concerns. Today, the company announced they\'re closing all stores nationwide for a few hours on February 8th to discuss these issues with employees.\nBut investors looking forward want more – they want profits. It seems clear that investors believe the "better" days (see: growth) are in the rear-view for this once-beloved stock. The main issues at hand are:\n1. Growth has slowed: Chipotle’s same-store sales growth was around 10% annually from 2010-2015, peaking at 16.6% in Q3 of 2014. But since then it\'s dwindled; Q3 of 2015 only saw a 2% growth.\n2. Expanding costs and flat profit margins: While top-line revenue is up, bottom line earnings haven’t followed as quickly, causing worry among shareholders. Increased spending on marketing and staffing may improve brand trust & customer satisfaction eventually… but that\'s harder to prove than the cost itself.\nTo be successful again, Chipotle should focus on improving their food quality, safety, and efficiency across their network to drive sales...and eventually profit margin rebounds. Meanwhile, share buybacks or cost-cutting could boost EPS expectations, appeasing jittery investors.', 154)
+[2024-05-26 15:36:26,040][watermarker][INFO] - Received completion: Tough time to be a Chipotle lover. The stock’s fallen 35% in recent months, largely due to food safety concerns. Today, the company announced they're closing all stores nationwide for a few hours on February 8th to discuss these issues with employees.
+But investors looking forward want more – they want profits. It seems clear that investors believe the "better" days (see: growth) are in the rear-view for this once-beloved stock. The main issues at hand are:
+1. Growth has slowed: Chipotle’s same-store sales growth was around 10% annually from 2010-2015, peaking at 16.6% in Q3 of 2014. But since then it's dwindled; Q3 of 2015 only saw a 2% growth.
+2. Expanding costs and flat profit margins: While top-line revenue is up, bottom line earnings haven’t followed as quickly, causing worry among shareholders. Increased spending on marketing and staffing may improve brand trust & customer satisfaction eventually… but that's harder to prove than the cost itself.
+To be successful again, Chipotle should focus on improving their food quality, safety, and efficiency across their network to drive sales...and eventually profit margin rebounds. Meanwhile, share buybacks or cost-cutting could boost EPS expectations, appeasing jittery investors.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.38it/s]
+n_watermark: 11, n_test_sent: 12
+zscore: 5.333333333333333
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.50it/s]
+n_watermark: 11, n_test_sent: 12
+zscore: 5.333333333333333
+[2024-05-26 15:36:26,259][__main__][INFO] - Watermarked Text: Tough time to be a Chipotle lover. The stock’s fallen 35% in recent months, largely due to food safety concerns. Today, the company announced they're closing all stores nationwide for a few hours on February 8th to discuss these issues with employees.
+But investors looking forward want more – they want profits. It seems clear that investors believe the "better" days (see: growth) are in the rear-view for this once-beloved stock. The main issues at hand are:
+1. Growth has slowed: Chipotle’s same-store sales growth was around 10% annually from 2010-2015, peaking at 16.6% in Q3 of 2014. But since then it's dwindled; Q3 of 2015 only saw a 2% growth.
+2. Expanding costs and flat profit margins: While top-line revenue is up, bottom line earnings haven’t followed as quickly, causing worry among shareholders. Increased spending on marketing and staffing may improve brand trust & customer satisfaction eventually… but that's harder to prove than the cost itself.
+To be successful again, Chipotle should focus on improving their food quality, safety, and efficiency across their network to drive sales...and eventually profit margin rebounds. Meanwhile, share buybacks or cost-cutting could boost EPS expectations, appeasing jittery investors.
+[2024-05-26 15:36:26,259][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 15:36:26,259][__main__][INFO] - Score: 5.333333333333333
+[2024-05-26 15:36:26,259][__main__][INFO] - Time taken: 196.92748308181763
+Data appended to ./inputs/c4_saves/c4_2_temp_150_divp_15_attempt_2/watermarked_text.csv

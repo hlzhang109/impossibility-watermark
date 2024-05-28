@@ -41,7 +41,7 @@ class SentenceMutator:
 
         # Model Pipeline
         if not isinstance(self.pipeline, HuggingFacePipeline):
-            
+            log.info(f"Type of pipeline was: {type(self.pipeline)}")
             # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
             # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
             from model_builders.pipeline import PipeLineBuilder

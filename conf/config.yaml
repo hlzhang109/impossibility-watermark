@@ -17,6 +17,7 @@ attack_args:
     log_csv_path: "./results/attack_log.csv"
     verbose: True
 
+# UMD still needs this to detect, so leaving this here.
 generator_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ" "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" "gpt-4"
     revision: "main" 
@@ -31,7 +32,6 @@ generator_args:
     top_k: 40
     repetition_penalty: 1.1
     watermark_score_threshold: 5.0
-    diversity_penalty: 15.0 # default is 0.0. Increase to make the output more diverse. This helps with SemStamp generation.
 
 oracle_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
@@ -55,7 +55,7 @@ oracle_args:
     num_gpus: 1 # for prometheus only
 
 mutator_args:
-    type: "word" # document, sentence, span, word
+    type: "sentence" # document, sentence, span, word
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5

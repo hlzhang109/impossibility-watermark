@@ -72,7 +72,8 @@ class Attack:
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
         # If we're only in detection mode for Semstamp, we don't need the pipeline.
-        if not self.cfg.watermark_args != "semstamp" or not self.cfg.watermark_args.only_detect:
+        if "semstamp" not in self.cfg.watermark_args.name:
+            log.info(f"Getting a pipeline for the generator...")
             self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
             self.generator_pipeline = self.generator_pipe_builder.pipeline
         else:
@@ -109,21 +110,21 @@ class Attack:
             self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
 
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
-        self.watermarker = get_watermarker(cfg, pipeline=self.generator_pipeline)
+        self.watermarker = get_watermarker(cfg, pipeline=self.generator_pipeline, only_detect=True)
 
         # Configure Mutator
         if "document" in cfg.mutator_args.type:
             self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
-            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
+            self.mutator = DocumentMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
         elif "sentence" in cfg.mutator_args.type:
             self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
-            self.mutator = LLMMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder)
+            self.mutator = SentenceMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
         elif "span" in cfg.mutator_args.type:
             self.mutator = SpanFillMutator()
         elif "word" in cfg.mutator_args.type:
             self.mutator = MaskFillMutator()
         else:
-            raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', or 'mask_fill'.")
+            raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', 'sentence' or 'document'.")
 
 
     def attack(self, prompt, watermarked_text):

@@ -1,0 +1,1537 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.12/site-packages/transformers/utils/hub.py:122: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-24 00:03:41,191][__main__][INFO] - Starting to watermark...
+[2024-05-24 00:03:41,194][__main__][INFO] - Prompt: A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain.
+Sheila Thorns from Birmingham underwent a Caesarean section early this morning during which six children - four boys and two girls - were delivered.
+Mrs Thorns gave birth two months prematurely - on her 30th birthday.
+All the babies were placed in incubators after being delivered but one - a girl - died shortly afterwards while being given a blood transfusion.
+Twenty eight medical staff from Birmingham Maternity Hospital were present at the delivery and the five surviving babies - Ian, Roger, Lynne, Julie and Susan - are now being cared for by a specialist team.
+Doctors say around one birth in 3,000 million will result in sextuplets.
+However, those odds were reduced for Mrs Thorns due to the fertility treatment she had been undergoing.
+Her husband, Barry, said the couple had been aware of the possibility of having more than one baby.
+Mr Thorns said: "We were expecting this multiple birth but we were stunned when we were first told that Sheila was likely to have five or six babies."
+"We have wanted children all our married life," he added.
+Over the past two years Mrs Thorns has been treated with gonadotrophin which contains two hormones known as FSH and LH.
+The consultant treating her, Dr Cooke, said Mrs Thorns and several other women were unable to conceive until the proportion of LH was increased but that had resulted in a series of multiple pregnancies.
+"We have had one set of triplets recently, and we know of some more who have not yet been born. I think we are going to have some more yet," he said.
+But Dr Cooke believed the medical profession had learnt a lot about the effects of fertility drugs from those cases: "I think there is a real possibility that one day we shall be in a position to let a patient choose how many children she will have," he said.
+Before 1938 multiple births were registered as separate events but it is believed around 18 sets of sextuplets have been born in the UK this century though it is unknown how many of them survived.
+However, the anxiety is not yet over for the Thorns who have been warned by an obstetrician that more of the babies may yet die.
+Three of the Thorns sextuplets survived.
+The numbers of twins, triplets and other multiple births have soared in the years since fertility and IVF treatment became widely available.
+The first case in Britain of a set of sextuplets surviving came with the births of Jenny, Ruth, Lucy, Kate, Hannah and Sarah Walton in 1983.
+In November 1997 the world's first recorded case of surviving septuplets occurred when three boys and four girls were born to a couple in the United States.
+In 1996 Mandy Allwood, a British woman on fertility treatment, gave birth to eight children - all died soon after delivery.
+Since then births of octuplets have occurred in the US- when seven survived - and Italy - when six children survived.
+[2024-05-24 00:03:41,194][__main__][INFO] - Getting the watermarker...
+[2024-05-24 00:03:41,195][watermarker][INFO] - Using device: cuda
+[2024-05-24 00:03:41,195][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-24 00:03:46,562][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-24 00:03:57,621][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'LlamaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MvpForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+[2024-05-24 00:04:00,526][semstamp][INFO] - Setting up generating components...
+[2024-05-24 00:04:00,529][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.0, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-24 00:04:00,529][semstamp][INFO] - Initializing embedder model.
+[2024-05-24 00:04:00,529][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-05-24 00:04:02,419][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-24 00:04:05,092][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-24 00:04:05,093][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-24 00:04:05,093][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.89it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.89it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:08,112][semstamp][INFO] - Candidate text:  The babies, three girls and three boys, were born at 26 weeks gestation, weighing between 1lb 10oz and 2lb 3oz.
+
+
+[2024-05-24 00:04:08,112][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.16it/s]
+[2024-05-24 00:04:08,133][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:04:08,133][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:10,499][semstamp][INFO] - Candidate text:  The 30-year-old, who wishes to remain anonymous, delivered five boys and one girl by Caesarean section at a hospital in Birmingham last week.
+[2024-05-24 00:04:10,500][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.52it/s]
+[2024-05-24 00:04:10,516][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:04:10,516][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:12,753][semstamp][INFO] - Candidate text:  The unnamed mother, who lives in northern England, had been expecting triplets but was shocked to discover during a scan that she was carrying three more.
+
+
+[2024-05-24 00:04:12,753][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.39it/s]
+[2024-05-24 00:04:12,769][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:12,770][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:14,942][semstamp][INFO] - Candidate text:  The 31-year-old mother, who has not been named, gave birth to four boys and two girls at a hospital in Liverpool yesterday evening.
+
+[2024-05-24 00:04:14,942][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.34it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:17,255][semstamp][INFO] - Candidate text:  The babies, three boys and three girls, were delivered by Caesarean section at 27 weeks gestation at Birmingham Women's Hospital on Friday.
+[2024-05-24 00:04:17,256][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.93it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:19,702][semstamp][INFO] - Candidate text:  The 31-year-old woman, who has not been named, delivered four girls and two boys by Caesarean section at a hospital in Birmingham on Thursday.
+[2024-05-24 00:04:19,703][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.85it/s]
+[2024-05-24 00:04:19,719][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:19,720][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:22,023][semstamp][INFO] - Candidate text:  (Source: BBC News)
+The mother,'t be named, gave birth at Birmingham Women's Hospital after a pregnancy that was reportedly 'uneventful'.
+[2024-05-24 00:04:22,023][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.54it/s]
+[2024-05-24 00:04:22,039][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:04:22,039][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:23,950][semstamp][INFO] - Candidate text:  The mother, who wishes to remain anonymous, gave birth by caesarean section at a hospital in Nottingham last week.
+
+[2024-05-24 00:04:23,950][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.13it/s]
+[2024-05-24 00:04:23,966][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:23,967][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:26,205][semstamp][INFO] - Candidate text:  The 30-year-old, whose identity has not been revealed, gave birth by Caesarean section at Liverpool Women’s Hospital on Friday morning.
+
+[2024-05-24 00:04:26,205][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.70it/s]
+[2024-05-24 00:04:26,221][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:26,222][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:28,132][semstamp][INFO] - Candidate text:  The mother, who wishes to remain anonymous, gave birth by Caesarean section at a hospital in Liverpool, England.
+
+
+[2024-05-24 00:04:28,132][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.75it/s]
+[2024-05-24 00:04:28,148][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:04:28,148][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:30,651][semstamp][INFO] - Candidate text:  The 31-year-old mother, whose identity has not been revealed, gave birth to four boys and two girls by caesarean section at a hospital in London.
+
+
+[2024-05-24 00:04:30,651][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.30it/s]
+[2024-05-24 00:04:30,668][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:30,668][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:32,512][semstamp][INFO] - Candidate text:  The babies, three boys and three girls, were born by cesarean section at Birmingham Women's Hospital, England.
+
+
+[2024-05-24 00:04:32,513][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.80it/s]
+[2024-05-24 00:04:32,528][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:32,528][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:35,666][semstamp][INFO] - Candidate text:  The 34-year-old mother, whose identity has not been released, gave birth to four boys and two girls by cesarean section at Liverpool Women’s Hospital on Friday.
+[2024-05-24 00:04:35,667][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.36it/s]
+[2024-05-24 00:04:35,683][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:35,683][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:38,052][semstamp][INFO] - Candidate text:  The 31-year-old mother, who wishes to remain anonymous, gave birth by Caesarean section at a hospital in Nottingham on February 14th.
+[2024-05-24 00:04:38,052][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.06it/s]
+[2024-05-24 00:04:38,068][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:38,069][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:40,111][semstamp][INFO] - Candidate text:  The 31-year-old mother, who has not been named, delivered five girls and one boy at a hospital in Liverpool yesterday afternoon.
+
+[2024-05-24 00:04:40,111][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.36it/s]
+[2024-05-24 00:04:40,127][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:04:40,127][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:42,435][semstamp][INFO] - Candidate text:  The 29-year-old mother, who does not wish to be named, gave birth by Caesarean section on Monday at a hospital in Birmingham.
+
+[2024-05-24 00:04:42,435][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.44it/s]
+[2024-05-24 00:04:42,451][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:42,451][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:44,232][semstamp][INFO] - Candidate text:  The mother, who wishes to remain anonymous, gave birth to the babies at Liverpool's Women's Hospital last week.
+
+[2024-05-24 00:04:44,233][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.75it/s]
+[2024-05-24 00:04:44,249][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:44,249][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:46,553][semstamp][INFO] - Candidate text:  The 31-year-old mother, who wishes to remain anonymous, delivered four girls and two boys by Caesarean section at Birmingham Women's Hospital.
+
+[2024-05-24 00:04:46,554][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.81it/s]
+[2024-05-24 00:04:46,569][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:46,569][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:49,074][semstamp][INFO] - Candidate text:  The 31-year-old mother, who has not been named, delivered four boys and two girls by Caesarean section at Liverpool Women's Hospital on Monday morning.
+
+[2024-05-24 00:04:49,074][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.55it/s]
+[2024-05-24 00:04:49,090][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:04:49,090][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:51,462][semstamp][INFO] - Candidate text:  The unnamed mother, who is from Manchester, had three boys and three girls weighing between 2lb 1oz and 3lb 14oz each.
+[2024-05-24 00:04:51,463][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.88it/s]
+[2024-05-24 00:04:51,479][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:04:51,479][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:52,391][semstamp][INFO] - Candidate text:  All six are doing well.
+
+[2024-05-24 00:04:52,391][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 101.58it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:54,204][semstamp][INFO] - Candidate text:  They were born by Caesarean section at St Mary's Hospital in Manchester on Monday morning.
+
+[2024-05-24 00:04:54,204][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.76it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:55,419][semstamp][INFO] - Candidate text:  All six babies are said to be doing well. '
+[2024-05-24 00:04:55,419][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.15it/s]
+[2024-05-24 00:04:55,435][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:04:55,435][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:56,245][semstamp][INFO] - Candidate text:  All are doing well.
+
+
+[2024-05-24 00:04:56,245][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.05it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:04:58,120][semstamp][INFO] - Candidate text:  They were delivered by caesarean section at St Mary's Hospital in Manchester on January 19.
+
+[2024-05-24 00:04:58,120][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.74it/s]
+[2024-05-24 00:04:58,136][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:04:58,136][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:00,003][semstamp][INFO] - Candidate text:  They were born at St Mary's Hospital in Manchester after a pregnancy that lasted just over 31 weeks.
+
+[2024-05-24 00:05:00,003][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.76it/s]
+[2024-05-24 00:05:00,019][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:05:00,019][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:04,277][semstamp][INFO] - Candidate text:  The babies were born by emergency Caesarean section at St Mary's Hospital in Manchester after the mother was taken ill on New Year's Eve.
+[2024-05-24 00:05:04,278][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.26it/s]
+[2024-05-24 00:05:04,294][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:05:04,295][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:05,634][semstamp][INFO] - Candidate text:  The premature births were described by doctors as a "miracle".
+[2024-05-24 00:05:05,634][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.50it/s]
+[2024-05-24 00:05:05,650][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:05,650][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:06,725][semstamp][INFO] - Candidate text:  All six babies are reportedly healthy and well.
+
+[2024-05-24 00:05:06,725][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.17it/s]
+[2024-05-24 00:05:06,741][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:05:06,741][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:09,118][semstamp][INFO] - Candidate text: The family is said to be delighted and overwhelmed by the surprise arrivals, which were conceived naturally without any fertility treatment.
+[2024-05-24 00:05:09,118][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.46it/s]
+[2024-05-24 00:05:09,134][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:09,134][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:10,952][semstamp][INFO] - Candidate text: The multiple birth occurred naturally, without the assistance of fertility treatment, which experts say is extremely rare.
+[2024-05-24 00:05:10,952][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.88it/s]
+[2024-05-24 00:05:10,968][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:10,968][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:15,810][semstamp][INFO] - Candidate text: The UK's Royal College of Obstetricians and Gynaecologists (RCOG) says that the chances of conceiving sextuplets naturally are about one in 13 million.
+[2024-05-24 00:05:15,811][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.57it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:18,300][semstamp][INFO] - Candidate text: The births occurred at St Mary's Hospital in Manchester, where a team of more than 20 medical professionals were on hand to assist with the delivery.
+
+
+[2024-05-24 00:05:18,300][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.26it/s]
+[2024-05-24 00:05:18,316][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:18,316][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:20,464][semstamp][INFO] - Candidate text: The UK's National Institute for Clinical Excellence (NICE) has published new guidelines on the care of twin and multiple births.
+[2024-05-24 00:05:20,465][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.60it/s]
+[2024-05-24 00:05:20,480][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:20,480][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:23,158][semstamp][INFO] - Candidate text: I know there have been cases of sextuplets before (such as the Gosselin family on Jon & Kate Plus Eight), but it's still incredibly rare!
+[2024-05-24 00:05:23,158][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.49it/s]
+[2024-05-24 00:05:23,174][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:05:23,174][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:24,856][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, with only a few cases reported worldwide every year.
+[2024-05-24 00:05:24,857][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.81it/s]
+[2024-05-24 00:05:24,872][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:05:24,872][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:26,755][semstamp][INFO] - Candidate text: This is incredibly rare, with only about one in every 13 million births resulting in sextuplets.
+[2024-05-24 00:05:26,755][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.30it/s]
+[2024-05-24 00:05:26,771][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:05:26,771][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:28,192][semstamp][INFO] - Candidate text: The birth took place at St Mary's Hospital in Manchester on Monday.
+[2024-05-24 00:05:28,192][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.28it/s]
+[2024-05-24 00:05:28,207][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:28,208][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:29,627][semstamp][INFO] - Candidate text: The delivery took place at St Mary's Hospital in Manchester on Friday.
+[2024-05-24 00:05:29,628][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.09it/s]
+[2024-05-24 00:05:29,643][semstamp][INFO] - LSH Candidate: 5
+[2024-05-24 00:05:29,643][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:31,802][semstamp][INFO] - Candidate text:  "This is a unique and exceptional case," said Dr Leighton Jackson, a consultant obstetrician at the hospital. "
+[2024-05-24 00:05:31,802][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.59it/s]
+[2024-05-24 00:05:31,818][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:31,819][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:34,258][semstamp][INFO] - Candidate text: To have six babies born alive is extremely rare."
+[2024-05-24 00:05:34,258][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.12it/s]
+[2024-05-24 00:05:34,274][semstamp][INFO] - LSH Candidate: 5
+[2024-05-24 00:05:34,274][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:36,311][semstamp][INFO] - Candidate text: Multiple births of this kind are extremely rare and it's even more unusual for all six babies to be born alive."
+
+[2024-05-24 00:05:36,311][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.96it/s]
+[2024-05-24 00:05:36,328][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:36,328][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:37,566][semstamp][INFO] - Candidate text: The mother and all six babies are doing very well."
+[2024-05-24 00:05:37,566][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.56it/s]
+[2024-05-24 00:05:37,583][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:37,583][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:39,087][semstamp][INFO] - Candidate text: To have six babies born naturally and all alive is an extremely rare event."
+[2024-05-24 00:05:39,087][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.09it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:40,466][semstamp][INFO] - Candidate text: The mother is doing very well and all the babies are healthy."
+
+[2024-05-24 00:05:40,466][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.21it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:42,378][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, and this is the first time it has happened in our hospital."
+
+[2024-05-24 00:05:42,378][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.45it/s]
+[2024-05-24 00:05:42,394][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:42,395][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:43,898][semstamp][INFO] - Candidate text: We are delighted that both the mother and the babies are doing so well."
+[2024-05-24 00:05:43,898][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.29it/s]
+[2024-05-24 00:05:43,913][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:43,914][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:45,417][semstamp][INFO] - Candidate text: It is extremely rare for a woman to give birth to six babies naturally."
+
+[2024-05-24 00:05:45,417][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.47it/s]
+[2024-05-24 00:05:45,433][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:45,433][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:46,670][semstamp][INFO] - Candidate text: We're thrilled that all six babies are doing well."
+
+[2024-05-24 00:05:46,670][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.40it/s]
+[2024-05-24 00:05:46,686][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:46,686][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:48,123][semstamp][INFO] - Candidate text: To have six healthy babies born at the same time is extremely rare."
+[2024-05-24 00:05:48,123][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.36it/s]
+[2024-05-24 00:05:48,139][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:48,140][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:49,844][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, occurring about one in every 13 million births."
+
+[2024-05-24 00:05:49,844][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.48it/s]
+[2024-05-24 00:05:49,861][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:05:49,861][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:51,564][semstamp][INFO] - Candidate text: Multiple births of this kind are extremely rare, but we were prepared for every eventuality."
+
+[2024-05-24 00:05:51,565][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.33it/s]
+[2024-05-24 00:05:51,580][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:51,581][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:52,818][semstamp][INFO] - Candidate text: We have never had sextuplets born here before."
+
+[2024-05-24 00:05:52,818][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.60it/s]
+[2024-05-24 00:05:52,834][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:52,834][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:54,204][semstamp][INFO] - Candidate text: To have six babies born naturally and all alive is extremely rare."
+
+[2024-05-24 00:05:54,205][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.67it/s]
+[2024-05-24 00:05:54,221][semstamp][INFO] - LSH Candidate: 5
+[2024-05-24 00:05:54,221][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:55,658][semstamp][INFO] - Candidate text: We have seen twins and triplets before but never sextuplets.
+[2024-05-24 00:05:55,658][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.80it/s]
+[2024-05-24 00:05:55,674][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:05:55,674][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:57,178][semstamp][INFO] - Candidate text: To have six babies born alive and all doing well is a remarkable event."
+
+[2024-05-24 00:05:57,178][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.20it/s]
+[2024-05-24 00:05:57,194][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:57,194][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:05:58,565][semstamp][INFO] - Candidate text: To have six healthy babies is a wonderful outcome for the parents."
+
+[2024-05-24 00:05:58,565][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.73it/s]
+[2024-05-24 00:05:58,581][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:05:58,581][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:00,685][semstamp][INFO] - Candidate text: We have been preparing for this moment for many weeks, but nothing can fully prepare you for the arrival of six babies."
+
+[2024-05-24 00:06:00,685][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.28it/s]
+[2024-05-24 00:06:00,700][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:00,701][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:01,804][semstamp][INFO] - Candidate text: We've never seen anything like this before."
+
+[2024-05-24 00:06:01,805][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.85it/s]
+[2024-05-24 00:06:01,820][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:01,820][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:03,390][semstamp][INFO] - Candidate text: The risks associated with multiple births, particularly with sextuplets, are high.
+[2024-05-24 00:06:03,390][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.91it/s]
+[2024-05-24 00:06:03,406][semstamp][INFO] - LSH Candidate: 6
+[2024-05-24 00:06:03,407][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:05,511][semstamp][INFO] - Candidate text:  But we were able to provide specialist care and treatment throughout the pregnancy, and the mother and babies are doing extremely well."
+
+[2024-05-24 00:06:05,511][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.32it/s]
+[2024-05-24 00:06:05,527][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:05,527][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:06,894][semstamp][INFO] - Candidate text:  But thankfully everything went smoothly and all six babies are doing well."
+[2024-05-24 00:06:06,895][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.97it/s]
+[2024-05-24 00:06:06,910][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:06,910][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:08,878][semstamp][INFO] - Candidate text:  But thanks to the excellent care provided by our team, the mother and all six babies are doing remarkably well."
+
+[2024-05-24 00:06:08,879][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.93it/s]
+[2024-05-24 00:06:08,894][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:08,894][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:11,398][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, occurring only about once in every 13 million births.
+[2024-05-24 00:06:11,398][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.03it/s]
+[2024-05-24 00:06:11,415][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:06:11,415][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:13,987][semstamp][INFO] - Candidate text: The mother was admitted to hospital at 24 weeks pregnant after complications arose, and she underwent an emergency Caesarean section at 31 weeks.
+[2024-05-24 00:06:13,988][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.35it/s]
+[2024-05-24 00:06:14,004][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:14,004][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:15,503][semstamp][INFO] - Candidate text: The sextuplets have been transferred to intensive care for close monitoring.
+[2024-05-24 00:06:15,503][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.98it/s]
+[2024-05-24 00:06:15,519][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:15,519][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:17,219][semstamp][INFO] - Candidate text: The chances of conceiving sextuplets naturally are about one in 13 million.
+[2024-05-24 00:06:17,220][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.41it/s]
+[2024-05-24 00:06:17,235][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:06:17,235][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:19,136][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, occurring in only about one in every 13 million births.
+[2024-05-24 00:06:19,136][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.70it/s]
+[2024-05-24 00:06:19,152][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:06:19,152][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:21,054][semstamp][INFO] - Candidate text: Sextuplets are extremely rare, occurring in only about one in every 13 million pregnancies.
+[2024-05-24 00:06:21,054][semstamp][INFO] - Accept Mask: tensor([6, 0], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.72it/s]
+[2024-05-24 00:06:21,070][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:06:21,070][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:23,079][semstamp][INFO] - Candidate text:  They often require specialist care from a multidisciplinary team of doctors, nurses, and other healthcare professionals.
+[2024-05-24 00:06:23,080][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.78it/s]
+[2024-05-24 00:06:23,096][semstamp][INFO] - LSH Candidate: 5
+[2024-05-24 00:06:23,096][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:25,964][semstamp][INFO] - Candidate text:  In this case, more than 20 medical staff were involved in the delivery.
+
+
+[2024-05-24 00:06:25,964][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.05it/s]
+[2024-05-24 00:06:25,980][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:25,980][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:28,652][semstamp][INFO] - Candidate text: Dr Jackson added: "We knew that the mother was having a multiple pregnancy, but we didn't know exactly how many until they were born.
+[2024-05-24 00:06:28,652][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.78it/s]
+[2024-05-24 00:06:28,668][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:28,668][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:31,476][semstamp][INFO] - Candidate text: Dr Jackson added: "We have been preparing for this moment for months, and our team has worked tirelessly to ensure the best possible outcome for the family."
+[2024-05-24 00:06:31,477][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.83it/s]
+[2024-05-24 00:06:31,493][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:31,493][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:33,893][semstamp][INFO] - Candidate text: The mother was initially admitted to hospital several weeks before her due date, after it became clear that she was carrying multiple babies.
+[2024-05-24 00:06:33,894][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.41it/s]
+[2024-05-24 00:06:33,910][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:33,910][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:36,715][semstamp][INFO] - Candidate text: The mother was described as being "over the moon" with her new arrivals, but she requested that no further information be released about herself or her family.
+[2024-05-24 00:06:36,716][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.45it/s]
+[2024-05-24 00:06:36,732][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:36,732][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:38,930][semstamp][INFO] - Candidate text: It is understood that the mother, who has not been named, did not undergo fertility treatment and conceived naturally.
+[2024-05-24 00:06:38,930][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.42it/s]
+[2024-05-24 00:06:38,946][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:38,946][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:40,672][semstamp][INFO] - Candidate text: "This was an extraordinary event, even for us," said Dr Jackson. "
+[2024-05-24 00:06:40,672][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.42it/s]
+[2024-05-24 00:06:40,687][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:40,687][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:43,224][semstamp][INFO] - Candidate text: "We were all so excited when we heard that it was going to be sextuplets," said midwife Kathryn Gittins. "
+[2024-05-24 00:06:43,224][semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.47it/s]
+[2024-05-24 00:06:43,240][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:06:43,240][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:45,952][semstamp][INFO] - Candidate text: We had been preparing for weeks, but nothing can quite prepare you for the reality of it.
+[2024-05-24 00:06:45,952][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.48it/s]
+[2024-05-24 00:06:45,968][semstamp][INFO] - LSH Candidate: 6
+[2024-05-24 00:06:45,968][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:47,434][semstamp][INFO] - Candidate text: It was an incredible experience for all of us involved.
+[2024-05-24 00:06:47,434][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.89it/s]
+[2024-05-24 00:06:47,449][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:47,449][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:48,779][semstamp][INFO] - Candidate text: It's not something you see every day.
+[2024-05-24 00:06:48,780][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.74it/s]
+[2024-05-24 00:06:48,795][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:06:48,795][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:50,532][semstamp][INFO] - Candidate text: It's definitely a once-in-a-lifetime experience for most of us."
+
+
+[2024-05-24 00:06:50,532][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.56it/s]
+[2024-05-24 00:06:50,547][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:06:50,547][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:53,098][semstamp][INFO] - Candidate text: We've been preparing for weeks, making sure everything was ready and that we had enough staff on hand to cope with any eventuality."
+
+
+[2024-05-24 00:06:53,098][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.37it/s]
+[2024-05-24 00:06:53,114][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:06:53,115][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:54,444][semstamp][INFO] - Candidate text: It's not something you see every day.
+[2024-05-24 00:06:54,444][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.74it/s]
+[2024-05-24 00:06:54,459][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:06:54,459][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:55,789][semstamp][INFO] - Candidate text: We've never seen anything like it before.
+[2024-05-24 00:06:55,789][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.44it/s]
+[2024-05-24 00:06:55,805][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:06:55,805][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:57,473][semstamp][INFO] - Candidate text: It's a once-in-a-lifetime experience for most of us.
+[2024-05-24 00:06:57,473][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.90it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:06:58,811][semstamp][INFO] - Candidate text: It was an incredible experience for everyone involved."
+
+
+[2024-05-24 00:06:58,812][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.78it/s]
+[2024-05-24 00:06:58,827][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:06:58,827][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:00,157][semstamp][INFO] - Candidate text: It's not something you see every day.
+[2024-05-24 00:07:00,157][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.69it/s]
+[2024-05-24 00:07:00,173][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:00,173][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:01,842][semstamp][INFO] - Candidate text: It's not something you see every day, put it that way."
+[2024-05-24 00:07:01,842][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.57it/s]
+[2024-05-24 00:07:01,857][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:01,858][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:03,254][semstamp][INFO] - Candidate text: It was a very emotional experience for everyone involved.
+[2024-05-24 00:07:03,255][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.24it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:05,202][semstamp][INFO] - Candidate text: We don't often get the opportunity to deliver such a large number of babies at once.
+[2024-05-24 00:07:05,203][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.31it/s]
+[2024-05-24 00:07:05,218][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:05,218][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:06,547][semstamp][INFO] - Candidate text: We've never seen anything like it before.
+[2024-05-24 00:07:06,547][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.22it/s]
+[2024-05-24 00:07:06,562][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:06,562][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:08,300][semstamp][INFO] - Candidate text: We'd never dealt with anything like this before, but we were prepared.
+[2024-05-24 00:07:08,300][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.46it/s]
+[2024-05-24 00:07:08,317][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:08,317][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:10,528][semstamp][INFO] - Candidate text: It was a real team effort and everyone worked together to ensure the best possible outcome for mum and her babies."
+[2024-05-24 00:07:10,528][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.96it/s]
+[2024-05-24 00:07:10,544][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:10,544][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:11,875][semstamp][INFO] - Candidate text: We've never had anything like this before.
+[2024-05-24 00:07:11,875][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.67it/s]
+[2024-05-24 00:07:11,891][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:11,891][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:13,221][semstamp][INFO] - Candidate text: We've never had anything like this before.
+[2024-05-24 00:07:13,221][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.58it/s]
+[2024-05-24 00:07:13,236][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:13,237][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:14,566][semstamp][INFO] - Candidate text: We've never had anything like this before.
+[2024-05-24 00:07:14,567][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.12it/s]
+[2024-05-24 00:07:14,582][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:14,582][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:15,979][semstamp][INFO] - Candidate text: It was like nothing we've ever experienced before.
+[2024-05-24 00:07:15,979][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.87it/s]
+[2024-05-24 00:07:15,995][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:15,995][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:18,477][semstamp][INFO] - Candidate text: We've been planning for this for weeks, but nothing can truly prepare you for the reality of delivering six tiny babies."
+[2024-05-24 00:07:18,477][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.80it/s]
+[2024-05-24 00:07:18,494][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:07:18,494][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:19,891][semstamp][INFO] - Candidate text: It was like nothing we'd ever seen before.
+[2024-05-24 00:07:19,891][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.41it/s]
+[2024-05-24 00:07:19,907][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:19,907][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:21,237][semstamp][INFO] - Candidate text: We've never had anything like this before.
+[2024-05-24 00:07:21,238][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.88it/s]
+[2024-05-24 00:07:21,253][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:21,253][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:22,650][semstamp][INFO] - Candidate text: We've never dealt with anything like it before.
+[2024-05-24 00:07:22,651][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.67it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:24,803][semstamp][INFO] - Candidate text: It was a big team effort to get everything ready, and the atmosphere in the delivery room was electric."
+
+
+[2024-05-24 00:07:24,803][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.34it/s]
+[2024-05-24 00:07:24,819][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:24,819][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:27,301][semstamp][INFO] - Candidate text: It's not something you see very often, and we knew it would be a challenge, but we were all up for it."
+
+
+[2024-05-24 00:07:27,301][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.12it/s]
+[2024-05-24 00:07:27,317][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:27,317][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:28,648][semstamp][INFO] - Candidate text: We'd never seen anything like it before.
+[2024-05-24 00:07:28,648][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.18it/s]
+[2024-05-24 00:07:28,663][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:28,664][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:30,739][semstamp][INFO] - Candidate text: We'd never dealt with anything like it before, but we knew exactly what we needed to do.
+[2024-05-24 00:07:30,739][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.07it/s]
+[2024-05-24 00:07:30,755][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:30,755][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:32,424][semstamp][INFO] - Candidate text: It's a once-in-a-lifetime experience for many of us.
+[2024-05-24 00:07:32,424][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.16it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:34,237][semstamp][INFO] - Candidate text: We knew it would be a challenge, but we've been preparing for months.
+[2024-05-24 00:07:34,238][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.71it/s]
+[2024-05-24 00:07:34,254][semstamp][INFO] - LSH Candidate: 4
+[2024-05-24 00:07:34,254][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:36,195][semstamp][INFO] - Candidate text: We'd never dealt with anything like it before, so we had to plan very carefully.
+[2024-05-24 00:07:36,195][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.14it/s]
+[2024-05-24 00:07:36,212][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:36,212][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:37,679][semstamp][INFO] - Candidate text: It was a bit like preparing for a royal birth!
+[2024-05-24 00:07:37,679][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.77it/s]
+[2024-05-24 00:07:37,696][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:07:37,696][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:39,365][semstamp][INFO] - Candidate text: It's not something you see every day, put it that way."
+[2024-05-24 00:07:39,365][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.97it/s]
+[2024-05-24 00:07:39,381][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:39,381][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:41,457][semstamp][INFO] - Candidate text: We knew it would be a challenging situation, but we were determined to make sure everything went smoothly.
+[2024-05-24 00:07:41,457][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.38it/s]
+[2024-05-24 00:07:41,473][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:41,473][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:42,802][semstamp][INFO] - Candidate text: It's not something you see every day.
+[2024-05-24 00:07:42,802][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.51it/s]
+[2024-05-24 00:07:42,818][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:42,818][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:44,284][semstamp][INFO] - Candidate text: It's not something you get to see every day.
+[2024-05-24 00:07:44,284][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.63it/s]
+[2024-05-24 00:07:44,300][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:44,300][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:46,512][semstamp][INFO] - Candidate text: We've been preparing for months, but nothing can quite prepare you for the reality of delivering six tiny babies."
+
+
+[2024-05-24 00:07:46,512][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.85it/s]
+[2024-05-24 00:07:46,528][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:07:46,528][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:49,011][semstamp][INFO] - Candidate text: We've been planning for this moment for weeks, but nothing can truly prepare you for the reality of caring for six newborns."
+
+
+[2024-05-24 00:07:49,012][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.52it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:50,350][semstamp][INFO] - Candidate text: We've never seen anything like it before.
+[2024-05-24 00:07:50,350][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.29it/s]
+[2024-05-24 00:07:50,366][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:07:50,366][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:52,782][semstamp][INFO] - Candidate text: It was a huge challenge, but we've got an amazing team here and everyone pulled together to make sure everything went smoothly."
+
+
+[2024-05-24 00:07:52,782][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.34it/s]
+[2024-05-24 00:07:52,798][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:52,798][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:54,602][semstamp][INFO] - Candidate text: It's not something you see very often, but we were ready for it.
+[2024-05-24 00:07:54,603][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.79it/s]
+[2024-05-24 00:07:54,618][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:07:54,618][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:57,075][semstamp][INFO] - Candidate text:  We've got a fantastic team here, and everyone worked together seamlessly."
+
+
+[2024-05-24 00:07:57,075][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.99it/s]
+[2024-05-24 00:07:57,091][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:57,092][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:07:58,768][semstamp][INFO] - Candidate text:  We've got a fantastic team here, and everyone worked together seamlessly."
+
+
+[2024-05-24 00:07:58,768][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.62it/s]
+[2024-05-24 00:07:58,784][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:07:58,784][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:00,257][semstamp][INFO] - Candidate text:  We've been preparing for weeks and everything went smoothly."
+
+
+[2024-05-24 00:08:00,257][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.63it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:02,010][semstamp][INFO] - Candidate text:  We had planned extensively and rehearsed different scenarios to ensure everything went smoothly."
+
+
+[2024-05-24 00:08:02,010][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.91it/s]
+[2024-05-24 00:08:02,026][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:02,026][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:03,635][semstamp][INFO] - Candidate text:  We had a fantastic team working together to ensure everything went smoothly."
+
+
+[2024-05-24 00:08:03,635][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.43it/s]
+[2024-05-24 00:08:03,650][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:03,651][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:04,852][semstamp][INFO] - Candidate text:  We had planned everything meticulously beforehand."
+
+
+[2024-05-24 00:08:04,853][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.29it/s]
+[2024-05-24 00:08:04,868][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:04,868][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:06,614][semstamp][INFO] - Candidate text:  We've got an amazing team here, and everyone played their part perfectly."
+
+
+[2024-05-24 00:08:06,614][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.47it/s]
+[2024-05-24 00:08:06,629][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:06,630][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:10,139][semstamp][INFO] - Candidate text:  We have a fantastic team here, and everyone worked together seamlessly to ensure the best possible outcome."
+
+
+[2024-05-24 00:08:10,140][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.36it/s]
+[2024-05-24 00:08:10,155][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:10,155][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:11,695][semstamp][INFO] - Candidate text:  We had a plan in place, and everything went smoothly."
+
+
+[2024-05-24 00:08:11,695][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.74it/s]
+[2024-05-24 00:08:11,711][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:11,711][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:13,388][semstamp][INFO] - Candidate text:  We've got a great team here and everyone worked together really well."
+
+
+[2024-05-24 00:08:13,389][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.99it/s]
+[2024-05-24 00:08:13,404][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:13,404][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:15,420][semstamp][INFO] - Candidate text:  We've got an amazing team here, and everyone worked together to make sure everything went smoothly."
+
+
+[2024-05-24 00:08:15,420][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.02it/s]
+[2024-05-24 00:08:15,436][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:15,436][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:17,249][semstamp][INFO] - Candidate text:  We had everything in place, including incubators, and everyone worked together seamlessly."
+
+
+[2024-05-24 00:08:17,249][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.37it/s]
+[2024-05-24 00:08:17,265][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:17,265][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:18,804][semstamp][INFO] - Candidate text:  The whole team worked together seamlessly to ensure everything went smoothly."
+
+
+[2024-05-24 00:08:18,805][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.56it/s]
+[2024-05-24 00:08:18,820][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:18,820][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:20,496][semstamp][INFO] - Candidate text:  We had planned everything out meticulously beforehand, and our teamwork paid off."
+
+
+[2024-05-24 00:08:20,496][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.35it/s]
+[2024-05-24 00:08:20,512][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:20,512][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:22,325][semstamp][INFO] - Candidate text:  We've got a fantastic team here and we're delighted that everything went smoothly."
+
+
+[2024-05-24 00:08:22,325][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.05it/s]
+[2024-05-24 00:08:22,341][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:22,341][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:24,018][semstamp][INFO] - Candidate text:  We had everything prepared, from extra incubators to additional medical equipment."
+
+
+[2024-05-24 00:08:24,018][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.64it/s]
+[2024-05-24 00:08:24,033][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:24,034][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:25,914][semstamp][INFO] - Candidate text:  We had planned for every eventuality and had extra staff on hand just in case."
+
+
+[2024-05-24 00:08:25,915][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.07it/s]
+[2024-05-24 00:08:25,930][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:25,931][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:27,676][semstamp][INFO] - Candidate text:  We'd rehearsed for this scenario and made sure everything was in place."
+
+
+[2024-05-24 00:08:27,676][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.20it/s]
+[2024-05-24 00:08:27,692][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:27,692][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:29,368][semstamp][INFO] - Candidate text:  We've been preparing for weeks, making sure everything was in place."
+
+
+[2024-05-24 00:08:29,369][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.16it/s]
+[2024-05-24 00:08:29,384][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:29,384][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:30,926][semstamp][INFO] - Candidate text:  We had a plan in place, and everything went smoothly."
+
+
+[2024-05-24 00:08:30,926][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.77it/s]
+[2024-05-24 00:08:30,942][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:30,942][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:33,028][semstamp][INFO] - Candidate text:  We've got an amazing team here, and everyone worked together seamlessly to make sure everything went smoothly."
+
+
+[2024-05-24 00:08:33,028][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.13it/s]
+[2024-05-24 00:08:33,044][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:33,044][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:34,381][semstamp][INFO] - Candidate text:  We've been training for situations like this."
+
+
+[2024-05-24 00:08:34,381][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 171.73it/s]
+[2024-05-24 00:08:34,396][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:34,396][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:36,074][semstamp][INFO] - Candidate text:  We've been preparing for weeks, making sure everything was just right."
+
+
+[2024-05-24 00:08:36,074][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.56it/s]
+[2024-05-24 00:08:36,089][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:36,090][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:37,971][semstamp][INFO] - Candidate text:  We've got an amazing team here at St Mary's and everyone worked together beautifully."
+
+
+[2024-05-24 00:08:37,972][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.38it/s]
+[2024-05-24 00:08:37,987][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:37,987][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:40,004][semstamp][INFO] - Candidate text:  We had planned everything meticulously, from the equipment we would need to the number of staff required."
+
+
+[2024-05-24 00:08:40,005][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.39it/s]
+[2024-05-24 00:08:40,021][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:40,021][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:41,834][semstamp][INFO] - Candidate text:  We'd practiced and prepared for every eventuality, and it all went smoothly."
+
+
+[2024-05-24 00:08:41,835][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 162.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.70it/s]
+[2024-05-24 00:08:41,850][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:41,850][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:43,051][semstamp][INFO] - Candidate text:  We've been preparing for weeks."
+
+
+[2024-05-24 00:08:43,051][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.81it/s]
+[2024-05-24 00:08:43,067][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:08:43,067][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:45,566][semstamp][INFO] - Candidate text: The mother, who has not been named, was said to be "overjoyed" at the arrival of her six babies.
+[2024-05-24 00:08:45,566][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.48it/s]
+[2024-05-24 00:08:45,582][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:45,582][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:47,945][semstamp][INFO] - Candidate text: The new mother will remain in hospital for several days to ensure she recovers fully from the caesarean section.
+[2024-05-24 00:08:47,945][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.76it/s]
+[2024-05-24 00:08:47,961][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:08:47,961][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:50,255][semstamp][INFO] - Candidate text: The father of the babies is reported to be "over the moon" about the arrival of his new family members.
+[2024-05-24 00:08:50,255][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.65it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:52,557][semstamp][INFO] - Candidate text: The mother, who has chosen not to be identified, is recovering well after the Caesarean section delivery.
+[2024-05-24 00:08:52,557][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 172.29it/s]
+[2024-05-24 00:08:52,573][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:08:52,573][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:55,276][semstamp][INFO] - Candidate text: The new family is now receiving support from the neonatal unit at the hospital, where the babies will remain for several weeks before being discharged home.
+[2024-05-24 00:08:55,276][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.00it/s]
+[2024-05-24 00:08:55,292][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:08:55,292][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:57,041][semstamp][INFO] - Candidate text: The family has asked for privacy, and no further details have been released.
+[2024-05-24 00:08:57,041][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.86it/s]
+[2024-05-24 00:08:57,057][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:57,057][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:08:59,078][semstamp][INFO] - Candidate text: The mother, who is already a parent, was reported to have conceived naturally without fertility treatment.
+[2024-05-24 00:08:59,078][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.04it/s]
+[2024-05-24 00:08:59,094][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:08:59,094][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:01,386][semstamp][INFO] - Candidate text: The mother is expected to remain in hospital for several days while her babies receive ongoing care in the neonatal unit.
+[2024-05-24 00:09:01,386][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.51it/s]
+[2024-05-24 00:09:01,402][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:09:01,402][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:09,435][semstamp][INFO] - Candidate text: The identities of the parents have not been disclosed, but it is understood that they are both thrilled and exhausted after the unexpected arrival of their six little bundles of joy.assistant
+
+Here is a rewritten version of the article in a more formal tone:
+
+A remarkable birth has taken place in Manchester, England, with a woman giving birth to sextuplets - three boys and three girls - in an extraordinary event believed to be the first recorded instance of live sextuplets in Britain. 
+
+
+[2024-05-24 00:09:09,436][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.06it/s]
+[2024-05-24 00:09:09,455][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:09,456][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:12,091][semstamp][INFO] - Candidate text: The mother, who has asked not to be named, was said to be overjoyed and "doing fantastically" after the birth.
+[2024-05-24 00:09:12,091][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.40it/s]
+[2024-05-24 00:09:12,107][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:12,107][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:14,264][semstamp][INFO] - Candidate text: The mother and her babies are expected to remain in hospital for several weeks before they can go home together.
+
+
+[2024-05-24 00:09:14,264][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.95it/s]
+[2024-05-24 00:09:14,280][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:09:14,280][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:16,641][semstamp][INFO] - Candidate text: The mother, who had been expecting twins, was unaware she was carrying sextuplets until her 12-week scan.
+[2024-05-24 00:09:16,642][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.08it/s]
+[2024-05-24 00:09:16,658][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:09:16,658][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:19,224][semstamp][INFO] - Candidate text: The father, who also wished to remain anonymous, said: "We're overjoyed at the arrival of our six little miracles.
+[2024-05-24 00:09:19,224][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.74it/s]
+[2024-05-24 00:09:19,240][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:19,240][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:21,329][semstamp][INFO] - Candidate text: The mother and her babies will remain in hospital for several days to ensure they receive the necessary care.
+[2024-05-24 00:09:21,329][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.74it/s]
+[2024-05-24 00:09:21,345][semstamp][INFO] - LSH Candidate: 7
+[2024-05-24 00:09:21,345][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:23,366][semstamp][INFO] - Candidate text: The new mother, who is already a parent, received support from her partner throughout the pregnancy.
+[2024-05-24 00:09:23,366][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.14it/s]
+[2024-05-24 00:09:23,381][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:09:23,382][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:25,538][semstamp][INFO] - Candidate text: The mother, who had fertility treatment, has asked for privacy and declined to speak publicly about her experience.
+[2024-05-24 00:09:25,539][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.19it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:27,773][semstamp][INFO] - Candidate text: The mother, who is already a parent, had undergone fertility treatment before becoming pregnant with the sextuplets.
+[2024-05-24 00:09:27,773][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.23it/s]
+[2024-05-24 00:09:27,789][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:27,789][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:30,355][semstamp][INFO] - Candidate text: The identities of the parents have not been disclosed, but they are reported to be overjoyed at the arrival of their six babies.
+[2024-05-24 00:09:30,355][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.52it/s]
+[2024-05-24 00:09:30,371][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:30,371][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:32,529][semstamp][INFO] - Candidate text: The mother, who was 32 weeks pregnant when she gave birth, is recovering well at the hospital.
+[2024-05-24 00:09:32,529][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 170.16it/s]
+[2024-05-24 00:09:32,545][semstamp][INFO] - LSH Candidate: 3
+[2024-05-24 00:09:32,545][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:34,498][semstamp][INFO] - Candidate text: The babies will need careful monitoring in the coming weeks, but their prognosis looks good. "
+[2024-05-24 00:09:34,499][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 169.41it/s]
+[2024-05-24 00:09:34,514][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:09:34,515][semstamp][INFO] - Candidate text falls within the semantic partition.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:36,413][semstamp][INFO] - Candidate text: They're all feeding well and putting on weight," said Dr Jackson. "
+[2024-05-24 00:09:36,414][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.99it/s]
+[2024-05-24 00:09:36,429][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:09:36,430][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:38,398][semstamp][INFO] - Candidate text: We're thrilled that they're all doing so well," said Dr Jackson. "
+[2024-05-24 00:09:38,398][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.68it/s]
+[2024-05-24 00:09:38,414][semstamp][INFO] - LSH Candidate: 1
+[2024-05-24 00:09:38,414][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:40,245][semstamp][INFO] - Candidate text: We're delighted with how they're doing," said Dr Jackson. "
+[2024-05-24 00:09:40,245][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.53it/s]
+[2024-05-24 00:09:40,260][semstamp][INFO] - LSH Candidate: 0
+[2024-05-24 00:09:40,260][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-24 00:09:43,185][semstamp][INFO] - Candidate text: They're all doing really well, considering they were born prematurely at 31 weeks," said neonatologist Dr Helen Murgatroyd. "
+[2024-05-24 00:09:43,186][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.82it/s]
+[2024-05-24 00:09:43,202][semstamp][INFO] - LSH Candidate: 2
+[2024-05-24 00:09:43,202][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-24 00:09:43,203][semstamp][INFO] - Prompt: A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain.
+[2024-05-24 00:09:43,203][semstamp][INFO] - Response: ('A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain. The unnamed mother, who is from Manchester, had three boys and three girls weighing between 2lb 1oz and 3lb 14oz each. All six babies are reportedly healthy and well.\nThe delivery took place at St Mary\'s Hospital in Manchester on Friday. "This is a unique and exceptional case," said Dr Leighton Jackson, a consultant obstetrician at the hospital. "The risks associated with multiple births, particularly with sextuplets, are high. But thanks to the excellent care provided by our team, the mother and all six babies are doing remarkably well."\nSextuplets are extremely rare, occurring in only about one in every 13 million pregnancies. They often require specialist care from a multidisciplinary team of doctors, nurses, and other healthcare professionals. In this case, more than 20 medical staff were involved in the delivery.\n\n"We were all so excited when we heard that it was going to be sextuplets," said midwife Kathryn Gittins. "It\'s not something you see very often, but we were ready for it. We\'ve been preparing for weeks."\n\nThe babies will need careful monitoring in the coming weeks, but their prognosis looks good. "They\'re all doing really well, considering they were born prematurely at 31 weeks," said neonatologist Dr Helen Murgatroyd. "', 170)
+[2024-05-24 00:09:43,203][watermarker][INFO] - Received completion: A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain. The unnamed mother, who is from Manchester, had three boys and three girls weighing between 2lb 1oz and 3lb 14oz each. All six babies are reportedly healthy and well.
+The delivery took place at St Mary's Hospital in Manchester on Friday. "This is a unique and exceptional case," said Dr Leighton Jackson, a consultant obstetrician at the hospital. "The risks associated with multiple births, particularly with sextuplets, are high. But thanks to the excellent care provided by our team, the mother and all six babies are doing remarkably well."
+Sextuplets are extremely rare, occurring in only about one in every 13 million pregnancies. They often require specialist care from a multidisciplinary team of doctors, nurses, and other healthcare professionals. In this case, more than 20 medical staff were involved in the delivery.
+
+"We were all so excited when we heard that it was going to be sextuplets," said midwife Kathryn Gittins. "It's not something you see very often, but we were ready for it. We've been preparing for weeks."
+
+The babies will need careful monitoring in the coming weeks, but their prognosis looks good. "They're all doing really well, considering they were born prematurely at 31 weeks," said neonatologist Dr Helen Murgatroyd. "
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 164.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.30it/s]
+n_watermark: 11, n_test_sent: 14
+zscore: 4.6291004988627575
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.65it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 165.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 167.71it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 168.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 166.54it/s]
+n_watermark: 11, n_test_sent: 14
+zscore: 4.6291004988627575
+[2024-05-24 00:09:43,430][__main__][INFO] - Watermarked Text: A woman has given birth to six babies in what is being hailed as the first recorded case of live sextuplets in Britain. The unnamed mother, who is from Manchester, had three boys and three girls weighing between 2lb 1oz and 3lb 14oz each. All six babies are reportedly healthy and well.
+The delivery took place at St Mary's Hospital in Manchester on Friday. "This is a unique and exceptional case," said Dr Leighton Jackson, a consultant obstetrician at the hospital. "The risks associated with multiple births, particularly with sextuplets, are high. But thanks to the excellent care provided by our team, the mother and all six babies are doing remarkably well."
+Sextuplets are extremely rare, occurring in only about one in every 13 million pregnancies. They often require specialist care from a multidisciplinary team of doctors, nurses, and other healthcare professionals. In this case, more than 20 medical staff were involved in the delivery.
+
+"We were all so excited when we heard that it was going to be sextuplets," said midwife Kathryn Gittins. "It's not something you see very often, but we were ready for it. We've been preparing for weeks."
+
+The babies will need careful monitoring in the coming weeks, but their prognosis looks good. "They're all doing really well, considering they were born prematurely at 31 weeks," said neonatologist Dr Helen Murgatroyd. "
+[2024-05-24 00:09:43,430][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-24 00:09:43,431][__main__][INFO] - Score: 4.6291004988627575
+[2024-05-24 00:09:43,431][__main__][INFO] - Time taken: 338.3372166156769
+Data appended to ./inputs/c4_6.csv

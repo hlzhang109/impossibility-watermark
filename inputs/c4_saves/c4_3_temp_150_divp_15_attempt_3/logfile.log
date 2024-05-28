@@ -1,0 +1,1215 @@
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-26 18:48:51,672][__main__][INFO] - Starting to watermark...
+[2024-05-26 18:48:51,676][__main__][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Healthtech startup Health2Sync, which launched at the Hardware Battlefield at CES 2014, wants to change all that with a cheap accessory that connects to most standard glucose meters and syncs your blood glucose levels straight to your phone.
+The company announced today it has secured a $3 million Series A round led by WI Harper Group, with participation in the round by Cherubic Ventures, iSeed Ventures and SparkLabs Global Ventures.
+According to the company’s press release, Health2Sync will use the funding to continue product development and accelerate growth overseas in markets like Japan, China and Southeast Asia.
+At its core, the Health2Sync is a cable that connects your smartphone to your glucose meter via the headphone jack to get the two devices talking. Once these devices are connected, data stored on your glucose meter will sync with your smartphone via the Health2Sync app.
+The app is available for both Android and iOS and the cable comes in two varieties — one for legacy glucose meters, and another for more modern meters that transmit data via infrared.
+In addition to displaying the data both numerically and graphically, users of the Health2Sync app can add family members so these loved ones can help them manage their diabetes. It also lets you send data to your physician and diabetic educator so these professional caregivers can do the same.
+And the company claims it gets results. According to a press release, the average HbA1c levels of patients dropped from 8.6 percent to 6.89 percent in patients who had been using Health2Sync for 120 days, which led to significant drops in the risk of health complications in these patients.
+Patients are typically considered to be in control when HbA1c levels are at or below 7-8 percent, according to Mayo Clinic.
+With an additional $3 million in the bank, Health2Sync should be able to make advances in their technology that help people take better control of their diabetes, especially in areas like Japan, China and Southeast Asia that the company is targeting.
+We can’t wait to see how they do. We also can’t wait to see the next round of future success stories in the Battlefield at Disrupt SF 2016, which takes place in just a few short weeks, September 12-14 at San Francisco’s Pier 48.
+[2024-05-26 18:48:51,676][__main__][INFO] - Getting the watermarker...
+[2024-05-26 18:48:51,676][watermarker][INFO] - Using device: cuda
+[2024-05-26 18:48:51,676][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-05-26 18:48:55,683][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-05-26 18:49:06,480][auto_gptq.utils.accelerate_utils][WARNING] - Some weights of the model checkpoint at ./local1/borito1907/.cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/snapshots/46c7afccd4f9345a3d43c1468fde1034cf0a0932/model.safetensors were not used when initializing LlamaForCausalLM: set(). This may or may not be an issue - make sure that the checkpoint does not have unnecessary parameters, or that the model definition correctly corresponds to the checkpoint.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-26 18:49:08,418][semstamp][INFO] - Setting up generating components...
+[2024-05-26 18:49:08,421][semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1.5, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-05-26 18:49:08,421][semstamp][INFO] - Initializing embedder model.
+[2024-05-26 18:49:08,421][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark_2/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-05-26 18:49:09,470][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-05-26 18:49:09,544][semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-05-26 18:49:09,545][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-05-26 18:49:09,545][semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.78it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.77it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-05-26 18:49:14,141][semstamp][INFO] - Candidate text:  You have to jot down every measurement and then try to analyze them over time to see if your management plan is working.
+
+[2024-05-26 18:49:14,142][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.12it/s]
+[2024-05-26 18:49:14,165][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 18:49:14,165][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:14,165][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:14,165][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:17,901][semstamp][INFO] - Candidate text:  However with Diabetes Diary apps on your smartphone, managing and tracking you diabetes data such as glucose levels, insulin dosage and other important health metrics becomes effortless.
+[2024-05-26 18:49:17,902][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.08it/s]
+[2024-05-26 18:49:17,920][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:17,920][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:17,920][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:17,920][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:20,141][semstamp][INFO] - Candidate text:  In fact, about 60% of people who have been diagnosed with diabetes say they don't check their blood glucose levels as often as they should.
+
+[2024-05-26 18:49:20,142][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.02it/s]
+[2024-05-26 18:49:20,160][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:20,160][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:20,160][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:20,160][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:22,383][semstamp][INFO] - Candidate text:  It may not be easy or convenient to have to keep writing down blood sugar levels in a logbook, which means that accuracy may be a concern.
+
+[2024-05-26 18:49:22,384][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.65it/s]
+[2024-05-26 18:49:22,402][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:22,403][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:22,403][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:22,403][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:24,759][semstamp][INFO] - Candidate text:  You've got your meter for checking blood sugar levels, but you also have to keep track of insulin doses, medications, exercise routines, and what you eat.
+[2024-05-26 18:49:24,759][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.31it/s]
+[2024-05-26 18:49:24,777][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:24,777][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:24,777][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:24,777][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:25,327][semstamp][INFO] - Candidate text:  But we got this!
+[2024-05-26 18:49:25,328][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 86.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.87it/s]
+[2024-05-26 18:49:25,350][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:25,350][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:25,350][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:25,350][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:27,236][semstamp][INFO] - Candidate text:  Fortunately, technology has come to our rescue (at least for those who have adopted tech and are literate in its usage)!
+[2024-05-26 18:49:27,237][semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.25it/s]
+[2024-05-26 18:49:27,255][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:49:27,255][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:27,255][semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-05-26 18:49:27,255][semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:29,499][semstamp][INFO] - Candidate text:  Enter glucometers with Bluetooth connectivity and related companion apps!
+[2024-05-26 18:49:29,499][semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.18it/s]
+[2024-05-26 18:49:29,517][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 18:49:29,518][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:29,518][semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-05-26 18:49:29,518][semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:32,373][semstamp][INFO] - Candidate text:  😊
+
+In this guide, we'll review what's available when it comes to smart glucose meters with Bluetooth and discuss what makes them so innovative.
+
+
+[2024-05-26 18:49:32,374][semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.13it/s]
+[2024-05-26 18:49:32,392][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:32,392][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:32,392][semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-05-26 18:49:32,392][semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:37,357][semstamp][INFO] - Candidate text: ---
+
+**Smart Glucometers - Evolution towards Digital Health**
+
+With digital health evolving rapidly, glucometers that pair with Bluetooth technology bridge the gap between accurate self-tracking and seamless mobile integration.
+
+
+[2024-05-26 18:49:37,358][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.00it/s]
+[2024-05-26 18:49:37,370][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:37,370][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:38,685][semstamp][INFO] - Candidate text: **Benefits Of Bluetooth Enabled Glucose Meters**
+
+1.
+[2024-05-26 18:49:38,685][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.59it/s]
+[2024-05-26 18:49:38,695][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:38,695][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:39,948][semstamp][INFO] - Candidate text: ---
+
+**Why are Smart Glucose Meters Innovative?
+[2024-05-26 18:49:39,948][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.94it/s]
+[2024-05-26 18:49:39,966][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 18:49:39,967][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:39,967][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:39,967][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:41,217][semstamp][INFO] - Candidate text: **What are Smart Glucose Meters with Bluetooth?
+[2024-05-26 18:49:41,217][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.82it/s]
+[2024-05-26 18:49:41,236][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:49:41,236][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:41,236][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:41,236][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:43,334][semstamp][INFO] - Candidate text: **
+
+Smart glucose meters are advanced devices that enable you to measure your blood sugar levels in a user-friendly manner.
+[2024-05-26 18:49:43,335][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.50it/s]
+[2024-05-26 18:49:43,345][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:43,345][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:45,570][semstamp][INFO] - Candidate text: **
+
+Smart glucose meters or glucometers are the next generation of blood glucose tracking devices that connect to your smartphone via Bluetooth.
+[2024-05-26 18:49:45,571][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.14it/s]
+[2024-05-26 18:49:45,590][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:49:45,591][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:45,591][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:45,591][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:49,211][semstamp][INFO] - Candidate text:  This allows you to transmit your readings directly from your meter to an app on your phone or tablet, making tracking easier, more accurate, and reducing potential human errors.
+
+
+[2024-05-26 18:49:49,211][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.42it/s]
+[2024-05-26 18:49:49,221][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:49,221][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:51,289][semstamp][INFO] - Candidate text:  These modern, high-tech devices allow you to measure blood glucose levels and transfer the readings instantly to your phone app.
+
+
+[2024-05-26 18:49:51,289][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.60it/s]
+[2024-05-26 18:49:51,307][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:49:51,307][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:49:51,307][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:51,307][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:55,940][semstamp][INFO] - Candidate text: With Bluetooth-enabled glucometers:
+
+• **Accurate record-keeping becomes easier**: Forget tedious logbooks and scribbled notes – your meter connects seamlessly to your app, which records each reading along with date, time, and any additional context like meal type or medication.
+
+
+[2024-05-26 18:49:55,940][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.92it/s]
+[2024-05-26 18:49:55,961][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:49:55,961][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:55,961][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:55,961][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:56,937][semstamp][INFO] - Candidate text: This integration enables:
+
+1.
+[2024-05-26 18:49:56,938][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.38it/s]
+[2024-05-26 18:49:56,955][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:49:56,955][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:56,955][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:56,955][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:49:58,475][semstamp][INFO] - Candidate text: Bluetooth allows easy pairing with compatible apps on your iOS or Android device.
+[2024-05-26 18:49:58,476][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.53it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.29it/s]
+[2024-05-26 18:49:58,493][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 18:49:58,493][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:49:58,493][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:49:58,493][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:00,839][semstamp][INFO] - Candidate text: These meters are essentially designed to monitor glucose levels, just like traditional meters, but come with additional features made possible through wireless communication.
+
+
+[2024-05-26 18:50:00,840][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.95it/s]
+[2024-05-26 18:50:00,858][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:00,858][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:00,858][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:00,858][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:01,902][semstamp][INFO] - Candidate text: Some popular brands include:
+
+1.
+[2024-05-26 18:50:01,903][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.66it/s]
+[2024-05-26 18:50:01,920][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 18:50:01,920][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:01,920][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:01,920][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:03,990][semstamp][INFO] - Candidate text: These new age trackers are a significant step forward from traditional meters as they offer several advantages, including:
+
+1.
+[2024-05-26 18:50:03,991][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.39it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.41it/s]
+[2024-05-26 18:50:04,009][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:04,009][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:04,009][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:04,009][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:06,284][semstamp][INFO] - Candidate text: This innovative feature eliminates the hassle of manual record-keeping, enabling people with diabetes to focus on better managing their condition instead.
+[2024-05-26 18:50:06,284][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.76it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.32it/s]
+[2024-05-26 18:50:06,302][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:50:06,302][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:06,302][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:06,302][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:08,716][semstamp][INFO] - Candidate text: These meters eliminate manual logbook updates and automatically store and record reading date/times along with notes about events like exercise or food intake.
+[2024-05-26 18:50:08,716][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.85it/s]
+[2024-05-26 18:50:08,733][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:08,734][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:08,734][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:08,734][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:11,286][semstamp][INFO] - Candidate text: These clever gadgets utilize cutting-edge design, sensors, and algorithms to provide accurate results and make monitoring simple, easy to understand, and more personalized.
+[2024-05-26 18:50:11,286][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.29it/s]
+[2024-05-26 18:50:11,303][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:11,303][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:11,304][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:11,304][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:13,102][semstamp][INFO] - Candidate text: The key aspects that distinguish these intelligent glucose monitoring systems from the traditional models include:
+
+1.
+[2024-05-26 18:50:13,102][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.09it/s]
+[2024-05-26 18:50:13,111][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:13,111][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:14,566][semstamp][INFO] - Candidate text: The key features of these new-fangled tools include:
+
+1.
+[2024-05-26 18:50:14,566][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 159.41it/s]
+[2024-05-26 18:50:14,584][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:50:14,584][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:50:14,584][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:14,584][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:16,876][semstamp][INFO] - Candidate text:  **Bluetooth Connectivity**: Wirelessly connects to your smartphone, allowing seamless data transfer.
+
+[2024-05-26 18:50:16,876][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.98it/s]
+[2024-05-26 18:50:16,886][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:16,886][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:19,249][semstamp][INFO] - Candidate text:  **Automatic data synchronization**: Your glucose level reading will be sent directly to your mobile device, allowing for a seamless transfer of information.
+
+[2024-05-26 18:50:19,249][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.36it/s]
+[2024-05-26 18:50:19,267][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:19,267][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:19,267][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:19,267][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:20,670][semstamp][INFO] - Candidate text:  **Wireless Connectivity**: Via Bluetooth or other wireless technologies.
+
+[2024-05-26 18:50:20,670][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.94it/s]
+[2024-05-26 18:50:20,687][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:50:20,687][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:20,687][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:20,687][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:22,226][semstamp][INFO] - Candidate text:  **Bluetooth Connectivity:** Enables seamless communication between the device and your smartphone.
+
+[2024-05-26 18:50:22,227][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.27it/s]
+[2024-05-26 18:50:22,243][semstamp][INFO] - LSH Candidate: 3
+[2024-05-26 18:50:22,244][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:22,244][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:22,244][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:24,127][semstamp][INFO] - Candidate text:  **Bluetooth Connectivity**: This permits seamless wireless communication between the glucometer and your mobile device.
+
+[2024-05-26 18:50:24,127][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.69it/s]
+[2024-05-26 18:50:24,145][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:50:24,145][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:24,145][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:24,145][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:26,097][semstamp][INFO] - Candidate text:  **Instant sharing:** Immediately send or save results, making it easier to share data with healthcare professionals.
+
+[2024-05-26 18:50:26,098][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.01it/s]
+[2024-05-26 18:50:26,108][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:26,108][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:28,201][semstamp][INFO] - Candidate text:  **Wireless transmission**: Your glucose reading transfers seamlessly to your mobile device using Bluetooth, eliminating manual entry errors.
+
+[2024-05-26 18:50:28,202][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.58it/s]
+[2024-05-26 18:50:28,220][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:50:28,220][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:28,220][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:28,220][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:30,448][semstamp][INFO] - Candidate text:  **Automatic data transmission**: No need to manually log each reading; they sync seamlessly to your app, ensuring accurate records.
+
+[2024-05-26 18:50:30,448][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.95it/s]
+[2024-05-26 18:50:30,466][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:30,466][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:30,466][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:30,466][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:32,074][semstamp][INFO] - Candidate text:  **Accurate tracking:** Measures blood sugar levels accurately, allowing precise tracking.
+
+[2024-05-26 18:50:32,074][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.22it/s]
+[2024-05-26 18:50:32,092][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:32,092][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:32,092][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:32,092][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:33,975][semstamp][INFO] - Candidate text:  **Automatic Data Transfer**: When paired, the meter sends data directly to the accompanying mobile app.
+
+[2024-05-26 18:50:33,975][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.63it/s]
+[2024-05-26 18:50:33,992][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:50:33,993][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:33,993][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:33,993][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:35,670][semstamp][INFO] - Candidate text:  **Bluetooth Connectivity**: Wirelessly sends glucose readings directly to a paired phone device.
+
+[2024-05-26 18:50:35,670][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.41it/s]
+[2024-05-26 18:50:35,688][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:50:35,688][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:35,688][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:35,688][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:38,671][semstamp][INFO] - Candidate text:  **Wireless Connectivity**: Many models boast wireless BLE (Bluetooth Low Energy) connectivity, allowing seamless transmission of glucose data from the meter to a mobile app on your smart device.
+
+[2024-05-26 18:50:38,671][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.23it/s]
+[2024-05-26 18:50:38,689][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:50:38,689][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:50:38,689][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:38,689][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:39,729][semstamp][INFO] - Candidate text: 2.
+[2024-05-26 18:50:39,730][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 148.96it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.07it/s]
+[2024-05-26 18:50:39,747][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:50:39,747][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:50:39,747][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:39,747][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:42,934][semstamp][INFO] - Candidate text:  **Companion App**: Partnering with an intuitive and user-friendly application designed by the manufacturer (or independent developers), enabling users to monitor and analyze their glucose trends effortlessly.
+
+[2024-05-26 18:50:42,935][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.91it/s]
+[2024-05-26 18:50:42,945][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:42,945][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:45,521][semstamp][INFO] - Candidate text:  **Automatic Data Recording**: Readings are automatically logged onto the app, saving time and effort from manually typing the data into a diary.
+
+[2024-05-26 18:50:45,522][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.73it/s]
+[2024-05-26 18:50:45,539][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:50:45,540][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:45,540][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:45,540][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:48,047][semstamp][INFO] - Candidate text:  **Phone App Syncing**: Paired devices share glucose reading info directly, eliminating the hassle of manual logging or transcribing results.
+
+[2024-05-26 18:50:48,047][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.89it/s]
+[2024-05-26 18:50:48,065][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:48,065][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:48,065][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:48,065][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:51,194][semstamp][INFO] - Candidate text:  **Real-time Tracking**: Capture blood glucose levels at any time of day and view the results instantly within the companion app, with graphs, trends, and averages at your fingertips!
+
+[2024-05-26 18:50:51,195][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.10it/s]
+[2024-05-26 18:50:51,213][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:51,213][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:51,213][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:51,213][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:54,066][semstamp][INFO] - Candidate text:  **Mobile App Integration**: Designed to interact seamlessly with companion apps on both iOS and Android devices, they make recording and monitoring blood glucose measurements easy peasy!
+
+[2024-05-26 18:50:54,066][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.02it/s]
+[2024-05-26 18:50:54,085][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:54,085][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:54,085][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:54,085][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:56,800][semstamp][INFO] - Candidate text:  **Real-time Data Storage**: Measurements, dates, times, carbohydrate counts, and insulin doses get recorded accurately, helping keep an organized digital log.
+
+[2024-05-26 18:50:56,801][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.24it/s]
+[2024-05-26 18:50:56,819][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:50:56,819][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:50:56,819][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:56,819][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:50:59,464][semstamp][INFO] - Candidate text:  **Automatic Data Transfer**: Once paired with the app, test results upload automatically without needing you to manually input values or perform tedious syncing procedures.
+[2024-05-26 18:50:59,464][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.08it/s]
+[2024-05-26 18:50:59,474][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:50:59,474][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:02,051][semstamp][INFO] - Candidate text:  **Automatic Logging**: Your glucose measurements are automatically stored in the companion app, which saves time and reduces mistakes associated with manually recording results.
+
+[2024-05-26 18:51:02,051][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.28it/s]
+[2024-05-26 18:51:02,069][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:02,069][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:02,069][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:02,069][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:04,162][semstamp][INFO] - Candidate text:  **Companion Apps**: User-friendly accompanying software analyzes, stores, and organizes your glucose measurements.
+[2024-05-26 18:51:04,163][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.84it/s]
+[2024-05-26 18:51:04,180][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:04,180][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:04,180][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:04,180][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:06,895][semstamp][INFO] - Candidate text:  **Real-time Results**: You receive instant test results directly on your smartphone app, often complemented by statistical graphics for better understanding patterns and trends.
+
+[2024-05-26 18:51:06,895][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.34it/s]
+[2024-05-26 18:51:06,913][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:06,913][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:06,913][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:06,913][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:09,007][semstamp][INFO] - Candidate text:  **Mobile App Integration**: Companion mobile apps accompany most, if not all, smart glucometers.
+[2024-05-26 18:51:09,007][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.11it/s]
+[2024-05-26 18:51:09,025][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:09,025][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:09,025][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:09,025][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:12,778][semstamp][INFO] - Candidate text:  **Companion App**: Each smart glucometer comes with an accompanying smartphone application designed to organize, analyze, store, and share glucose readings with healthcare professionals, insurance providers, or loved ones – all at your fingertips!
+
+
+[2024-05-26 18:51:12,779][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 151.15it/s]
+[2024-05-26 18:51:12,799][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:12,799][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:12,799][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:12,799][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:15,930][semstamp][INFO] - Candidate text:  **Automatic Logbook Entries**: The meter synchronizes with your dedicated app to automatically create logbook entries for your glucose levels, meal times, medication, and even exercise records!
+
+[2024-05-26 18:51:15,930][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.83it/s]
+[2024-05-26 18:51:15,948][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:15,948][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:15,948][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:15,948][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:17,490][semstamp][INFO] - Candidate text:  **Automatic Data Transfer**: Say goodbye to logging numbers manually!
+[2024-05-26 18:51:17,490][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.99it/s]
+[2024-05-26 18:51:17,499][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:17,499][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:20,560][semstamp][INFO] - Candidate text:  **Automatic Data Transfer**: No more worrying about recording each reading individually – these meters enable automated logging of your results, providing an organized view of your diabetes progress over time.
+
+[2024-05-26 18:51:20,560][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.75it/s]
+[2024-05-26 18:51:20,577][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:20,578][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:20,578][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:20,578][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:23,223][semstamp][INFO] - Candidate text:  **Accurate Results**: Like traditional meters, they ensure accurate reading with their advanced chipsets, which eliminate interference from nearby phones or devices.
+
+[2024-05-26 18:51:23,224][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.31it/s]
+[2024-05-26 18:51:23,241][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:23,242][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:23,242][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:23,242][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:26,027][semstamp][INFO] - Candidate text:  **Accurate Measurements**: Most devices offer precise glucose level monitoring with features like precise electrode technology or built-in automatic coding, ensuring accuracy and easy handling.
+
+[2024-05-26 18:51:26,027][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.77it/s]
+[2024-05-26 18:51:26,045][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:26,046][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:26,046][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:26,046][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:28,622][semstamp][INFO] - Candidate text:  **Automated Data Transfer**: Gone are the days of manually logging data; with Bluetooth-enabled glucometers, readings are transmitted automatically.
+
+[2024-05-26 18:51:28,622][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.60it/s]
+[2024-05-26 18:51:28,640][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:51:28,640][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:28,640][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:28,640][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:31,148][semstamp][INFO] - Candidate text:  **Digital Tracking**: The accompanying software enables you to record, track, analyze, and store readings in a digitized logbook.
+[2024-05-26 18:51:31,148][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.13it/s]
+[2024-05-26 18:51:31,158][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:31,158][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:33,666][semstamp][INFO] - Candidate text:  **Automatic Log**: No more tedious record-keeping; these apps auto-log each reading, providing accurate summaries and enabling easy analysis.
+
+[2024-05-26 18:51:33,666][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 141.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.82it/s]
+[2024-05-26 18:51:33,685][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:33,685][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:33,685][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:33,685][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:35,711][semstamp][INFO] - Candidate text:  **Automatic Logging**: Once connected to an app, readings are automatically logged, eliminating human error.
+[2024-05-26 18:51:35,711][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.32it/s]
+[2024-05-26 18:51:35,729][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:51:35,729][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:35,729][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:35,729][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:38,374][semstamp][INFO] - Candidate text:  **Convenience and Ease-of-Use**: Automatic recording and transferring of data save time and effort, allowing you to manage diabetes more efficiently.
+
+[2024-05-26 18:51:38,375][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.46it/s]
+[2024-05-26 18:51:38,392][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:51:38,392][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:38,392][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:38,393][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:42,215][semstamp][INFO] - Candidate text:  **Companion Apps**: Each brand comes with a respective companion app, compatible with iOS and Android phones and tablets, providing an exhaustive logbook to monitor progress, analyze, & store your results for easy sharing with health professionals.
+
+[2024-05-26 18:51:42,216][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.12it/s]
+[2024-05-26 18:51:42,234][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:42,235][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:42,235][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:42,235][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:44,605][semstamp][INFO] - Candidate text:  **Auto-Logging**: The reading gets stored in your smartphone automatically, removing the need for manual logs or logbooks.
+[2024-05-26 18:51:44,605][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.62it/s]
+[2024-05-26 18:51:44,623][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:51:44,623][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:44,623][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:44,623][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:47,824][semstamp][INFO] - Candidate text:  **Companion Apps**: Paired apps collect data transmitted from the glucometer, allowing individuals to:
+	* Track trends and statistics about their blood glucose levels over time.
+	
+[2024-05-26 18:51:47,825][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.28it/s]
+[2024-05-26 18:51:47,842][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:47,843][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:47,843][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:47,843][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:50,973][semstamp][INFO] - Candidate text:  **Data Storage and Organization**: The companion app collects and organizes glucose readings, making it easy to view patterns, track changes, and provide healthcare professionals with a detailed report.
+
+[2024-05-26 18:51:50,973][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.31it/s]
+[2024-05-26 18:51:50,991][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:51:50,991][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:50,991][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:50,991][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:54,121][semstamp][INFO] - Candidate text:  **Data Management**: Companion software keeps logs of daily readings, providing visual representations through graphs and charts to help monitor trends, set reminders for dosage schedules, and store medical alerts.
+
+[2024-05-26 18:51:54,122][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.45it/s]
+[2024-05-26 18:51:54,139][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:51:54,140][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:51:54,140][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:54,140][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:56,578][semstamp][INFO] - Candidate text:  **Advanced Algorithms**: Companion apps employ advanced algorithms to provide analysis and insights into your glucose patterns, enabling better healthcare decision-making.
+
+[2024-05-26 18:51:56,579][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.85it/s]
+[2024-05-26 18:51:56,596][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:51:56,597][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:51:56,597][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:56,597][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:51:57,980][semstamp][INFO] - Candidate text: 3.
+[2024-05-26 18:51:57,980][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 163.84it/s]
+[2024-05-26 18:51:57,997][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:51:57,997][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:51:57,997][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:51:57,997][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:01,094][semstamp][INFO] - Candidate text:  **Cloud Storage and Access**: You can store your readings securely in the cloud, accessible whenever you need to track progress, monitor trends, or share data with health professionals.
+
+[2024-05-26 18:52:01,095][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 146.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.52it/s]
+[2024-05-26 18:52:01,112][semstamp][INFO] - LSH Candidate: 1
+[2024-05-26 18:52:01,112][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:01,113][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:01,113][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:03,912][semstamp][INFO] - Candidate text:  **Real-time Tracking and Alerts**: Users receive immediate notifications on their smartphones, ensuring timely awareness of deviations in their normal range and prompt remedial actions.
+
+[2024-05-26 18:52:03,913][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.11it/s]
+[2024-05-26 18:52:03,931][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:52:03,931][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:03,931][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:03,931][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:06,732][semstamp][INFO] - Candidate text:  **Data Analytics & Reporting**: Many apps offer detailed reports, logs, and summaries for easier tracking, helping you identify trends and potential issues more efficiently.
+
+[2024-05-26 18:52:06,732][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.14it/s]
+[2024-05-26 18:52:06,750][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:52:06,750][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:06,751][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:06,751][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:09,135][semstamp][INFO] - Candidate text:  **Data Storage**: With cloud storage, access glucose history, view detailed reports, and receive reminders – a great convenience!
+
+[2024-05-26 18:52:09,135][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 147.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.17it/s]
+[2024-05-26 18:52:09,153][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:52:09,153][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:09,153][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:09,153][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:12,093][semstamp][INFO] - Candidate text:  **Data Visualization**: The accompanying apps display intuitive graphs, charts, and trends, making it easy to understand the highs and lows of your glucose levels over time.
+
+
+[2024-05-26 18:52:12,094][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.44it/s]
+[2024-05-26 18:52:12,111][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:52:12,112][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:52:12,112][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:12,112][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:16,984][semstamp][INFO] - Candidate text: These cutting-edge glucometers not only reduce manual logging but also open up possibilities for increased remote health monitoring and telemedicine opportunities.
+
+
+[2024-05-26 18:52:16,984][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.34it/s]
+[2024-05-26 18:52:17,002][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:52:17,003][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:17,003][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:17,003][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:18,988][semstamp][INFO] - Candidate text: These revolutionary glucometers bridge the gap between manual log-keeping and digital health monitoring.
+[2024-05-26 18:52:18,988][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.53it/s]
+[2024-05-26 18:52:19,006][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:52:19,006][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:19,006][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:19,006][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:22,037][semstamp][INFO] - Candidate text: **Benefits of Using a Smart Glucometer:**
+
+Adopting smart technology like a Bluetooth-enabled blood glucose monitoring system presents various benefits, including:
+
+1.
+[2024-05-26 18:52:22,038][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.20it/s]
+[2024-05-26 18:52:22,056][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:52:22,056][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:22,056][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:22,056][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:24,458][semstamp][INFO] - Candidate text: With all these clever innovations, users experience more efficient tracking and recording, plus get valuable guidance and support with diabetes management!
+
+
+[2024-05-26 18:52:24,459][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.87it/s]
+[2024-05-26 18:52:24,477][semstamp][INFO] - LSH Candidate: 0
+[2024-05-26 18:52:24,477][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:24,477][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:24,477][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:27,089][semstamp][INFO] - Candidate text: Some top names in the industry offering these innovations include:
+  
+* **Abbott**: Offering various FreeStyle series meters with Bluetooth capabilities.
+
+[2024-05-26 18:52:27,090][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 153.72it/s]
+[2024-05-26 18:52:27,107][semstamp][INFO] - LSH Candidate: 7
+[2024-05-26 18:52:27,108][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:27,108][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:27,108][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:29,999][semstamp][INFO] - Candidate text: These connected glucometers provide a comprehensive solution that enhances your health experience by simplifying management, promoting data-driven decisions, and potentially encouraging pro-active adjustments.
+
+
+[2024-05-26 18:52:30,000][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 145.03it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.85it/s]
+[2024-05-26 18:52:30,017][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 18:52:30,017][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:30,018][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:30,018][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:31,725][semstamp][INFO] - Candidate text: Let's highlight some popular options that are pushing innovation in the field!
+
+
+[2024-05-26 18:52:31,725][semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.82it/s]
+[2024-05-26 18:52:31,742][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 18:52:31,742][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:52:31,742][semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-05-26 18:52:31,742][semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:52,136][semstamp][INFO] - Candidate text: **7 Exceptional Smart Glucose Meters with Bluetooth Compatibility:**
+
+These cutting-edge devices offer varied features but share one common bond – effortless, real-time tracking and analysis made possible by Bluetooth:
+
+|    Product          | Brand          | Description                        |
+| :-----------------:|:--------------:   |:-------------------------------------:|
+|  Freestyle Libre   | Abbot            |  Glucose monitoring without the need for finger sticks   |
+|  Contour Next EZ    | Ascensia Diabetes    |   Fast, accurate results & intuitive interface        |
+|  Accu-Chek Connect | Roche Diagnostics  | User-friendly app w/mood tags for emotional awareness      |
+|  OneTouch Verio IQ  | Lifescan            | Pattern identification w/interactive trend reports       |
+|  iGlucose         | WaveForm Diabetes Tech | Advanced analytics w/cloud storage & health report    |
+|  Dario LC Meter    | LabStyle Innovations  | Portable, compact design with data analysis & tracking     |
+|  Telcare myGlucohealth2 | BioSense Global Health | Integrates with fitness trackers & rewards healthy habits |
+
+Remember that specific model features may vary depending on the region and local availability.
+
+
+[2024-05-26 18:52:52,136][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 81.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 112.36it/s]
+[2024-05-26 18:52:52,163][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:52:52,163][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:52:52,163][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:52:52,163][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:52:55,770][semstamp][INFO] - Candidate text: **Top Smart Glucose Meters with Bluetooth:**
+
+Here's a round-up of well-regarded glucose meters, their standout features, and the relevant apps they pair with:
+
+### 1.
+[2024-05-26 18:52:55,771][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.91it/s]
+[2024-05-26 18:52:55,781][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:52:55,781][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:08,511][semstamp][INFO] - Candidate text: ---
+
+**Top Smart Glucose Meters with Bluetooth:**
+
+| Name | Features |
+| --- | --- |
+| 🏥 One Drop Chrome🔥<br/><ul><li>Syncs with iOS/Android</li><li>100-test strip capacity</li><li>Highly portable</li></ul> | $40 - $50 | <!---table-row--->
+| 💭 iHealth BG5 Wireless SmartBlood Glucose Monitoring System<br/><ul><li>IHealth Analytics App integration</li><li>Average glycemic indices computation</li><li>Compact design</li></ul> | $20 - $30 |  <!---table-row---> <!-- Table content END -->
+
+We reviewed multiple smart glucometers compatible with both Android and iOS and came up with some impressive names:
+
+1.
+[2024-05-26 18:53:08,511][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 90.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 106.52it/s]
+[2024-05-26 18:53:08,536][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:53:08,537][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:53:08,537][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:08,537][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:10,535][semstamp][INFO] - Candidate text: **Top-Rated Glucometer Options with Bluetooth Connectivity:**
+
+1.
+[2024-05-26 18:53:10,535][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 142.84it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.98it/s]
+[2024-05-26 18:53:10,553][semstamp][INFO] - LSH Candidate: 6
+[2024-05-26 18:53:10,553][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:53:10,553][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:10,553][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:11,993][semstamp][INFO] - Candidate text: **Top Options:**
+ 
+
+1.
+[2024-05-26 18:53:11,994][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.21it/s]
+[2024-05-26 18:53:12,012][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 18:53:12,012][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:53:12,012][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:12,012][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:13,172][semstamp][INFO] - Candidate text: ## 1.
+[2024-05-26 18:53:13,173][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 152.43it/s]
+[2024-05-26 18:53:13,182][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:13,182][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:14,482][semstamp][INFO] - Candidate text: ### Popular Options:
+
+1.
+[2024-05-26 18:53:14,482][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 144.85it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.08it/s]
+[2024-05-26 18:53:14,500][semstamp][INFO] - LSH Candidate: 5
+[2024-05-26 18:53:14,500][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:53:14,500][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:14,500][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:16,289][semstamp][INFO] - Candidate text: **Popular Brands of Bluetooth Glucometers:**
+
+1.
+[2024-05-26 18:53:16,289][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 150.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 158.08it/s]
+[2024-05-26 18:53:16,306][semstamp][INFO] - LSH Candidate: 2
+[2024-05-26 18:53:16,306][semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-05-26 18:53:16,307][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:16,307][semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:19,212][semstamp][INFO] - Candidate text: 👉 *Accu-Chek Connect*: This Wi-Fi-enabled smart glucometer sends measurements directly to an accompanying Android and iOS App.
+[2024-05-26 18:53:19,213][semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 143.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.41it/s]
+[2024-05-26 18:53:19,231][semstamp][INFO] - LSH Candidate: 4
+[2024-05-26 18:53:19,231][semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-05-26 18:53:19,231][semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-05-26 18:53:19,231][semstamp][INFO] - acceptmaskstr: 1,4
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/stats.csv
+[2024-05-26 18:53:19,233][semstamp][INFO] - Prompt: When it comes to keeping track of diabetes, the manual process can be a bit of a pain.
+[2024-05-26 18:53:19,233][semstamp][INFO] - Response: ("When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has come to our rescue (at least for those who have adopted tech and are literate in its usage)! Enter glucometers with Bluetooth connectivity and related companion apps! 😊\n\nIn this guide, we'll review what's available when it comes to smart glucose meters with Bluetooth and discuss what makes them so innovative.\n\n**What are Smart Glucose Meters with Bluetooth?**\n\nSmart glucose meters or glucometers are the next generation of blood glucose tracking devices that connect to your smartphone via Bluetooth. These modern, high-tech devices allow you to measure blood glucose levels and transfer the readings instantly to your phone app.\n\nThe key features of these new-fangled tools include:\n\n1. **Wireless Connectivity**: Many models boast wireless BLE (Bluetooth Low Energy) connectivity, allowing seamless transmission of glucose data from the meter to a mobile app on your smart device.\n2. **Advanced Algorithms**: Companion apps employ advanced algorithms to provide analysis and insights into your glucose patterns, enabling better healthcare decision-making.\n3. **Data Visualization**: The accompanying apps display intuitive graphs, charts, and trends, making it easy to understand the highs and lows of your glucose levels over time.\n\nLet's highlight some popular options that are pushing innovation in the field!\n\n👉 *Accu-Chek Connect*: This Wi-Fi-enabled smart glucometer sends measurements directly to an accompanying Android and iOS App.", 91)
+[2024-05-26 18:53:19,233][watermarker][INFO] - Received completion: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has come to our rescue (at least for those who have adopted tech and are literate in its usage)! Enter glucometers with Bluetooth connectivity and related companion apps! 😊
+
+In this guide, we'll review what's available when it comes to smart glucose meters with Bluetooth and discuss what makes them so innovative.
+
+**What are Smart Glucose Meters with Bluetooth?**
+
+Smart glucose meters or glucometers are the next generation of blood glucose tracking devices that connect to your smartphone via Bluetooth. These modern, high-tech devices allow you to measure blood glucose levels and transfer the readings instantly to your phone app.
+
+The key features of these new-fangled tools include:
+
+1. **Wireless Connectivity**: Many models boast wireless BLE (Bluetooth Low Energy) connectivity, allowing seamless transmission of glucose data from the meter to a mobile app on your smart device.
+2. **Advanced Algorithms**: Companion apps employ advanced algorithms to provide analysis and insights into your glucose patterns, enabling better healthcare decision-making.
+3. **Data Visualization**: The accompanying apps display intuitive graphs, charts, and trends, making it easy to understand the highs and lows of your glucose levels over time.
+
+Let's highlight some popular options that are pushing innovation in the field!
+
+👉 *Accu-Chek Connect*: This Wi-Fi-enabled smart glucometer sends measurements directly to an accompanying Android and iOS App.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 160.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 154.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+n_watermark: 14, n_test_sent: 14
+zscore: 6.48074069840786
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.07it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.21it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 155.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 161.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 156.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 157.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 149.27it/s]
+n_watermark: 14, n_test_sent: 14
+zscore: 6.48074069840786
+[2024-05-26 18:53:19,483][__main__][INFO] - Watermarked Text: When it comes to keeping track of diabetes, the manual process can be a bit of a pain. Fortunately, technology has come to our rescue (at least for those who have adopted tech and are literate in its usage)! Enter glucometers with Bluetooth connectivity and related companion apps! 😊
+
+In this guide, we'll review what's available when it comes to smart glucose meters with Bluetooth and discuss what makes them so innovative.
+
+**What are Smart Glucose Meters with Bluetooth?**
+
+Smart glucose meters or glucometers are the next generation of blood glucose tracking devices that connect to your smartphone via Bluetooth. These modern, high-tech devices allow you to measure blood glucose levels and transfer the readings instantly to your phone app.
+
+The key features of these new-fangled tools include:
+
+1. **Wireless Connectivity**: Many models boast wireless BLE (Bluetooth Low Energy) connectivity, allowing seamless transmission of glucose data from the meter to a mobile app on your smart device.
+2. **Advanced Algorithms**: Companion apps employ advanced algorithms to provide analysis and insights into your glucose patterns, enabling better healthcare decision-making.
+3. **Data Visualization**: The accompanying apps display intuitive graphs, charts, and trends, making it easy to understand the highs and lows of your glucose levels over time.
+
+Let's highlight some popular options that are pushing innovation in the field!
+
+👉 *Accu-Chek Connect*: This Wi-Fi-enabled smart glucometer sends measurements directly to an accompanying Android and iOS App.
+[2024-05-26 18:53:19,483][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-26 18:53:19,483][__main__][INFO] - Score: 6.48074069840786
+[2024-05-26 18:53:19,483][__main__][INFO] - Time taken: 249.93726992607117
+Data appended to ./inputs/c4_saves/c4_3_temp_150_divp_15_attempt_3/watermarked_text.csv

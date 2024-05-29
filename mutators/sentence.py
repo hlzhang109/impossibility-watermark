@@ -39,8 +39,12 @@ class SentenceMutator:
         sentences = sent_tokenize(text)
 
         # Generate a creative variation of the sentence
+        num_retries = 0
         while True:
-            
+
+            if num_retries >= self.cfg.max_retries:
+                raise RuntimeError(f"Failed to successfully rephrase sentence after {num_retries} attempts!")
+
             # Randomly select a sentence
             selected_sentence = random.choice(sentences)
             log.info(f"Sentence to rephrase: {selected_sentence}")
@@ -52,6 +56,7 @@ class SentenceMutator:
                 log.info(f"Rephrased sentence: {rephrased_sentence}")
                 break
             else:
+                num_retries += 1
                 log.info(f"Failed to rephrase sentence. Trying again...")
         
         # Replace the original sentence with its creative variation
@@ -70,7 +75,7 @@ def rephrase_sentence(lm, text, sentence):
     ### The original text: 
     {text}
 
-    ### The original sentence: 
+    ### The original selected sentence: 
     {sentence}
 
     ### Task Description: 

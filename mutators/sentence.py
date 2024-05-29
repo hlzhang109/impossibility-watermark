@@ -38,12 +38,13 @@ class SentenceMutator:
         # Use NLTK to split the text into sentences
         sentences = sent_tokenize(text)
 
-        # Randomly select a sentence
-        selected_sentence = random.choice(sentences)
-        log.info(f"Sentence to rephrase: {selected_sentence}")
-
         # Generate a creative variation of the sentence
         while True:
+            
+            # Randomly select a sentence
+            selected_sentence = random.choice(sentences)
+            log.info(f"Sentence to rephrase: {selected_sentence}")
+
             output = self.llm + rephrase_sentence(text, selected_sentence)
             rephrased_sentence = output["paraphrased_sentence"]
 

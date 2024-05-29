@@ -8,7 +8,7 @@ defaults:
     # - oracle_args: llama3
 
 cuda_visible_devices: "1,2" # TODO: Does this really work? FHC: Not at the moment
-model_cache_dir: "./.cache/"
+model_cache_dir: "/data2/.shared_models"
 
 attack_args:
     max_steps: 100           # how many mutations should the attack try to make
@@ -56,18 +56,6 @@ oracle_args:
 
 mutator_args:
     type: "sentence" # document, sentence, span, word
-    use_system_profile: True
-    system_profile: "You are a copy editor tasked to enforce text quality."
-    num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    model_id: "TechxGenus/Meta-Llama-3-8B-GPTQ"
     model_cache_dir: "${model_cache_dir}"
-    revision: "main" 
     device_map: "${generator_args.device_map}"
-    trust_remote_code: "${generator_args.trust_remote_code}"
-    max_new_tokens: "${generator_args.max_new_tokens}"
-    do_sample: "${generator_args.do_sample}" 
-    temperature: "${generator_args.temperature}"
-    top_p: "${generator_args.top_p}"
-    top_k: "${generator_args.top_k}"
-    repetition_penalty: "${generator_args.repetition_penalty}"
-    use_pydantic_parser: True

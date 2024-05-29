@@ -7,7 +7,7 @@ defaults:
     # - generator_args: large_mixtral
     # - oracle_args: llama3
 
-cuda_visible_devices: "1" # TODO: Does this really work? FHC: Not at the moment
+cuda_visible_devices: "1,2" # TODO: Does this really work? FHC: Not at the moment
 model_cache_dir: "./.cache/"
 
 attack_args:
@@ -45,7 +45,7 @@ oracle_args:
     top_p: "${generator_args.top_p}"
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
-    cuda: "${attack_args.cuda}"
+    cuda_visible_devices: "${cuda_visible_devices}"
     is_completion: ${attack_args.is_completion}
     num_retries: 5
     num_formatting_retries: 1
@@ -62,7 +62,7 @@ mutator_args:
     model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
     model_cache_dir: "${model_cache_dir}"
     revision: "main" 
-    device_map: "auto"
+    device_map: "${generator_args.device_map}"
     trust_remote_code: "${generator_args.trust_remote_code}"
     max_new_tokens: "${generator_args.max_new_tokens}"
     do_sample: "${generator_args.do_sample}" 

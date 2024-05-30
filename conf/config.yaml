@@ -34,7 +34,7 @@ generator_args:
     watermark_score_threshold: 5.0
 
 oracle_args:
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
+    model_name_or_path: "gpt-4" # "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
     model_cache_dir: "${model_cache_dir}"
     revision: "main" 
     device_map: "${generator_args.device_map}"
@@ -52,14 +52,14 @@ oracle_args:
     system_profile: "You are a helpful and precise assistant for checking the quality of the answer."
     template_dir: "./prompt_templates/quality_oracle/"
     template: "relative.sandpaper.3"
-    num_gpus: 1 # for prometheus only
+    num_gpus: 1,2,3,5,6,7 # for prometheus only
 
 mutator_args:
     type: "sentence" # document, sentence, span, word
     use_system_profile: True
     system_profile: "You are a copy editor tasked to enforce text quality."
     num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ"
+    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" 
     model_cache_dir: "${model_cache_dir}"
     revision: "main" 
     device_map: "${generator_args.device_map}"

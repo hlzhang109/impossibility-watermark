@@ -8,17 +8,29 @@ CUDA extension not installed.
   warn(RuntimeWarning(msg))
 CUDA_VISIBLE_DEVICES: 1,2
 WORLD_SIZE: 2
-{'type': 'sentence', 'use_system_profile': True, 'system_profile': 'You are a copy editor tasked to enforce text quality.', 'num_retries': 5, 'model_name_or_path': 'TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ', 'model_cache_dir': '${model_cache_dir}', 'revision': 'main', 'device_map': '${generator_args.device_map}', 'trust_remote_code': '${generator_args.trust_remote_code}', 'max_new_tokens': '${generator_args.max_new_tokens}', 'do_sample': '${generator_args.do_sample}', 'temperature': '${generator_args.temperature}', 'top_p': '${generator_args.top_p}', 'top_k': '${generator_args.top_k}', 'repetition_penalty': '${generator_args.repetition_penalty}', 'use_pydantic_parser': True}
-[2024-05-28 12:10:57,943][__main__][INFO] - Type of pipeline was: <class 'NoneType'>
-[2024-05-28 12:10:57,943][__main__][INFO] - Initializing a new Text Mutator pipeline from cfg...
-[2024-05-28 12:10:57,943][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+{'type': 'sentence', 'use_system_profile': True, 'system_profile': 'You are a copy editor tasked to enforce text quality.', 'num_retries': 5, 'model_name_or_path': 'MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ', 'model_cache_dir': '${model_cache_dir}', 'revision': 'main', 'device_map': '${generator_args.device_map}', 'trust_remote_code': '${generator_args.trust_remote_code}', 'max_new_tokens': '${generator_args.max_new_tokens}', 'do_sample': '${generator_args.do_sample}', 'temperature': '${generator_args.temperature}', 'top_p': '${generator_args.top_p}', 'top_k': '${generator_args.top_k}', 'repetition_penalty': '${generator_args.repetition_penalty}', 'use_pydantic_parser': True}
+[2024-05-28 13:19:37,967][__main__][INFO] - Type of pipeline was: <class 'NoneType'>
+[2024-05-28 13:19:37,967][__main__][INFO] - Initializing a new Text Mutator pipeline from cfg...
+[2024-05-28 13:19:37,967][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
 /local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
-  warnings.warn(
-[2024-05-28 12:10:59,781][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
-[2024-05-28 12:11:09,929][__main__][INFO] - Sentence to rephrase: The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world.
-Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+WARNING - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+[2024-05-28 13:19:38,075][auto_gptq.modeling._base][WARNING] - Exllamav2 kernel is not installed, reset disable_exllamav2 to True. This may because you installed auto_gptq using a pre-build wheel on Windows, in which exllama_kernels are not compiled. To use exllama_kernels to further speedup inference, you can re-install auto_gptq from source.
+WARNING - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+[2024-05-28 13:19:38,076][auto_gptq.modeling._base][WARNING] - CUDA kernels for auto_gptq are not installed, this will result in very slow inference speed. This may because:
+1. You disabled CUDA extensions compilation by setting BUILD_CUDA_EXT=0 when install auto_gptq from source.
+2. You are using pytorch without CUDA support.
+3. CUDA and nvcc are not installed in your device.
+INFO - The layer lm_head is not quantized.
+[2024-05-28 13:19:38,726][auto_gptq.modeling._base][INFO] - The layer lm_head is not quantized.
+[2024-05-28 13:19:42,213][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+[2024-05-28 13:20:01,629][__main__][INFO] - Sentence to rephrase: Through the characters of the Lord of the Rings series, Tolkien demonstrates the various forms of power and their effects on individuals and society.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
 Traceback (most recent call last):
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/runpy.py", line 196, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -72,6 +84,8 @@ Traceback (most recent call last):
     model_outputs = self._forward(model_inputs, **forward_params)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 327, in _forward
     generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/auto_gptq/modeling/_base.py", line 532, in generate
+    return self.model.generate(**kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
     return func(*args, **kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/generation/utils.py", line 1622, in generate
@@ -82,24 +96,30 @@ Traceback (most recent call last):
     return self._call_impl(*args, **kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
     return forward_call(*args, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1359, in forward
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1211, in forward
     outputs = self.model(
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
     return forward_call(*args, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 1227, in forward
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1018, in forward
     layer_outputs = decoder_layer(
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
     return forward_call(*args, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 945, in forward
-    hidden_states, router_logits = self.block_sparse_moe(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 741, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
     return forward_call(*args, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/mixtral/modeling_mixtral.py", line 869, in forward
-    idx, top_x = torch.where(expert_mask[expert_idx])
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 637, in forward
+    key_states = self.k_proj(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/auto_gptq/nn_modules/qlinear/qlinear_cuda_old.py", line 302, in forward
+    zeros = torch.bitwise_and(
 KeyboardInterrupt

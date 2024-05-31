@@ -13,9 +13,12 @@ log = logging.getLogger(__name__)
 def extract_dict(output, keys):
     return {k: output[k] for k in keys}
 
+# TODO: This should inherit from the ABC in custom.py.
 class RelativeOracle3:  
     def __init__(self, cfg):
         self.cfg = cfg
+
+        # TODO: Enable passing an LLM so we don't have to create 2 different models in attack.py.
 
         # Load oracle model
         log.info(f"Loading model: {cfg.model_id} from {cfg.model_cache_dir}...")
@@ -27,9 +30,12 @@ class RelativeOracle3:
         )
 
     def evaluate(self, instruction, output_1, output_2, **kwargs):
-        output = self.llm + evaluate_quality(instruction, output_1, output_2)
+        analysis = self.llm + produce_quality_analysis(instruction, output_1, output_2)
+        analysis = analysis["analysis"]
+
+        output = self.llm + produce_answer(analysis)
         return {
-            # "analysis": output["analysis"], 
+            "analysis": analysis, 
             "answer": output["answer"]
         }
 
@@ -41,8 +47,9 @@ class RelativeOracle3:
         elif "B" in evaluation["answer"]:
             return 5
         else:
-            log.info(f"Invalid prediction label: {evaluation[eval_key]}")
-            log.info(f"Invalid parsed values: {response, status}")
+            # TODO: This log throws an error.
+            # log.info(f"Invalid prediction label: {evaluation[eval_key]}")
+            # log.info(f"Invalid parsed values: {response, status}")
             return -1
 
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
@@ -99,7 +106,7 @@ class RelativeOracle3:
         return original
 
 @guidance
-def evaluate_quality(lm, instruction, output_1, output_2):
+def produce_quality_analysis(lm, instruction, output_1, output_2):
     lm += f"""\
     ### Task Description: 
     1. You will be comparing two responses to a given prompt to determine which response is better. 
@@ -110,10 +117,6 @@ def evaluate_quality(lm, instruction, output_1, output_2):
         - Relevance: Does each response directly address the given prompt?
         - Accuracy: Is the information provided in each response accurate and factual?
     3. Keep in mind that having grammatical errors, repetitions, capitalization errors, or punctuation mistakes would greatly degrade the quality of a response.
-    4. After analyzing the responses, in the "answer" field, select one of the following options:
-        - "A" if Response A is better than Response B
-        - "B" if Response B is better than Response A
-        - "Equal" if Responses A and B have similar quality
 
     ### The instructions prompting the responses: 
     {instruction}
@@ -124,6 +127,27 @@ def evaluate_quality(lm, instruction, output_1, output_2):
     ### Response B: 
     {output_2}
 
+    ### Feedback:
+    ```json
+    {{
+        "analysis": "{gen('analysis', stop='"')}",
+    }}```"""
+
+    return lm
+
+@guidance
+def produce_answer(lm, analysis):
+    lm += f"""\
+    ### Task Description: 
+    1. Read the following quality analysis given by an LLM.
+    2. Then, in the "answer" field, select one of the following options:
+        - "A" if the LLM thinks Response A is better than Response B
+        - "B" if the LLM thinks Response B is better than Response A
+        - "Equal" if the LLM thinks Responses A and B have similar quality
+
+    ### Analysis:
+    {analysis}
+    
     ### Feedback: 
     ```json 
     {{
@@ -131,44 +155,6 @@ def evaluate_quality(lm, instruction, output_1, output_2):
     }}
     ```"""
     return lm
-
-# @guidance
-# def evaluate_quality(lm, instruction, output_1, output_2):
-#     lm += f"""\
-#     ### Task Description: 
-#     1. You will be comparing two responses to a given prompt to determine which response is better. 
-#     2. Carefully analyze both responses, considering factors such as:
-#         - Repetition: Does either response repeat information unnecessarily?
-#         - Grammar: Are there any grammatical errors, capitalization errors, or punctuation mistakes in either response?
-#         - Coherence: Is each response well-structured and easy to understand?
-#         - Relevance: Does each response directly address the given prompt?
-#         - Accuracy: Is the information provided in each response accurate and factual?
-#     3. Keep in mind that having grammatical errors, repetitions, capitalization errors, or punctuation mistakes would greatly degrade the quality of a response.
-#     4. After analyzing the responses, provide a detailed explanation of your reasoning in the "analysis" field. Your analysis should compare the two responses step by step, highlighting their strengths and weaknesses based on the factors mentioned above.
-#     5. Then, in the "answer" field, select one of the following options:
-#         - "A" if Response A is better than Response B
-#         - "B" if Response B is better than Response A
-#         - "Equal" if Responses A and B have similar quality
-#     6. Provide your analysis and answer immediately, without any additional commentary.
-
-#     ### The instructions prompting the responses: 
-#     {instruction}
-
-#     ### Response A: 
-#     {output_1}
-
-#     ### Response B: 
-#     {output_2}
-
-#     ### Feedback: 
-#     ```json 
-#     {{
-#         "analysis": "{gen('analysis', max_tokens=200, stop='"')}", 
-#         "answer": {select(options=['A', 'B', 'Equal'], name='answer')}"
-#     }}
-#     ```"""
-#     return lm
-
 
 if __name__ == "__main__":
 

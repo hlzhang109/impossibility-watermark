@@ -41,7 +41,7 @@ def main(cfg):
     log.info(f"Prompt: {prompt}")
     log.info(f"Watermarked Text: {watermarked_text}")
 
-    cfg.attack_args.log_csv_path = './semstamp_attacks/05_28_c4_sentence.log'
+    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.log'
 
     attacker = Attack(cfg)
     attacked_text = attacker.attack(prompt, watermarked_text)

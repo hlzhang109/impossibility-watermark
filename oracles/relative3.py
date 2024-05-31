@@ -6,38 +6,54 @@ from guidance import models, gen, select
 import hydra
 import logging
 
+from oracles.custom import Oracle
 from oracles.utils import *
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 def extract_dict(output, keys):
     return {k: output[k] for k in keys}
 
-# TODO: This should inherit from the ABC in custom.py.
-class RelativeOracle3:  
-    def __init__(self, cfg):
-        self.cfg = cfg
-
-        # TODO: Enable passing an LLM so we don't have to create 2 different models in attack.py.
-
-        # Load oracle model
-        log.info(f"Loading model: {cfg.model_id} from {cfg.model_cache_dir}...")
-        self.llm = models.Transformers(
-            cfg.model_id, 
-            echo=False,
-            cache_dir=cfg.model_cache_dir, 
-            device_map=cfg.device_map
-        )
+class RelativeOracle3(Oracle):  
+    def __init__(self, cfg, llm = None) -> None:
+        super().__init__(cfg, llm)
 
     def evaluate(self, instruction, output_1, output_2, **kwargs):
         analysis = self.llm + produce_quality_analysis(instruction, output_1, output_2)
         analysis = analysis["analysis"]
 
         output = self.llm + produce_answer(analysis)
+
+        log.debug(f"Answer: {output['answer']}")
+        log.debug(f"Answer Type: {type(output['answer'])}")
+
+        # TODO: Put this function somewhere else.
+        # Mapping function
+        def map_answer_to_text(answer):
+            answer = int(answer)
+            mapping = {1: "A", 2: "B", 0: "Equal"}
+            return mapping.get(answer, "Invalid")
+        
+        answer = map_answer_to_text(output['answer'])
+
+        log.debug(f"Mapped Answer: {answer}")
+
         return {
             "analysis": analysis, 
-            "answer": output["answer"]
+            "answer": answer
         }
+
+    def evaluate_with_retries(self, instruction, output_1, output_2, max_retries=3, **kwargs):
+        for attempt in range(max_retries):
+            try:
+                return self.evaluate(instruction, output_1, output_2, **kwargs)
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    log.warning(f"Evaluation attempt {attempt + 1} failed with error: {e}. Retrying...")
+                else:
+                    log.error(f"All {max_retries} attempts failed.")
+                    raise
 
     def extract_label(self, evaluation):
         if "A" in evaluation["answer"]:
@@ -74,12 +90,11 @@ class RelativeOracle3:
         return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
-
         original_label = numerize_label(downscale_label(label))
         followup_label = numerize_label(downscale_label(invert_label(label)))
 
-        original = self.evaluate(instruction, output_1, output_2, **kwargs) 
-        followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+        original = self.evaluate_with_retries(instruction, output_1, output_2, **kwargs) 
+        followup = self.evaluate_with_retries(instruction, output_2, output_1, **kwargs) # switched outputs
 
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
@@ -139,11 +154,15 @@ def produce_quality_analysis(lm, instruction, output_1, output_2):
 def produce_answer(lm, analysis):
     lm += f"""\
     ### Task Description: 
-    1. Read the following quality analysis given by an LLM.
-    2. Then, in the "answer" field, select one of the following options:
-        - "A" if the LLM thinks Response A is better than Response B
-        - "B" if the LLM thinks Response B is better than Response A
-        - "Equal" if the LLM thinks Responses A and B have similar quality
+    1. Read the following analysis given by an LLM.
+    2. In the "answer" field, select one of the following options based on the analysis:
+        - 1 if the analysis indicates that Response A is better than Response B.
+        - 2 if the analysis indicates that Response B is better than Response A.
+        - 0 if the analysis indicates that Responses A and B have similar quality.
+
+    ### Example:
+    - Analysis: "Response A is more coherent and relevant than Response B."
+      Expected Answer: 1
 
     ### Analysis:
     {analysis}
@@ -151,7 +170,7 @@ def produce_answer(lm, analysis):
     ### Feedback: 
     ```json 
     {{
-        "answer": {select(options=['A', 'B', 'Equal'], name='answer')}"
+        "answer": {select(options=[1, 2, 0], name='answer')}"
     }}
     ```"""
     return lm
@@ -190,40 +209,48 @@ if __name__ == "__main__":
 
         label = "output_1 is much better than output_2"
 
-        oracle = RelativeOracle3(cfg.oracle_args)
-
-        start = time.time()
-        evaluation = oracle.evaluate(
-            instruction=instruction, 
-            output_1=output_1, 
-            output_2=output_2
+        llm = models.Transformers(
+            cfg.oracle_args.model_id, 
+            echo=False,
+            cache_dir=cfg.oracle_args.model_cache_dir, 
+            device_map=cfg.oracle_args.device_map
         )
-        time_taken = time.time() - start
-        print("oracle.evaluate")
-        print("evaluation:", evaluation)
-        print("time_taken:", time_taken)
 
-        start = time.time()
-        quality_eval = oracle.is_quality_preserved(
-            instruction=instruction, 
-            output_1=output_1, 
-            output_2=output_2
-        )
-        time_taken = time.time() - start
-        print("oracle.is_quality_preserved")
-        print("quality_eval:", quality_eval)
-        print("time_taken:", time_taken)
+        oracle = RelativeOracle3(cfg.oracle_args, llm=llm)
 
-        start = time.time()
-        test_eval = oracle.test(
-            instruction=instruction, 
-            output_1=output_1, 
-            output_2=output_2,
-            label=label
-        )
-        time_taken = time.time() - start
-        print("oracle.test")
-        print("test_eval:", test_eval)
-        print("time_taken:", time_taken)
+        for _ in range(10):
+            start = time.time()
+            evaluation = oracle.evaluate(
+                instruction=instruction, 
+                output_1=output_1, 
+                output_2=output_2
+            )
+            time_taken = time.time() - start
+            print("oracle.evaluate")
+            print("evaluation:", evaluation)
+            print("time_taken:", time_taken)
+
+            start = time.time()
+            quality_eval = oracle.is_quality_preserved(
+                instruction=instruction, 
+                output_1=output_1, 
+                output_2=output_2
+            )
+            time_taken = time.time() - start
+            print("oracle.is_quality_preserved")
+            print("quality_eval:", quality_eval)
+            print("time_taken:", time_taken)
+
+            start = time.time()
+            test_eval = oracle.test(
+                instruction=instruction, 
+                output_1=output_1, 
+                output_2=output_2,
+                label=label
+            )
+            time_taken = time.time() - start
+            print("oracle.test")
+            print("test_eval:", test_eval)
+            print("time_taken:", time_taken)
 
     test()

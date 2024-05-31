@@ -6,6 +6,7 @@ from guidance import models, gen, select
 import hydra
 import logging
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 def extract_dict(output, keys):
@@ -15,20 +16,24 @@ class DocumentMutator:
     # NOTE: This current implementation is slow (~300 seconds) and must be optimized before use in the attack. 
     # One idea would be to have it suggest the edits in some structured format and then apply them outside of generation. 
     # This prevents it from having to copy / paste over the bulk of the response unchanged. 
-    def __init__(self, cfg):
+    def __init__(self, cfg, llm = None) -> None:
         self.cfg = cfg
-
-        # Load mutator model
-        log.info(f"Loading model: {cfg.model_id}...")
-        self.llm = models.Transformers(
-            cfg.model_id, 
-            echo=False,
-            cache_dir=cfg.model_cache_dir, 
-            device_map=cfg.device_map
-        )
+        self.llm = self._initialize_llm(llm)
 
         # Check if NLTK data is downloaded, if not, download it
         self._ensure_nltk_data()
+
+    def _initialize_llm(self, llm):
+        if not isinstance(llm, models.Transformers):
+            log.info("Initializing a new Mutator model from cfg...")
+            llm = models.Transformers(
+                self.cfg.model_id, 
+                echo=False,
+                cache_dir=self.cfg.model_cache_dir, 
+                device_map=self.cfg.device_map
+            )
+            return llm
+        return llm
 
     def _ensure_nltk_data(self):
         try:
@@ -140,6 +145,8 @@ if __name__ == "__main__":
         from utils import diff
         import textwrap
 
+        print(f"Starting mutation...")
+
         text = textwrap.dedent("""
             Power is a central theme in J.R.R. Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story. Power can take many forms, including physical strength, political authority, and magical abilities. However, the most significant form of power in the series is the One Ring, created by Sauron to control and enslave the free peoples of Middle-earth.
             The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world. Sauron's desire for the Ring drives much of the plot, as he seeks to reclaim it and use its power to enslave all of Middle-earth. Other characters, such as Gandalf and Frodo, also become obsessed with the Ring's power, leading them down dangerous paths and ultimately contributing to the destruction of their own kingdoms.
@@ -152,17 +159,16 @@ if __name__ == "__main__":
 
         start = time.time()
         mutated_output = text_mutator.mutate(text)
-        analysis = mutated_output["analysis"]
-        edited_text = mutated_output["edited_text"]
+        mutated_text = mutated_output["mutated_text"]
+        selected_sentence = mutated_output["selected_sentence"]
+        rephrased_sentence = mutated_output["rephrased_sentence"]
         delta = time.time() - start
 
-        # log.info(f"Original text: {text}")
-        # log.info(f"Sentence to Mutate: {selected_sentence}")
-        # log.info(f"Mutated Setence: {rephrased_sentence}")
-        # log.info(f"Mutated text: {mutated_text}")
-        # log.info(f"Diff: {diff(text, mutated_text)}")
-        log.info(f"analysis: {analysis}")
-        log.info(f"edited_text: {edited_text}")
-        log.info(f"Time taken: {delta}")
+        print(f"Original text: {text}")
+        print(f"Sentence to Mutate: {selected_sentence}")
+        print(f"Mutated Setence: {rephrased_sentence}")
+        print(f"Mutated text: {mutated_text}")
+        print(f"Diff: {diff(text, mutated_text)}")
+        print(f"Time taken: {delta}")
 
     test()

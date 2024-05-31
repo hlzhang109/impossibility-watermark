@@ -9,6 +9,7 @@ from utils import (
     save_to_csv,
     length_diff_exceeds_percentage,
 )
+from guidance import models
 
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
@@ -43,17 +44,18 @@ class Attack:
             "timestamp": "",
         }
         
-        self.pipeline_builders = {}
+        self.models = {}
 
         # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
         # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
         from model_builders.pipeline import PipeLineBuilder
         from utils import get_watermarker
+        # TODO: We should update the other oracles and mutators to work with guidance. Currently, only RelativeOracle3 works.
         from oracles import (
-            RankOracle,
-            JointOracle,
-            RelativeOracle,
-            SoloOracle,
+            # RankOracle,
+            # JointOracle,
+            RelativeOracle3,
+            # SoloOracle,
             PrometheusAbsoluteOracle,
             PrometheusRelativeOracle,
         )
@@ -64,22 +66,32 @@ class Attack:
             SpanFillMutator
         )
 
-        # Helper function to create or reuse pipeline builders.
-        def get_or_create_pipeline_builder(model_name_or_path, args):
-            if model_name_or_path not in self.pipeline_builders:
-                self.pipeline_builders[model_name_or_path] = PipeLineBuilder(args)
-            return self.pipeline_builders[model_name_or_path]
+        # Helper function to create or reuse model.
+        def get_or_create_model(model_id, args):
+            if model_id not in self.models:
+                llm = models.Transformers(
+                    args.model_id, 
+                    echo=False,
+                    cache_dir=args.model_cache_dir, 
+                    device_map=args.device_map
+                )
+                # from auto_gptq import exllama_set_max_input_length
+                # llm = exllama_set_max_input_length(llm, 2048)
+                self.models[model_id] = llm
+            return self.models[model_id]
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
         # If we're only in detection mode for Semstamp, we don't need the pipeline.
-        if "semstamp" not in self.cfg.watermark_args.name:
-            log.info(f"Getting a pipeline for the generator...")
-            self.generator_pipe_builder = get_or_create_pipeline_builder(cfg.generator_args.model_name_or_path, cfg.generator_args)
-            self.generator_pipeline = self.generator_pipe_builder.pipeline
-        else:
-            self.generator_pipeline = None
+        # TODO: We should update the watermarkers to work with guidance. Currently only works with semstamp.
+        # if "semstamp" not in self.cfg.watermark_args.name:
+        #     log.info(f"Getting a pipeline for the generator...")
+        #     self.generator_pipe_builder = get_or_create_model(cfg.generator_args model_id, cfg.generator_args)
+        #     self.generator_pipeline = self.generator_pipe_builder.pipeline
+        # else:
+        #     self.generator_pipeline = None
+        self.generator_pipeline = None
 
-        self.oracle_pipeline_builder = get_or_create_pipeline_builder(cfg.oracle_args.model_name_or_path, cfg.oracle_args)
+        self.oracle_model = get_or_create_model(cfg.oracle_args.model_id, cfg.oracle_args)
         
         # Configure Oracle
         oracle_class = None
@@ -92,40 +104,42 @@ class Attack:
                 raise ValueError(f"Invalid Prometheus oracle. Choise either 'prometheus.absolute' or 'prometheus.relative'.")
 
             self.quality_oracle = oracle_class(
-                model_id=self.cfg.oracle_args.model_name_or_path,
+                model_id=self.cfg.oracle_args.model_id,
                 download_dir=self.cfg.oracle_args.model_cache_dir,
                 num_gpus=self.cfg.oracle_args.num_gpus, 
             )
         else:
-            if "joint" in cfg.oracle_args.template:
-                oracle_class = JointOracle
-            elif "rank" in cfg.oracle_args.template:
-                oracle_class = RankOracle
-            elif "relative" in cfg.oracle_args.template:
-                oracle_class = RelativeOracle
-            elif "solo" in cfg.oracle_args.template:
-                oracle_class = SoloOracle
+            # TODO: Update these to work with guidance.
+            # if "joint" in cfg.oracle_args.template:
+            #     oracle_class = JointOracle
+            # elif "rank" in cfg.oracle_args.template:
+            #     oracle_class = RankOracle
+            if "relative" in cfg.oracle_args.template:
+                oracle_class = RelativeOracle3
+            # elif "solo" in cfg.oracle_args.template:
+            #     oracle_class = SoloOracle
             else:
                 raise ValueError(f"Invalid oracle template. See {cfg.oracle_args.template_dir} for options.")
-            self.quality_oracle = oracle_class(cfg=cfg.oracle_args, pipeline=self.oracle_pipeline_builder.pipeline)
+            # TODO: Fix.
+            self.quality_oracle = oracle_class(cfg=cfg.oracle_args, llm=self.oracle_model)
 
         # NOTE: We pass the pipe_builder to to watermarker, but we pass the pipeline to the other objects.
+        # TODO: Update this after adjusting the watermarkers to work with guidance.
         self.watermarker = get_watermarker(cfg, pipeline=self.generator_pipeline, only_detect=True)
 
         # Configure Mutator
         if "document" in cfg.mutator_args.type:
-            self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
-            self.mutator = DocumentMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
+            self.mutator_model = get_or_create_model(cfg.mutator_args.model_id, cfg.mutator_args)
+            self.mutator = DocumentMutator(cfg.mutator_args, llm=self.mutator_model)
         elif "sentence" in cfg.mutator_args.type:
-            self.mutator_pipeline_builder = get_or_create_pipeline_builder(cfg.mutator_args.model_name_or_path, cfg.mutator_args)
-            self.mutator = SentenceMutator(cfg.mutator_args, pipeline=self.mutator_pipeline_builder.pipeline)
+            self.mutator_model = get_or_create_model(cfg.mutator_args.model_id, cfg.mutator_args)
+            self.mutator = SentenceMutator(cfg.mutator_args, llm=self.mutator_model)
         elif "span" in cfg.mutator_args.type:
             self.mutator = SpanFillMutator()
         elif "word" in cfg.mutator_args.type:
             self.mutator = MaskFillMutator()
         else:
             raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', 'sentence' or 'document'.")
-
 
     def attack(self, prompt, watermarked_text):
 
@@ -157,6 +171,9 @@ class Attack:
             # Step 1: Mutate      
             log.info("Mutating watermarked text...")
             mutated_text = self.mutator.mutate(watermarked_text)
+            # TODO: This should be cleaner. This is here to run the attack right now before I go to the gym. - Boran.
+            if self.cfg.mutator_args.type == "sentence":
+                mutated_text = mutated_text["mutated_text"]
             step_data.update({"mutated_text": mutated_text})
             if self.cfg.attack_args.verbose:
                 log.info(f"Mutated text: {mutated_text}")

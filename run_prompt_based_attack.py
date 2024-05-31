@@ -28,14 +28,12 @@ def run_command(command, filepath):
 def main(cfg):
     # TODO: Adjust the prompt file and prompt num.
 
-    prompt_path = './inputs/mini_c4.csv'
-    prompt_num = 1
+    prompt_path = './inputs/tests_v1_with_lotr.csv'
+    prompt_num = 2
 
     prompt = get_prompt_or_output(prompt_path, prompt_num)
 
-    # TODO: Adjust the prompt accordingly.
-
-    watermarked_text_path = "./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_1/watermarked_text.csv"
+    watermarked_text_path = "./inputs/prompt_based_saves/prompt_2_temp_100_divp_20_attempt_3/watermarked_text.csv"
     watermarked_text_num = 1
 
     watermarked_text = get_prompt_or_output(watermarked_text_path, watermarked_text_num)
@@ -43,7 +41,7 @@ def main(cfg):
     log.info(f"Prompt: {prompt}")
     log.info(f"Watermarked Text: {watermarked_text}")
 
-    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.csv'
+    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_prompt_based.csv'
 
     attacker = Attack(cfg)
     attacked_text = attacker.attack(prompt, watermarked_text)

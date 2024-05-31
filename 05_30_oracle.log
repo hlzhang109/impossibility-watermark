@@ -36,10 +36,12 @@ Traceback (most recent call last):
     ret = run_job(
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
     ret.return_value = task_function(task_cfg)
-  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 234, in test
-    quality_eval = oracle.is_quality_preserved(
-  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 75, in is_quality_preserved
-    followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 245, in test
+    test_eval = oracle.test(
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 97, in test
+    followup = self.evaluate_with_retries(instruction, output_2, output_1, **kwargs) # switched outputs
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 50, in evaluate_with_retries
+    return self.evaluate(instruction, output_1, output_2, **kwargs)
   File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 23, in evaluate
     analysis = self.llm + produce_quality_analysis(instruction, output_1, output_2)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1163, in __add__
@@ -54,59 +56,61 @@ Traceback (most recent call last):
     out = lm._run_stateless(value)
   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1364, in _run_stateless
     for chunk in gen_obj:
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 736, in __call__
-    is_done, logits_state, response_state = self.next(logits)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 505, in next
-    self._parser.get_captures(self._captured_data, self._captured_log_prob_data)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 503, in get_captures
-    root_node = self.parse_tree()
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 486, in parse_tree
-    reversed_state_sets = self._reversed_state_sets()
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 472, in _reversed_state_sets
-    new_state_sets[state.start].append(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/ordered_set/__init__.py", line 194, in add
-    if key not in self.map:
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 45, in __hash__
-    return hash((self.node, self.values, self.start, self.pos))
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_grammar.py", line 318, in __hash__
-    def __hash__(self):
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 760, in __call__
+    logits = self.get_logits(token_ids, forced_bytes, current_temp)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/transformers/_transformers.py", line 255, in get_logits
+    model_out = self.model_obj(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1164, in forward
+    outputs = self.model(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 968, in forward
+    layer_outputs = decoder_layer(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 712, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 616, in forward
+    value_states = self.v_proj(hidden_states)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/nn_modules/qlinear/qlinear_exllama.py", line 188, in forward
+    out.add_(self.bias)
 KeyboardInterrupt
 oracle.evaluate
 evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
-time_taken: 18.188724040985107
+time_taken: 18.447741270065308
 oracle.is_quality_preserved
 quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
-time_taken: 41.353758096694946
+time_taken: 40.55485558509827
 oracle.test
 test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
-time_taken: 43.922462463378906
+time_taken: 43.71192765235901
 oracle.evaluate
 evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
-time_taken: 19.609889268875122
+time_taken: 19.94751000404358
 oracle.is_quality_preserved
 quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
-time_taken: 44.396018266677856
-oracle.test
-test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
-time_taken: 44.140544414520264
-oracle.evaluate
-evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
-time_taken: 19.75697088241577
-oracle.is_quality_preserved
-quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
-time_taken: 43.91279172897339
-oracle.test
-test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
-time_taken: 44.36647057533264
-oracle.evaluate
-evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
-time_taken: 19.389082193374634
-oracle.is_quality_preserved
-quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
-time_taken: 44.321802616119385
-oracle.test
-test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
-time_taken: 44.508522033691406
-oracle.evaluate
-evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
-time_taken: 19.893409967422485
+time_taken: 44.3032066822052

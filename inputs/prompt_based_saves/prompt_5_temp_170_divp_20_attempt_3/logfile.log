@@ -1,0 +1,44 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+CUDA extension not installed.
+CUDA extension not installed.
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-31 03:28:16,708][__main__][INFO] - Starting to watermark...
+[2024-05-31 03:28:16,711][__main__][INFO] - Prompt: Write a paragraph analyzing the role of symbolism in "To Kill a Mockingbird" and its impact on understanding the novel's themes.
+[2024-05-31 03:28:16,711][__main__][INFO] - Getting the watermarker...
+[2024-05-31 03:28:16,711][watermarker][INFO] - Using device: cuda
+[2024-05-31 03:28:16,711][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-05-31 03:28:18,616][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-31 03:28:31,581][__main__][INFO] - Got the watermarker. Generating watermarked text...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-31 03:36:25,770][watermarker][INFO] - Received completion: Write a paragraph analyzing the role of symbolism in "To Kill a Mockingbird" and its impact on understanding the novel's themes.
+
+Symbolism plays a significant role in Harper Lee's To Kill a Mockingbird, with the titular mockingbird serving as one of the most iconic symbols. The innocent nature and joy that a mockingbird embodies is reflected in characters like Boo Radley and Tom Robinson, who despite being misunderstood or misrepresented, contribute positively to society without causing any harm until forced by circumstances. Their acts stand in stark contrast to Mayella Ewell's false accusation against Tom Robinson and Bob Ewell's malicious intent towards Jem and Scout Finch. When Atticus explains his wisdom about shooting harmless mockingbirds only leads toward grief due to their innocence which parallels real-life implications encouraging people not to judge individuals wrongly merely because they are different from societal norms. By drawing upon these symbolisms intertwined with thought-provoking events, To Kill A Mockingbird delivers compelling lessons encapsulating both justice and moral growth in children and adults alike. Essential themes, including compassion for others regardless of race or economic standing, emerge vividly within the storyline while allowing audiences opportunity refocuses awareness upon personal ethics upholding honesty even if met with harsh consequences but leading ultimately toward more profound insights on our humanity connection. Symbolism functions as the connecting thread bringing relevance between 19th-century Southern context into modern readership through allegorical representation resonating effectively across decades maintaining this piece’s timeless relevancy and enduring appeal till date
+[2024-05-31 03:36:25,861][__main__][INFO] - Watermarked Text: Symbolism plays a significant role in Harper Lee's To Kill a Mockingbird, with the titular mockingbird serving as one of the most iconic symbols. The innocent nature and joy that a mockingbird embodies is reflected in characters like Boo Radley and Tom Robinson, who despite being misunderstood or misrepresented, contribute positively to society without causing any harm until forced by circumstances. Their acts stand in stark contrast to Mayella Ewell's false accusation against Tom Robinson and Bob Ewell's malicious intent towards Jem and Scout Finch. When Atticus explains his wisdom about shooting harmless mockingbirds only leads toward grief due to their innocence which parallels real-life implications encouraging people not to judge individuals wrongly merely because they are different from societal norms. By drawing upon these symbolisms intertwined with thought-provoking events, To Kill A Mockingbird delivers compelling lessons encapsulating both justice and moral growth in children and adults alike. Essential themes, including compassion for others regardless of race or economic standing, emerge vividly within the storyline while allowing audiences opportunity refocuses awareness upon personal ethics upholding honesty even if met with harsh consequences but leading ultimately toward more profound insights on our humanity connection. Symbolism functions as the connecting thread bringing relevance between 19th-century Southern context into modern readership through allegorical representation resonating effectively across decades maintaining this piece’s timeless relevancy and enduring appeal till date
+[2024-05-31 03:36:25,861][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-31 03:36:25,861][__main__][INFO] - Score: 6.624654631623101
+[2024-05-31 03:36:25,861][__main__][INFO] - Time taken: 474.2793290615082
+Error executing job with overrides: ['++prompt_file=./inputs/tests_v1_with_lotr.csv', '++prompt_num=5', '++is_completion=False', '++generator_args.temperature=1.7', '++generator_args.diversity_penalty=20', '++generation_stats_file_path=./inputs/prompt_based_saves/prompt_5_temp_170_divp_20_attempt_3/stats.csv', '++watermarked_text_file_name=prompt_based_saves/prompt_5_temp_170_divp_20_attempt_3/watermarked_text.csv']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 41, in test
+    save_to_csv(stats, './inputs', cfg.watermarked_text_file_name)
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 23, in save_to_csv
+    df_out.to_csv(file_path, index=False)  # Create new file with headers
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/core/generic.py", line 3466, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/formats/format.py", line 1105, in to_csv
+    csv_formatter.save()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 237, in save
+    with get_handle(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/common.py", line 702, in get_handle
+    handle = open(
+IsADirectoryError: [Errno 21] Is a directory: './inputs'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

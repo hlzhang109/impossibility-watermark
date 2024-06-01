@@ -38,7 +38,7 @@ def test(cfg):
         num_entries = count_csv_entries(file_path)
 
         stats = [{'num': num_entries +1, 'text': watermarked_text, 'watermarking_scheme': cfg.watermark_args.name, 'model': cfg.generator_args.model_name_or_path}]
-        save_to_csv(stats, './inputs', cfg.watermarked_text_file_name)
+        save_to_csv(stats, file_path, True)
 
 if __name__ == "__main__":
     test()

@@ -2,9 +2,10 @@ import random
 import nltk
 from nltk.tokenize import sent_tokenize
 import guidance
-from guidance import models, gen, select
+from guidance import models, gen, select, user, assistant
 import hydra
 import logging
+import textwrap
 
 from oracles.custom import Oracle
 from oracles.utils import *
@@ -15,11 +16,66 @@ log = logging.getLogger(__name__)
 def extract_dict(output, keys):
     return {k: output[k] for k in keys}
 
+def generate_comparison_prompts(instruction, output_1, output_2):
+    prompt_1 = textwrap.dedent(f"""\
+        ### Task Description: 
+        1. You will be comparing two responses to a given prompt to determine which response is better. 
+        2. Carefully analyze both responses, considering factors such as:
+            - Repetition: Does either response repeat information unnecessarily?
+            - Grammar: Are there any grammatical errors, capitalization errors, or punctuation mistakes in either response?
+            - Coherence: Is each response well-structured and easy to understand?
+            - Relevance: Does each response directly address the given prompt?
+            - Accuracy: Is the information provided in each response accurate and factual?
+        3. Keep in mind that having grammatical errors, repetitions, capitalization errors, or punctuation mistakes would greatly degrade the quality of a response.
+
+        ### The instructions prompting the responses: 
+        {instruction}
+
+        ### Response A: 
+        {output_1}
+
+        ### Response B: 
+        {output_2}""")
+
+    prompt_2 = f"""So, what's your decision? If you think Response A is better than Response B, respond with an "A". If you think Response B is better than Response A, respond with a "B". If you think they
+    have equal quality, respond with "Equal". Only respond with these."""
+
+    return prompt_1, prompt_2
+
 class RelativeOracle3(Oracle):  
-    def __init__(self, cfg, llm = None) -> None:
-        super().__init__(cfg, llm)
+    def __init__(self, cfg, pipeline = None, llm = None) -> None:
+        super().__init__(cfg, pipeline, llm)
 
     def evaluate(self, instruction, output_1, output_2, **kwargs):
+        if self.use_gpt:
+            return self._gpt_evaluate(instruction, output_1, output_2, **kwargs)
+        else:
+            return self._guidance_evaluate(instruction, output_1, output_2, **kwargs)
+
+    def _gpt_evaluate(self, instruction, output_1, output_2, **kwargs):
+        prompt_1, prompt_2 = generate_comparison_prompts(instruction, output_1, output_2)
+
+        # TODO: Turn the number of retries into a parameter.
+        for _ in range(3):
+            first, second = query_openai_with_history(prompt_1, prompt_2, model=self.cfg.model_id)
+            log.info(f"Model's First Response: {first.content}")
+            log.info(f"Model's Second Response: {second.content}")
+            log.info("---------------------------------------------------------------")
+        
+            analysis = first.content
+            answer = second.content[0]
+
+            if answer in ["A", "B", "Equal"]:
+                log.info(f"Valid answer: {answer}")
+                return {
+                    "analysis": analysis, 
+                    "answer": answer
+                }
+        
+        # TODO: Improve the Exception handling.
+        raise Exception("Oracle couldn't produce a valid answer.")
+
+    def _guidance_evaluate(self, instruction, output_1, output_2, **kwargs):
         analysis = self.llm + produce_quality_analysis(instruction, output_1, output_2)
         analysis = analysis["analysis"]
 
@@ -122,57 +178,62 @@ class RelativeOracle3(Oracle):
 
 @guidance
 def produce_quality_analysis(lm, instruction, output_1, output_2):
-    lm += f"""\
-    ### Task Description: 
-    1. You will be comparing two responses to a given prompt to determine which response is better. 
-    2. Carefully analyze both responses, considering factors such as:
-        - Repetition: Does either response repeat information unnecessarily?
-        - Grammar: Are there any grammatical errors, capitalization errors, or punctuation mistakes in either response?
-        - Coherence: Is each response well-structured and easy to understand?
-        - Relevance: Does each response directly address the given prompt?
-        - Accuracy: Is the information provided in each response accurate and factual?
-    3. Keep in mind that having grammatical errors, repetitions, capitalization errors, or punctuation mistakes would greatly degrade the quality of a response.
+    with user():
+        lm += f"""\
+        ### Task Description: 
+        1. You will be comparing two responses to a given prompt to determine which response is better. 
+        2. Carefully analyze both responses, considering factors such as:
+            - Repetition: Does either response repeat information unnecessarily?
+            - Grammar: Are there any grammatical errors, capitalization errors, or punctuation mistakes in either response?
+            - Coherence: Is each response well-structured and easy to understand?
+            - Relevance: Does each response directly address the given prompt?
+            - Accuracy: Is the information provided in each response accurate and factual?
+        3. Keep in mind that having grammatical errors, repetitions, capitalization errors, or punctuation mistakes would greatly degrade the quality of a response.
 
-    ### The instructions prompting the responses: 
-    {instruction}
+        ### The instructions prompting the responses: 
+        {instruction}
 
-    ### Response A: 
-    {output_1}
+        ### Response A: 
+        {output_1}
 
-    ### Response B: 
-    {output_2}
+        ### Response B: 
+        {output_2}"""
 
-    ### Feedback:
-    ```json
-    {{
-        "analysis": "{gen('analysis', stop='"')}",
-    }}```"""
+    with assistant():
+        lm += f"""
+        ```json
+        {{
+            "analysis": "{gen('analysis', stop='"')}",
+        }}```"""
 
     return lm
 
 @guidance
 def produce_answer(lm, analysis):
-    lm += f"""\
-    ### Task Description: 
-    1. Read the following analysis given by an LLM.
-    2. In the "answer" field, select one of the following options based on the analysis:
-        - 1 if the analysis indicates that Response A is better than Response B.
-        - 2 if the analysis indicates that Response B is better than Response A.
-        - 0 if the analysis indicates that Responses A and B have similar quality.
+    with user():
+        lm += f"""\
+        ### Task Description: 
+        1. Read the following analysis given by an LLM.
+        2. In the "answer" field, select one of the following options based on the analysis:
+            - 1 if the analysis indicates that Response A is better than Response B.
+            - 2 if the analysis indicates that Response B is better than Response A.
+            - 0 if the analysis indicates that Responses A and B have similar quality.
 
-    ### Example:
-    - Analysis: "Response A is more coherent and relevant than Response B."
-      Expected Answer: 1
+        ### Example:
+        - Analysis: "Response A is more coherent and relevant than Response B."
+        Expected Answer: 1
 
-    ### Analysis:
-    {analysis}
+        ### Analysis:
+        {analysis}"""
     
-    ### Feedback: 
+    with assistant():
+        lm +=f"""
     ```json 
     {{
         "answer": {select(options=[1, 2, 0], name='answer')}"
     }}
     ```"""
+        
     return lm
 
 if __name__ == "__main__":
@@ -209,16 +270,19 @@ if __name__ == "__main__":
 
         label = "output_1 is much better than output_2"
 
-        llm = models.Transformers(
-            cfg.oracle_args.model_id, 
-            echo=False,
-            cache_dir=cfg.oracle_args.model_cache_dir, 
-            device_map=cfg.oracle_args.device_map
-        )
+        # llm = models.OpenAI("gpt-4o")
+        # llm = models.Transformers(
+        #     cfg.oracle_args.model_id, 
+        #     echo=False,
+        #     cache_dir=cfg.oracle_args.model_cache_dir, 
+        #     device_map=cfg.oracle_args.device_map
+        # )
 
-        oracle = RelativeOracle3(cfg.oracle_args, llm=llm)
+        cfg.oracle_args.model_id = "gpt-4o"
 
-        for _ in range(10):
+        oracle = RelativeOracle3(cfg.oracle_args, llm=None)
+
+        for _ in range(1):
             start = time.time()
             evaluation = oracle.evaluate(
                 instruction=instruction, 

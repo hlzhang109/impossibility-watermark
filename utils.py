@@ -4,7 +4,7 @@ import os
 import json
 import datetime
 import textwrap
-# from openai import OpenAI
+from openai import OpenAI
 import difflib
 
 from dotenv import load_dotenv, find_dotenv
@@ -160,32 +160,32 @@ def get_prompt_and_completion_from_json(file_path, index):
 #     completion = prefix + " " + completion
 #     return completion
 
-# def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-turbo-2024-04-09"):
-#     client = OpenAI()
+def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4o"):
+    client = OpenAI()
 
-#     completion = client.chat.completions.create(
-#     model=model,
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {"role": "user", "content": initial_prompt}
-#     ]
-#     )
+    completion = client.chat.completions.create(
+    model=model,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": initial_prompt}
+    ]
+    )
 
-#     first_response = completion.choices[0].message
+    first_response = completion.choices[0].message
     
-#     completion = client.chat.completions.create(
-#     model=model,
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {"role": "user", "content": initial_prompt},
-#         {'role': "assistant", "content": first_response.content},
-#         {"role": "user", "content": follow_up_prompt},
-#     ]
-#     )
+    completion = client.chat.completions.create(
+    model=model,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": initial_prompt},
+        {'role': "assistant", "content": first_response.content},
+        {"role": "user", "content": follow_up_prompt},
+    ]
+    )
 
-#     second_response = completion.choices[0].message
+    second_response = completion.choices[0].message
     
-#     return first_response, second_response
+    return first_response, second_response
 
 def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserved, quality_analysis, watermark_detected, watermark_score, backtrack):
     perturbation_stats = [{

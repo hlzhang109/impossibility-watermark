@@ -11,6 +11,7 @@ from utils import (
 )
 from guidance import models
 
+logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
@@ -68,16 +69,20 @@ class Attack:
 
         # Helper function to create or reuse model.
         def get_or_create_model(model_id, args):
-            if model_id not in self.models:
-                llm = models.Transformers(
-                    args.model_id, 
+            if "gpt" in args.model_id:
+                # model = PipeLineBuilder(args)
+                log.info(f"We don't need a model with GPT-4o.")
+            elif model_id not in self.models:
+                model = models.Transformers(
+                    args.model_id,
                     echo=False,
                     cache_dir=args.model_cache_dir, 
                     device_map=args.device_map
                 )
+                # TODO: Boran: I tried this in order to get around the temp_buffer_state issue. Might work on this later, so leaving it here.
                 # from auto_gptq import exllama_set_max_input_length
                 # llm = exllama_set_max_input_length(llm, 2048)
-                self.models[model_id] = llm
+                self.models[model_id] = model
             return self.models[model_id]
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
@@ -158,6 +163,8 @@ class Attack:
             step_data = self.base_step_metadata
             step_data.update({"step_num": step_num})
             step_data.update({"current_text": watermarked_text})
+
+            log.debug(f"step_data: {step_data}")
 
             # Potentially discard the current step and retry a previous one
             backtrack = backtrack_patience > self.cfg.attack_args.backtrack_patience

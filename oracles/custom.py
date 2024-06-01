@@ -13,7 +13,7 @@ from langchain_core.prompts import (
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-# from langchain.globals import set_debug; set_debug(True)
+from langchain.globals import set_debug; set_debug(True)
 
 import os
 import logging
@@ -111,20 +111,31 @@ def invert_label(label):
 
 # Abstract base class for all oracles
 class Oracle(ABC):
-    def __init__(self, cfg, llm = None) -> None:
+    def __init__(self, cfg, pipeline = None, llm = None) -> None:
         self.cfg = cfg # config.oracle_args
-        self.llm = self._initialize_llm(llm)
+        self.use_gpt = "gpt" in cfg.model_id
+
+        # if self.use_gpt:
+        #     self.pipeline = self._initialize_pipeline(self, pipeline)
+        # else: 
+        if not self.use_gpt:
+            self.llm = self._initialize_llm(llm)
+
+    # # TODO: Only used with GPT.
+    # def _initialize_pipeline(self, pipeline):
+    #     if not isinstance(pipeline, HuggingFacePipeline):
+    #         log.info("Initializing a new Oracle pipeline from cfg...")
+    #         return PipeLineBuilder(self.cfg)
+    #     return pipeline
 
     def _initialize_llm(self, llm):
-        if not isinstance(llm, models.Transformers):
-            log.info("Initializing a new Oracle model from cfg...")
-            llm = models.Transformers(
-                self.cfg.model_id, 
-                echo=False,
-                cache_dir=self.cfg.model_cache_dir, 
-                device_map=self.cfg.device_map
-            )
-            return llm
+        log.info("Initializing a new Oracle model from cfg...")
+        llm = models.Transformers(
+            self.cfg.model_id, 
+            echo=False,
+            cache_dir=self.cfg.model_cache_dir, 
+            device_map=self.cfg.device_map
+        )
         return llm
     
     @abstractmethod

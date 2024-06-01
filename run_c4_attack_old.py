@@ -2,7 +2,7 @@ import subprocess
 import logging
 import hydra
 
-from attack import Attack
+from attack_old import Attacker
 from utils import get_prompt_or_output
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
@@ -43,7 +43,7 @@ def main(cfg):
 
     cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.log'
 
-    attacker = Attack(cfg)
+    attacker = Attacker()
     attacked_text = attacker.attack(prompt, watermarked_text)
 
     log.info(f"Attacked Response: {attacked_text}")

@@ -50,6 +50,9 @@ def count_words(text):
         return 0
     return len(text.split())
 
+def count_num_of_words(text):
+    return len(text.split())
+
 def length_diff_exceeds_percentage(text1, text2, percentage):
 
     # If less than zero, assume disabled
@@ -57,10 +60,8 @@ def length_diff_exceeds_percentage(text1, text2, percentage):
         return False
 
     # Split the texts into words and count the number of words
-    words1 = text1.split()
-    words2 = text2.split()
-    len1 = len(words1)
-    len2 = len(words2)
+    len1 = count_num_of_words(text1)
+    len2 = count_num_of_words(text2)
     
     # Calculate the absolute difference in the number of words
     word_diff = abs(len1 - len2)

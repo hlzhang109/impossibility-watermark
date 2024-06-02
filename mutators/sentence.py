@@ -73,10 +73,11 @@ class SentenceMutator:
             log.info(f"Sentence to rephrase: {selected_sentence}")
 
             output = self.llm + rephrase_sentence(text, selected_sentence)
-            # TODO: There should be a better way to do this.
-            output = remove_double_triple_commas(output)
 
             rephrased_sentence = output["paraphrased_sentence"]
+            # TODO: There should be a better way to do this.
+            rephrased_sentence = remove_double_triple_commas(rephrased_sentence)
+
 
             if rephrased_sentence != selected_sentence:
                 log.info(f"Rephrased sentence: {rephrased_sentence}")

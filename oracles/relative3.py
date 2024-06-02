@@ -10,7 +10,7 @@ import textwrap
 from oracles.custom import Oracle
 from oracles.utils import *
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 def extract_dict(output, keys):
@@ -38,7 +38,7 @@ def generate_comparison_prompts(instruction, output_1, output_2):
         {output_2}""")
 
     prompt_2 = f"""So, what's your decision? If you think Response A is better than Response B, respond with an "A". If you think Response B is better than Response A, respond with a "B". If you think they
-    have equal quality, respond with "Equal". Only respond with these."""
+    have equal quality, respond with "0". Only respond with these."""
 
     return prompt_1, prompt_2
 
@@ -65,8 +65,10 @@ class RelativeOracle3(Oracle):
             analysis = first.content
             answer = second.content[0]
 
-            if answer in ["A", "B", "Equal"]:
+            if answer in ["A", "B", "0"]:
                 log.info(f"Valid answer: {answer}")
+                # TODO: This is abysmal code.
+                answer = "Equal" if answer == "0" else answer
                 return {
                     "analysis": analysis, 
                     "answer": answer
@@ -81,8 +83,8 @@ class RelativeOracle3(Oracle):
 
         output = self.llm + produce_answer(analysis)
 
-        log.debug(f"Answer: {output['answer']}")
-        log.debug(f"Answer Type: {type(output['answer'])}")
+        log.info(f"Answer: {output['answer']}")
+        log.info(f"Answer Type: {type(output['answer'])}")
 
         # TODO: Put this function somewhere else.
         # Mapping function
@@ -93,7 +95,7 @@ class RelativeOracle3(Oracle):
         
         answer = map_answer_to_text(output['answer'])
 
-        log.debug(f"Mapped Answer: {answer}")
+        log.info(f"Mapped Answer: {answer}")
 
         return {
             "analysis": analysis, 
@@ -127,12 +129,17 @@ class RelativeOracle3(Oracle):
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
-        log.debug(f"Original: {original}")
+        log.info(f"Original: {original}")
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
-        log.debug(f"Followup: {followup}")
+        log.info(f"Followup: {followup}")
         
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
+
+        # TODO: This can be optimized to make a single GPT API call if the original prediction is off.
+
+        log.info(f"Original Prediction: {original_pred}")
+        log.info(f"Followup Prediction: {followup_pred}")
         
         if original_pred in [3,4,5] and followup_pred in [1,2,3]:
             quality_preserved = True
@@ -143,6 +150,8 @@ class RelativeOracle3(Oracle):
         followup = add_prefix_to_keys(followup, "followup_")
         original.update({**followup})
         original.update({"quality_preserved": quality_preserved})
+
+        log.info(f"Original Dict: {original}")
         return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):

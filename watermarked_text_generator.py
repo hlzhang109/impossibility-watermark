@@ -12,14 +12,16 @@ def test(cfg):
     log.info(f"Starting to watermark...")
 
     # Read the prompt and the watermarked text from the input files
-    prompt = cfg.prompt
-    if prompt is None:
+    prompt=cfg.prompt
+
+    if not prompt:
         prompt = get_prompt_or_output(cfg.prompt_file, cfg.prompt_num) 
 
     log.info(f"Prompt: {prompt}")
 
     log.info(f"Getting the watermarker...")
     watermarker = get_watermarker(cfg)
+    log.info(cfg)
     log.info(f"Got the watermarker. Generating watermarked text...")
 
     for _ in range(1):

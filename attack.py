@@ -146,7 +146,7 @@ class Attack:
         elif "word" in cfg.mutator_args.type:
             self.mutator = MaskFillMutator()
         else:
-            raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', 'sentence' or 'document'.")
+            raise ValueError("Invalid mutator type. Choose 'word', 'span', 'sentence' or 'document'.")
 
     def attack(self, prompt, watermarked_text):
         current_text = watermarked_text

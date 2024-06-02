@@ -205,7 +205,7 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
-def mixtral_format_instructions(self, prompt):
+def mixtral_format_instructions(prompt):
     return textwrap.dedent(f"""
     [INST]
     {prompt}

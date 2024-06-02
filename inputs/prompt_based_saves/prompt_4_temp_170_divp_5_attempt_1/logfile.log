@@ -1,26 +1,39 @@
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
-  warnings.warn(
-CUDA extension not installed.
-CUDA extension not installed.
-[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
-[nltk_data]   Package punkt is already up-to-date!
-[2024-05-31 12:24:49,083][__main__][INFO] - Starting to watermark...
-[2024-05-31 12:24:49,085][__main__][INFO] - Prompt: Write a paragraph about the significance of the Pythagorean Theorem in geometry.
-[2024-05-31 12:24:49,085][__main__][INFO] - Getting the watermarker...
-[2024-05-31 12:24:49,085][watermarker][INFO] - Using device: cuda
-[2024-05-31 12:24:49,085][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
-  warnings.warn(
-[2024-05-31 12:24:51,054][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
-  warn_deprecated(
-[2024-05-31 12:25:04,002][__main__][INFO] - Got the watermarker. Generating watermarked text...
-Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
-[2024-05-31 12:29:35,132][watermarker][INFO] - Received completion: Write a paragraph about the significance of the Pythagorean Theorem in geometry. The Theorem provides an elegant formula with major consequences: x2 + y2 = k, or more famously, the two sides that form opposite 90 degree angles satisfy, a²+b²=c². This is significant because this knowledge and ability leads to greater understanding of space. Also since triangles with the hypotypuse square are very interesting (especially if the triangles have equal legs), their measurements in architecture and even carpentry applications, especially for doors that revolver up into closets as there seems something quite clever how those designs were made without waster material or perhaps not realizing you are using Pythagean theorem while solving problems involving such application can become more straightforward due simplifying them by rewriting certain expressions or even calculating angles subtending these figures via knowing this famous mathematical concept developed and proven firstly by the pre-Socratic Greeks from the Isle
-[2024-05-31 12:29:35,185][__main__][INFO] - Watermarked Text: The Theorem provides an elegant formula with major consequences: x2 + y2 = k, or more famously, the two sides that form opposite 90 degree angles satisfy, a²+b²=c². This is significant because this knowledge and ability leads to greater understanding of space. Also since triangles with the hypotypuse square are very interesting (especially if the triangles have equal legs), their measurements in architecture and even carpentry applications, especially for doors that revolver up into closets as there seems something quite clever how those designs were made without waster material or perhaps not realizing you are using Pythagean theorem while solving problems involving such application can become more straightforward due simplifying them by rewriting certain expressions or even calculating angles subtending these figures via knowing this famous mathematical concept developed and proven firstly by the pre-Socratic Greeks from the Isle
-[2024-05-31 12:29:35,185][__main__][INFO] - Is Watermark Detected?: True
-[2024-05-31 12:29:35,185][__main__][INFO] - Score: 7.0574363197557375
-[2024-05-31 12:29:35,185][__main__][INFO] - Time taken: 271.1824564933777
-Data saved to prompt_based_saves/prompt_4_temp_170_divp_5_attempt_1/watermarked_text.csv
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 3, in <module>
+    from utils import get_watermarker, save_to_csv, get_prompt_or_output, count_csv_entries
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 237, in <module>
+    from watermarkers import UMDWatermarker, UnigramWatermarker, EXPWatermarker, SemStampWatermarker
+  File "/local1/borito1907/impossibility-watermark/watermarkers/__init__.py", line 1, in <module>
+    from .exp import EXPWatermarker
+  File "/local1/borito1907/impossibility-watermark/watermarkers/exp.py", line 2, in <module>
+    from watermarker import Watermarker
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 5, in <module>
+    from model_builders.pipeline import PipeLineBuilder
+  File "/local1/borito1907/impossibility-watermark/model_builders/__init__.py", line 1, in <module>
+    from .pipeline import PipeLineBuilder
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 1, in <module>
+    from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, T5ForConditionalGeneration, GPTQConfig
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/__init__.py", line 26, in <module>
+    from . import dependency_versions_check
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/dependency_versions_check.py", line 16, in <module>
+    from .utils.versions import require_version, require_version_core
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/__init__.py", line 18, in <module>
+    from huggingface_hub import get_full_repo_name  # for backward compatibility
+  File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/__init__.py", line 503, in __getattr__
+    submod = importlib.import_module(submod_path)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/hf_api.py", line 50, in <module>
+    from ._commit_api import (
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/_commit_api.py", line 18, in <module>
+    from .constants import ENDPOINT, HF_HUB_ENABLE_HF_TRANSFER
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/constants.py", line 93, in <module>
+    DiscussionStatusFilter = Literal["all", "open", "closed"]
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/typing.py", line 410, in __getitem__
+    return self._getitem(self, *parameters)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/typing.py", line 309, in inner
+    return cached(*args, **kwds)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/typing.py", line 532, in Literal
+    @_LiteralSpecialForm
+KeyboardInterrupt

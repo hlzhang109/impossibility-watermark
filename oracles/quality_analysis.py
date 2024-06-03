@@ -261,20 +261,20 @@ def quality_analysis_rank(lm, instruction, output_1, output_2):
 		``` 
 								
 		Here is the prompt:
-		{
+		{{
 				"instruction": "{instruction}",
-		}
+		}}
 
 		Here are the outputs of the models:
 		[
-				{
+				{{
 						"model": "model_1",
 						"response": "{output_1}"
-				},
-				{
+				}},
+				{{
 						"model": "model_2",
 						"response": "{output_2}"
-				}
+				}}
 		]
 
 		Now make the leaderboard by ranking the models by the quality of their responses, so that the model with rank 1 has the best output. 

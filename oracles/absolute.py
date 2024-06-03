@@ -161,22 +161,64 @@ if __name__ == "__main__":
     """
 
     oracle = PrometheusAbsoluteOracle()
+  
+    import os
+    import logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
-    quality_eval = oracle.is_quality_preserved(
-        instruction=instruction, 
-        original_text=original_text, 
-        mutated_text=mutated_text, 
-        reference_answer=None
-    )
-    print("EVAL oracle.is_quality_preserved")
-    print("quality_eval:", quality_eval)
+    log = logging.getLogger(__name__)
 
-    feedback, score = oracle.evaluate(instruction, mutated_text, original_text)
-    print("Evaluation WITH Reference Answer")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    
+    temps = [1, 1.3, 1.7]
+    divps = [5, 15, 20]
+    prompt_nums = [1, 2, 3, 4, 5]
 
-    print("Evaluation WITHOUT Reference Answer")
-    feedback, score = oracle.evaluate(instruction, mutated_text, None)
-    print("Feedback:", feedback)
-    print("Score:", score)
+    for attempt in range(1, 4):
+        for temp in temps:
+            for divp in divps:
+                for prompt_num in prompt_nums:
+
+                  # prep input and output file paths
+                  folder_name = f'prompt_{prompt_num}_temp_{int(temp * 100)}_divp_{divp}_attempt_{attempt}'
+                  input_folder_name = f'./inputs/prompt_based_saves/{folder_name}'
+                  output_folder_name = f'./results/prompt_based_saves/{folder_name}'
+
+                  dirname = os.path.dirname(__file__)
+                  path = os.path.join(dirname, output_folder_name)
+                  if not os.path.exists(path):
+                      os.makedirs(path)
+
+                  log_filepath = f"./results/prompt_based_saves/{folder_name}/logfile.log"
+                  log.info(f"Running Absolute Oracle with {folder_name}")
+									    
+                  try:
+                      with open(log_filepath, "w") as f:
+                          # Redirect both stdout and stderr to the same file
+
+                          # get results
+                          quality_eval = oracle.is_quality_preserved(
+                              instruction=instruction, 
+                              original_text=original_text, 
+                              mutated_text=mutated_text, 
+                              reference_answer=None
+                          )
+                          print("EVAL oracle.is_quality_preserved", file=f)
+                          print("quality_eval:", quality_eval, file=f)
+
+                          feedback, score = oracle.evaluate(instruction, mutated_text, original_text)
+                          print("Evaluation WITH Reference Answer", file=f)
+                          print("Feedback:", feedback, file=f)
+                          print("Score:", score, file=f)
+
+                          print("Evaluation WITHOUT Reference Answer")
+                          feedback, score = oracle.evaluate(instruction, mutated_text, None)
+                          print("Feedback:", feedback, file=f)
+                          print("Score:", score, file=f)
+
+                      log.info("Oracle executed successfully")
+                  except Exception as e:
+                      log.error(f"Oracle failed with error: {e}")
+                  
+                  log.info(f"Saving results to {log_filepath}")
+
+                  

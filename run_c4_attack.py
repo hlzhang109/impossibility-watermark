@@ -33,6 +33,8 @@ def main(cfg):
 
     prompt = get_prompt_or_output(prompt_path, prompt_num)
 
+    # TODO: Adjust the prompt accordingly.
+
     watermarked_text_path = "./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_1/watermarked_text.csv"
     watermarked_text_num = 1
 
@@ -41,7 +43,7 @@ def main(cfg):
     log.info(f"Prompt: {prompt}")
     log.info(f"Watermarked Text: {watermarked_text}")
 
-    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.log'
+    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.csv'
 
     attacker = Attack(cfg)
     attacked_text = attacker.attack(prompt, watermarked_text)

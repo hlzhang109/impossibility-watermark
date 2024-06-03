@@ -1,0 +1,42 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+CUDA extension not installed.
+CUDA extension not installed.
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-05-31 01:19:32,401][__main__][INFO] - Starting to watermark...
+[2024-05-31 01:19:32,404][__main__][INFO] - Prompt: Write a paragraph analyzing the role of symbolism in "To Kill a Mockingbird" and its impact on understanding the novel's themes.
+[2024-05-31 01:19:32,404][__main__][INFO] - Getting the watermarker...
+[2024-05-31 01:19:32,404][watermarker][INFO] - Using device: cuda
+[2024-05-31 01:19:32,404][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-05-31 01:19:34,172][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-05-31 01:19:47,118][__main__][INFO] - Got the watermarker. Generating watermarked text...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[2024-05-31 01:24:36,719][watermarker][INFO] - Received completion: Write a paragraph analyzing the role of symbolism in "To Kill a Mockingbird" and its impact on understanding the novel's themes. Support your argument with relevant evidence from Harper Lee's book, such as examples and character development. Symbolism allows readers to understand To Kill A Mockingbird at deeper levels and helps reveal nuances regarding significant topics. Specifically, it shapes characters and events that illustrate themes including innocence, racial tension, justice, and moral growth. One poignant example encompasses Boo Radley. He embodies racial prejudice and ignorance which leads children into initial fears due to symbolic portrayals as monster-like, but he also represents kindness demonstrated by saving Jem and Scout’s lives during attack (349-350). This shift underscores themes on compassion transcending appearance and fear while showcasing personal change in Maycomb. Contrasting symbolic roles reflect various dimensions in To Kill A Mockingbird, illuminating rich meanings behind complex ideas presented via symbols embedded throughout this classic literature piece.
+[2024-05-31 01:24:36,775][__main__][INFO] - Watermarked Text: Support your argument with relevant evidence from Harper Lee's book, such as examples and character development. Symbolism allows readers to understand To Kill A Mockingbird at deeper levels and helps reveal nuances regarding significant topics. Specifically, it shapes characters and events that illustrate themes including innocence, racial tension, justice, and moral growth. One poignant example encompasses Boo Radley. He embodies racial prejudice and ignorance which leads children into initial fears due to symbolic portrayals as monster-like, but he also represents kindness demonstrated by saving Jem and Scout’s lives during attack (349-350). This shift underscores themes on compassion transcending appearance and fear while showcasing personal change in Maycomb. Contrasting symbolic roles reflect various dimensions in To Kill A Mockingbird, illuminating rich meanings behind complex ideas presented via symbols embedded throughout this classic literature piece.
+[2024-05-31 01:24:36,775][__main__][INFO] - Is Watermark Detected?: True
+[2024-05-31 01:24:36,775][__main__][INFO] - Score: 7.242506521172063
+[2024-05-31 01:24:36,775][__main__][INFO] - Time taken: 289.65664744377136
+Error executing job with overrides: ['++prompt_file=./inputs/tests_v1_with_lotr.csv', '++prompt_num=5', '++is_completion=False', '++generator_args.temperature=1.3', '++generator_args.diversity_penalty=15', '++generation_stats_file_path=./inputs/prompt_based_saves/prompt_5_temp_130_divp_15_attempt_2/stats.csv', '++watermarked_text_file_name=prompt_based_saves/prompt_5_temp_130_divp_15_attempt_2/watermarked_text.csv']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 41, in test
+    save_to_csv(stats, './inputs', cfg.watermarked_text_file_name)
+  File "/local1/borito1907/impossibility-watermark/utils.py", line 23, in save_to_csv
+    df_out.to_csv(file_path, index=False)  # Create new file with headers
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/core/generic.py", line 3466, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/formats/format.py", line 1105, in to_csv
+    csv_formatter.save()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/formats/csvs.py", line 237, in save
+    with get_handle(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/pandas/io/common.py", line 702, in get_handle
+    handle = open(
+IsADirectoryError: [Errno 21] Is a directory: './inputs'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

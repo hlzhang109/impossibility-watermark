@@ -1,4 +1,5 @@
 import random
+import time
 import nltk
 from nltk.tokenize import sent_tokenize
 import guidance
@@ -12,11 +13,15 @@ from oracles.utils import *
 def produce_answer(lm, analysis):
     lm += f"""\
     ### Task Description: 
-    1. Read the following quality analysis given by an LLM.
-    2. Then, in the "answer" field, select one of the following options:
-        - "A" if the LLM thinks Response A is better than Response B
-        - "B" if the LLM thinks Response B is better than Response A
-        - "Equal" if the LLM thinks Responses A and B have similar quality
+    1. Read the following analysis given by an LLM.
+    2. In the "answer" field, select one of the following options based on the analysis:
+        - 1 if the analysis indicates that Response A is better than Response B.
+        - 2 if the analysis indicates that Response B is better than Response A.
+        - 0 if the analysis indicates that Responses A and B have similar quality.
+
+    ### Example:
+    - Analysis: "Response A is more coherent and relevant than Response B."
+      Expected Answer: 1
 
     ### Analysis:
     {analysis}
@@ -24,7 +29,7 @@ def produce_answer(lm, analysis):
     ### Feedback: 
     ```json 
     {{
-        "answer": {select(options=['A', 'B', 'Equal'], name='answer')}"
+        "answer": {select(options=[1, 2, 0], name='answer')}"
     }}
     ```"""
     return lm
@@ -41,9 +46,13 @@ def test(cfg):
 
     analysis = "Response A is much better than Response B."
 
-    answer = llm + produce_answer(analysis)
+    for _ in range(10):
+        start = time.time()
+        answer = llm + produce_answer(analysis)
+        print(answer)
+        time_taken = time.time() - start
+        print("time_taken:", time_taken)
 
-    print(answer)
 
 if __name__ == "__main__":
     test()

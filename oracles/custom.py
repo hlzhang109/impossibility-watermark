@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import datetime
 import textwrap
 import traceback
+from guidance import models
 
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -12,19 +13,20 @@ from langchain_core.prompts import (
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-# from langchain.globals import set_debug; set_debug(True)
+from langchain.globals import set_debug; set_debug(True)
 
 import os
 import logging
 import hydra
 
-from model_builders.pipeline import PipeLineBuilder
+# from model_builders.pipeline import PipeLineBuilder
 from utils import read_text_file, extract_response_info, add_prefix_to_keys
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
+# TODO: Make the other oracles work with guidance.
 
 class RankAnswer(BaseModel):
     analysis:  str  = Field(description="A string that describes the reasoning behind the ranking of the models.")
@@ -109,11 +111,33 @@ def invert_label(label):
 
 # Abstract base class for all oracles
 class Oracle(ABC):
-    def __init__(self, cfg, pipeline=None) -> None:
-
+    def __init__(self, cfg, pipeline = None, llm = None) -> None:
         self.cfg = cfg # config.oracle_args
-        self.pipeline = self._initialize_pipeline(pipeline)
+        self.use_gpt = "gpt" in cfg.model_id
 
+        # if self.use_gpt:
+        #     self.pipeline = self._initialize_pipeline(self, pipeline)
+        # else: 
+        if not self.use_gpt:
+            self.llm = self._initialize_llm(llm)
+
+    # # TODO: Only used with GPT.
+    # def _initialize_pipeline(self, pipeline):
+    #     if not isinstance(pipeline, HuggingFacePipeline):
+    #         log.info("Initializing a new Oracle pipeline from cfg...")
+    #         return PipeLineBuilder(self.cfg)
+    #     return pipeline
+
+    def _initialize_llm(self, llm):
+        log.info("Initializing a new Oracle model from cfg...")
+        llm = models.Transformers(
+            self.cfg.model_id, 
+            echo=False,
+            cache_dir=self.cfg.model_cache_dir, 
+            device_map=self.cfg.device_map
+        )
+        return llm
+    
     @abstractmethod
     def evaluate(self, instruction, output_1, output_2, **kwargs):
         pass
@@ -126,11 +150,6 @@ class Oracle(ABC):
     def test(self, instruction, output_1, output_2, label, **kwargs):
         pass
 
-    def _initialize_pipeline(self, pipeline):
-        if not isinstance(pipeline, HuggingFacePipeline):
-            log.info("Initializing a new Oracle pipeline from cfg...")
-            return PipeLineBuilder(self.cfg).pipeline
-        return pipeline
 
 class RankOracle(Oracle):
     

@@ -6,26 +6,43 @@ from guidance import models, gen, select
 import hydra
 import logging
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 def extract_dict(output, keys):
     return {k: output[k] for k in keys}
 
-class SentenceMutator:  
-    def __init__(self, cfg):
-        self.cfg = cfg
+# TODO: There should be a better way to do this.
+import re
 
-        # Load mutator model
-        log.info(f"Loading model: {cfg.model_id}...")
-        self.llm = models.Transformers(
-            cfg.model_id, 
-            echo=False,
-            cache_dir=cfg.model_cache_dir, 
-            device_map=cfg.device_map
-        )
+def remove_double_triple_commas(text):
+    # Remove triple commas first
+    text = re.sub(r',,,', ',', text)
+    # Then remove double commas
+    text = re.sub(r',,', ',', text)
+    return text
+
+class SentenceMutator:  
+    def __init__(self, cfg, llm = None) -> None:
+        self.cfg = cfg
+        self.llm = self._initialize_llm(llm)
 
         # Check if NLTK data is downloaded, if not, download it
         self._ensure_nltk_data()
+
+    def _initialize_llm(self, llm):
+        if not isinstance(llm, (models.Transformers, models.OpenAI)):
+            log.info("Initializing a new Mutator model from cfg...")
+            if "gpt" in self.cfg.model_id:
+                llm = models.OpenAI(self.cfg.model_id)
+            else:
+                llm = models.Transformers(
+                    self.cfg.model_id, 
+                    echo=False,
+                    cache_dir=self.cfg.model_cache_dir, 
+                    device_map=self.cfg.device_map
+                )
+        return llm
 
     def _ensure_nltk_data(self):
         try:
@@ -34,9 +51,15 @@ class SentenceMutator:
             nltk.download('punkt') 
 
     def mutate(self, text):
-
         # Use NLTK to split the text into sentences
         sentences = sent_tokenize(text)
+
+        # TODO: Adding this since the tokenizer thinks 2. is a sentence, which the mutator then tries to mutate.
+        # Thus, we only mutate long enough sentences.
+        long_sentences = [sentence for sentence in sentences if len(sentence) > 20]
+
+        if not long_sentences:
+            raise ValueError("No sentences longer than 20 characters to rephrase.")       
 
         # Generate a creative variation of the sentence
         num_retries = 0
@@ -46,11 +69,15 @@ class SentenceMutator:
                 raise RuntimeError(f"Failed to successfully rephrase sentence after {num_retries} attempts!")
 
             # Randomly select a sentence
-            selected_sentence = random.choice(sentences)
+            selected_sentence = random.choice(long_sentences)
             log.info(f"Sentence to rephrase: {selected_sentence}")
 
             output = self.llm + rephrase_sentence(text, selected_sentence)
+
             rephrased_sentence = output["paraphrased_sentence"]
+            # TODO: There should be a better way to do this.
+            rephrased_sentence = remove_double_triple_commas(rephrased_sentence)
+
 
             if rephrased_sentence != selected_sentence:
                 log.info(f"Rephrased sentence: {rephrased_sentence}")
@@ -98,6 +125,8 @@ if __name__ == "__main__":
         from utils import diff
         import textwrap
 
+        print(f"Starting mutation...")
+
         text = textwrap.dedent("""
             Power is a central theme in J.R.R. Tolkien's The Lord of the Rings series, as it relates to the characters' experiences and choices throughout the story. Power can take many forms, including physical strength, political authority, and magical abilities. However, the most significant form of power in the series is the One Ring, created by Sauron to control and enslave the free peoples of Middle-earth.
             The One Ring represents the ultimate form of power, as it allows its possessor to dominate and rule over the entire world. Sauron's desire for the Ring drives much of the plot, as he seeks to reclaim it and use its power to enslave all of Middle-earth. Other characters, such as Gandalf and Frodo, also become obsessed with the Ring's power, leading them down dangerous paths and ultimately contributing to the destruction of their own kingdoms.
@@ -115,11 +144,11 @@ if __name__ == "__main__":
         rephrased_sentence = mutated_output["rephrased_sentence"]
         delta = time.time() - start
 
-        # log.info(f"Original text: {text}")
-        # log.info(f"Sentence to Mutate: {selected_sentence}")
-        # log.info(f"Mutated Setence: {rephrased_sentence}")
-        # log.info(f"Mutated text: {mutated_text}")
-        # log.info(f"Diff: {diff(text, mutated_text)}")
-        log.info(f"Time taken: {delta}")
+        print(f"Original text: {text}")
+        print(f"Sentence to Mutate: {selected_sentence}")
+        print(f"Mutated Setence: {rephrased_sentence}")
+        print(f"Mutated text: {mutated_text}")
+        print(f"Diff: {diff(text, mutated_text)}")
+        print(f"Time taken: {delta}")
 
     test()

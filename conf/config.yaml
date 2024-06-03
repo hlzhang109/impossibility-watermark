@@ -4,22 +4,22 @@ defaults:
     # - attack_args: c4_generation
     # - attack_args: prompt_based_generation
     # - attack_args: mixtral_regular_attack
-    # - generator_args: large_mixtral
+    # - generator_args: large_mixtrals
     # - oracle_args: llama3
 
 cuda_visible_devices: "1,2" # TODO: Does this really work? FHC: Not at the moment
-model_cache_dir: "/data2/.shared_models"
+model_cache_dir: "../.cache" # "/data2/.shared_models"
 
 attack_args:
-    max_steps: 100           # how many mutations should the attack try to make
-    backtrack_patience: 10   # how many unsuccessful mutations before backtrack (should always be lower than patience)
+    max_steps: 300           # how many mutations should the attack try to make
+    backtrack_patience: 100   # how many unsuccessful mutations before backtrack (should always be lower than patience)
     length_variance: 0.05    # max percent the mutated text can grow / shrink (initial quality check), set to -1 to disable
     log_csv_path: "./results/attack_log.csv"
     verbose: True
 
 # UMD still needs this to detect, so leaving this here.
 generator_args:
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ" "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" "gpt-4"
+    model_id: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ" "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" "gpt-4"
     revision: "main" 
     model_cache_dir: "${model_cache_dir}"
     device_map: "auto"
@@ -34,11 +34,7 @@ generator_args:
     watermark_score_threshold: 5.0
 
 oracle_args:
-<<<<<<< HEAD
-    model_name_or_path: "gpt-4" # "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" # "gpt-4"
-=======
-    model_id: "TechxGenus/Meta-Llama-3-70B-Instruct-GPTQ" # "gpt-4"
->>>>>>> 1302b7032bff479bd7e9191f2564e3bda78d9097
+    model_id: "gpt-3.5-turbo-0125" # "TechxGenus/Meta-Llama-3-70B-Instruct-GPTQ" # "gpt-4o"
     model_cache_dir: "${model_cache_dir}"
     max_retries: 5
     revision: "main" 
@@ -60,15 +56,8 @@ oracle_args:
     num_gpus: 1,2,3,5,6,7 # for prometheus only
 
 mutator_args:
-    type: "sentence" # document, sentence, span, word
-<<<<<<< HEAD
-    use_system_profile: True
-    system_profile: "You are a copy editor tasked to enforce text quality."
-    num_retries: 5
-    model_name_or_path: "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" 
-=======
-    model_id: "TechxGenus/Meta-Llama-3-8B-GPTQ"
->>>>>>> 1302b7032bff479bd7e9191f2564e3bda78d9097
+    type: "word" # document, sentence, span, word
+    model_id: "TechxGenus/Meta-Llama-3-8B-Instruct-GPTQ" 
     model_cache_dir: "${model_cache_dir}"
     device_map: "${generator_args.device_map}"
     max_retries: 5

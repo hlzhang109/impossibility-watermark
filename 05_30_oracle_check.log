@@ -1,8 +1,9 @@
 /local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:125: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
   warnings.warn(
-[2024-05-30 17:21:56,323][datasets][INFO] - PyTorch version 2.3.0 available.
 [nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
 [nltk_data]   Package punkt is already up-to-date!
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/runpy.py:126: RuntimeWarning: 'oracles.relative3' found in sys.modules after import of package 'oracles', but prior to execution of 'oracles.relative3'; this may result in unpredictable behaviour
+  warn(RuntimeWarning(msg))
 /local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4487: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
   warnings.warn(
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
@@ -14,57 +15,98 @@ Special tokens have been added in the vocabulary, make sure the associated word 
                         Defaulting to the ChatML format which may not be optimal for the selected model. 
                         For best results, create and pass in a `guidance.ChatTemplate` subclass for your model.
   warnings.warn(f"""Chat template {chat_template} was unable to be loaded directly into guidance.
-oracle.evaluate
-evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'Equal'}
-time_taken: 22.419424772262573
-oracle.is_quality_preserved
-quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'Equal', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'Equal', 'quality_preserved': True}
-time_taken: 42.34528613090515
-oracle.test
-test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'Equal', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'Equal', 'original_label': 1, 'followup_label': 5, 'original_pred': 3, 'followup_pred': 3, 'pred_correct': 0}
-time_taken: 47.33846092224121
-[2024-05-30 17:24:08,260][__main__][INFO] - Loading model: TechxGenus/Meta-Llama-3-70B-Instruct-GPTQ from /data2/.shared_models...
-[2024-05-30 17:24:14,337][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
-/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/utils/modeling.py:1365: UserWarning: Current model requires 32930743552 bytes of buffer for offloaded layers, which seems does not fit any GPU's remaining memory. If you are experiencing a OOM later, please consider using offload_buffers=True.
-  warnings.warn(
-Error executing job with overrides: []
 Traceback (most recent call last):
-  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 190, in test
-    oracle = RelativeOracle3(cfg.oracle_args)
-  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 22, in __init__
-    self.llm = models.Transformers(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/transformers/_transformers.py", line 283, in __init__
-    TransformersEngine(model, tokenizer, compute_log_probs, chat_template=chat_template, **kwargs), echo=echo
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/transformers/_transformers.py", line 151, in __init__
-    self.model_obj = self._model(model, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/transformers/_transformers.py", line 183, in _model
-    model = transformers.AutoModelForCausalLM.from_pretrained(model, **kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
-    return model_class.from_pretrained(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3826, in from_pretrained
-    dispatch_model(model, **device_map_kwargs)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/big_modeling.py", line 419, in dispatch_model
-    attach_align_device_hook_on_blocks(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 648, in attach_align_device_hook_on_blocks
-    attach_align_device_hook_on_blocks(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 648, in attach_align_device_hook_on_blocks
-    attach_align_device_hook_on_blocks(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 648, in attach_align_device_hook_on_blocks
-    attach_align_device_hook_on_blocks(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 611, in attach_align_device_hook_on_blocks
-    attach_align_device_hook(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 504, in attach_align_device_hook
-    attach_align_device_hook(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 504, in attach_align_device_hook
-    attach_align_device_hook(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 495, in attach_align_device_hook
-    add_hook_to_module(module, hook, append=True)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 157, in add_hook_to_module
-    module = hook.init_hook(module)
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/hooks.py", line 304, in init_hook
-    set_module_tensor_to_device(
-  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/accelerate/utils/modeling.py", line 392, in set_module_tensor_to_device
-    new_value = old_value.to(device)
-torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 112.00 MiB. GPU 
-
-Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 256, in <module>
+    test()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 234, in test
+    quality_eval = oracle.is_quality_preserved(
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 75, in is_quality_preserved
+    followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 23, in evaluate
+    analysis = self.llm + produce_quality_analysis(instruction, output_1, output_2)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1163, in __add__
+    out = value(lm)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_grammar.py", line 69, in __call__
+    return self.f(model, *self.args, **self.kwargs)
+  File "/local1/borito1907/impossibility-watermark/oracles/relative3.py", line 125, in produce_quality_analysis
+    lm += f"""\
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1151, in __add__
+    out = lm + partial_grammar
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1159, in __add__
+    out = lm._run_stateless(value)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 1364, in _run_stateless
+    for chunk in gen_obj:
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 736, in __call__
+    is_done, logits_state, response_state = self.next(logits)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/models/_model.py", line 505, in next
+    self._parser.get_captures(self._captured_data, self._captured_log_prob_data)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 503, in get_captures
+    root_node = self.parse_tree()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 486, in parse_tree
+    reversed_state_sets = self._reversed_state_sets()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 472, in _reversed_state_sets
+    new_state_sets[state.start].append(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/ordered_set/__init__.py", line 194, in add
+    if key not in self.map:
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_parser.py", line 45, in __hash__
+    return hash((self.node, self.values, self.start, self.pos))
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/guidance/_grammar.py", line 318, in __hash__
+    def __hash__(self):
+KeyboardInterrupt
+oracle.evaluate
+evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
+time_taken: 18.188724040985107
+oracle.is_quality_preserved
+quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
+time_taken: 41.353758096694946
+oracle.test
+test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
+time_taken: 43.922462463378906
+oracle.evaluate
+evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
+time_taken: 19.609889268875122
+oracle.is_quality_preserved
+quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
+time_taken: 44.396018266677856
+oracle.test
+test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
+time_taken: 44.140544414520264
+oracle.evaluate
+evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
+time_taken: 19.75697088241577
+oracle.is_quality_preserved
+quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
+time_taken: 43.91279172897339
+oracle.test
+test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
+time_taken: 44.36647057533264
+oracle.evaluate
+evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
+time_taken: 19.389082193374634
+oracle.is_quality_preserved
+quality_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'quality_preserved': False}
+time_taken: 44.321802616119385
+oracle.test
+test_eval: {'original_analysis': 'Response A is better than Response B.', 'original_answer': 'A', 'followup_analysis': "Both responses provide a thorough analysis of the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes. However, Response A stands out for its clarity, coherence, and attention to detail.", 'followup_answer': 'A', 'original_label': 1, 'followup_label': 5, 'original_pred': 1, 'followup_pred': 1, 'pred_correct': 0.5}
+time_taken: 44.508522033691406
+oracle.evaluate
+evaluation: {'analysis': 'Response A is better than Response B.', 'answer': 'A'}
+time_taken: 19.893409967422485

@@ -4,8 +4,8 @@ import hydra
 import logging
 import shutil
 from tqdm import tqdm
+from watermarker_factory import get_watermarker
 from utils import (
-    get_watermarker,
     save_to_csv,
     length_diff_exceeds_percentage,
     count_num_of_words

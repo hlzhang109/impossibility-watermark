@@ -1,6 +1,7 @@
 import logging
 import hydra
-from utils import get_watermarker, save_to_csv, get_prompt_or_output, count_csv_entries
+from watermarker_factory import get_watermarker
+from utils import save_to_csv, get_prompt_or_output, count_csv_entries
 
 log = logging.getLogger(__name__)
 

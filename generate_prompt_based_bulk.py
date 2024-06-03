@@ -47,6 +47,7 @@ def main():
                 command = f"python watermarked_text_generator.py " \
                         f"++prompt_file='./inputs/tests_v1_with_lotr.csv' " \
                         f"++prompt_num={prompt_num} " \
+                        f"++attack_args.is_completion=False " \
                         f"++is_completion=False " \
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \

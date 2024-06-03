@@ -4,7 +4,7 @@ import os
 import json
 import datetime
 import textwrap
-# from openai import OpenAI
+from openai import OpenAI
 import difflib
 
 from dotenv import load_dotenv, find_dotenv
@@ -50,6 +50,9 @@ def count_words(text):
         return 0
     return len(text.split())
 
+def count_num_of_words(text):
+    return len(text.split())
+
 def length_diff_exceeds_percentage(text1, text2, percentage):
 
     # If less than zero, assume disabled
@@ -57,10 +60,8 @@ def length_diff_exceeds_percentage(text1, text2, percentage):
         return False
 
     # Split the texts into words and count the number of words
-    words1 = text1.split()
-    words2 = text2.split()
-    len1 = len(words1)
-    len2 = len(words2)
+    len1 = count_num_of_words(text1)
+    len2 = count_num_of_words(text2)
     
     # Calculate the absolute difference in the number of words
     word_diff = abs(len1 - len2)
@@ -160,32 +161,32 @@ def get_prompt_and_completion_from_json(file_path, index):
 #     completion = prefix + " " + completion
 #     return completion
 
-# def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4-turbo-2024-04-09"):
-#     client = OpenAI()
+def query_openai_with_history(initial_prompt, follow_up_prompt, model = "gpt-4o"):
+    client = OpenAI()
 
-#     completion = client.chat.completions.create(
-#     model=model,
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {"role": "user", "content": initial_prompt}
-#     ]
-#     )
+    completion = client.chat.completions.create(
+    model=model,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": initial_prompt}
+    ]
+    )
 
-#     first_response = completion.choices[0].message
+    first_response = completion.choices[0].message
     
-#     completion = client.chat.completions.create(
-#     model=model,
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {"role": "user", "content": initial_prompt},
-#         {'role': "assistant", "content": first_response.content},
-#         {"role": "user", "content": follow_up_prompt},
-#     ]
-#     )
+    completion = client.chat.completions.create(
+    model=model,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": initial_prompt},
+        {'role': "assistant", "content": first_response.content},
+        {"role": "user", "content": follow_up_prompt},
+    ]
+    )
 
-#     second_response = completion.choices[0].message
+    second_response = completion.choices[0].message
     
-#     return first_response, second_response
+    return first_response, second_response
 
 def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserved, quality_analysis, watermark_detected, watermark_score, backtrack):
     perturbation_stats = [{
@@ -204,7 +205,7 @@ def get_perturbation_stats(step_num, current_text, mutated_text, quality_preserv
     
     return perturbation_stats
 
-def mixtral_format_instructions(self, prompt):
+def mixtral_format_instructions(prompt):
     return textwrap.dedent(f"""
     [INST]
     {prompt}
@@ -232,20 +233,6 @@ def parse_llama_output(response):
     response = response[:-9] if response.endswith('assistant') else response
     response = replace_multiple_commas(response)
     return response
-
-from watermarkers import UMDWatermarker, UnigramWatermarker, EXPWatermarker, SemStampWatermarker
-
-def get_watermarker(cfg, **kwargs):
-    if cfg.watermark_args.name == "umd":
-        return UMDWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "unigram":
-        return UnigramWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "exp":
-        return EXPWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "semstamp_lsh":
-        return SemStampWatermarker(cfg, **kwargs)
-    else:
-        raise NotImplementedError
     
 def diff(text1, text2):
     """

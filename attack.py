@@ -4,13 +4,15 @@ import hydra
 import logging
 import shutil
 from tqdm import tqdm
+from watermarker_factory import get_watermarker
 from utils import (
-    get_watermarker,
     save_to_csv,
     length_diff_exceeds_percentage,
+    count_num_of_words
 )
 from guidance import models
 
+logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
 
@@ -68,16 +70,21 @@ class Attack:
 
         # Helper function to create or reuse model.
         def get_or_create_model(model_id, args):
-            if model_id not in self.models:
-                llm = models.Transformers(
-                    args.model_id, 
+            if "gpt" in args.model_id:
+                # model = PipeLineBuilder(args)
+                log.info(f"We don't need a local model with {args.model_id}.")
+                return
+            elif model_id not in self.models:
+                model = models.Transformers(
+                    args.model_id,
                     echo=False,
                     cache_dir=args.model_cache_dir, 
                     device_map=args.device_map
                 )
+                # TODO: Boran: I tried this in order to get around the temp_buffer_state issue. Might work on this later, so leaving it here.
                 # from auto_gptq import exllama_set_max_input_length
                 # llm = exllama_set_max_input_length(llm, 2048)
-                self.models[model_id] = llm
+                self.models[model_id] = model
             return self.models[model_id]
 
         # Create or get existing pipeline builders for generator, oracle, and mutator.
@@ -139,10 +146,10 @@ class Attack:
         elif "word" in cfg.mutator_args.type:
             self.mutator = MaskFillMutator()
         else:
-            raise ValueError("Invalid mutator type. Choose 'llm', 'span_fill', 'sentence' or 'document'.")
+            raise ValueError("Invalid mutator type. Choose 'word', 'span', 'sentence' or 'document'.")
 
     def attack(self, prompt, watermarked_text):
-
+        current_text = watermarked_text
         original = watermarked_text
 
         # Preliminary check to ensure that there is some watermark to attack
@@ -157,7 +164,9 @@ class Attack:
 
             step_data = self.base_step_metadata
             step_data.update({"step_num": step_num})
-            step_data.update({"current_text": watermarked_text})
+            step_data.update({"current_text": current_text})
+
+            log.info(f"step_data: {step_data}")
 
             # Potentially discard the current step and retry a previous one
             backtrack = backtrack_patience > self.cfg.attack_args.backtrack_patience
@@ -170,7 +179,7 @@ class Attack:
 
             # Step 1: Mutate      
             log.info("Mutating watermarked text...")
-            mutated_text = self.mutator.mutate(watermarked_text)
+            mutated_text = self.mutator.mutate(current_text)
             # TODO: This should be cleaner. This is here to run the attack right now before I go to the gym. - Boran.
             if self.cfg.mutator_args.type == "sentence":
                 mutated_text = mutated_text["mutated_text"]
@@ -185,7 +194,8 @@ class Attack:
                 text2=mutated_text, 
                 percentage=self.cfg.attack_args.length_variance
             )
-            step_data.update({"current_text_len": original_len})
+            current_text_len = count_num_of_words(current_text)
+            step_data.update({"current_text_len": current_text_len})
             step_data.update({"mutated_text_len": mutated_len})
             step_data.update({"length_issue": length_issue})
 
@@ -193,22 +203,25 @@ class Attack:
                 log.warn(f"Failed length check. Previous was {original_len} words and mutated is {mutated_len} words. Skipping quality check and watermark check...")
                 backtrack_patience =+ 1
                 results.append(step_data)
-                save_to_csv(results, self.cfg.attack_args.log_csv_path) 
+                save_to_csv([step_data], self.cfg.attack_args.log_csv_path) 
                 continue
 
             log.info("Length check passed!")
 
             # Step 3: Check Quality
             log.info("Checking quality oracle...")
-            quality_analysis = self.quality_oracle.is_quality_preserved(prompt, original, mutated_text)
+            quality_analysis = self.quality_oracle.is_quality_preserved(prompt, current_text, mutated_text)
             step_data.update({"quality_analysis": quality_analysis})
             step_data.update({"quality_preserved": quality_analysis["quality_preserved"]})
         
             if not quality_analysis["quality_preserved"]:
                 log.warn("Failed quality check. Skipping watermark check...")
                 results.append(step_data)
-                save_to_csv(results, self.cfg.attack_args.log_csv_path)
+                save_to_csv([step_data], self.cfg.attack_args.log_csv_path) 
                 continue
+            
+            # If we reach here, that means the quality check passed, so update the current_text.
+            current_text = mutated_text
 
             log.info("Quality check passed!")
             mutated_texts.append(mutated_text)
@@ -218,7 +231,7 @@ class Attack:
             step_data.update({"watermark_detected": watermark_detected})
             step_data.update({"watermark_score": watermark_score})
             results.append(step_data)
-            save_to_csv(results, self.cfg.attack_args.log_csv_path)
+            save_to_csv([step_data], self.cfg.attack_args.log_csv_path) 
 
             if not watermark_detected:
                 log.info("Attack successful!")

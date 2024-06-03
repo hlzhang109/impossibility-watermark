@@ -1,0 +1,46 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+CUDA extension not installed.
+CUDA extension not installed.
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-06-01 19:39:54,520][__main__][INFO] - Starting to watermark...
+[2024-06-01 19:39:54,522][__main__][INFO] - Prompt: Write a paragraph about the significance of the Pythagorean Theorem in geometry.
+[2024-06-01 19:39:54,522][__main__][INFO] - Getting the watermarker...
+[2024-06-01 19:39:54,522][watermarker][INFO] - Using device: cuda
+[2024-06-01 19:39:54,522][model_builders.pipeline][INFO] - Initializing TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/modeling_utils.py:4371: FutureWarning: `_is_quantized_training_enabled` is going to be deprecated in transformers 4.39.0. Please use `model.hf_quantizer.is_trainable` instead
+  warnings.warn(
+[2024-06-01 19:39:55,965][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+[2024-06-01 19:40:05,288][watermarkers.semstamp][INFO] - Initializing embedder model.
+[2024-06-01 19:40:05,288][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-06-01 19:40:05,288][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+[2024-06-01 19:40:06,286][watermarkers.semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-06-01 19:40:06,287][__main__][INFO] - {'prompt': None, 'prompt_file': './inputs/tests_v1_with_lotr.csv', 'prompt_num': 4, 'is_completion': False, 'generation_stats_file_path': './inputs/prompt_based_saves/prompt_4_temp_100_divp_20_attempt_1/stats.csv', 'watermarked_text_file_name': 'prompt_based_saves/prompt_4_temp_100_divp_20_attempt_1/watermarked_text.csv', 'generator_args': {'model_name_or_path': 'TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ', 'revision': 'main', 'model_cache_dir': './.cache/', 'device_map': 'auto', 'trust_remote_code': True, 'max_new_tokens': 1024, 'min_new_tokens': 768, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'watermark_score_threshold': 5.0, 'diversity_penalty': 20}, 'watermark_args': {'name': 'semstamp_lsh', 'embedder': None, 'delta': 0.01, 'sp_mode': 'lsh', 'sp_dim': 3, 'lmbd': 0.25, 'max_new_tokens': 255, 'min_new_tokens': 245, 'max_trials': 100, 'only_detect': False, 'cc_path': None, 'train_data': None, 'device': 'auto', 'len_prompt': 32, 'z_threshold': 0.5}, 'attack_args': {'prompt': None, 'prompt_file': './inputs/dynamic_prompts.csv', 'prompt_num': 6, 'watermarked_text': None, 'watermarked_text_path': None, 'watermarked_text_num': 1, 'num_steps': 2000, 'patience': 250, 'stop_at_removal': False, 'num_successful_steps': 100, 'results_dir': None, 'model_cache_dir': '/local1/borito1907/.cache/', 'save_name': None, 'use_watermark': False, 'backtrack_patience': 50, 'is_completion': False, 'json_path': None, 'json_index': 0, 'is_continuation': False, 'prev_csv_file': None, 'cuda': '1'}}
+[2024-06-01 19:40:06,287][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-06-01 19:40:06,287][watermarkers.semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Write a paragraph about the significance of the Pythagorean Theorem in geometry.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.92it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.92it/s]
+Error executing job with overrides: ['++prompt_file=./inputs/tests_v1_with_lotr.csv', '++prompt_num=4', '++attack_args.is_completion=False', '++is_completion=False', '++generator_args.temperature=1', '++generator_args.diversity_penalty=20', '++generation_stats_file_path=./inputs/prompt_based_saves/prompt_4_temp_100_divp_20_attempt_1/stats.csv', '++watermarked_text_file_name=prompt_based_saves/prompt_4_temp_100_divp_20_attempt_1/watermarked_text.csv']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 29, in test
+    watermarked_text = watermarker.generate(prompt)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 50, in generate
+    completion = self.generate_watermarked_outputs(prompt)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 271, in generate_watermarked_outputs
+    return self._lsh_generate_watermarked_outputs(prompt)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 283, in _lsh_generate_watermarked_outputs
+    response = self.lsh_reject_completion(prompt, stats_csv_path = self.cfg.generation_stats_file_path)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 160, in lsh_reject_completion
+    candidate_text, candidate_text_ids = self.generate_sentence(text, text_ids, stopping_criteria)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 107, in generate_sentence
+    outputs = self.model.generate(text_ids, self.gen_config, **self.generator_kwargs)
+AttributeError: 'SemStampWatermarker' object has no attribute 'gen_config'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

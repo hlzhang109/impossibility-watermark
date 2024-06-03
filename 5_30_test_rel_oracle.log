@@ -1,0 +1,156 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/prometheus_eval/judge.py:36: UserWarning: Reference answer was not given in Absolute Grading mode. This might lead to nonoptimal performances.
+  warnings.warn(
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+2024-05-30 16:44:04,655	INFO worker.py:1749 -- Started a local Ray instance.
+INFO 05-30 16:44:05 llm_engine.py:100] Initializing an LLM engine (v0.4.2) with config: model='prometheus-eval/prometheus-8x7b-v2.0', speculative_config=None, tokenizer='prometheus-eval/prometheus-8x7b-v2.0', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir='./.cache', load_format=LoadFormat.AUTO, tensor_parallel_size=4, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), seed=0, served_model_name=prometheus-eval/prometheus-8x7b-v2.0)
+[36m(pid=1765644)[0m /local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+[36m(pid=1765644)[0m   warnings.warn(
+INFO 05-30 16:44:12 utils.py:660] Found nccl from library /home/borito1907/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+[36m(RayWorkerWrapper pid=1765803)[0m INFO 05-30 16:44:12 utils.py:660] Found nccl from library /home/borito1907/.config/vllm/nccl/cu12/libnccl.so.2.18.1
+[36m(RayWorkerWrapper pid=1765803)[0m INFO 05-30 16:44:13 selector.py:81] Cannot use FlashAttention-2 backend because the flash_attn package is not found. Please install it for better performance.
+[36m(RayWorkerWrapper pid=1765803)[0m INFO 05-30 16:44:13 selector.py:32] Using XFormers backend.
+INFO 05-30 16:44:13 selector.py:81] Cannot use FlashAttention-2 backend because the flash_attn package is not found. Please install it for better performance.
+INFO 05-30 16:44:13 selector.py:32] Using XFormers backend.
+INFO 05-30 16:44:14 pynccl_utils.py:43] vLLM is using nccl==2.18.1
+[36m(RayWorkerWrapper pid=1765803)[0m INFO 05-30 16:44:14 pynccl_utils.py:43] vLLM is using nccl==2.18.1
+WARNING 05-30 16:44:17 custom_all_reduce.py:65] Custom allreduce is disabled because it's not supported on more than two PCIe-only GPUs. To silence this warning, specify disable_custom_all_reduce=True explicitly.
+[36m(RayWorkerWrapper pid=1765803)[0m WARNING 05-30 16:44:17 custom_all_reduce.py:65] Custom allreduce is disabled because it's not supported on more than two PCIe-only GPUs. To silence this warning, specify disable_custom_all_reduce=True explicitly.
+ERROR 05-30 16:44:18 worker_base.py:145] Error executing method load_model. This might cause deadlock in distributed execution.
+ERROR 05-30 16:44:18 worker_base.py:145] Traceback (most recent call last):
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 137, in execute_method
+ERROR 05-30 16:44:18 worker_base.py:145]     return executor(*args, **kwargs)
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker.py", line 118, in load_model
+ERROR 05-30 16:44:18 worker_base.py:145]     self.model_runner.load_model()
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 164, in load_model
+ERROR 05-30 16:44:18 worker_base.py:145]     self.model = get_model(
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/__init__.py", line 19, in get_model
+ERROR 05-30 16:44:18 worker_base.py:145]     return loader.load_model(model_config=model_config,
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 222, in load_model
+ERROR 05-30 16:44:18 worker_base.py:145]     model = _initialize_model(model_config, self.load_config,
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 88, in _initialize_model
+ERROR 05-30 16:44:18 worker_base.py:145]     return model_class(config=model_config.hf_config,
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 468, in __init__
+ERROR 05-30 16:44:18 worker_base.py:145]     self.model = MixtralModel(config,
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 412, in __init__
+ERROR 05-30 16:44:18 worker_base.py:145]     self.layers = nn.ModuleList([
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 413, in <listcomp>
+ERROR 05-30 16:44:18 worker_base.py:145]     MixtralDecoderLayer(config, quant_config=quant_config)
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 352, in __init__
+ERROR 05-30 16:44:18 worker_base.py:145]     self.block_sparse_moe = MixtralMoE(
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 102, in __init__
+ERROR 05-30 16:44:18 worker_base.py:145]     torch.empty(self.num_total_experts,
+ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/utils/_device.py", line 78, in __torch_function__
+ERROR 05-30 16:44:18 worker_base.py:145]     return func(*args, **kwargs)
+ERROR 05-30 16:44:18 worker_base.py:145] torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 448.00 MiB. GPU 
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/local1/borito1907/impossibility-watermark/oracles/relative.py", line 158, in <module>
+[rank0]:     oracle = PrometheusRelativeOracle()
+[rank0]:   File "/local1/borito1907/impossibility-watermark/oracles/relative.py", line 27, in __init__
+[rank0]:     self.judge = self.load_judge()
+[rank0]:   File "/local1/borito1907/impossibility-watermark/oracles/relative.py", line 31, in load_judge
+[rank0]:     judge = PrometheusEval(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/prometheus_eval/judge.py", line 47, in __init__
+[rank0]:     VLLM(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/prometheus_eval/vllm.py", line 19, in __init__
+[rank0]:     self.model: LLM = LLM(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 123, in __init__
+[rank0]:     self.llm_engine = LLMEngine.from_engine_args(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 292, in from_engine_args
+[rank0]:     engine = cls(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 160, in __init__
+[rank0]:     self.model_executor = executor_class(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 41, in __init__
+[rank0]:     self._init_executor()
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/executor/ray_gpu_executor.py", line 43, in _init_executor
+[rank0]:     self._init_workers_ray(placement_group)
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/executor/ray_gpu_executor.py", line 165, in _init_workers_ray
+[rank0]:     self._run_workers("load_model",
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/executor/ray_gpu_executor.py", line 234, in _run_workers
+[rank0]:     driver_worker_output = self.driver_worker.execute_method(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 146, in execute_method
+[rank0]:     raise e
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 137, in execute_method
+[rank0]:     return executor(*args, **kwargs)
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker.py", line 118, in load_model
+[rank0]:     self.model_runner.load_model()
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 164, in load_model
+[rank0]:     self.model = get_model(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/__init__.py", line 19, in get_model
+[rank0]:     return loader.load_model(model_config=model_config,
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 222, in load_model
+[rank0]:     model = _initialize_model(model_config, self.load_config,
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 88, in _initialize_model
+[rank0]:     return model_class(config=model_config.hf_config,
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 468, in __init__
+[rank0]:     self.model = MixtralModel(config,
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 412, in __init__
+[rank0]:     self.layers = nn.ModuleList([
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 413, in <listcomp>
+[rank0]:     MixtralDecoderLayer(config, quant_config=quant_config)
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 352, in __init__
+[rank0]:     self.block_sparse_moe = MixtralMoE(
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 102, in __init__
+[rank0]:     torch.empty(self.num_total_experts,
+[rank0]:   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/utils/_device.py", line 78, in __torch_function__
+[rank0]:     return func(*args, **kwargs)
+[rank0]: torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 448.00 MiB. GPU 
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145] Error executing method load_model. This might cause deadlock in distributed execution.
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145] Traceback (most recent call last):
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 137, in execute_method
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return executor(*args, **kwargs)
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker.py", line 118, in load_model
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model_runner.load_model()
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 164, in load_model
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model = get_model(
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/__init__.py", line 19, in get_model
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return loader.load_model(model_config=model_config,
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 222, in load_model
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     model = _initialize_model(model_config, self.load_config,
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 88, in _initialize_model
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return model_class(config=model_config.hf_config,
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 468, in __init__
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model = MixtralModel(config,
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 412, in __init__
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.layers = nn.ModuleList([
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 413, in <listcomp>
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     MixtralDecoderLayer(config, quant_config=quant_config)
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 352, in __init__
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.block_sparse_moe = MixtralMoE(
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 102, in __init__
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     torch.empty(self.num_total_experts,
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/utils/_device.py", line 78, in __torch_function__
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return func(*args, **kwargs)
+[36m(RayWorkerWrapper pid=1765803)[0m ERROR 05-30 16:44:18 worker_base.py:145] torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 448.00 MiB. GPU  has a total capacity of 47.33 GiB of which 372.75 MiB is free. Process 1624869 has 30.66 GiB memory in use. Including non-PyTorch memory, this process has 16.29 GiB memory in use. Of the allocated memory 15.63 GiB is allocated by PyTorch, and 21.64 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[36m(RayWorkerWrapper pid=1766187)[0m INFO 05-30 16:44:12 utils.py:660] Found nccl from library /home/borito1907/.config/vllm/nccl/cu12/libnccl.so.2.18.1[32m [repeated 2x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)[0m
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145] torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 224.00 MiB. GPU  has a total capacity of 47.33 GiB of which 50.75 MiB is free. Process 1624869 has 31.89 GiB memory in use. Including non-PyTorch memory, this process has 15.37 GiB memory in use. Of the allocated memory 14.72 GiB is allocated by PyTorch, and 21.80 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[36m(RayWorkerWrapper pid=1766187)[0m INFO 05-30 16:44:18 weight_utils.py:199] Using model weights format ['*.safetensors']
+[36m(RayWorkerWrapper pid=1766187)[0m INFO 05-30 16:44:14 selector.py:81] Cannot use FlashAttention-2 backend because the flash_attn package is not found. Please install it for better performance.[32m [repeated 2x across cluster][0m
+[36m(RayWorkerWrapper pid=1766187)[0m INFO 05-30 16:44:14 selector.py:32] Using XFormers backend.[32m [repeated 2x across cluster][0m
+[36m(RayWorkerWrapper pid=1766187)[0m INFO 05-30 16:44:14 pynccl_utils.py:43] vLLM is using nccl==2.18.1[32m [repeated 2x across cluster][0m
+[36m(RayWorkerWrapper pid=1766187)[0m WARNING 05-30 16:44:17 custom_all_reduce.py:65] Custom allreduce is disabled because it's not supported on more than two PCIe-only GPUs. To silence this warning, specify disable_custom_all_reduce=True explicitly.[32m [repeated 2x across cluster][0m
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145] Error executing method load_model. This might cause deadlock in distributed execution.
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145] Traceback (most recent call last):
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 137, in execute_method
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return executor(*args, **kwargs)
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 222, in load_model[32m [repeated 3x across cluster][0m
+[36m(pid=1766187)[0m /local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.[32m [repeated 3x across cluster][0m
+[36m(pid=1766187)[0m   warnings.warn([32m [repeated 3x across cluster][0m
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model_runner.load_model()
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model = get_model(
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/__init__.py", line 19, in get_model
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return loader.load_model(model_config=model_config,
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     model = _initialize_model(model_config, self.load_config,
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 88, in _initialize_model
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return model_class(config=model_config.hf_config,
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 107, in __init__[32m [repeated 4x across cluster][0m
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.model = MixtralModel(config,
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.layers = nn.ModuleList([
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/vllm/model_executor/models/mixtral.py", line 413, in <listcomp>
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     MixtralDecoderLayer(config, quant_config=quant_config)
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     self.block_sparse_moe = MixtralMoE(
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     torch.empty(self.num_total_experts,
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]   File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/torch/utils/_device.py", line 78, in __torch_function__
+[36m(RayWorkerWrapper pid=1765952)[0m ERROR 05-30 16:44:18 worker_base.py:145]     return func(*args, **kwargs)

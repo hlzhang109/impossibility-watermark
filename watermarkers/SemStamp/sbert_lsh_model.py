@@ -64,9 +64,12 @@ class LSHModel:
         raise NotImplementedError()
 
     def get_hash(self, sents: Iterator[str]) -> Iterator[str]:
+        # Get the embedding of every sentence in a matrix
         embd = self.get_embeddings(sents)
         # print(f"embedding: {embd}")
+        # Get the hash of the embedding vectors in binary
         hash_strs = [self.hasher.hash_vector(e)[0] for e in embd]
+        # Convert them to integers
         hash_ints = [int(s, 2) for s in hash_strs]
         return hash_ints
 

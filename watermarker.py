@@ -17,7 +17,7 @@ class Watermarker(ABC):
 
         log.info(f"Using device: {self.device}")
 
-        if not self.only_detect or "semstamp" not in self.cfg.watermark_args.name:
+        if not self.only_detect or "semstamp" in self.cfg.watermark_args.name:
             if not isinstance(self.pipeline, PipeLineBuilder):
                 self.pipeline = PipeLineBuilder(self.cfg.generator_args)
             
@@ -34,7 +34,6 @@ class Watermarker(ABC):
                 "top_k": self.cfg.generator_args.top_k,
                 "repetition_penalty": self.cfg.generator_args.repetition_penalty
             }
-        
         self._setup_watermark_components()
 
     @abstractmethod

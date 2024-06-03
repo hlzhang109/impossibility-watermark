@@ -24,15 +24,17 @@ class DocumentMutator:
         self._ensure_nltk_data()
 
     def _initialize_llm(self, llm):
-        if not isinstance(llm, models.Transformers):
+        if not isinstance(llm, (models.Transformers, models.OpenAI)):
             log.info("Initializing a new Mutator model from cfg...")
-            llm = models.Transformers(
-                self.cfg.model_id, 
-                echo=False,
-                cache_dir=self.cfg.model_cache_dir, 
-                device_map=self.cfg.device_map
-            )
-            return llm
+            if "gpt" in self.cfg.model_id:
+                llm = models.OpenAI(self.cfg.model_id)
+            else:
+                llm = models.Transformers(
+                    self.cfg.model_id, 
+                    echo=False,
+                    cache_dir=self.cfg.model_cache_dir, 
+                    device_map=self.cfg.device_map
+                )
         return llm
 
     def _ensure_nltk_data(self):

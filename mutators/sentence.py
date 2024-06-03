@@ -12,6 +12,16 @@ log = logging.getLogger(__name__)
 def extract_dict(output, keys):
     return {k: output[k] for k in keys}
 
+# TODO: There should be a better way to do this.
+import re
+
+def remove_double_triple_commas(text):
+    # Remove triple commas first
+    text = re.sub(r',,,', ',', text)
+    # Then remove double commas
+    text = re.sub(r',,', ',', text)
+    return text
+
 class SentenceMutator:  
     def __init__(self, cfg, llm = None) -> None:
         self.cfg = cfg
@@ -21,15 +31,17 @@ class SentenceMutator:
         self._ensure_nltk_data()
 
     def _initialize_llm(self, llm):
-        if not isinstance(llm, models.Transformers):
+        if not isinstance(llm, (models.Transformers, models.OpenAI)):
             log.info("Initializing a new Mutator model from cfg...")
-            llm = models.Transformers(
-                self.cfg.model_id, 
-                echo=False,
-                cache_dir=self.cfg.model_cache_dir, 
-                device_map=self.cfg.device_map
-            )
-            return llm
+            if "gpt" in self.cfg.model_id:
+                llm = models.OpenAI(self.cfg.model_id)
+            else:
+                llm = models.Transformers(
+                    self.cfg.model_id, 
+                    echo=False,
+                    cache_dir=self.cfg.model_cache_dir, 
+                    device_map=self.cfg.device_map
+                )
         return llm
 
     def _ensure_nltk_data(self):
@@ -42,6 +54,13 @@ class SentenceMutator:
         # Use NLTK to split the text into sentences
         sentences = sent_tokenize(text)
 
+        # TODO: Adding this since the tokenizer thinks 2. is a sentence, which the mutator then tries to mutate.
+        # Thus, we only mutate long enough sentences.
+        long_sentences = [sentence for sentence in sentences if len(sentence) > 20]
+
+        if not long_sentences:
+            raise ValueError("No sentences longer than 20 characters to rephrase.")       
+
         # Generate a creative variation of the sentence
         num_retries = 0
         while True:
@@ -50,11 +69,15 @@ class SentenceMutator:
                 raise RuntimeError(f"Failed to successfully rephrase sentence after {num_retries} attempts!")
 
             # Randomly select a sentence
-            selected_sentence = random.choice(sentences)
+            selected_sentence = random.choice(long_sentences)
             log.info(f"Sentence to rephrase: {selected_sentence}")
 
             output = self.llm + rephrase_sentence(text, selected_sentence)
+
             rephrased_sentence = output["paraphrased_sentence"]
+            # TODO: There should be a better way to do this.
+            rephrased_sentence = remove_double_triple_commas(rephrased_sentence)
+
 
             if rephrased_sentence != selected_sentence:
                 log.info(f"Rephrased sentence: {rephrased_sentence}")

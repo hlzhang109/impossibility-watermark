@@ -22,6 +22,8 @@ import hydra
 # from model_builders.pipeline import PipeLineBuilder
 from utils import read_text_file, extract_response_info, add_prefix_to_keys
 
+from .quality_analysis import quality_analysis_solo_self_reward, quality_analysis_solo_lmsys_ia, quality_analysis_solo_lmsys_ib, quality_analysis_relative_3, quality_analysis_relative_5, quality_analysis_joint_ia, quality_analysis_joint_ib, quality_analysis_rank
+
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
@@ -145,39 +147,45 @@ class RankOracle(Oracle):
     def __init__(self, cfg, pipeline=None) -> None:
         super().__init__(cfg, pipeline)
         
-        # init output parser with template specific object
-        self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=RankAnswer),
-            llm=self.pipeline,
-            max_retries=self.cfg.num_formatting_retries,
-        )
+        # # init output parser with template specific object
+        # self.output_parser = OutputFixingParser.from_llm(
+        #     parser=PydanticOutputParser(pydantic_object=RankAnswer),
+        #     llm=self.pipeline,
+        #     max_retries=self.cfg.num_formatting_retries,
+        # )
  
-        # init prompt with specific inputs
-        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+        # # init prompt with specific inputs
+        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        # TODO: Remove this code if experiment works. Find it in pipeline and remove the corresponding portion as well.
-        # if self.pipeline.requires_INST_tokens:
-        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # # TODO: Remove this code if experiment works. Find it in pipeline and remove the corresponding portion as well.
+        # # if self.pipeline.requires_INST_tokens:
+        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
-        self.instruction_prompt = PromptTemplate(
-            template=self.instructions,
-            template_format='jinja2',
-            input_variables=["instruction", "output_1", "output_2"],
-        )
+        # self.instruction_prompt = PromptTemplate(
+        #     template=self.instructions,
+        #     template_format='jinja2',
+        #     input_variables=["instruction", "output_1", "output_2"],
+        # )
         
-        if cfg.system_profile:
-            self.profile_template = """{profile}"""
-            self.system_prompt = PromptTemplate(
-                template=self.profile_template,
-                input_variables=["profile"],
-            )    
-            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        else:
-            self.prompt = self.instruction_prompt 
+        # if cfg.system_profile:
+        #     self.profile_template = """{profile}"""
+        #     self.system_prompt = PromptTemplate(
+        #         template=self.profile_template,
+        #         input_variables=["profile"],
+        #     )    
+        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        # else:
+        #     self.prompt = self.instruction_prompt 
 
-        self.chain = self.prompt | self.pipeline | self.output_parser
+        # self.chain = self.prompt | self.pipeline | self.output_parser
+        
+        self.system_profile = ""
+        if cfg.system_profile:
+            self.system_profile = cfg.system_profile
+
+        self.quality_analysis = quality_analysis_rank
 
         log.info(f"Initialized RankOracle with cfg={cfg}")
 
@@ -229,7 +237,7 @@ class RankOracle(Oracle):
         followup = add_prefix_to_keys(followup, "followup_")
         original.update({**followup})
         original.update({**followup})
-        original.update({"quality_preserved": quality_preserved})
+        original.update({"quality_preserved": is_quality_preserved})
         return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
@@ -268,38 +276,50 @@ class JointOracle(Oracle):
     def __init__(self, cfg, pipeline=None) -> None:
         super().__init__(cfg, pipeline)
         
-        # init output parser with template specific object
-        self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=JointAnswer),
-            llm=self.pipeline,
-            max_retries=self.cfg.num_formatting_retries,
-        )
+        # # init output parser with template specific object
+        # self.output_parser = OutputFixingParser.from_llm(
+        #     parser=PydanticOutputParser(pydantic_object=JointAnswer),
+        #     llm=self.pipeline,
+        #     max_retries=self.cfg.num_formatting_retries,
+        # )
  
-        # init prompt with specific inputs
-        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+        # # init prompt with specific inputs
+        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        # if self.pipeline.requires_INST_tokens:
-        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # # if self.pipeline.requires_INST_tokens:
+        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
-        self.instruction_prompt = PromptTemplate(
-            template=self.instructions,
-            template_format='jinja2',
-            input_variables=["instruction", "output_1", "output_2"],
-        )
+        # self.instruction_prompt = PromptTemplate(
+        #     template=self.instructions,
+        #     template_format='jinja2',
+        #     input_variables=["instruction", "output_1", "output_2"],
+        # )
         
-        if cfg.system_profile:
-            self.profile_template = """{profile}"""
-            self.system_prompt = PromptTemplate(
-                template=self.profile_template,
-                input_variables=["profile"],
-            )    
-            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        else:
-            self.prompt = self.instruction_prompt 
+        # if cfg.system_profile:
+        #     self.profile_template = """{profile}"""
+        #     self.system_prompt = PromptTemplate(
+        #         template=self.profile_template,
+        #         input_variables=["profile"],
+        #     )    
+        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        # else:
+        #     self.prompt = self.instruction_prompt 
 
-        self.chain = self.prompt | self.pipeline | self.output_parser
+        # self.chain = self.prompt | self.pipeline | self.output_parser
+        
+        self.system_profile = ""
+        if cfg.system_profile:
+            self.system_profile = cfg.system_profile
+
+        if(cfg.template == "joint.lmsys.ia"):
+            self.quality_analysis = quality_analysis_joint_ia
+        elif(cfg.template == "joint.lmsys.ib"):
+            self.quality_analysis = quality_analysis_joint_ib
+        else:
+            raise ValueError("Invalid template name provided")
+
 
         log.info(f"Initialized JointOracle with cfg={cfg}")
 
@@ -315,10 +335,11 @@ class JointOracle(Oracle):
             dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
-        pydantic_output = self.chain.invoke(dict_input)
+        #pydantic_output = self.chain.invoke(dict_input)
+        output = self.llm + self.quality_analysis(instruction, output_1, output_2)
 
         # Prepare Output
-        dict_output = pydantic_output.dict()
+        dict_output = {"analysis": output["analysis"], "assistant_1_score": output["assistant_1_score"], "assistant_2_score": output["assistant_2_score"]}
         dict_output.update({
             **dict_input,
             **kwargs,
@@ -400,37 +421,48 @@ class RelativeOracle(Oracle):
         super().__init__(cfg, pipeline)
         
         # init output parser with template specific object
-        self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
-            llm=self.pipeline,
-            max_retries=self.cfg.num_formatting_retries,
-        )
+        # self.output_parser = OutputFixingParser.from_llm(
+        #     parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
+        #     llm=self.pipeline,
+        #     max_retries=self.cfg.num_formatting_retries,
+        # )
  
-        # init prompt with specific inputs
-        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+        # # init prompt with specific inputs
+        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        # if self.pipeline.requires_INST_tokens:
-        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # # if self.pipeline.requires_INST_tokens:
+        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
-        self.instruction_prompt = PromptTemplate(
-            template=self.instructions,
-            template_format='jinja2',
-            input_variables=["instruction", "output_1", "output_2"],
-        )
+        # self.instruction_prompt = PromptTemplate(
+        #     template=self.instructions,
+        #     template_format='jinja2',
+        #     input_variables=["instruction", "output_1", "output_2"],
+        # )
         
-        if cfg.system_profile:
-            self.profile_template = """{profile}"""
-            self.system_prompt = PromptTemplate(
-                template=self.profile_template,
-                input_variables=["profile"],
-            )    
-            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        else:
-            self.prompt = self.instruction_prompt 
+        # if cfg.system_profile:
+        #     self.profile_template = """{profile}"""
+        #     self.system_prompt = PromptTemplate(
+        #         template=self.profile_template,
+        #         input_variables=["profile"],
+        #     )    
+        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        # else:
+        #     self.prompt = self.instruction_prompt 
 
-        self.chain = self.prompt | self.pipeline | self.output_parser
+        # self.chain = self.prompt | self.pipeline | self.output_parser
+        
+        self.system_profile = ""
+        if cfg.system_profile:
+            self.system_profile = cfg.system_profile
+        
+        if "3" in self.cfg.template:
+            self.quality_analysis = quality_analysis_relative_3
+        elif "5" in self.cfg.template:
+            self.quality_analysis = quality_analysis_relative_5
+        else:
+            raise ValueError("Invalid template name, should specify '3' or '5' choices! e.g. 'relative.sandpaper.3'")
 
         log.info(f"Initialized RelativeOracle with cfg={cfg}")
 
@@ -446,12 +478,12 @@ class RelativeOracle(Oracle):
             dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
-        pydantic_output = self.chain.invoke(dict_input)
-
-        log.debug(f"Pydantic Output: {pydantic_output}")
+        #pydantic_output = self.chain.invoke(dict_input)
+        output = self.llm + self.quality_analysis(instruction, output_1, output_2)
 
         # Prepare Output
-        dict_output = pydantic_output.dict()
+        dict_output = {"analysis": output["analysis"], "answer": output["answer"]}
+        #dict_output = pydantic_output.dict()
         dict_output.update({
             **dict_input,
             **kwargs,
@@ -494,9 +526,7 @@ class RelativeOracle(Oracle):
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
-        log.debug(f"Original: {original}")
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
-        log.debug(f"Followup: {followup}")
         
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
@@ -555,40 +585,53 @@ class SoloOracle(Oracle):
     def __init__(self, cfg, pipeline=None) -> None:
         super().__init__(cfg, pipeline)
         
-        # init output parser with template specific object
-        self.output_parser = OutputFixingParser.from_llm(
-            parser=PydanticOutputParser(pydantic_object=SoloAnswer),
-            llm=self.pipeline,
-            max_retries=self.cfg.num_formatting_retries,
-        )
+        # # init output parser with template specific object
+        # self.output_parser = OutputFixingParser.from_llm(
+        #     parser=PydanticOutputParser(pydantic_object=SoloAnswer),
+        #     llm=self.pipeline,
+        #     max_retries=self.cfg.num_formatting_retries,
+        # )
  
-        # init prompt with specific inputs
-        self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
+        # # init prompt with specific inputs
+        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
 
-        # if self.pipeline.requires_INST_tokens:
-        #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
+        # # if self.pipeline.requires_INST_tokens:
+        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
 
-        self.instruction_prompt = PromptTemplate(
-            template=self.instructions,
-            template_format='jinja2',
-            input_variables=["instruction", "output_1", "output_2"],
-        )
+        # self.instruction_prompt = PromptTemplate(
+        #     template=self.instructions,
+        #     template_format='jinja2',
+        #     input_variables=["instruction", "output_1", "output_2"],
+        # )
         
-        if cfg.system_profile:
-            self.profile_template = """{profile}"""
-            self.system_prompt = PromptTemplate(
-                template=self.profile_template,
-                input_variables=["profile"],
-            )    
-            s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-            i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-            self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        else:
-            self.prompt = self.instruction_prompt 
+        # if cfg.system_profile:
+        #     self.profile_template = """{profile}"""
+        #     self.system_prompt = PromptTemplate(
+        #         template=self.profile_template,
+        #         input_variables=["profile"],
+        #     )    
+        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
+        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
+        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
+        # else:
+        #     self.prompt = self.instruction_prompt 
 
-        self.chain = self.prompt | self.pipeline | self.output_parser
+        # self.chain = self.prompt | self.pipeline | self.output_parser
+        self.system_profile = ""
+        if cfg.system_profile:
+            self.system_profile = cfg.system_profile
 
         log.info(f"Initialized SoloOracle with cfg={cfg}")
+        
+        if(cfg.template == "rate.self-reward"):
+            self.quality_analysis = quality_analysis_solo_self_reward
+        elif(cfg.template == "solo.lmsys.ia"):
+            self.quality_analysis = quality_analysis_solo_lmsys_ia
+        elif(cfg.template == "solo.lmsys.ib"):
+            self.quality_analysis = quality_analysis_solo_lmsys_ib
+        else:
+            raise ValueError("Invalid template name provided")
+        
 
     def evaluate(self, instruction, output_1, output_2=None, **kwargs):
         # Prepare Input
@@ -602,10 +645,11 @@ class SoloOracle(Oracle):
             dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
-        pydantic_output = self.chain.invoke(dict_input)
+        #pydantic_output = self.chain.invoke(dict_input)
+        output = self.llm + self.quality_analysis(instruction, output_1)
 
         # Prepare Output
-        dict_output = pydantic_output.dict()
+        dict_output = {"analysis": output["analysis"], "score": output["score"]}
         dict_output.update({
             **dict_input,
             **kwargs,
@@ -683,7 +727,10 @@ class SoloOracle(Oracle):
         })
 
         return output_1_evaluation
+    
 
+        
+        
 # def evaluate(self, instruction, output_1, output_2, **kwargs):
 #     retry_count = 0
 #     while retry_count < self.cfg.num_retries:
@@ -707,23 +754,24 @@ class SoloOracle(Oracle):
 
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
 def test(cfg):
 
     import pandas as pd
+    import time
 
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
-    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
+    #os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
+    #os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
-        # ("rate.self-reward", SoloOracle), 
-        ("solo.lmsys.ia", SoloOracle), 
-        ("solo.lmsys.ib", SoloOracle), 
-        ("rank.alpaca_eval", RankOracle), 
-        ("joint.lmsys.ia", JointOracle), 
-        ("joint.lmsys.ib", JointOracle), 
+        #("rate.self-reward", SoloOracle), 
+        #("solo.lmsys.ia", SoloOracle), 
+        #("solo.lmsys.ib", SoloOracle), 
+        #("rank.alpaca_eval", RankOracle), 
+        # ("joint.lmsys.ia", JointOracle), 
+        # ("joint.lmsys.ib", JointOracle), 
         ("relative.sandpaper.3", RelativeOracle), 
-        ("relative.sandpaper.5", RelativeOracle), 
+        # ("relative.sandpaper.5", RelativeOracle), 
     ]
 
     tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv")
@@ -734,17 +782,52 @@ def test(cfg):
 
         results = []
         for index, row in tests_df.iterrows():
-            try:
-                dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
-            except:
-                log.info(f"Test crashed for {row} on template={template}")
-                dict_output = {
-                    "instruction": row["instruction"], 
-                    "output_1": row["output_1"], 
-                    "output_2": row["output_2"], 
-                    "label": row['label']
-                }
-            
+            # try:
+            #     dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
+            # except:
+            #     log.info(f"Test crashed for {row} on template={template}")
+            #     dict_output = {
+            #         "instruction": row["instruction"], 
+            #         "output_1": row["output_1"], 
+            #         "output_2": row["output_2"], 
+            #         "label": row['label']
+            #     }
+
+            start = time.time()
+            evaluation = oracle.evaluate(
+                instruction=row["instruction"], 
+                output_1=row["output_1"], 
+                output_2=row["output_2"]
+            )
+            time_taken = time.time() - start
+            print("oracle.evaluate")
+            print("evaluation:", evaluation)
+            print("time_taken:", time_taken)
+
+            start = time.time()
+            quality_eval = oracle.is_quality_preserved(
+                instruction=row["instruction"], 
+                output_1=row["output_1"], 
+                output_2=row["output_2"]
+            )
+            time_taken = time.time() - start
+            print("oracle.is_quality_preserved")
+            print("quality_eval:", quality_eval)
+            print("time_taken:", time_taken)
+
+            start = time.time()
+            test_eval = oracle.test(
+                instruction=row["instruction"], 
+                output_1=row["output_1"], 
+                output_2=row["output_2"],
+                label=row['label']
+            )
+            time_taken = time.time() - start
+            print("oracle.test")
+            print("test_eval:", test_eval)
+            print("time_taken:", time_taken)
+
+            dict_output = test_eval
             log.info(dict_output)
             results.append(dict_output)
 

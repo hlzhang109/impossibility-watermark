@@ -9,7 +9,7 @@ def get_watermarker(cfg, **kwargs):
         return UnigramWatermarker(cfg, **kwargs)
     elif cfg.watermark_args.name == "exp":
         return EXPWatermarker(cfg, **kwargs)
-    elif cfg.watermark_args.name == "semstamp_lsh":
+    elif "semstamp" in cfg.watermark_args.name:
         return SemStampWatermarker(cfg, **kwargs)
     else:
         raise NotImplementedError

@@ -245,39 +245,39 @@ def quality_analysis_joint_ia(lm, instruction, output_1, output_2):
 
     return lm
 
+# TODO: Backslashes break it. The code wasn't running. See 06_03_backslash_error.log - Boran
+# @guidance
+# def quality_analysis_rank(lm, instruction, output_1, output_2):
+#     lm += f"""
+#     I want you to create a leaderboard of different of large language models. To do so, I will give you the prompt given to the models, and the responses of two models. To make a leaderboard, first make a list ranking the models based on which responses would be preferred by humans, then return the ranking in the desired JSON format. The JSON structure for model ranking analysis should include the following fields:
+# 		- "analysis": A string that describes the reasoning behind the ranking of the models. 
+# 		- "ranking": An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.
 
-@guidance
-def quality_analysis_rank(lm, instruction, output_1, output_2):
-    lm += f"""\
-    I want you to create a leaderboard of different of large language models. To do so, I will give you the prompt given to the models, and the responses of two models. To make a leaderboard, first make a list ranking the models based on which responses would be preferred by humans, then return the ranking in the desired JSON format. The JSON structure for model ranking analysis should include the following fields:
-		- "analysis": A string that describes the reasoning behind the ranking of the models. 
-		- "ranking": An object where each key is the name of a model (string) and its value is the ranking (integer). The ranking represents the model's position or score relative to other models, where lower numbers indicate a higher ranking.
-
-		```json 
-		{{
-				"analysis": "{gen('analysis', stop='"')}", 
-				"ranking": "{gen('ranking', regex='\{\s*([\'"])[^\'"]*\1\s*:\s*\d+\s*(,\s*([\'"])[^\'"]*\3\s*:\s*\d+\s*)*\}')}"
-		}}
-		``` 
+# 		```json 
+# 		{{
+# 				"analysis": "{gen('analysis', stop='"')}", 
+# 				"ranking": "{gen('ranking', regex='\{\s*([\'"])[^\'"]*\1\s*:\s*\d+\s*(,\s*([\'"])[^\'"]*\3\s*:\s*\d+\s*)*\}')}"
+# 		}}
+# 		``` 
 								
-		Here is the prompt:
-		{{
-				"instruction": "{instruction}",
-		}}
+# 		Here is the prompt:
+# 		{{
+# 				"instruction": "{instruction}",
+# 		}}
 
-		Here are the outputs of the models:
-		[
-				{{
-						"model": "model_1",
-						"response": "{output_1}"
-				}},
-				{{
-						"model": "model_2",
-						"response": "{output_2}"
-				}}
-		]
+# 		Here are the outputs of the models:
+# 		[
+# 				{{
+# 						"model": "model_1",
+# 						"response": "{output_1}"
+# 				}},
+# 				{{
+# 						"model": "model_2",
+# 						"response": "{output_2}"
+# 				}}
+# 		]
 
-		Now make the leaderboard by ranking the models by the quality of their responses, so that the model with rank 1 has the best output. 
-		Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
+# 		Now make the leaderboard by ranking the models by the quality of their responses, so that the model with rank 1 has the best output. 
+# 		Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
 
-    return lm
+#     return lm

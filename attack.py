@@ -51,7 +51,7 @@ class Attack:
         # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
         # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
         from model_builders.pipeline import PipeLineBuilder
-        from utils import get_watermarker
+        from watermarker_factory import get_watermarker
         # TODO: We should update the other oracles and mutators to work with guidance. Currently, only RelativeOracle3 works.
         from oracles import (
             # RankOracle,

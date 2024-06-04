@@ -17,7 +17,7 @@ class Watermarker(ABC):
 
         log.info(f"Using device: {self.device}")
 
-        if not self.only_detect or "semstamp" in self.cfg.watermark_args.name:
+        if not self.only_detect or "semstamp" not in self.cfg.watermark_args.name:
             if not isinstance(self.pipeline, PipeLineBuilder):
                 self.pipeline = PipeLineBuilder(self.cfg.generator_args)
             

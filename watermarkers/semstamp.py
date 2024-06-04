@@ -37,7 +37,6 @@ def list_to_comma_separated_string(int_list):
     return ','.join(map(str, int_list))
 
 class SemStampWatermarker(Watermarker):
-    # TODO: Remove the is_completion. We can already access it using the config.
     def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
         super().__init__(cfg, pipeline, n_attempts, **kwargs)
         self.gen_config = None

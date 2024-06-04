@@ -6,8 +6,16 @@ from attack import Attack
 from utils import get_prompt_or_output
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
-
 log = logging.getLogger(__name__)
+
+import re
+
+def remove_double_triple_commas(text):
+    # Remove triple commas first
+    text = re.sub(r',,,', ',', text)
+    # Then remove double commas
+    text = re.sub(r',,', ',', text)
+    return text
 
 def run_command(command, filepath):
     log.info(f"Running command: {command}")
@@ -29,21 +37,26 @@ def main(cfg):
     # TODO: Adjust the prompt file and prompt num.
 
     prompt_path = './inputs/mini_c4.csv'
-    prompt_num = 1
+    prompt_num = 3
 
     prompt = get_prompt_or_output(prompt_path, prompt_num)
 
-    # TODO: Adjust the prompt accordingly.
+    # NOTE: Adjust the prompt accordingly.
 
-    watermarked_text_path = "./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_1/watermarked_text.csv"
+    # watermarked_text_path = "./inputs/c4_saves/c4_1_temp_100_divp_15_attempt_1/watermarked_text.csv"
+    watermarked_text_path = "/local1/borito1907/impossibility-watermark/inputs/c4_saves/c4_3_temp_100_divp_20_attempt_1/watermarked_text.csv"
     watermarked_text_num = 1
 
     watermarked_text = get_prompt_or_output(watermarked_text_path, watermarked_text_num)
 
+    # TODO: There should be a better way to do this.
+    watermarked_text = remove_double_triple_commas(watermarked_text)
+
     log.info(f"Prompt: {prompt}")
     log.info(f"Watermarked Text: {watermarked_text}")
 
-    cfg.attack_args.log_csv_path = './semstamp_attacks/05_30_c4_sentence.csv'
+    # NOTE: Adjust the log file accordingly.
+    cfg.attack_args.log_csv_path = './semstamp_attacks/06_03_c4_sentence.csv'
 
     attacker = Attack(cfg)
     attacked_text = attacker.attack(prompt, watermarked_text)

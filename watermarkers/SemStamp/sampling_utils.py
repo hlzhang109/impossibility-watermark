@@ -4,6 +4,8 @@ from transformers import StoppingCriteria
 from nltk.tokenize import sent_tokenize
 from string import punctuation
 from itertools import groupby
+import re
+from typing import *
 
 MAX_TRIALS = 100
 if torch.cuda.is_available():
@@ -14,6 +16,36 @@ hash_key = 15485863
 PUNCTS = '!.?'
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
+def handle_bullet_points(sentences):
+    new_sentences = []
+    digit_pattern = re.compile(r'^\d+\.$')
+    
+    i = 0
+    while i < len(sentences) - 1:
+        if digit_pattern.match(sentences[i].strip()):
+            new_sentences.append(f'{sentences[i].strip()} {sentences[i + 1]}')
+            i += 1  # Skip the next element as it's already added
+        else:
+            new_sentences.append(sentences[i])
+        i += 1
+    
+    return new_sentences
+
+
+def tokenize_sentences(self, text: str) -> List[str]:
+    sentences = sent_tokenize(text)
+    processed_sentences = handle_bullet_points(sentences)
+    return processed_sentences
+
+# TODO: Remove this if the other solution works.
+def is_candidate_text_one_sentence(self, candidate_text: str) -> bool:
+    sentences = sent_tokenize(candidate_text)
+    num_sentences = len(sentences)
+
+    if num_sentences == 2:
+        return re.match(r'^\d\.$', sentences[0].strip())
+
+    return num_sentences == 1
 
 class SentenceEndCriteria(StoppingCriteria):
     """
@@ -38,7 +70,17 @@ class SentenceEndCriteria(StoppingCriteria):
         # Ensure that the batch size is 1.
         assert input_ids.size(0) == 1
         text = self.tokenizer.decode(input_ids[0], skip_special_tokens=True)
-        return len(sent_tokenize(text)) > self.current_num_sentences + 1
+        sentences = sent_tokenize(text)
+        num_sentences = len(sentences)
+
+        # This checks whether we're generating a bullet point, and fixes the bug in the sentence tokenizer.
+        if num_sentences > self.current_num_sentences + 2:
+            return True
+        elif num_sentences == self.current_num_sentences + 2:
+            return not (num_sentences > 1 and re.match(r'^\d\.$', sentences[-2].strip()))
+        return False
+
+
 
 
 def discard_final_token_in_outputs(outputs):

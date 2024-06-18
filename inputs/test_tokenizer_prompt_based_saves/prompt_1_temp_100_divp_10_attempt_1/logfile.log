@@ -1,0 +1,91 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:125: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-06-18 13:32:12,718][__main__][INFO] - Starting to watermark...
+[2024-06-18 13:32:12,721][__main__][INFO] - Prompt: Describe the main responsibilities of an American Senator.
+[2024-06-18 13:32:12,722][__main__][INFO] - Getting the watermarker...
+[2024-06-18 13:32:12,722][watermarker][INFO] - Using device: cuda
+[2024-06-18 13:32:12,722][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+[2024-06-18 13:32:13,009][auto_gptq.modeling._base][INFO] - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:982: UserWarning: Not enough free disk space to download the file. The expected file size is: 39792.97 MB. The target location .cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/blobs only has 4.28 MB free disk space.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 47, in <module>
+    test()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 24, in test
+    watermarker = get_watermarker(cfg, only_detect=False)
+  File "/local1/borito1907/impossibility-watermark/watermarker_factory.py", line 13, in get_watermarker
+    return SemStampWatermarker(cfg, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 41, in __init__
+    super().__init__(cfg, pipeline, n_attempts, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 22, in __init__
+    self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 28, in __init__
+    self._init_model(self.cfg)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 53, in _init_model
+    self.model = AutoGPTQForCausalLM.from_quantized(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/auto.py", line 135, in from_quantized
+    return quant_func(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_base.py", line 955, in from_quantized
+    is_sharded, resolved_archive_file, true_model_basename = get_checkpoints(model_name_or_path=model_name_or_path, extensions=extensions, possible_model_basenames=possible_model_basenames, **cached_file_kwargs)
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_utils.py", line 721, in get_checkpoints
+    resolved_archive_file = cached_file(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py", line 400, in cached_file
+    resolved_file = hf_hub_download(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1221, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1367, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1884, in _download_to_tmp_and_move
+    http_get(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 459, in http_get
+    r = _request_wrapper(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 395, in _request_wrapper
+    response = get_session().request(method=method, url=url, **params)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 66, in send
+    return super().send(request, *args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/requests/adapters.py", line 589, in send
+    resp = conn.urlopen(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/urllib3/connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/urllib3/connection.py", line 466, in getresponse
+    httplib_response = super().getresponse()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/http/client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/ssl.py", line 1307, in recv_into
+    return self.read(nbytes, buffer)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/ssl.py", line 1163, in read
+    return self._sslobj.read(len, buffer)
+KeyboardInterrupt

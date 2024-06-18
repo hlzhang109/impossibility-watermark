@@ -26,7 +26,7 @@ def run_command(command, filepath):
 # NOTE: pass in as an argument the prompt number (1, 2, or 3)
 # this was so i could parallelize it better with gpus
 def main():
-    base_folder_name = './inputs/new_prompt_based_saves'
+    base_folder_name = './inputs/test_tokenizer_prompt_based_saves'
 
     results = []
     temps = [0.5, 1, 1.5, 1.8]

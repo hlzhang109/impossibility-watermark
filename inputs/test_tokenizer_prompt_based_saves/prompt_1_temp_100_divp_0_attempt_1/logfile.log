@@ -1,0 +1,50 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:125: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-06-18 13:32:04,183][__main__][INFO] - Starting to watermark...
+[2024-06-18 13:32:04,185][__main__][INFO] - Prompt: Describe the main responsibilities of an American Senator.
+[2024-06-18 13:32:04,185][__main__][INFO] - Getting the watermarker...
+[2024-06-18 13:32:04,186][watermarker][INFO] - Using device: cuda
+[2024-06-18 13:32:04,186][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+[2024-06-18 13:32:04,369][auto_gptq.modeling._base][INFO] - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:982: UserWarning: Not enough free disk space to download the file. The expected file size is: 39792.97 MB. The target location .cache/models--MaziyarPanahi--Meta-Llama-3-70B-Instruct-GPTQ/blobs only has 4.27 MB free disk space.
+  warnings.warn(
+Error executing job with overrides: ['++prompt_file=./inputs/tests_v1_with_lotr.csv', '++prompt_num=1', '++attack_args.is_completion=False', '++is_completion=False', '++generator_args.temperature=1', '++generator_args.diversity_penalty=0', '++generation_stats_file_path=./inputs/test_tokenizer_prompt_based_saves/prompt_1_temp_100_divp_0_attempt_1/stats.csv', '++watermarked_text_file_name=new_prompt_based_saves/prompt_1_temp_100_divp_0_attempt_1/watermarked_text.csv']
+Traceback (most recent call last):
+  File "/local1/borito1907/impossibility-watermark/watermarked_text_generator.py", line 24, in test
+    watermarker = get_watermarker(cfg, only_detect=False)
+  File "/local1/borito1907/impossibility-watermark/watermarker_factory.py", line 13, in get_watermarker
+    return SemStampWatermarker(cfg, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/watermarkers/semstamp.py", line 41, in __init__
+    super().__init__(cfg, pipeline, n_attempts, **kwargs)
+  File "/local1/borito1907/impossibility-watermark/watermarker.py", line 22, in __init__
+    self.pipeline = PipeLineBuilder(self.cfg.generator_args)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 28, in __init__
+    self._init_model(self.cfg)
+  File "/local1/borito1907/impossibility-watermark/model_builders/pipeline.py", line 53, in _init_model
+    self.model = AutoGPTQForCausalLM.from_quantized(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/auto.py", line 135, in from_quantized
+    return quant_func(
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_base.py", line 955, in from_quantized
+    is_sharded, resolved_archive_file, true_model_basename = get_checkpoints(model_name_or_path=model_name_or_path, extensions=extensions, possible_model_basenames=possible_model_basenames, **cached_file_kwargs)
+  File "/local1/borito1907/AutoGPTQ/auto_gptq/modeling/_utils.py", line 721, in get_checkpoints
+    resolved_archive_file = cached_file(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py", line 400, in cached_file
+    resolved_file = hf_hub_download(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1221, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1367, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1884, in _download_to_tmp_and_move
+    http_get(
+  File "/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 542, in http_get
+    temp_file.write(chunk)
+OSError: [Errno 28] No space left on device
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

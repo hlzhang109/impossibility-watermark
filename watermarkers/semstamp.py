@@ -12,7 +12,7 @@ import textwrap
 from watermarker import Watermarker
 from watermarkers.SemStamp.sbert_lsh_model import SBERTLSHModel
 from watermarkers.SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
-from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
+from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs, is_candidate_text_one_sentence
 from watermarkers.SemStamp.detection_utils import detect_lsh
 from watermarkers.SemStamp.sampling_kmeans_utils import embed_gen_list, get_cluster_centers, load_embeds, kmeans_reject_overlap, get_cluster_id, get_cluster_mask
 from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
@@ -217,16 +217,16 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
             log.info(f"LSH Candidate: {lsh_candidate}")
 
-            one_sentence = len(sent_tokenize(candidate_text)) == 1
+            one_sentence = is_candidate_text_one_sentence(candidate_text)
             candidate_accepted = (lsh_candidate in accept_mask) and one_sentence
 
             if lsh_candidate not in accept_mask:
                 log.info(f"Candidate text is doesn't fall into the correct place in the embedding space.")
-            # NOTE: I don't know why, but Mixtral seemed to generate 2 sentences 10% of the time. This is meant to avoid the issue.
-            elif len(sent_tokenize(candidate_text)) > 1:
-                log.info(f"Candidate text is more than one sentence.")
-            else:
-                log.info("Candidate text falls within the semantic partition.")
+            # NOTE: I don't know why, but Mixtral seemed to generate 2 sentences 10% of the time, even with the stopping criteria. This is meant to avoid the issue.
+            if not one_sentence:
+                log.info(f"Candidate text is not a single sentence.")  
+            if one_sentence and lsh_candidate in accept_mask:
+                log.info("Candidate text falls within the semantic partition and is a single sentence.")
 
             # logging for analyzing generation stats
             # TODO: Eventually want to pass in a directory and file name, just getting a quick and dirty implementation right now
@@ -362,31 +362,31 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
         return text, total_trials
 
 
-    def _kmeans_generate_watermarked_outputs(self, prompt):
-        # TODO: Waiting for Abe Hou to fix their Github repository.
-        # cluster generations if no clusters provided
-        if args.cc_path == None:
-            if args.embed_path == None:
-                embed_path = embed_gen_list(
-                    embedder_path=args.embedder, dataset_path=args.train_data)
-            else:
-                embed_path = args.embed_path
-            gen_embeds = load_embeds(embed_path)
-            cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
-            cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
-            torch.save(cluster_centers, cc_path)
-        # load cluster centers
-        else:
-            cluster_centers = torch.load(args.cc_path)
-        def text_to_generated_text(ex):
-            prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
-            response= kmeans_reject_completion(
-                prompt=prompt,
-                cluster_centers=cluster_centers,
-                margin=args.delta,
-                device=args.device)
-            ex['text'] = response.strip()
-            return ex
+    # def _kmeans_generate_watermarked_outputs(self, prompt):
+    #     # TODO: Waiting for Abe Hou to fix their Github repository.
+    #     # cluster generations if no clusters provided
+    #     if args.cc_path == None:
+    #         if args.embed_path == None:
+    #             embed_path = embed_gen_list(
+    #                 embedder_path=args.embedder, dataset_path=args.train_data)
+    #         else:
+    #             embed_path = args.embed_path
+    #         gen_embeds = load_embeds(embed_path)
+    #         cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
+    #         cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
+    #         torch.save(cluster_centers, cc_path)
+    #     # load cluster centers
+    #     else:
+    #         cluster_centers = torch.load(args.cc_path)
+    #     def text_to_generated_text(ex):
+    #         prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
+    #         response= kmeans_reject_completion(
+    #             prompt=prompt,
+    #             cluster_centers=cluster_centers,
+    #             margin=args.delta,
+    #             device=args.device)
+    #         ex['text'] = response.strip()
+    #         return ex
 
     def detect(self, completion):
         if self.cfg.watermark_args.sp_mode == "lsh":

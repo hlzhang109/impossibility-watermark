@@ -17,7 +17,7 @@ from nltk.tokenize import sent_tokenize
 from .sampling_utils import extract_prompt_from_text
 from .sampling_lsh_utils import lsh_reject_completion
 # TODO: This is probably from k-SemStamp. It generates a bug right now.
-# from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
+from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 
 nltk.download('punkt')
 

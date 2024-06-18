@@ -22,29 +22,32 @@ def run_command(command, filepath):
         # Returning None, stderr if there was an error
         return None, e.stderr
 
-
-# pass in as an argument the prompt number (1, 2, or 3)
+# NOTE: pass in as an argument the prompt number (1, 2, or 3)
 # this was so i could parallelize it better with gpus
 
 def main():
     results = []
-    temps = [.5, 1, 1.5, 1.8]
-    divps = [0, 15, 20]
+    # temps = [.5, 1, 1.5, 1.8]
+    # divps = [0, 15, 20]
+
+    # Boran: Changing this to run with the fine-tuned model from Huggingface.
+    temps = [1]
+    divps = [15]
     
+    base_folder_name = './inputs/fine_c4_saves'
 
     prompt_num = int(sys.argv[1])
     for attempt in range(1, 4):
-
         for temp in temps:
             for divp in divps:
-
+                # Get the path for the generation folder
                 folder_name = f'c4_{prompt_num}_temp_{int(temp * 100)}_divp_{divp}_attempt_{attempt}'
                 dirname = os.path.dirname(__file__)
-                path = os.path.join(dirname, f'./inputs/c4_saves/{folder_name}/')
+                path = os.path.join(dirname, f'./{base_folder_name}/{folder_name}/')
                 if not os.path.exists(path):
                     os.makedirs(path)
 
-                log_filepath = f"./inputs/c4_saves/{folder_name}/logfile.log"
+                log_filepath = f"{base_folder_name}/{folder_name}/logfile.log"
                 
                 command = f"python watermarked_text_generator.py " \
                         f"++prompt_file='./inputs/mini_c4.csv' " \
@@ -52,9 +55,8 @@ def main():
                         f"++is_completion=True " \
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \
-                        f"++generation_stats_file_path='./inputs/prompt_based_saves/{folder_name}/stats.csv' " \
-                        f"++watermarked_text_file_name='prompt_based_saves/{folder_name}/watermarked_text.csv' "
-
+                        f"++generation_stats_file_path='{base_folder_name}/{folder_name}/stats.csv' " \
+                        f"++watermarked_text_file_name='fine_c4_saves/{folder_name}/watermarked_text.csv' "
                 
                 stdout, stderr = run_command(command, log_filepath)
                 if stderr is None:

@@ -21,7 +21,7 @@ def test(cfg):
     log.info(f"Prompt: {prompt}")
 
     log.info(f"Getting the watermarker...")
-    watermarker = get_watermarker(cfg)
+    watermarker = get_watermarker(cfg, only_detect=False)
     log.info(cfg)
     log.info(f"Got the watermarker. Generating watermarked text...")
 

@@ -23,12 +23,14 @@ def run_command(command, filepath):
         return None, e.stderr
 
 
-# pass in as an argument the prompt number (1, 2, or 3)
+# NOTE: pass in as an argument the prompt number (1, 2, or 3)
 # this was so i could parallelize it better with gpus
 def main():
+    base_folder_name = './inputs/new_prompt_based_saves'
+
     results = []
-    temps = [1, 1.3, 1.7]
-    divps = [5, 15, 20]
+    temps = [0.5, 1, 1.5, 1.8]
+    divps = [0, 10, 20]
     
 
     prompt_num = int(sys.argv[1])
@@ -38,12 +40,13 @@ def main():
             for divp in divps:
                 folder_name = f'prompt_{prompt_num}_temp_{int(temp * 100)}_divp_{divp}_attempt_{attempt}'
                 dirname = os.path.dirname(__file__)
-                path = os.path.join(dirname, f'./inputs/prompt_based_saves/{folder_name}/')
+                path = os.path.join(dirname, f'{base_folder_name}/{folder_name}/')
                 if not os.path.exists(path):
                     os.makedirs(path)
 
-                log_filepath = f"./inputs/prompt_based_saves/{folder_name}/logfile.log"
+                log_filepath = f"{base_folder_name}/{folder_name}/logfile.log"
                 
+                # TODO: The is_completion arg needs to be fixed.
                 command = f"python watermarked_text_generator.py " \
                         f"++prompt_file='./inputs/tests_v1_with_lotr.csv' " \
                         f"++prompt_num={prompt_num} " \
@@ -51,8 +54,8 @@ def main():
                         f"++is_completion=False " \
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \
-                        f"++generation_stats_file_path='./inputs/prompt_based_saves/{folder_name}/stats.csv' " \
-                        f"++watermarked_text_file_name='prompt_based_saves/{folder_name}/watermarked_text.csv' "
+                        f"++generation_stats_file_path='{base_folder_name}/{folder_name}/stats.csv' " \
+                        f"++watermarked_text_file_name='new_prompt_based_saves/{folder_name}/watermarked_text.csv' "
 
                 
                 stdout, stderr = run_command(command, log_filepath)

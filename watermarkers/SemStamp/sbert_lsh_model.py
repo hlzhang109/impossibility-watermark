@@ -7,6 +7,7 @@ from copy import deepcopy
 from scipy.spatial.distance import hamming, cosine
 from nearpy.hashes import RandomBinaryProjections
 from transformers import BertTokenizer, BertForSequenceClassification, BertModel
+from custom_transformer import CustomSentenceTransformer
 from more_itertools import chunked
 import numpy as np
 from typing import List, Tuple, Callable, Optional, Iterator
@@ -82,9 +83,13 @@ class SBERTLSHModel(LSHModel):
 
         print(f'loading SBERT {self.sbert_type} model...')
 
+        # TODO: This should be MUCH cleaner, I just don't know how to make it cleaner. - Boran
+
         if embedder is not None:
             self.embedder = embedder
         else:
+            if lsh_model_path == "AbeHou/SemStamp-c4-sbert":
+                self.embedder = CustomSentenceTransformer(lsh_model_path, device=self.device)
             if lsh_model_path is not None:
                 self.embedder = SentenceTransformer(lsh_model_path)
                 self.dimension = self.embedder.get_sentence_embedding_dimension()
@@ -92,11 +97,14 @@ class SBERTLSHModel(LSHModel):
                 self.embedder = SentenceTransformer(
                     "sentence-transformers/all-mpnet-base-v1")
                 
-            self.embedder = self.embedder.to(self.device)
-            self.embedder.eval()
+            if lsh_model_path != "AbeHou/SemStamp-c4-sbert":
+                self.embedder = self.embedder.to(self.device)
+                self.embedder.eval()
 
-        if not list(self.embedder.parameters()):
-            raise ValueError("No parameters found in model; check model path or initialization.")
+
+        # TODO: Removing this for now since it breaks my wrapper. - Boran 
+        # if lsh_model_path != "AbeHou/SemStamp-c4-sbert" and not list(self.embedder.parameters()):
+        #     raise ValueError("No parameters found in model; check model path or initialization.")
         
         self.hasher.reset(dim=self.dimension)
 

@@ -1,0 +1,816 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:125: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-06-17 20:06:38,149][__main__][INFO] - Starting to watermark...
+[2024-06-17 20:06:38,153][__main__][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien races. Larson leads an all-star cast that includes Annette Bening, Gemma Chan, Colin Ford, Mckenna Grace, Robert Kazinsky, Jude Law, Lashana Lynch, Ben Mendelsohn, Chuku Modu, Algenis Perez Soto, Vik Sahay and Rune Temte. Expect to see a few actors from previously released movies in the Marvel Cinematic Universe, including Clark Gregg as Phil Coulson, Djimon Hounsou as Korath, Samuel L. Jackson as Nick Fury and Lee Pace as Ronan the Accuser. Larson is "excited" for what Captain Marvel has in store. "I'm really proud of what it is that we're making," she teased to E! News. "I think all the hype and anticipation will be worth it."
+Larson particularly enjoyed the challenge of getting in shape—mentally and physically—to fully embody her role as a superhero. "That's where you find the character. It's all about: 'How far can I take myself to kind of reprogram my brain and reprogram my body to learn something new about myself?' This has been an amazing challenge. She's so, so strong. She can move planets!" the actress explained in June. "To me, it's like, 'How far I can I go with this strength?'"
+Anna Boden and Ryan Fleck teamed up to direct the movie, out March 8, 2019. They wrote it with Liz Flahive, Meg LeFauve, Carly Mensch, Nicole Perlman and Geneva Robertson-Dworet.
+Production began in March, with filming locations ranging from California and Louisiana.
+"This is not a superhero who's perfect or otherworldly or has some godlike connection. But what makes her special is just how human she is. She's funny, but doesn't always tell good jokes. And she can be headstrong and reckless and doesn't always make the perfect decisions for herself," Boden explains in Entertainment Weekly's Sept. 14 issue, on newsstands Friday. "But at her core, she has so much heart and so much humanity—and all of its messiness."
+Based on the post-credits scene for Avengers: Infinity War, it seems likely Larson will be reprising her role in the currently untitled fourth Avengers movie, hitting theaters May 3, 2019.
+[2024-06-17 20:06:38,153][__main__][INFO] - Getting the watermarker...
+[2024-06-17 20:06:38,153][watermarker][INFO] - Using device: cuda
+[2024-06-17 20:06:38,153][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+[2024-06-17 20:06:38,354][auto_gptq.modeling._base][INFO] - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-06-17 20:06:38,810][auto_gptq.modeling._base][INFO] - The layer lm_head is not quantized.
+[2024-06-17 20:06:41,652][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'JetMoeForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'Phi3ForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-06-17 20:06:55,807][watermarkers.semstamp][INFO] - Setting up generating components...
+[2024-06-17 20:06:55,811][watermarkers.semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-06-17 20:06:55,811][watermarkers.semstamp][INFO] - Initializing embedder model.
+[2024-06-17 20:06:55,811][watermarkers.semstamp][INFO] - Using the fine-tuned SentenceTransformer...
+[2024-06-17 20:06:56,328][watermarkers.semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-06-17 20:06:56,329][__main__][INFO] - {'prompt': None, 'prompt_file': './inputs/mini_c4.csv', 'prompt_num': 1, 'is_completion': True, 'generation_stats_file_path': './inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv', 'watermarked_text_file_name': 'fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/watermarked_text.csv', 'generator_args': {'model_name_or_path': 'MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ', 'revision': 'main', 'model_cache_dir': './.cache/', 'device_map': 'auto', 'trust_remote_code': True, 'max_new_tokens': 1024, 'min_new_tokens': 768, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'watermark_score_threshold': 5.0, 'diversity_penalty': 10}, 'watermark_args': {'name': 'semstamp_lsh', 'embedder': None, 'delta': 0.01, 'sp_mode': 'lsh', 'sp_dim': 3, 'lmbd': 0.25, 'max_new_tokens': 255, 'min_new_tokens': 245, 'max_trials': 100, 'cc_path': None, 'train_data': None, 'device': 'auto', 'len_prompt': 32, 'z_threshold': 0.5, 'use_fine_tuned': True}, 'attack_args': {'prompt': None, 'prompt_file': './inputs/dynamic_prompts.csv', 'prompt_num': 6, 'watermarked_text': None, 'watermarked_text_path': None, 'watermarked_text_num': 1, 'num_steps': 2000, 'patience': 250, 'stop_at_removal': False, 'num_successful_steps': 100, 'results_dir': None, 'model_cache_dir': '/local1/borito1907/.cache/', 'save_name': None, 'use_watermark': False, 'backtrack_patience': 50, 'is_completion': False, 'json_path': None, 'json_index': 0, 'is_continuation': False, 'prev_csv_file': None, 'cuda': '1'}}
+[2024-06-17 20:06:56,330][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-06-17 20:06:56,330][watermarkers.semstamp][INFO] - Since this is a completion, extracting the prompt from the original text.
+[2024-06-17 20:06:56,330][watermarkers.semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-06-17 20:06:56,330][watermarkers.semstamp][INFO] - Generating a completion, not a prompt-based generation.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-17 20:06:59,216][watermarkers.semstamp][INFO] - Candidate text:  It has everything you want from a superhero movie: Action, humor, heart, and even some social commentary.
+
+[2024-06-17 20:06:59,217][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+[2024-06-17 20:06:59,236][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:06:59,237][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:06:59,237][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-17 20:06:59,237][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:06:59,969][watermarkers.semstamp][INFO] - Candidate text:  In theaters now!
+
+[2024-06-17 20:06:59,969][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+[2024-06-17 20:06:59,989][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:06:59,992][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:06:59,992][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-17 20:06:59,992][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:01,940][watermarkers.semstamp][INFO] - Candidate text:  This movie also explores her backstory, revealing how she became the powerful being known as Captain Marvel.
+
+
+[2024-06-17 20:07:01,940][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:03,627][watermarkers.semstamp][INFO] - Candidate text:  Captain Marvel is set to be released on March 8, 2019.
+
+[2024-06-17 20:07:03,627][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:05,866][watermarkers.semstamp][INFO] - Candidate text:  The movie also stars Samuel L. Jackson, Ben Mendelsohn, Brie Larson, and Jude Law.
+
+[2024-06-17 20:07:05,867][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+[2024-06-17 20:07:05,883][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:07:05,883][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:07:05,883][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-17 20:07:05,883][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:09,504][watermarkers.semstamp][INFO] - Candidate text: It was recently reported that Captain Marvel will be getting a sequel, with Megan McDonnell set to write the script and Brie Larson reprising her role as Carol Danvers/Captain Marvel.
+[2024-06-17 20:07:09,505][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:12,559][watermarkers.semstamp][INFO] - Candidate text: Captain Marvel will be the 21st film in the Marvel Cinematic Universe (MCU) and is expected to be a huge success at the box office.
+[2024-06-17 20:07:12,560][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:12,576][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-17 20:07:12,577][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:12,577][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:12,577][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:15,221][watermarkers.semstamp][INFO] - Candidate text: Captain Marvel is set to release on March 8th, 2019, and tickets are already available for purchase in select theaters.
+[2024-06-17 20:07:15,221][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:15,237][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:07:15,237][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:15,237][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:15,237][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:16,846][watermarkers.semstamp][INFO] - Candidate text: Captain Marvel will be released on March 8, 2019.
+[2024-06-17 20:07:16,847][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:16,863][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-17 20:07:16,863][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:16,863][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:16,863][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:18,871][watermarkers.semstamp][INFO] - Candidate text: The film has received mixed reviews from critics but is expected to perform well at the box office.
+[2024-06-17 20:07:18,871][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:21,045][watermarkers.semstamp][INFO] - Candidate text: Captain Marvel has received widespread critical acclaim for its action sequences, visuals, and performances, particularly from Larson.
+[2024-06-17 20:07:21,045][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:21,061][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:07:21,061][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:21,061][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:21,061][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:23,862][watermarkers.semstamp][INFO] - Candidate text: The upcoming superhero film is directed by Anna Boden and Ryan Fleck, and it will be released on March 8, 2019.
+[2024-06-17 20:07:23,862][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:23,878][watermarkers.semstamp][INFO] - LSH Candidate: 5
+[2024-06-17 20:07:23,878][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:23,878][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:23,878][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:25,491][watermarkers.semstamp][INFO] - Candidate text: Captain Marvel opens in theaters on March 8, 2019.
+[2024-06-17 20:07:25,491][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:07:25,507][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:07:25,507][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:07:25,507][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:07:25,507][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:30,776][watermarkers.semstamp][INFO] - Candidate text: assistant
+
+Here is a rewritten version with some minor corrections and improvements:
+
+"Get ready for the highly anticipated film, Captain Marvel! Set in the 1990s, the movie follows Carol Danvers, an Air Force officer who transforms into one of the universe's most powerful superheroes.
+[2024-06-17 20:07:30,777][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:30,795][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:07:30,796][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:30,796][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:30,796][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:34,631][watermarkers.semstamp][INFO] - Candidate text:  Keep following us for more news on this highly anticipated film!assistant
+
+Here is a rewritten version with some minor adjustments:
+
+Get ready to take to the skies with the latest superhero sensation! 
+
+
+[2024-06-17 20:07:34,631][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:34,647][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:07:34,647][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:34,647][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:34,647][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:38,958][watermarkers.semstamp][INFO] - Candidate text:  Here is the official synopsis: "The film follows Carol Danvers (Brie Larson) as she becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic conflict between two alien worlds."
+[2024-06-17 20:07:38,959][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:38,976][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:07:38,977][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:38,977][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:38,977][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:42,420][watermarkers.semstamp][INFO] - Candidate text:  Check out the new trailer below!assistant
+
+Here is the rewritten text:
+
+The latest trailer for Marvel Studios' highly anticipated film, Captain Marvel, has just dropped.
+[2024-06-17 20:07:42,420][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:42,436][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:07:42,436][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:42,436][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:42,436][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:44,767][watermarkers.semstamp][INFO] - Candidate text:  But before you grab your tickets, here are some fun facts about the Marvel superhero and the upcoming film:
+
+1.
+[2024-06-17 20:07:44,768][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:44,783][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:07:44,783][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:44,783][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:44,783][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:49,413][watermarkers.semstamp][INFO] - Candidate text: assistant
+
+That's correct! Here's a brief summary:
+
+**Captain Marvel (2019)**
+
+The latest addition to the Marvel Cinematic Universe (MCU), Captain Marvel is an action-packed superhero film set in the 1990s.
+[2024-06-17 20:07:49,413][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:49,431][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-17 20:07:49,431][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:49,431][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:49,431][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:50,809][watermarkers.semstamp][INFO] - Candidate text:  Are you excited for this new addition to the MCU?
+[2024-06-17 20:07:50,809][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:50,825][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:07:50,825][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:50,825][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:50,825][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:51,806][watermarkers.semstamp][INFO] - Candidate text:  So grab your tickets now!
+
+[2024-06-17 20:07:51,806][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:51,822][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:07:51,822][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:51,822][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:51,822][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:52,645][watermarkers.semstamp][INFO] - Candidate text:  Are you excited?
+[2024-06-17 20:07:52,645][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:56,020][watermarkers.semstamp][INFO] - Candidate text:  Watch the latest trailer below!assistant
+
+Here is a rewritten version of the text with some minor corrections and improvements:
+
+Get ready for the next Marvel epic adventure!
+[2024-06-17 20:07:56,021][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:56,037][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:07:56,037][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:56,037][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:56,037][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:57,495][watermarkers.semstamp][INFO] - Candidate text:  Tickets are now available for purchase at Fandango.com.
+[2024-06-17 20:07:57,495][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:57,510][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:07:57,511][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:57,511][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:57,511][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:07:58,651][watermarkers.semstamp][INFO] - Candidate text:  Are you excited to see the film?
+[2024-06-17 20:07:58,652][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:07:58,667][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:07:58,668][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:07:58,668][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:07:58,668][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:01,874][watermarkers.semstamp][INFO] - Candidate text:  Here are some of the first reactions from critics who saw the film at an early preview screening:
+"Captain Marvel is an electrifying blast of sci-fi action and adventure.
+[2024-06-17 20:08:01,874][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:01,890][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:08:01,891][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:08:01,891][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:01,891][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:03,678][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson rules the screen, and her chemistry with Sam Jackson is undeniable.
+[2024-06-17 20:08:03,679][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:03,694][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:08:03,695][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:03,695][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:03,695][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:06,116][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson owns the role, bringing warmth, wit, and a sense of humor to the Marvel Cinematic Universe.
+[2024-06-17 20:08:06,116][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:06,132][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-17 20:08:06,132][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:06,132][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:06,132][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:07,206][watermarkers.semstamp][INFO] - Candidate text:  I loved every minute of it!"
+[2024-06-17 20:08:07,207][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:07,222][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-17 20:08:07,222][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:07,222][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:07,222][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:10,362][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson brings a welcome sense of humor and humanity to the role, and the movie's '90s setting is a nice change of pace for the MCU."
+[2024-06-17 20:08:10,363][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:10,378][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-17 20:08:10,378][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:10,379][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:10,379][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:12,405][watermarkers.semstamp][INFO] - Candidate text:  It’s a fun, funny, and occasionally fabulous ride that never forgets its emotional core.
+[2024-06-17 20:08:12,405][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:14,839][watermarkers.semstamp][INFO] - Candidate text:  It’s a movie that never stops moving, with plenty of twists and turns to keep you guessing until the very end.
+[2024-06-17 20:08:14,839][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:14,855][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:08:14,855][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:08:14,855][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:14,855][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:17,099][watermarkers.semstamp][INFO] - Candidate text:  And yet, it still finds time for humor, heart, and even a little bit of social commentary."
+[2024-06-17 20:08:17,099][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:17,115][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:08:17,115][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:17,115][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:17,115][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:19,275][watermarkers.semstamp][INFO] - Candidate text:  And yet, it still finds time for humor, heart, and even a little bit of nostalgia."
+[2024-06-17 20:08:19,275][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:19,291][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:08:19,291][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:19,291][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:19,291][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:21,931][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson brings so much depth and nuance to Carol Danvers, it’s like we’re seeing a character reborn."
+[2024-06-17 20:08:21,931][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:21,947][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:08:21,947][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:21,947][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:21,947][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:23,551][watermarkers.semstamp][INFO] - Candidate text:  And at its center, Brie Larson shines like a star."
+[2024-06-17 20:08:23,552][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:23,567][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:08:23,568][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:23,568][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:23,568][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:24,536][watermarkers.semstamp][INFO] - Candidate text:  And Brie Larson?
+[2024-06-17 20:08:24,536][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:24,551][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-17 20:08:24,551][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:24,552][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:24,552][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:27,432][watermarkers.semstamp][INFO] - Candidate text:  And at its heart is Brie Larson, who brings depth, humor, and a sense of real-world relatability to the title character."
+[2024-06-17 20:08:27,433][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:29,204][watermarkers.semstamp][INFO] - Candidate text:  And in Brie Larson, Marvel has found a star for the ages."
+[2024-06-17 20:08:29,205][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:29,220][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:08:29,220][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:29,220][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:29,220][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:31,065][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson brings a welcome sense of humor and humanity to the title role."
+[2024-06-17 20:08:31,065][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:33,949][watermarkers.semstamp][INFO] - Candidate text:  And at its center is Brie Larson, who brings so much charm and charisma to the role that it’s impossible not to root for her.
+[2024-06-17 20:08:33,950][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:33,965][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:08:33,966][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:33,966][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:33,966][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:36,206][watermarkers.semstamp][INFO] - Candidate text:  Brie Larson is perfect as Carol Danvers, bringing depth, humor, and heart to the role."
+[2024-06-17 20:08:36,206][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:36,222][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:08:36,222][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:36,222][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:36,222][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:39,338][watermarkers.semstamp][INFO] - Candidate text:  #CaptainMarvel" - @MikeRyanTV (MovieWeb)
+"Just got out of #CaptainMarvel and I have to say, it’s a total blast!
+[2024-06-17 20:08:39,339][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:39,354][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:08:39,354][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:39,354][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:39,354][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:42,153][watermarkers.semstamp][INFO] - Candidate text:  And yes, it has lots of great moments for Carol Danvers – aka Captain Marvel – played by the amazing @brielarson."
+[2024-06-17 20:08:42,154][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:42,169][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:08:42,169][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:08:42,169][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:42,169][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:44,538][watermarkers.semstamp][INFO] - Candidate text:  - Mike Ryan, Uproxx.com (@mikeryan)
+"Just got out of #CaptainMarvel.
+[2024-06-17 20:08:44,539][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:44,555][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:44,555][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:44,555][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:44,555][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:45,882][watermarkers.semstamp][INFO] - Candidate text:  - Peter Travers, Rolling Stone.
+"
+[2024-06-17 20:08:45,883][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:45,898][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:45,898][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:45,898][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:45,898][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:47,783][watermarkers.semstamp][INFO] - Candidate text:  - David Ehrlich, IndieWire 
+"Just out of #CaptainMarvel!
+[2024-06-17 20:08:47,783][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:47,799][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:47,799][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:47,799][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:47,799][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:50,560][watermarkers.semstamp][INFO] - Candidate text:  - David Dorn, USA Today Network - Freelance Film Critic (@CorridorCrew)
+"Just out of #CaptainMarvel!
+[2024-06-17 20:08:50,561][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:50,577][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:08:50,577][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:50,577][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:50,577][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:53,098][watermarkers.semstamp][INFO] - Candidate text:  - David Ehrlich, IndieWire  
+"Just watched #CaptainMarvel and I’m still reeling from the experience!
+[2024-06-17 20:08:53,098][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:53,114][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:53,114][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:53,114][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:53,114][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:55,396][watermarkers.semstamp][INFO] - Candidate text:  — Mike Ryan, Uproxx (@mikeryan)
+"Just got out of #CaptainMarvel!
+[2024-06-17 20:08:55,396][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:55,412][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:55,412][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:55,412][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:55,412][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:08:57,376][watermarkers.semstamp][INFO] - Candidate text:  - Peter Travers, Rolling Stone 
+"Just out of #CaptainMarvel and I.
+[2024-06-17 20:08:57,376][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:08:57,392][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:08:57,392][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:08:57,392][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:08:57,392][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:00,154][watermarkers.semstamp][INFO] - Candidate text:  - Erik Davis, Fandango Managing Editor (@ErikDavis)
+"Just walked out of #CaptainMarvel and I’m beaming!
+[2024-06-17 20:09:00,155][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:00,171][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:00,171][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:00,171][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:00,171][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:02,535][watermarkers.semstamp][INFO] - Candidate text:  - David Ehrlich, IndieWire (@davidehrlich)
+"Just out of #CaptainMarvel!
+[2024-06-17 20:09:02,535][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:02,551][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:02,551][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:02,551][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:02,551][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:05,310][watermarkers.semstamp][INFO] - Candidate text:  - Fandango's Erik Davis (@ErikDavis)
+"Just walked out of #CaptainMarvel and I’m beaming with pride!
+[2024-06-17 20:09:05,310][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:05,326][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-17 20:09:05,326][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:05,326][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:05,326][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:08,010][watermarkers.semstamp][INFO] - Candidate text:  — Erik Davis, Fandango Managing Editor (@ErikDavis)
+"Just watched #CaptainMarvel and I’m still reeling!
+[2024-06-17 20:09:08,011][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:10,620][watermarkers.semstamp][INFO] - Candidate text:  - Peter Travers, Rolling Stone 
+"Just got out of #CaptainMarvel and I’m still reeling from the experience!
+[2024-06-17 20:09:10,620][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:10,636][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:10,636][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:10,636][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:10,636][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:13,396][watermarkers.semstamp][INFO] - Candidate text:  - David Ehrlich, IndieWire"
+"Just walked out of #CaptainMarvel and I'm still reeling from that opening sequence!
+[2024-06-17 20:09:13,396][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:13,412][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-17 20:09:13,412][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:13,412][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:13,412][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:16,969][watermarkers.semstamp][INFO] - Candidate text:  - Fandango Managing Editor Erik Davis (@ErikDavis)
+"Just got out of #CaptainMarvel and I'm still reeling from the sheer awesomeness of it all!
+[2024-06-17 20:09:16,969][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:16,985][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:16,985][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:16,985][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:16,985][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:19,826][watermarkers.semstamp][INFO] - Candidate text:  - @RichardRoeper (Chicago Sun-Times)
+"Just watched #CaptainMarvel and I have to say, I was thoroughly entertained!
+[2024-06-17 20:09:19,826][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:19,842][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:09:19,842][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:19,842][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:19,842][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:22,482][watermarkers.semstamp][INFO] - Candidate text:  Action scenes were awesome, the visuals were stunning, and @brielarson brought so much depth to the role.
+[2024-06-17 20:09:22,482][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:22,498][watermarkers.semstamp][INFO] - LSH Candidate: 5
+[2024-06-17 20:09:22,498][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:22,498][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:22,498][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:23,708][watermarkers.semstamp][INFO] - Candidate text:  Can’t wait for more!"
+[2024-06-17 20:09:23,709][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+[2024-06-17 20:09:23,724][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:23,724][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:23,724][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-17 20:09:23,724][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:24,932][watermarkers.semstamp][INFO] - Candidate text:  Can’t wait for more!"
+[2024-06-17 20:09:24,932][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+[2024-06-17 20:09:24,948][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:24,948][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:24,948][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-17 20:09:24,948][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:26,634][watermarkers.semstamp][INFO] - Candidate text:  Can't wait to see what's next for this character!"
+[2024-06-17 20:09:26,635][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+[2024-06-17 20:09:26,650][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:26,650][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:26,651][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-17 20:09:26,651][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:28,098][watermarkers.semstamp][INFO] - Candidate text:  Plus, Goose the cat stole the show!"
+[2024-06-17 20:09:28,099][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+[2024-06-17 20:09:28,114][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:09:28,115][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:28,115][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-17 20:09:28,115][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:31,575][watermarkers.semstamp][INFO] - Candidate text:  - @AshCrossan (Entertainment Weekly)
+"Captain Marvel is a fantastic superhero origin story that pays homage to the 90s while still feeling fresh and exciting.
+[2024-06-17 20:09:31,575][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:33,754][watermarkers.semstamp][INFO] - Candidate text:  - @ErikDavis (Fandango Managing Editor)
+"I loved #CaptainMarvel!
+[2024-06-17 20:09:33,755][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+[2024-06-17 20:09:33,770][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:33,771][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:33,771][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-17 20:09:33,771][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:36,501][watermarkers.semstamp][INFO] - Candidate text:  - @MikaelaBartholomew (Entertainment Tonight)
+"I loved every minute of #CaptainMarvel!
+[2024-06-17 20:09:36,502][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+[2024-06-17 20:09:36,517][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:36,517][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:36,518][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-17 20:09:36,518][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:38,609][watermarkers.semstamp][INFO] - Candidate text:  - @AshCrossan (Entertainment Tonight)
+"Just out of #CaptainMarvel!
+[2024-06-17 20:09:38,609][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+[2024-06-17 20:09:38,625][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:38,625][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:38,625][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-17 20:09:38,625][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:39,687][watermarkers.semstamp][INFO] - Candidate text:  So much fun!
+[2024-06-17 20:09:39,687][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+[2024-06-17 20:09:39,702][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:39,703][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:39,703][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-17 20:09:39,703][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:42,682][watermarkers.semstamp][INFO] - Candidate text:  @brielarson shines as Carol Danvers and Sam Jackson gets to do more than just look cool (although he does that too).
+[2024-06-17 20:09:42,683][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:09:42,698][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:42,698][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:42,699][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:09:42,699][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:45,597][watermarkers.semstamp][INFO] - Candidate text:  @brielarson crushes it as Carol Danvers, the film has great energy, and the action scenes are top-notch.
+[2024-06-17 20:09:45,597][watermarkers.semstamp][INFO] - Accept Mask: tensor([0, 3], device='cuda:0')
+[2024-06-17 20:09:45,613][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:09:45,613][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:09:45,613][watermarkers.semstamp][INFO] - acceptmasklist: [0, 3]
+[2024-06-17 20:09:45,613][watermarkers.semstamp][INFO] - acceptmaskstr: 0,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:47,487][watermarkers.semstamp][INFO] - Candidate text:  Can't wait for more of this heroine in the MCU!"
+[2024-06-17 20:09:47,487][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:47,503][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:47,503][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:47,503][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:47,503][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:49,043][watermarkers.semstamp][INFO] - Candidate text:  Also, Goose is the real MVP."
+[2024-06-17 20:09:49,043][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:49,058][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:09:49,059][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:49,059][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:49,059][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:50,917][watermarkers.semstamp][INFO] - Candidate text:  Can’t wait to see what’s next for this hero.
+[2024-06-17 20:09:50,918][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:54,781][watermarkers.semstamp][INFO] - Candidate text:  Also, Goose the cat is my new spirit animal " - @MikeRyan (MovieWeb)
+"I've seen #CaptainMarvel and I'm thrilled to report it's a total blast!
+[2024-06-17 20:09:54,782][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:54,799][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-17 20:09:54,800][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:54,800][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:54,800][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:56,738][watermarkers.semstamp][INFO] - Candidate text:  Can’t wait to see what she does next in the MCU!"
+[2024-06-17 20:09:56,738][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:56,753][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:09:56,753][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:56,754][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:56,754][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:09:58,613][watermarkers.semstamp][INFO] - Candidate text:  Can't wait to see what's next for this hero!"
+[2024-06-17 20:09:58,613][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:09:58,629][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:09:58,629][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:09:58,629][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:09:58,629][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:00,167][watermarkers.semstamp][INFO] - Candidate text:  Can’t wait to see it again!
+[2024-06-17 20:10:00,167][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:10:00,182][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:10:00,183][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:10:00,183][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:10:00,183][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:01,881][watermarkers.semstamp][INFO] - Candidate text:  Also, Goose the cat is the real MVP."
+[2024-06-17 20:10:01,881][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:10:01,896][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-17 20:10:01,897][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:10:01,897][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:10:01,897][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:03,838][watermarkers.semstamp][INFO] - Candidate text:  Also, can we talk about how adorable Goose the cat is?"
+[2024-06-17 20:10:03,839][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:10:03,854][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-17 20:10:03,854][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:10:03,855][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:10:03,855][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:07,307][watermarkers.semstamp][INFO] - Candidate text:  Also, that cat... #goose" - @SeanOConnell (CinemaBlend)
+"Came out of #CaptainMarvel feeling energized & inspired!
+[2024-06-17 20:10:07,307][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:09,014][watermarkers.semstamp][INFO] - Candidate text:  Can't wait for you all to see it!"
+[2024-06-17 20:10:09,014][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:10:09,029][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-17 20:10:09,029][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-17 20:10:09,030][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:10:09,030][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:13,763][watermarkers.semstamp][INFO] - Candidate text:  Also, Goose the cat is purr-fect " - @SeanOConnell (CinemaBlend)
+"I went into #CaptainMarvel knowing very little about the character, but I came out feeling like I'd been on a thrilling ride!
+[2024-06-17 20:10:13,764][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+[2024-06-17 20:10:13,781][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-17 20:10:13,782][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition.
+[2024-06-17 20:10:13,782][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-17 20:10:13,782][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/stats.csv
+[2024-06-17 20:10:13,784][watermarkers.semstamp][INFO] - Prompt: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien.
+[2024-06-17 20:10:13,784][watermarkers.semstamp][INFO] - Response: ('Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe\'s most powerful heroes after earth gets involved in a galactic war between alien. The movie also stars Samuel L. Jackson, Ben Mendelsohn, Brie Larson, and Jude Law.\nCaptain Marvel opens in theaters on March 8, 2019. Here are some of the first reactions from critics who saw the film at an early preview screening:\n"Captain Marvel is an electrifying blast of sci-fi action and adventure. It’s a movie that never stops moving, with plenty of twists and turns to keep you guessing until the very end. And yes, it has lots of great moments for Carol Danvers – aka Captain Marvel – played by the amazing @brielarson." - @RichardRoeper (Chicago Sun-Times)\n"Just watched #CaptainMarvel and I have to say, I was thoroughly entertained! Action scenes were awesome, the visuals were stunning, and @brielarson brought so much depth to the role. Plus, Goose the cat stole the show!" - @AshCrossan (Entertainment Tonight)\n"Just out of #CaptainMarvel! So much fun! @brielarson crushes it as Carol Danvers, the film has great energy, and the action scenes are top-notch. Also, Goose the cat is purr-fect " - @SeanOConnell (CinemaBlend)\n"I went into #CaptainMarvel knowing very little about the character, but I came out feeling like I\'d been on a thrilling ride!', 83)
+[2024-06-17 20:10:13,784][watermarker][INFO] - Received completion: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. The movie also stars Samuel L. Jackson, Ben Mendelsohn, Brie Larson, and Jude Law.
+Captain Marvel opens in theaters on March 8, 2019. Here are some of the first reactions from critics who saw the film at an early preview screening:
+"Captain Marvel is an electrifying blast of sci-fi action and adventure. It’s a movie that never stops moving, with plenty of twists and turns to keep you guessing until the very end. And yes, it has lots of great moments for Carol Danvers – aka Captain Marvel – played by the amazing @brielarson." - @RichardRoeper (Chicago Sun-Times)
+"Just watched #CaptainMarvel and I have to say, I was thoroughly entertained! Action scenes were awesome, the visuals were stunning, and @brielarson brought so much depth to the role. Plus, Goose the cat stole the show!" - @AshCrossan (Entertainment Tonight)
+"Just out of #CaptainMarvel! So much fun! @brielarson crushes it as Carol Danvers, the film has great energy, and the action scenes are top-notch. Also, Goose the cat is purr-fect " - @SeanOConnell (CinemaBlend)
+"I went into #CaptainMarvel knowing very little about the character, but I came out feeling like I'd been on a thrilling ride!
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+n_watermark: 12, n_test_sent: 12
+zscore: 6.0
+[2024-06-17 20:10:13,979][__main__][INFO] - Watermarked Text: Set in the 1990s, Captain Marvel follows Danvers, an Air Force officer, as she becomes one of the universe's most powerful heroes after earth gets involved in a galactic war between alien. The movie also stars Samuel L. Jackson, Ben Mendelsohn, Brie Larson, and Jude Law.
+Captain Marvel opens in theaters on March 8, 2019. Here are some of the first reactions from critics who saw the film at an early preview screening:
+"Captain Marvel is an electrifying blast of sci-fi action and adventure. It’s a movie that never stops moving, with plenty of twists and turns to keep you guessing until the very end. And yes, it has lots of great moments for Carol Danvers – aka Captain Marvel – played by the amazing @brielarson." - @RichardRoeper (Chicago Sun-Times)
+"Just watched #CaptainMarvel and I have to say, I was thoroughly entertained! Action scenes were awesome, the visuals were stunning, and @brielarson brought so much depth to the role. Plus, Goose the cat stole the show!" - @AshCrossan (Entertainment Tonight)
+"Just out of #CaptainMarvel! So much fun! @brielarson crushes it as Carol Danvers, the film has great energy, and the action scenes are top-notch. Also, Goose the cat is purr-fect " - @SeanOConnell (CinemaBlend)
+"I went into #CaptainMarvel knowing very little about the character, but I came out feeling like I'd been on a thrilling ride!
+[2024-06-17 20:10:13,979][__main__][INFO] - Is Watermark Detected?: True
+[2024-06-17 20:10:13,979][__main__][INFO] - Score: 6.0
+[2024-06-17 20:10:13,979][__main__][INFO] - Time taken: 197.648939371109
+Data saved to ./inputs/fine_c4_saves/c4_1_temp_100_divp_10_attempt_2/watermarked_text.csv

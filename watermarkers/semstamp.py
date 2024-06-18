@@ -1,9 +1,11 @@
 import logging
 
+import torch
 import nltk
 import os
 from sentence_transformers import SentenceTransformer
-from transformers import GenerationConfig, StoppingCriteriaList
+from custom_transformer import CustomSentenceTransformer
+from transformers import GenerationConfig, StoppingCriteriaList, AutoModel
 from nltk.tokenize import sent_tokenize
 import textwrap
 
@@ -12,10 +14,8 @@ from watermarkers.SemStamp.sbert_lsh_model import SBERTLSHModel
 from watermarkers.SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
 from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
 from watermarkers.SemStamp.detection_utils import detect_lsh
+from watermarkers.SemStamp.sampling_kmeans_utils import embed_gen_list, get_cluster_centers, load_embeds, kmeans_reject_overlap, get_cluster_id, get_cluster_mask
 from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
-
-# TODO: This is probably from k-SemStamp. It generates a bug right now.
-# from sampling_kmeans_utils import embed_gen_list, get_cluster_centers, kmeans_reject_completion, load_embeds
 
 nltk.download('punkt')
 
@@ -77,23 +77,27 @@ class SemStampWatermarker(Watermarker):
 
     def _setup_watermark_components(self):
         # NOTE: currently, no batching.
-
         # We don't want to initialize Llama when we only want to detect.
         if not self.only_detect:
             log.info("Setting up generating components...")
             self._setup_generating_components()
 
         log.info(f"Initializing embedder model.")
-        self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
-        self.embedder.eval()
+
+        if self.cfg.watermark_args.use_fine_tuned:
+            log.info(f"Using the fine-tuned SentenceTransformer...")
+            self.embedder = CustomSentenceTransformer(model_name="AbeHou/SemStamp-c4-sbert", device=self.device)
+        else:
+            log.info(f"Using the generic SentenceTransformer...")
+            self.embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v1")
+            self.embedder.eval()
+
         log.info(f"Finished initializing embedder model.")
         
-        # TODO: Fix lsh_model_path. We're using the default model in their code right now.
-        self.lsh_model = SBERTLSHModel(lsh_model_path=None,
+        if self.cfg.watermark_args.sp_mode == "lsh":
+            self.lsh_model = SBERTLSHModel(lsh_model_path=None,
                                   device=self.cfg.watermark_args.device, batch_size=1, lsh_dim=self.cfg.watermark_args.sp_dim, sbert_type='base', embedder=self.embedder)
         
-        
-    
     def generate_sentence(self, text, text_ids, stopping_criteria):
         if "opt" in self.model.config._name_or_path:
             candidate_text, candidate_text_ids = gen_sent(model = self.model, 
@@ -121,10 +125,17 @@ class SemStampWatermarker(Watermarker):
         
         return candidate_text, candidate_text_ids
 
-    def lsh_reject_completion(self, prompt: str, margin=0.002, stats_csv_path=None, **kwargs):
+    def generate_watermarked_outputs(self, prompt):
+        if self.cfg.watermark_args.sp_mode == "lsh":
+            return self._lsh_generate_watermarked_outputs(prompt)
+        if self.cfg.watermark_args.sp_mode == "kmeans":
+            return self._kmeans_generate_watermarked_outputs(prompt)
+        raise NotImplementedError
+    
+    def _lsh_reject_completion(self, prompt: str, margin=0.002, stats_csv_path=None, **kwargs):
         # TODO: Can we move this logic to a better place?
         # We don't want to make it a prompt if it's not a completion.
-        if not self.cfg.attack_args.is_completion:
+        if not self.cfg.is_completion:
             if "Mixtral" in self.model.config._name_or_path:
                 prompt = mixtral_format_instructions(prompt)
             if "Llama" in self.model.config._name_or_path:
@@ -133,6 +144,8 @@ class SemStampWatermarker(Watermarker):
 You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
 {prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>""")
+        else:
+            log.info(f"Generating a completion, not a prompt-based generation.")
 
         sent_end_criteria = SentenceEndCriteria(self.tokenizer)
         sent_end_criteria.update(prompt)
@@ -265,34 +278,121 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
         text = parse_llama_output(text)
         return text, total_sentences
-
-    def generate_watermarked_outputs(self, prompt):
-        if self.cfg.watermark_args.sp_mode == "lsh":
-            return self._lsh_generate_watermarked_outputs(prompt)
-
-        # TODO: Implement k-SemStamp.
-
-        raise NotImplementedError
     
     def _lsh_generate_watermarked_outputs(self,prompt):
         # If it's a completion, only use the first len_prompt many tokens.
         if self.cfg.is_completion:
+            log.info(f"Since this is a completion, extracting the prompt from the original text.")
             prompt = extract_prompt_from_text(prompt, self.cfg.watermark_args.len_prompt)
 
         log.info(f"Passing the following prompt to the LSH reject completion function:\n {prompt}")
-        response = self.lsh_reject_completion(prompt, stats_csv_path = self.cfg.generation_stats_file_path)
+        response = self._lsh_reject_completion(prompt, stats_csv_path = self.cfg.generation_stats_file_path)
         
         log.info(f"Prompt: {prompt}")
         log.info(f"Response: {response}")
 
         generated_text = response[0].strip()
         return generated_text
+    
+    def _kmeans_reject_completion(self, prompt: str, cluster_centers: torch.Tensor, margin=0.01, **kwargs):
+        # TODO: Add logging.
+        sent_end_criteria = SentenceEndCriteria(self.tokenizer)
+        curr_cluster_id = get_cluster_id(prompt, cluster_centers, self.embedder)
+        mask = get_cluster_mask(curr_cluster_id, self.cfg.watermark_args.sp_dim, self.cfg.watermark_args.lmbd)
+
+        text = prompt
+        new_text = prompt
+        text_ids = self.tokenizer.encode(prompt, return_tensors='pt').to(self.cfg.watermark_args.device)
+        prompt_length = len(text_ids[0])
+        sent_end_criteria.update(new_text)
+
+        total_trials = 0
+        success_trials = 0  # also include trials that maxed out MAX_TRIALS
+        current_trials = 0
+        maxedout_trials = 0
+        debug_text_segments = [(prompt, text_ids.size(1), curr_cluster_id)]
+        cluster_id_sequence = [curr_cluster_id.item()]
+        
+        while True:
+            # TODO: Use generate sentence here.
+            # input_ids = tokenizer.encode(last_step_text, return_tensors='pt').to(device)
+            stopping_criteria = StoppingCriteriaList([sent_end_criteria])
+            new_text, new_text_ids = gen_sent(model = self.model, 
+                    tokenizer = self.tokenizer, 
+                    text_ids = text_ids,
+                    gen_config = self.gen_config,
+                    stopping_criteria = stopping_criteria
+                )
+            # print(f'NEW TEXT: {new_text}')
+            if new_text == '':
+                print('WARNING: stopped generation because generated nothing (after discarding last generated token)', flush=True)
+                break
+
+            total_trials += 1
+            current_trials += 1
+
+            accepted_text, curr_cluster_id = kmeans_reject_overlap(text=new_text, embedder=self.embedder, cluster_centers=cluster_centers, margin=margin)
+
+            if (accepted_text == None and current_trials < self.cfg.watermark_args.max_trials):
+                continue
+            else:
+                new_text = accepted_text if accepted_text != None else new_text
+            cluster_id_sequence.append(curr_cluster_id.item())
+            if (curr_cluster_id in mask) or current_trials >= self.cfg.watermark_args.max_trials:
+                if current_trials >= self.cfg.watermark_args.max_trials:
+                    print(
+                        f'WARNING: desired semantic signature can\'t be sampled after max_trials {self.cfg.watermark_args.max_trials}', flush=True)
+                    print(f"cluster_id_sequence: {cluster_id_sequence}")
+                    print(
+                        f"cluster_ids_counter: {torch.bincount(torch.tensor(cluster_id_sequence))}")
+                    print(f'CONTEXT: {text}', flush=True)
+                    print(
+                        f'NOTE: use regular (non-filtered-by-sig) continuation: {new_text}', flush=True)
+                    maxedout_trials += 1
+                debug_text_segments.append(
+                    (new_text, new_text_ids.size(1) - text_ids.size(1), curr_cluster_id))
+                current_trials = 0
+                success_trials += 1
+                mask = get_cluster_mask(curr_cluster_id, self.cfg.watermark_args.sp_dim, self.cfg.watermark_args.lmbd)
+                text += new_text
+                text_ids = new_text_ids
+                sent_end_criteria.update(text)
+                if (len(text_ids[0]) - prompt_length) >= self.gen_config.max_new_tokens-1:
+                    break
+        return text, total_trials
+
+
+    def _kmeans_generate_watermarked_outputs(self, prompt):
+        # TODO: Waiting for Abe Hou to fix their Github repository.
+        # cluster generations if no clusters provided
+        if args.cc_path == None:
+            if args.embed_path == None:
+                embed_path = embed_gen_list(
+                    embedder_path=args.embedder, dataset_path=args.train_data)
+            else:
+                embed_path = args.embed_path
+            gen_embeds = load_embeds(embed_path)
+            cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
+            cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
+            torch.save(cluster_centers, cc_path)
+        # load cluster centers
+        else:
+            cluster_centers = torch.load(args.cc_path)
+        def text_to_generated_text(ex):
+            prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
+            response= kmeans_reject_completion(
+                prompt=prompt,
+                cluster_centers=cluster_centers,
+                margin=args.delta,
+                device=args.device)
+            ex['text'] = response.strip()
+            return ex
 
     def detect(self, completion):
         if self.cfg.watermark_args.sp_mode == "lsh":
             return self._lsh_detect(completion)
 
-        # TODO: Implement k-SemStamp.
+        # TODO: Implement k-SemStamp detection.
 
         raise NotImplementedError
 

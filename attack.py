@@ -180,7 +180,7 @@ class Attack:
             # Step 1: Mutate      
             log.info("Mutating watermarked text...")
             mutated_text = self.mutator.mutate(current_text)
-            # TODO: This should be cleaner. This is here to run the attack right now before I go to the gym. - Boran.
+            # TODO: This should be cleaner. It's due to the API of our Mutator class. - Boran.
             if self.cfg.mutator_args.type == "sentence":
                 mutated_text = mutated_text["mutated_text"]
             step_data.update({"mutated_text": mutated_text})

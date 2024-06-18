@@ -11,14 +11,13 @@ from transformers import StoppingCriteriaList
 from collections import defaultdict
 import pickle
 from tqdm import trange
-from kmeans_pytorch import kmeans, kmeans_predict  # maybe faiss
-import sampling_utils
-from sampling_utils import SentenceEndCriteria, gen_sent
+import watermarkers.SemStamp.sampling_utils as sampling_utils
+from watermarkers.SemStamp.sampling_utils import SentenceEndCriteria, gen_sent
+# from kmeans_pytorch import kmeans, kmeans_predict  # NOTE: This file doesn't exist in their repo.
 
 rng = sampling_utils.rng
 MAX_TRIALS = sampling_utils.MAX_TRIALS
 hash_key = sampling_utils.hash_key
-
 
 def update_pickle(name, input_to_embed):
     with open(name, 'rb') as f:

@@ -28,11 +28,13 @@ def handle_bullet_points(sentences):
         else:
             new_sentences.append(sentences[i])
         i += 1
+
+    # Add the last sentence as well
+    new_sentences.append(sentences[-1])
     
     return new_sentences
 
-
-def tokenize_sentences(self, text: str) -> List[str]:
+def tokenize_sentences(text: str) -> List[str]:
     sentences = sent_tokenize(text)
     processed_sentences = handle_bullet_points(sentences)
     return processed_sentences
@@ -51,7 +53,8 @@ class SentenceEndCriteria(StoppingCriteria):
     """
     ONLY WORK WITH BATCH SIZE 1
 
-    Stop generation whenever the generated string is **more than one** sentence (i.e. one full sentence + one extra token). this is determined by nltk sent_tokenize.
+    Stop generation whenever the generated string is **more than one** sentence (i.e. one full sentence + one extra token).
+    This is determined using a slight modification of sent_tokenize.
     Only stop if ALL sentences in the batch is at least two sentences
 
     Args:
@@ -64,24 +67,16 @@ class SentenceEndCriteria(StoppingCriteria):
         self.current_num_sentences = 0
 
     def update(self, current_text):
-        self.current_num_sentences = len(sent_tokenize(current_text))
+        self.current_num_sentences = len(tokenize_sentences(current_text))
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
         # Ensure that the batch size is 1.
         assert input_ids.size(0) == 1
         text = self.tokenizer.decode(input_ids[0], skip_special_tokens=True)
-        sentences = sent_tokenize(text)
+        sentences = tokenize_sentences(text)
         num_sentences = len(sentences)
 
-        # This checks whether we're generating a bullet point, and fixes the bug in the sentence tokenizer.
-        if num_sentences > self.current_num_sentences + 2:
-            return True
-        elif num_sentences == self.current_num_sentences + 2:
-            return not (num_sentences > 1 and re.match(r'^\d\.$', sentences[-2].strip()))
-        return False
-
-
-
+        return num_sentences > self.current_num_sentences + 1
 
 def discard_final_token_in_outputs(outputs):
     # Discard the final token in the sequences within the 'outputs' object.

@@ -6,13 +6,12 @@ import os
 from sentence_transformers import SentenceTransformer
 from custom_transformer import CustomSentenceTransformer
 from transformers import GenerationConfig, StoppingCriteriaList, AutoModel
-from nltk.tokenize import sent_tokenize
 import textwrap
 
 from watermarker import Watermarker
 from watermarkers.SemStamp.sbert_lsh_model import SBERTLSHModel
 from watermarkers.SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
-from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs, is_candidate_text_one_sentence
+from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs, is_candidate_text_one_sentence, tokenize_sentences
 from watermarkers.SemStamp.detection_utils import detect_lsh
 from watermarkers.SemStamp.sampling_kmeans_utils import embed_gen_list, get_cluster_centers, load_embeds, kmeans_reject_overlap, get_cluster_id, get_cluster_mask
 from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
@@ -148,6 +147,8 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
             log.info(f"Generating a completion, not a prompt-based generation.")
 
         sent_end_criteria = SentenceEndCriteria(self.tokenizer)
+        log.info(f"Updating the sentence end criteria with {text}.")
+        log.info(f"Text has {len(tokenize_sentences(text))} sentences.")
         sent_end_criteria.update(prompt)
 
         lsh_seed = self.lsh_model.get_hash([prompt])[0]
@@ -217,7 +218,7 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
             log.info(f"LSH Candidate: {lsh_candidate}")
 
-            one_sentence = is_candidate_text_one_sentence(candidate_text)
+            one_sentence = len(tokenize_sentences(candidate_text)) == 1
             candidate_accepted = (lsh_candidate in accept_mask) and one_sentence
 
             if lsh_candidate not in accept_mask:
@@ -269,6 +270,8 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
                 accept_mask = get_mask_from_seed(self.cfg.watermark_args.sp_dim, self.cfg.watermark_args.lmbd, lsh_seed)
                 text += candidate_text
                 text_ids = candidate_text_ids
+                log.info(f"Updating the sentence end criteria with {text}.")
+                log.info(f"Text has {len(tokenize_sentences(text))} sentences.")
                 sent_end_criteria.update(text)
                 current_num_tries = 0
 
@@ -397,7 +400,7 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
         raise NotImplementedError
 
     def _lsh_detect(self,completion):
-        sents = sent_tokenize(completion)
+        sents = tokenize_sentences(completion)
         z_score = detect_lsh(sents=sents, lsh_model=self.lsh_model,
                                  lmbd=self.cfg.watermark_args.lmbd, lsh_dim=self.cfg.watermark_args.sp_dim)
         

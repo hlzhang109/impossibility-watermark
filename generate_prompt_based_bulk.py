@@ -26,7 +26,8 @@ def run_command(command, filepath):
 # NOTE: pass in as an argument the prompt number (1, 2, or 3)
 # this was so i could parallelize it better with gpus
 def main():
-    base_folder_name = './inputs/test_tokenizer_prompt_based_saves'
+    dir_name = "fixed_tokenizer_prompt_based_saves"
+    base_folder_name = f'./inputs/{dir_name}'
 
     results = []
     temps = [0.5, 1, 1.5, 1.8]
@@ -55,7 +56,7 @@ def main():
                         f"++generator_args.temperature={temp} " \
                         f"++generator_args.diversity_penalty={divp} " \
                         f"++generation_stats_file_path='{base_folder_name}/{folder_name}/stats.csv' " \
-                        f"++watermarked_text_file_name='new_prompt_based_saves/{folder_name}/watermarked_text.csv' "
+                        f"++watermarked_text_file_name='{dir_name}/{folder_name}/watermarked_text.csv' "
 
                 
                 stdout, stderr = run_command(command, log_filepath)

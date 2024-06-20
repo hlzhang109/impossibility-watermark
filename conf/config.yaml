@@ -7,8 +7,8 @@ defaults:
     # - generator_args: large_mixtrals
     # - oracle_args: llama3
 
-cuda_visible_devices: "1,2" # TODO: This doesn't work right now.
-model_cache_dir: "../.cache" # "/data2/.shared_models"
+cuda_visible_devices: "1,2" # TODO: Does this really work? FHC: Not at the moment
+model_cache_dir: "/data2/.shared_models" # "/data2/.shared_models" "../.cache"
 
 attack_args:
     max_steps: 300           # how many mutations should the attack try to make
@@ -47,7 +47,7 @@ oracle_args:
     top_k: "${generator_args.top_k}"
     repetition_penalty: "${generator_args.repetition_penalty}"
     cuda_visible_devices: "${cuda_visible_devices}"
-    is_completion: ${attack_args.is_completion}
+    is_completion: ${attack_args.is_completion} # TODO: We'd like to remove this, but not touching it right now in case sth breaks. - Boran
     num_retries: 5
     num_formatting_retries: 1
     system_profile: "You are a helpful and precise assistant for checking the quality of the answer."

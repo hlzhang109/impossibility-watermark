@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 class Watermarker(ABC):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, only_detect=True):
+    def __init__(self, cfg, pipeline=None, n_attempts=1, only_detect=True):
         self.cfg = cfg # the entire config is passed, since we want to look at the generation_args as well
         self.n_attempts = n_attempts
         self.pipeline = pipeline

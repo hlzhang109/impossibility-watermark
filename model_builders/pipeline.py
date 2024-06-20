@@ -121,7 +121,7 @@ class PipeLineBuilder:
         
         if "Llama" in self.cfg.model_name_or_path:
             messages = [
-                {"role": "system", "content": "You are a helpful personal assistant."},
+                # {"role": "system", "content": "You are a helpful personal assistant."}, # NOTE: Removed this since the responses always started with "As a helpful personal assistant," - Boran
                 {"role": "user", "content": prompt},
             ]
 

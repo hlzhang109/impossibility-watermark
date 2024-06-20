@@ -6,13 +6,12 @@ import os
 from sentence_transformers import SentenceTransformer
 from custom_transformer import CustomSentenceTransformer
 from transformers import GenerationConfig, StoppingCriteriaList, AutoModel
-from nltk.tokenize import sent_tokenize
 import textwrap
 
 from watermarker import Watermarker
 from watermarkers.SemStamp.sbert_lsh_model import SBERTLSHModel
 from watermarkers.SemStamp.sampling_lsh_utils import get_mask_from_seed, reject_close_generation
-from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs
+from watermarkers.SemStamp.sampling_utils import extract_prompt_from_text, SentenceEndCriteria, gen_sent, discard_final_token_in_outputs, tokenize_sentences
 from watermarkers.SemStamp.detection_utils import detect_lsh
 from watermarkers.SemStamp.sampling_kmeans_utils import embed_gen_list, get_cluster_centers, load_embeds, kmeans_reject_overlap, get_cluster_id, get_cluster_mask
 from utils import mixtral_format_instructions, parse_llama_output, save_to_csv_with_filepath, replace_multiple_commas
@@ -37,7 +36,7 @@ def list_to_comma_separated_string(int_list):
     return ','.join(map(str, int_list))
 
 class SemStampWatermarker(Watermarker):
-    def __init__(self, cfg, pipeline=None, n_attempts=10, **kwargs):
+    def __init__(self, cfg, pipeline=None, n_attempts=1, **kwargs):
         super().__init__(cfg, pipeline, n_attempts, **kwargs)
         self.gen_config = None
 
@@ -133,6 +132,8 @@ class SemStampWatermarker(Watermarker):
         raise NotImplementedError
     
     def _lsh_reject_completion(self, prompt: str, margin=0.002, stats_csv_path=None, **kwargs):
+        sent_end_criteria = SentenceEndCriteria(self.tokenizer)
+        
         # TODO: Can we move this logic to a better place?
         # We don't want to make it a prompt if it's not a completion.
         if not self.cfg.is_completion:
@@ -144,11 +145,17 @@ class SemStampWatermarker(Watermarker):
 You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
 {prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>""")
+            
+            # NOTE: This is due to quirks of the NLTK tokenizer not being able to tokenize .assistant properly. - Boran
+            num_sentences = len(tokenize_sentences(prompt)) - 1
+            # NOTE: Not sure if this exception actually works. - Boran
+            if num_sentences == -1:
+                raise Exception("The prompt should be at least once sentence.")
+
+            sent_end_criteria.current_num_sentences = num_sentences
         else:
             log.info(f"Generating a completion, not a prompt-based generation.")
-
-        sent_end_criteria = SentenceEndCriteria(self.tokenizer)
-        sent_end_criteria.update(prompt)
+            sent_end_criteria.update(prompt)
 
         lsh_seed = self.lsh_model.get_hash([prompt])[0]
         accept_mask = get_mask_from_seed(self.cfg.watermark_args.sp_dim, self.cfg.watermark_args.lmbd, lsh_seed)
@@ -172,8 +179,10 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
             candidate_text, candidate_text_ids = self.generate_sentence(text, text_ids, stopping_criteria)
 
+            # TODO: Stopping here doesn't seem like the smartest thing to do. - Boran
+            # TODO: There's a bug where LOTR prompts won't stop generating.
             if candidate_text == '':
-                log.info('WARNING: stopped generation because generated nothing (after discarding last generated token)')
+                log.info('WARNING: stopping because generated nothing (after discarding last generated token)')
                 break
             
             log.info(f"Candidate text: {candidate_text}")
@@ -217,16 +226,16 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
 
             log.info(f"LSH Candidate: {lsh_candidate}")
 
-            one_sentence = len(sent_tokenize(candidate_text)) == 1
+            one_sentence = len(tokenize_sentences(candidate_text)) == 1
             candidate_accepted = (lsh_candidate in accept_mask) and one_sentence
 
             if lsh_candidate not in accept_mask:
                 log.info(f"Candidate text is doesn't fall into the correct place in the embedding space.")
-            # NOTE: I don't know why, but Mixtral seemed to generate 2 sentences 10% of the time. This is meant to avoid the issue.
-            elif len(sent_tokenize(candidate_text)) > 1:
-                log.info(f"Candidate text is more than one sentence.")
-            else:
-                log.info("Candidate text falls within the semantic partition.")
+            # NOTE: I don't know why, but Mixtral seemed to generate 2 sentences 10% of the time, even with the stopping criteria. This is meant to avoid the issue.
+            if not one_sentence:
+                log.info(f"Candidate text is not a single sentence.")  
+            if one_sentence and lsh_candidate in accept_mask:
+                log.info("Candidate text falls within the semantic partition and is a single sentence.")
 
             # logging for analyzing generation stats
             # TODO: Eventually want to pass in a directory and file name, just getting a quick and dirty implementation right now
@@ -249,7 +258,8 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
                 }
                 save_to_csv_with_filepath([stats], stats_csv_path)
 
-            if candidate_accepted or current_num_tries >= self.cfg.watermark_args.max_trials:
+            # We only want to max out if it's a single sentence. Otherwise, the watermarking scheme completely fails.
+            if candidate_accepted or (current_num_tries >= self.cfg.watermark_args.max_trials and one_sentence) or (current_num_tries >= self.cfg.watermark_args.critical_max_trials):
                 if current_num_tries >= self.cfg.watermark_args.max_trials:
                     log.info(
                         f'WARNING: desired semantic signature can\'t be sampled after max_trials {self.cfg.watermark_args.max_trials}')
@@ -269,6 +279,8 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
                 accept_mask = get_mask_from_seed(self.cfg.watermark_args.sp_dim, self.cfg.watermark_args.lmbd, lsh_seed)
                 text += candidate_text
                 text_ids = candidate_text_ids
+                log.info(f"Updating the sentence end criteria with {text}")
+                log.info(f"Text has {len(tokenize_sentences(text))} sentences.")
                 sent_end_criteria.update(text)
                 current_num_tries = 0
 
@@ -362,31 +374,31 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
         return text, total_trials
 
 
-    def _kmeans_generate_watermarked_outputs(self, prompt):
-        # TODO: Waiting for Abe Hou to fix their Github repository.
-        # cluster generations if no clusters provided
-        if args.cc_path == None:
-            if args.embed_path == None:
-                embed_path = embed_gen_list(
-                    embedder_path=args.embedder, dataset_path=args.train_data)
-            else:
-                embed_path = args.embed_path
-            gen_embeds = load_embeds(embed_path)
-            cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
-            cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
-            torch.save(cluster_centers, cc_path)
-        # load cluster centers
-        else:
-            cluster_centers = torch.load(args.cc_path)
-        def text_to_generated_text(ex):
-            prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
-            response= kmeans_reject_completion(
-                prompt=prompt,
-                cluster_centers=cluster_centers,
-                margin=args.delta,
-                device=args.device)
-            ex['text'] = response.strip()
-            return ex
+    # def _kmeans_generate_watermarked_outputs(self, prompt):
+    #     # TODO: Waiting for Abe Hou to fix their Github repository.
+    #     # cluster generations if no clusters provided
+    #     if args.cc_path == None:
+    #         if args.embed_path == None:
+    #             embed_path = embed_gen_list(
+    #                 embedder_path=args.embedder, dataset_path=args.train_data)
+    #         else:
+    #             embed_path = args.embed_path
+    #         gen_embeds = load_embeds(embed_path)
+    #         cluster_ids, cluster_centers = get_cluster_centers(gen_embeds, args.sp_dim)
+    #         cc_path = os.path.join(args.train_data, f"cluster_{args.sp_dim}_centers.pt")
+    #         torch.save(cluster_centers, cc_path)
+    #     # load cluster centers
+    #     else:
+    #         cluster_centers = torch.load(args.cc_path)
+    #     def text_to_generated_text(ex):
+    #         prompt = extract_prompt_from_text(ex['text'], args.len_prompt)
+    #         response= kmeans_reject_completion(
+    #             prompt=prompt,
+    #             cluster_centers=cluster_centers,
+    #             margin=args.delta,
+    #             device=args.device)
+    #         ex['text'] = response.strip()
+    #         return ex
 
     def detect(self, completion):
         if self.cfg.watermark_args.sp_mode == "lsh":
@@ -397,7 +409,7 @@ You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_head
         raise NotImplementedError
 
     def _lsh_detect(self,completion):
-        sents = sent_tokenize(completion)
+        sents = tokenize_sentences(completion)
         z_score = detect_lsh(sents=sents, lsh_model=self.lsh_model,
                                  lmbd=self.cfg.watermark_args.lmbd, lsh_dim=self.cfg.watermark_args.sp_dim)
         

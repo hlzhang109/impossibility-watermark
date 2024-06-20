@@ -37,12 +37,12 @@ def main(cfg):
     # TODO: Adjust the prompt file and prompt num.
 
     prompt_path = './inputs/tests_v1_with_lotr.csv'
-    prompt_num = 3
+    prompt_num = 1
 
     prompt = get_prompt_or_output(prompt_path, prompt_num)
 
-
-    watermarked_text_path = "/local1/borito1907/impossibility-watermark/inputs/prompt_based_saves/prompt_3_temp_100_divp_20_attempt_1/watermarked_text.csv"
+    # watermarked_text_path = "/local1/borito1907/impossibility-watermark/inputs/prompt_based_saves/prompt_3_temp_100_divp_20_attempt_1/watermarked_text.csv"
+    watermarked_text_path = "./inputs/final_tokenizer_prompt_based_saves/prompt_1_temp_100_divp_0_attempt_1/watermarked_text.csv"
     watermarked_text_num = 1
 
     watermarked_text = get_prompt_or_output(watermarked_text_path, watermarked_text_num)
@@ -53,7 +53,7 @@ def main(cfg):
     log.info(f"Prompt: {prompt}")
     log.info(f"Watermarked Text: {watermarked_text}")
 
-    cfg.attack_args.log_csv_path = './semstamp_attacks/06_01_prompt_based_lotr_word.csv'
+    cfg.attack_args.log_csv_path = './semstamp_attacks/06_19_prompt_based_fine_tuned_sentence.csv'
 
     attacker = Attack(cfg)
     attacked_text = attacker.attack(prompt, watermarked_text)

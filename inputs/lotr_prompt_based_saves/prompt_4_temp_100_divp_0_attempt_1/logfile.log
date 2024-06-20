@@ -1,0 +1,1784 @@
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/transformers/utils/hub.py:125: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[nltk_data] Downloading package punkt to /home/borito1907/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[2024-06-20 15:29:38,510][__main__][INFO] - Starting to watermark...
+[2024-06-20 15:29:38,513][__main__][INFO] - Prompt: Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.
+[2024-06-20 15:29:38,513][__main__][INFO] - Getting the watermarker...
+[2024-06-20 15:29:38,513][watermarker][INFO] - Using device: cuda
+[2024-06-20 15:29:38,513][model_builders.pipeline][INFO] - Initializing MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+INFO - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+[2024-06-20 15:29:38,724][auto_gptq.modeling._base][INFO] - You passed a model that is compatible with the Marlin int4*fp16 GPTQ kernel but use_marlin is False. We recommend using `use_marlin=True` to use the optimized Marlin kernels for inference. Example: `model = AutoGPTQForCausalLM.from_quantized(..., use_marlin=True)`.
+INFO - The layer lm_head is not quantized.
+[2024-06-20 15:29:39,213][auto_gptq.modeling._base][INFO] - The layer lm_head is not quantized.
+[2024-06-20 15:29:42,336][accelerate.utils.modeling][INFO] - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+The model 'LlamaGPTQForCausalLM' is not supported for text-generation. Supported models are ['BartForCausalLM', 'BertLMHeadModel', 'BertGenerationDecoder', 'BigBirdForCausalLM', 'BigBirdPegasusForCausalLM', 'BioGptForCausalLM', 'BlenderbotForCausalLM', 'BlenderbotSmallForCausalLM', 'BloomForCausalLM', 'CamembertForCausalLM', 'LlamaForCausalLM', 'CodeGenForCausalLM', 'CohereForCausalLM', 'CpmAntForCausalLM', 'CTRLLMHeadModel', 'Data2VecTextForCausalLM', 'DbrxForCausalLM', 'ElectraForCausalLM', 'ErnieForCausalLM', 'FalconForCausalLM', 'FuyuForCausalLM', 'GemmaForCausalLM', 'GitForCausalLM', 'GPT2LMHeadModel', 'GPT2LMHeadModel', 'GPTBigCodeForCausalLM', 'GPTNeoForCausalLM', 'GPTNeoXForCausalLM', 'GPTNeoXJapaneseForCausalLM', 'GPTJForCausalLM', 'JambaForCausalLM', 'JetMoeForCausalLM', 'LlamaForCausalLM', 'MambaForCausalLM', 'MarianForCausalLM', 'MBartForCausalLM', 'MegaForCausalLM', 'MegatronBertForCausalLM', 'MistralForCausalLM', 'MixtralForCausalLM', 'MptForCausalLM', 'MusicgenForCausalLM', 'MusicgenMelodyForCausalLM', 'MvpForCausalLM', 'OlmoForCausalLM', 'OpenLlamaForCausalLM', 'OpenAIGPTLMHeadModel', 'OPTForCausalLM', 'PegasusForCausalLM', 'PersimmonForCausalLM', 'PhiForCausalLM', 'Phi3ForCausalLM', 'PLBartForCausalLM', 'ProphetNetForCausalLM', 'QDQBertLMHeadModel', 'Qwen2ForCausalLM', 'Qwen2MoeForCausalLM', 'RecurrentGemmaForCausalLM', 'ReformerModelWithLMHead', 'RemBertForCausalLM', 'RobertaForCausalLM', 'RobertaPreLayerNormForCausalLM', 'RoCBertForCausalLM', 'RoFormerForCausalLM', 'RwkvForCausalLM', 'Speech2Text2ForCausalLM', 'StableLmForCausalLM', 'Starcoder2ForCausalLM', 'TransfoXLLMHeadModel', 'TrOCRForCausalLM', 'WhisperForCausalLM', 'XGLMForCausalLM', 'XLMWithLMHeadModel', 'XLMProphetNetForCausalLM', 'XLMRobertaForCausalLM', 'XLMRobertaXLForCausalLM', 'XLNetLMHeadModel', 'XmodForCausalLM'].
+/local1/borito1907/anaconda3/envs/watermark/lib/python3.10/site-packages/langchain_core/_api/deprecation.py:119: LangChainDeprecationWarning: The class `HuggingFacePipeline` was deprecated in LangChain 0.0.37 and will be removed in 0.3. An updated version of the class exists in the from rom langchain-huggingface package and should be used instead. To use it run `pip install -U from rom langchain-huggingface` and import as `from from rom langchain_huggingface import llms import HuggingFacePipeline`.
+  warn_deprecated(
+[2024-06-20 15:29:56,631][watermarkers.semstamp][INFO] - Setting up generating components...
+[2024-06-20 15:29:56,634][watermarkers.semstamp][INFO] - {'max_new_tokens': 1024, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'bad_words_ids': [[198]], 'min_new_tokens': 245}
+[2024-06-20 15:29:56,634][watermarkers.semstamp][INFO] - Initializing embedder model.
+[2024-06-20 15:29:56,634][watermarkers.semstamp][INFO] - Using the generic SentenceTransformer...
+[2024-06-20 15:29:56,635][sentence_transformers.SentenceTransformer][INFO] - Use pytorch device_name: cuda
+[2024-06-20 15:29:56,635][sentence_transformers.SentenceTransformer][INFO] - Load pretrained SentenceTransformer: sentence-transformers/all-mpnet-base-v1
+[2024-06-20 15:29:57,755][watermarkers.semstamp][INFO] - Finished initializing embedder model.
+initializing random projection LSH model
+loading SBERT base model...
+[2024-06-20 15:29:57,756][__main__][INFO] - {'prompt': None, 'prompt_file': './inputs/lotr_prompts.csv', 'prompt_num': 4, 'is_completion': False, 'generation_stats_file_path': './inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv', 'watermarked_text_file_name': 'lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/watermarked_text.csv', 'generator_args': {'model_name_or_path': 'MaziyarPanahi/Meta-Llama-3-70B-Instruct-GPTQ', 'revision': 'main', 'model_cache_dir': './.cache/', 'device_map': 'auto', 'trust_remote_code': True, 'max_new_tokens': 1024, 'min_new_tokens': 768, 'do_sample': True, 'temperature': 1, 'top_p': 0.95, 'top_k': 40, 'repetition_penalty': 1.1, 'watermark_score_threshold': 5.0, 'diversity_penalty': 0}, 'watermark_args': {'name': 'semstamp_lsh', 'embedder': None, 'delta': 0.01, 'sp_mode': 'lsh', 'sp_dim': 3, 'lmbd': 0.25, 'max_new_tokens': 255, 'min_new_tokens': 245, 'max_trials': 50, 'critical_max_trials': 75, 'cc_path': None, 'train_data': None, 'device': 'auto', 'len_prompt': 32, 'z_threshold': 0.5, 'use_fine_tuned': False}, 'attack_args': {'prompt': None, 'prompt_file': './inputs/dynamic_prompts.csv', 'prompt_num': 6, 'watermarked_text': None, 'watermarked_text_path': None, 'watermarked_text_num': 1, 'num_steps': 2000, 'patience': 250, 'stop_at_removal': False, 'num_successful_steps': 100, 'results_dir': None, 'model_cache_dir': '/local1/borito1907/.cache/', 'save_name': None, 'use_watermark': False, 'backtrack_patience': 50, 'is_completion': False, 'json_path': None, 'json_index': 0, 'is_continuation': False, 'prev_csv_file': None, 'cuda': '1'}}
+[2024-06-20 15:29:57,756][__main__][INFO] - Got the watermarker. Generating watermarked text...
+[2024-06-20 15:29:57,756][watermarkers.semstamp][INFO] - Passing the following prompt to the LSH reject completion function:
+ Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.13it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.13it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:29:59,468][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:29:59,469][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 82.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.45it/s]
+[2024-06-20 15:29:59,498][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:29:59,498][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:29:59,498][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:29:59,499][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:00,500][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:00,501][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.08it/s]
+[2024-06-20 15:30:00,523][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:00,523][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:00,523][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:00,523][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:01,527][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:01,528][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.26it/s]
+[2024-06-20 15:30:01,549][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:01,549][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:01,549][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:01,549][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:02,536][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:02,536][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.77it/s]
+[2024-06-20 15:30:02,557][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:02,557][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:02,557][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:02,557][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:03,543][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:03,543][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.30it/s]
+[2024-06-20 15:30:03,564][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:03,564][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:03,564][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:03,564][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:04,550][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:04,550][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.74it/s]
+[2024-06-20 15:30:04,571][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:04,571][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:04,571][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:04,571][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:05,560][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:05,561][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.28it/s]
+[2024-06-20 15:30:05,581][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:05,582][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:05,582][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:05,582][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:06,583][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:06,583][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.73it/s]
+[2024-06-20 15:30:06,605][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:06,605][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:06,605][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:06,605][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:07,599][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:07,599][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.00it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.00it/s]
+[2024-06-20 15:30:07,620][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:07,620][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:07,621][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:07,621][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:08,608][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:08,609][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.44it/s]
+[2024-06-20 15:30:08,630][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:08,630][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:08,630][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:08,630][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:09,617][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:09,617][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.60it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.36it/s]
+[2024-06-20 15:30:09,638][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:09,638][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:09,638][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:09,638][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:10,644][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:10,645][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.06it/s]
+[2024-06-20 15:30:10,665][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:10,666][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:10,666][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:10,666][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:11,667][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:11,668][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.23it/s]
+[2024-06-20 15:30:11,689][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:11,689][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:11,689][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:11,689][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:12,675][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:12,675][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.04it/s]
+[2024-06-20 15:30:12,696][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:12,697][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:12,697][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:12,697][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:13,684][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:13,685][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.91it/s]
+[2024-06-20 15:30:13,705][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:13,705][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:13,705][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:13,705][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:14,692][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:14,693][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.23it/s]
+[2024-06-20 15:30:14,713][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:14,713][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:14,713][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:14,713][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:15,701][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:15,701][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.53it/s]
+[2024-06-20 15:30:15,721][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:15,722][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:15,722][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:15,722][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:16,707][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:16,708][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.96it/s]
+[2024-06-20 15:30:16,728][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:16,728][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:16,728][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:16,728][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:17,715][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:17,715][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.56it/s]
+[2024-06-20 15:30:17,736][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:17,736][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:17,736][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:17,736][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:18,722][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:18,723][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.30it/s]
+[2024-06-20 15:30:18,743][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:18,743][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:18,743][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:18,743][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:19,729][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:19,730][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.26it/s]
+[2024-06-20 15:30:19,750][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:19,750][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:19,750][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:19,751][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:20,737][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:20,737][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.09it/s]
+[2024-06-20 15:30:20,758][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:20,758][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:20,758][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:20,758][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:21,744][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:21,744][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.12it/s]
+[2024-06-20 15:30:21,765][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:21,765][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:21,765][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:21,766][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:22,752][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:22,753][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.05it/s]
+[2024-06-20 15:30:22,773][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:22,773][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:22,774][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:22,774][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:23,761][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:23,761][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.16it/s]
+[2024-06-20 15:30:23,782][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:23,782][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:23,782][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:23,782][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:24,768][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:24,768][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.75it/s]
+[2024-06-20 15:30:24,789][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:24,789][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:24,789][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:24,789][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:25,776][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:25,776][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.61it/s]
+[2024-06-20 15:30:25,796][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:25,796][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:25,797][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:25,797][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:26,784][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:26,784][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.79it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.26it/s]
+[2024-06-20 15:30:26,805][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:26,805][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:26,805][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:26,805][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:27,794][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:27,795][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.35it/s]
+[2024-06-20 15:30:27,815][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:27,816][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:27,816][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:27,816][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:28,805][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:28,805][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.80it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.86it/s]
+[2024-06-20 15:30:28,826][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:28,826][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:28,826][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:28,826][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:29,813][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:29,813][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.01it/s]
+[2024-06-20 15:30:29,833][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:29,834][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:29,834][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:29,834][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:30,821][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:30,821][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.28it/s]
+[2024-06-20 15:30:30,842][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:30,842][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:30,842][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:30,842][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:31,829][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:31,829][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.34it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.96it/s]
+[2024-06-20 15:30:31,850][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:31,850][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:31,850][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:31,850][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:32,836][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:32,836][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.86it/s]
+[2024-06-20 15:30:32,856][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:32,857][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:32,857][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:32,857][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:33,845][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:33,845][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.92it/s]
+[2024-06-20 15:30:33,866][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:33,866][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:33,866][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:33,866][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:34,852][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:34,853][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.29it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.06it/s]
+[2024-06-20 15:30:34,873][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:34,874][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:34,874][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:34,874][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:35,861][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:35,861][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 140.02it/s]
+[2024-06-20 15:30:35,881][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:35,882][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:35,882][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:35,882][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:36,868][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:36,868][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.40it/s]
+[2024-06-20 15:30:36,889][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:36,889][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:36,889][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:36,889][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:37,887][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:37,887][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.69it/s]
+[2024-06-20 15:30:37,908][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:37,908][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:37,908][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:37,908][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:38,904][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:38,905][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.84it/s]
+[2024-06-20 15:30:38,926][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:38,926][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:38,926][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:38,926][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:39,929][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:39,929][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.78it/s]
+[2024-06-20 15:30:39,950][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:39,950][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:39,950][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:39,950][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:40,952][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:40,952][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.49it/s]
+[2024-06-20 15:30:40,972][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:40,973][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:40,973][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:40,973][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:41,961][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:41,962][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.02it/s]
+[2024-06-20 15:30:41,982][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:41,982][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:41,982][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:41,982][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:42,969][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:42,970][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.91it/s]
+[2024-06-20 15:30:42,990][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:42,990][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:42,990][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:42,991][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:43,977][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:43,977][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.75it/s]
+[2024-06-20 15:30:43,997][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:43,998][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:43,998][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:43,998][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:44,991][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:44,991][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.26it/s]
+[2024-06-20 15:30:45,012][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:45,013][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:45,013][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:45,013][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:46,016][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:46,017][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.97it/s]
+[2024-06-20 15:30:46,039][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:46,039][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:46,039][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:46,039][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:47,045][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:47,046][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.40it/s]
+[2024-06-20 15:30:47,068][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:47,069][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:47,069][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:47,069][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:48,084][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:48,085][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 118.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.80it/s]
+[2024-06-20 15:30:48,108][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:48,108][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:48,108][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:48,108][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:49,119][watermarkers.semstamp][INFO] - Candidate text: 
+
+In J.R.R.
+[2024-06-20 15:30:49,120][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.67it/s]
+[2024-06-20 15:30:49,143][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:30:49,143][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:49,144][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:49,144][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:49,145][watermarkers.semstamp][INFO] - WARNING: desired semantic signature can't be sampled after max_trials 50
+[2024-06-20 15:30:49,145][watermarkers.semstamp][INFO] - CONTEXT: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+[2024-06-20 15:30:49,145][watermarkers.semstamp][INFO] - NOTE: use regular (non-filtered-by-sig) continuation: 
+
+In J.R.R.
+[2024-06-20 15:30:49,146][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R.
+[2024-06-20 15:30:49,146][watermarkers.semstamp][INFO] - Text has 4 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:30:52,928][watermarkers.semstamp][INFO] - Candidate text:  Tolkien's epic fantasy series, "The Lord of the Rings," the concept of power is embodied by the One Ring, a singular artifact forged by the Dark Lord Sauron to enslave Middle-earth.
+[2024-06-20 15:30:52,929][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 105.52it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:56,216][watermarkers.semstamp][INFO] - Candidate text:  Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters.
+[2024-06-20 15:30:56,217][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.42it/s]
+[2024-06-20 15:30:56,238][watermarkers.semstamp][INFO] - LSH Candidate: 5
+[2024-06-20 15:30:56,238][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:30:56,238][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:30:56,238][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:30:56,240][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters.
+[2024-06-20 15:30:56,240][watermarkers.semstamp][INFO] - Text has 5 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:30:58,804][watermarkers.semstamp][INFO] - Candidate text:  Forged by the Dark Lord Sauron, the Ring embodies absolute authority, corrupting even the noblest of intentions.
+
+
+[2024-06-20 15:30:58,804][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.61it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.55it/s]
+[2024-06-20 15:30:58,825][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-20 15:30:58,825][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:30:58,825][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:30:58,826][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:01,995][watermarkers.semstamp][INFO] - Candidate text:  Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+
+[2024-06-20 15:31:01,995][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.20it/s]
+[2024-06-20 15:31:02,016][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-20 15:31:02,016][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:31:02,016][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:31:02,016][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:02,018][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+
+[2024-06-20 15:31:02,018][watermarkers.semstamp][INFO] - Text has 6 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:31:04,527][watermarkers.semstamp][INFO] - Candidate text: Frodo Baggins, the reluctant hero tasked with destroying the Ring, finds himself increasingly consumed by its power.
+[2024-06-20 15:31:04,528][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.76it/s]
+[2024-06-20 15:31:04,548][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-20 15:31:04,549][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:04,549][watermarkers.semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-06-20 15:31:04,549][watermarkers.semstamp][INFO] - acceptmaskstr: 6,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:07,296][watermarkers.semstamp][INFO] - Candidate text: Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure.
+[2024-06-20 15:31:07,297][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.23it/s]
+[2024-06-20 15:31:07,318][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:31:07,318][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:31:07,318][watermarkers.semstamp][INFO] - acceptmasklist: [6, 2]
+[2024-06-20 15:31:07,318][watermarkers.semstamp][INFO] - acceptmaskstr: 6,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:07,320][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure.
+[2024-06-20 15:31:07,320][watermarkers.semstamp][INFO] - Text has 7 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:31:09,804][watermarkers.semstamp][INFO] - Candidate text:  However,es, as he journeys across Middle-earth, he becomes increasingly consumed by the weight of his responsibility.
+[2024-06-20 15:31:09,804][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.90it/s]
+[2024-06-20 15:31:09,825][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:31:09,825][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:09,825][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:09,825][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:12,052][watermarkers.semstamp][INFO] - Candidate text:  However, of him, it begins to take hold, drawing out both his courage and weakness.
+[2024-06-20 15:31:12,053][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.20it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:15,597][watermarkers.semstamp][INFO] - Candidate text:  However,icantly, as he journeys across Middle-earth, the weight of the Ring begins to bear down upon him, his resolve slowly eroding beneath its insidious grasp.
+[2024-06-20 15:31:15,598][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.02it/s]
+[2024-06-20 15:31:15,619][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:15,619][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:15,619][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:15,619][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:18,877][watermarkers.semstamp][INFO] - Candidate text:  However,icantly, as he bears the burden of the Ring, he begins to feel its insidious pull, gradually succumbing to its corrupting influence.
+[2024-06-20 15:31:18,877][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.92it/s]
+[2024-06-20 15:31:18,898][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:18,898][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:18,898][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:18,898][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:21,914][watermarkers.semstamp][INFO] - Candidate text:  As he navigates perilous landscapes and encounters treacherous foes, to reach Mount Doom, the Ring begins to insidiously manipulate him.
+[2024-06-20 15:31:21,914][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.81it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.47it/s]
+[2024-06-20 15:31:21,935][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:31:21,935][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:21,935][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:21,935][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:24,885][watermarkers.semstamp][INFO] - Candidate text:  However, in his perilous journey, he gradually becomes aware of the Ring's insidious grasp, struggling to resist its corrupting influence.
+[2024-06-20 15:31:24,885][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.63it/s]
+[2024-06-20 15:31:24,906][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:24,906][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:24,906][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:24,906][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:27,293][watermarkers.semstamp][INFO] - Candidate text:  However, and ironically, his determination to resist its pull ultimately proves a testament to the Ring's power.
+[2024-06-20 15:31:27,293][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.02it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.11it/s]
+[2024-06-20 15:31:27,313][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-20 15:31:27,314][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:27,314][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:27,314][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:30,412][watermarkers.semstamp][INFO] - Candidate text:  As he embarks on his perilous journey, however, the Ring begins to insidiously corrupt him, slowly eroding his resolve and morals.
+[2024-06-20 15:31:30,412][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.65it/s]
+[2024-06-20 15:31:30,432][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:30,433][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:30,433][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:30,433][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:33,686][watermarkers.semstamp][INFO] - Candidate text:  However, a gradual corruption begins to seep into his psyche, to the point where he becomes isolated from his friends and fixated on possessing the Ring himself.
+[2024-06-20 15:31:33,686][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.83it/s]
+[2024-06-20 15:31:33,707][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:31:33,707][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:33,707][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:33,707][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:36,329][watermarkers.semstamp][INFO] - Candidate text:  However,als, he journeys across Middle-earth, the weight of the Ring's power begins to bear down upon him.
+[2024-06-20 15:31:36,329][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.08it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.20it/s]
+[2024-06-20 15:31:36,350][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:36,350][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:36,350][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:36,350][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:40,084][watermarkers.semstamp][INFO] - Candidate text:  However, of power corrupts even the noblest of intentions, and as Frodo journeys deeper into Mordor, the weight of the Ring's influence begins to bear down upon him.
+[2024-06-20 15:31:40,085][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.45it/s]
+[2024-06-20 15:31:40,106][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-20 15:31:40,106][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:40,106][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:40,106][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:42,966][watermarkers.semstamp][INFO] - Candidate text:  As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control.
+[2024-06-20 15:31:42,967][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.51it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.33it/s]
+[2024-06-20 15:31:42,987][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:31:42,987][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:31:42,988][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:42,988][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:42,989][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control.
+[2024-06-20 15:31:42,990][watermarkers.semstamp][INFO] - Text has 8 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:31:46,266][watermarkers.semstamp][INFO] - Candidate text:  This internal conflict transforms Frodo from a carefree, rustic hobbit to a resolute, if reluctant, hero willing to risk everything to save Middle-earth.
+
+
+[2024-06-20 15:31:46,266][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.46it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.55it/s]
+[2024-06-20 15:31:46,287][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-20 15:31:46,287][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:46,287][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:46,287][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:48,918][watermarkers.semstamp][INFO] - Candidate text:  His resolve wavers, as the Ring's insidious voice whispers sweet nothings in his ear,1914.
+[2024-06-20 15:31:48,919][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 139.09it/s]
+[2024-06-20 15:31:48,939][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-20 15:31:48,939][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:48,940][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:48,940][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:51,967][watermarkers.semstamp][INFO] - Candidate text:  This internal struggle manifests in Frodo's increasingly erratic behavior, as he becomes withdrawn, to shield himself from others' attempts to take the Ring.
+[2024-06-20 15:31:51,968][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.84it/s]
+[2024-06-20 15:31:51,988][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:31:51,988][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:51,988][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:51,988][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:54,780][watermarkers.semstamp][INFO] - Candidate text:  This internal struggle is exemplified through Frodo's increasingly erratic behavior, the Ring insidiously manipulating him towards its own preservation.
+
+
+[2024-06-20 15:31:54,780][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.76it/s]
+[2024-06-20 15:31:54,801][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:31:54,801][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:31:54,802][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:31:54,802][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:31:57,754][watermarkers.semstamp][INFO] - Candidate text:  His transformation from carefree hobbit to weary, isolated ring-bearer is a testament to the insidious nature of the Ring's power.
+[2024-06-20 15:31:57,754][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.35it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:00,478][watermarkers.semstamp][INFO] - Candidate text:  The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+
+[2024-06-20 15:32:00,479][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.18it/s]
+[2024-06-20 15:32:00,499][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:32:00,500][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:32:00,500][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:32:00,500][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:00,501][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+
+[2024-06-20 15:32:00,502][watermarkers.semstamp][INFO] - Text has 9 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:32:03,392][watermarkers.semstamp][INFO] - Candidate text: Gollum, a creature once human but now corrupted by the Ring's dark magic, epitomizes the destructive grasp of power.
+[2024-06-20 15:32:03,392][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.18it/s]
+[2024-06-20 15:32:03,413][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-20 15:32:03,413][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:03,413][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:32:03,413][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:06,617][watermarkers.semstamp][INFO] - Candidate text: Gollum, once a hobbit himself, Sméagol, exemplifies the devastating consequences of succumbing to the Ring's corrupting influence.
+[2024-06-20 15:32:06,618][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.09it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:09,366][watermarkers.semstamp][INFO] - Candidate text: Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence.
+[2024-06-20 15:32:09,367][watermarkers.semstamp][INFO] - Accept Mask: tensor([5, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.93it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.54it/s]
+[2024-06-20 15:32:09,388][watermarkers.semstamp][INFO] - LSH Candidate: 5
+[2024-06-20 15:32:09,388][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:32:09,388][watermarkers.semstamp][INFO] - acceptmasklist: [5, 2]
+[2024-06-20 15:32:09,388][watermarkers.semstamp][INFO] - acceptmaskstr: 5,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:09,390][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence.
+[2024-06-20 15:32:09,391][watermarkers.semstamp][INFO] - Text has 10 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:32:12,681][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has warped his very being, reducing him to a wretched, creature driven solely by a longing for possession.
+[2024-06-20 15:32:12,681][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.16it/s]
+[2024-06-20 15:32:12,702][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:12,703][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:12,703][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:12,703][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:15,118][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has reduced him to a wretched, miserable existence.
+[2024-06-20 15:32:15,119][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.30it/s]
+[2024-06-20 15:32:15,140][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:15,140][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:15,140][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:15,140][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:18,285][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has warped his soul, reducing him to a creature driven solely by an all-consuming desire for possession.
+[2024-06-20 15:32:18,285][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.86it/s]
+[2024-06-20 15:32:18,306][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:18,306][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:18,306][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:18,306][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:21,440][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to the Ring, "my precious," has warped his psyche, rendering him a creature driven solely by a lust for possession.
+[2024-06-20 15:32:21,440][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.08it/s]
+[2024-06-20 15:32:21,461][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:21,461][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:21,461][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:21,461][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:24,588][watermarkers.semstamp][INFO] - Candidate text:  His obsessive love for the Ring has reduced him to a wretched, pitiful creature, driven solely by a craving for possession.
+[2024-06-20 15:32:24,589][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 95.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 103.17it/s]
+[2024-06-20 15:32:24,617][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:24,617][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:24,618][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:24,618][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:27,500][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for possession has warped his psyche, to the point where he becomes a slave to the Ring's will.
+[2024-06-20 15:32:27,501][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.14it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:30,736][watermarkers.semstamp][INFO] - Candidate text:  His obsessive love for the Ring has warped him into a twisted creature, forever torn between loyalty to Frodo and his own covetous desires.
+[2024-06-20 15:32:30,737][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.90it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.77it/s]
+[2024-06-20 15:32:30,758][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:30,758][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:30,758][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:30,758][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:33,910][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for the Ring, christened "my precious," has warped his psyche, rendering him a creature driven solely by its acquisition.
+[2024-06-20 15:32:33,910][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.13it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.99it/s]
+[2024-06-20 15:32:33,931][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:33,931][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:33,932][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:33,932][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:37,567][watermarkers.semstamp][INFO] - Candidate text:  His obsessive love for the treasure has warped his psyche, reducing him to a sniveling, treacherous creature willing to do anything to reclaim his "precious."
+[2024-06-20 15:32:37,567][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.78it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.15it/s]
+[2024-06-20 15:32:37,588][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:37,588][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:37,588][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:37,588][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:40,343][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has reduced him to a wretched, a shadow of his former self.
+[2024-06-20 15:32:40,343][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 103.68it/s]
+[2024-06-20 15:32:40,368][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:40,368][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:40,369][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:40,369][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:43,408][watermarkers.semstamp][INFO] - Candidate text:  His centuries-long possession of the Ring warped his mind and soul, to the point where he became irreparably enslaved to its will.
+[2024-06-20 15:32:43,409][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.88it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.52it/s]
+[2024-06-20 15:32:43,429][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:32:43,430][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:43,430][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:43,430][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:47,336][watermarkers.semstamp][INFO] - Candidate text:  His obsessive fixation on the Ring, coupled with the trauma of possessing it for centuries, has warped his psyche, to the point where he refers to himself in the plural form ("my precious").
+[2024-06-20 15:32:47,336][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.64it/s]
+[2024-06-20 15:32:47,357][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:47,358][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:47,358][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:47,358][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:50,976][watermarkers.semstamp][INFO] - Candidate text:  Seduced by its promise of power and companionship, Sméagol's obsessive devotion to "my precious" precipitates his descent into madness and treachery.
+[2024-06-20 15:32:50,977][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.57it/s]
+[2024-06-20 15:32:50,997][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:50,998][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:50,998][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:50,998][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:54,211][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the "precious" has warped him physically and psychologically, rendering him a creature driven solely by the desire to reclaim it.
+[2024-06-20 15:32:54,212][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 115.23it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.56it/s]
+[2024-06-20 15:32:54,234][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:32:54,234][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:32:54,234][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:32:54,234][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:32:57,319][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for the Ring, dubbed "my precious," has warped his being, rendering him a creature torn between love and madness.
+[2024-06-20 15:32:57,319][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.87it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:00,867][watermarkers.semstamp][INFO] - Candidate text:  His obsessive love for the Ring, coupled with centuries of possession, has warped his mind and soul, transforming him into a creature driven solely by his 'precious.'
+[2024-06-20 15:33:00,868][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.10it/s]
+[2024-06-20 15:33:00,889][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:33:00,889][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:00,889][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:00,889][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:04,597][watermarkers.semstamp][INFO] - Candidate text:  His obsessive possession of the Ring, dubbed "my precious," has warped his mind and soul, transforming him into a creature driven solely by avarice and treachery.
+[2024-06-20 15:33:04,598][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.94it/s]
+[2024-06-20 15:33:04,618][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:33:04,619][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:04,619][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:04,619][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:08,785][watermarkers.semstamp][INFO] - Candidate text:  Obsessed with reclaiming "my precious," Gollum's fixation on the Ring has warped his very essence, rendering him a wretched, treacherous creature driven solely by the desire for possession.
+
+
+[2024-06-20 15:33:08,785][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.69it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.89it/s]
+[2024-06-20 15:33:08,806][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:08,806][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:08,806][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:08,806][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:11,752][watermarkers.semstamp][INFO] - Candidate text:  His centuries-long obsession with the treasure has warped his psyche, transforming him into a creature driven solely by his "precious."
+[2024-06-20 15:33:11,752][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 116.43it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 120.07it/s]
+[2024-06-20 15:33:11,775][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:11,776][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:11,776][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:11,776][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:15,580][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the Ring, which he refers to as "my precious," has warped his psyche, rendering him a pathetic, a creature driven solely by his all-consuming desire.
+[2024-06-20 15:33:15,580][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.02it/s]
+[2024-06-20 15:33:15,601][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:15,601][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:15,601][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:15,601][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:19,410][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" transforms him into a wretched creature, torn between loyalty to Frodo and his own consuming desire for the Ring.
+[2024-06-20 15:33:19,411][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 98.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 111.60it/s]
+[2024-06-20 15:33:19,438][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:33:19,438][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:19,439][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:19,439][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:22,929][watermarkers.semstamp][INFO] - Candidate text:  His obsessive love for the Ring has warped his psyche, reducing him to a pitiful, wretched creature willing to do anything to reclaim his "precious."
+[2024-06-20 15:33:22,929][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.56it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.32it/s]
+[2024-06-20 15:33:22,950][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:22,950][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:22,950][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:22,950][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:25,801][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for the treasure has transformed him into a wretched creature, torn between love and hatred for the Ring.
+[2024-06-20 15:33:25,802][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.12it/s]
+[2024-06-20 15:33:25,823][watermarkers.semstamp][INFO] - LSH Candidate: 2
+[2024-06-20 15:33:25,823][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:25,824][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:25,824][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:28,434][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the Ring has warped his psyche, rendering him a creature torn between love and hatred.
+[2024-06-20 15:33:28,435][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.25it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:31,247][watermarkers.semstamp][INFO] - Candidate text:  His obsessive fixation on the Ring, which he referred to as "my precious," has warped his mind and soul.
+[2024-06-20 15:33:31,248][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.55it/s]
+[2024-06-20 15:33:31,269][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:33:31,269][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:31,269][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:31,269][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:34,281][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the Ring, which he dubs "my precious," has transformed him into a creature driven by singular purpose.
+[2024-06-20 15:33:34,281][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.72it/s]
+[2024-06-20 15:33:34,302][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:34,303][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:34,303][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:34,303][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:37,405][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for the Ring transforms him into a creature torn between his former self and the monstrous identity forged through centuries of servitude.
+[2024-06-20 15:33:37,405][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.86it/s]
+[2024-06-20 15:33:37,426][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:33:37,427][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:37,427][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:37,427][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:40,892][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has reduced him to a wretched, a creature torn between his loyalty to Frodo and his own consuming desire.
+[2024-06-20 15:33:40,892][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.36it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.80it/s]
+[2024-06-20 15:33:40,913][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:40,913][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:40,913][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:40,913][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:43,940][watermarkers.semstamp][INFO] - Candidate text:  His obsessive desire for the "precious" has warped him into a creature driven by baser instincts, abandoning reason and empathy.
+[2024-06-20 15:33:43,940][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.25it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.71it/s]
+[2024-06-20 15:33:43,962][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:43,962][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:43,962][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:43,962][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:47,151][watermarkers.semstamp][INFO] - Candidate text:  Seduced by its promise of power, he murders his own cousin to possess it, becoming a creature driven solely by his "precious."
+[2024-06-20 15:33:47,151][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.74it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.09it/s]
+[2024-06-20 15:33:47,172][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:47,173][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:47,173][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:47,173][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:50,611][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has warped his very existence, reducing him to a creature driven solely by the desire to reclaim his treasured possession.
+[2024-06-20 15:33:50,612][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.84it/s]
+[2024-06-20 15:33:50,633][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:50,633][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:50,633][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:50,633][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:54,612][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the Ring, which he refers to as "my precious," has warped his mind and soul, transforming him into a creature torn between love and loathing for the artifact.
+[2024-06-20 15:33:54,612][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.67it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.89it/s]
+[2024-06-20 15:33:54,633][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:54,634][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:54,634][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:54,634][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:33:57,619][watermarkers.semstamp][INFO] - Candidate text:  Seduced by its promise of power, he commits unspeakable atrocities to reclaim his "precious," sacrificing his very soul.
+[2024-06-20 15:33:57,619][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 126.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.37it/s]
+[2024-06-20 15:33:57,640][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:33:57,641][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:33:57,641][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:33:57,641][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:01,052][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the treasure, "my precious," has warped his mind and soul, rendering him a creature driven solely by the desire to reclaim it.
+[2024-06-20 15:34:01,052][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.34it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:03,969][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the Ring,'my precious', has transformed him into a creature driven solely by a craving for power.
+[2024-06-20 15:34:03,969][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.87it/s]
+[2024-06-20 15:34:03,990][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:03,990][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:03,990][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:03,990][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:07,222][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has warped his soul, reducing him to a creature driven solely by the desire for possession and domination.
+[2024-06-20 15:34:07,223][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 100.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 98.04it/s]
+[2024-06-20 15:34:07,251][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:07,251][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:07,251][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:07,251][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:11,006][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to the Ring, which he refers to as "my precious," has transformed him into a wretched creature,201233333 driven by a singular desire.
+[2024-06-20 15:34:11,007][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.33it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:15,000][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the "precious" has reduced him to a pitiful, wretched creature, toiling in darkness, the very essence of his being warped by the Ring's grasp.
+[2024-06-20 15:34:15,001][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.89it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:18,186][watermarkers.semstamp][INFO] - Candidate text:  His obsessive longing for the "precious" has warped him physically and psychologically, rendering him a creature driven solely by the desire for possession.
+[2024-06-20 15:34:18,186][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.32it/s]
+[2024-06-20 15:34:18,207][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:18,207][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:18,207][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:18,207][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:21,229][watermarkers.semstamp][INFO] - Candidate text:  His obsessive devotion to "my precious" has warped his mind and soul, reducing him to a state of feral servitude.
+[2024-06-20 15:34:21,230][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.22it/s]
+[2024-06-20 15:34:21,251][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:21,251][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:21,251][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:21,251][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:24,246][watermarkers.semstamp][INFO] - Candidate text:  His centuries-long possession of the Ring has transformed him into a creature driven by an obsessive, possessive love for "my precious."
+[2024-06-20 15:34:24,246][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.04it/s]
+[2024-06-20 15:34:24,266][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:24,267][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:24,267][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:24,267][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:27,625][watermarkers.semstamp][INFO] - Candidate text:  Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall.
+[2024-06-20 15:34:27,625][watermarkers.semstamp][INFO] - Accept Mask: tensor([1, 4], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.63it/s]
+[2024-06-20 15:34:27,646][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-20 15:34:27,646][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:34:27,646][watermarkers.semstamp][INFO] - acceptmasklist: [1, 4]
+[2024-06-20 15:34:27,646][watermarkers.semstamp][INFO] - acceptmaskstr: 1,4
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:27,648][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall.
+[2024-06-20 15:34:27,649][watermarkers.semstamp][INFO] - Text has 11 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:34:30,798][watermarkers.semstamp][INFO] - Candidate text:  His tragic figure serves as a cautionary tale of the devastating consequences that ensue when one succumbs to the Ring's seductive power.
+
+
+[2024-06-20 15:34:30,798][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.41it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:33,549][watermarkers.semstamp][INFO] - Candidate text:  His dual identity serves as a testament to the Ring's ability to manipulate and dominate even the strongest of wills.
+
+
+[2024-06-20 15:34:33,549][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.03it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:36,861][watermarkers.semstamp][INFO] - Candidate text:  His transformation from a pitiful creature into a ruthless servant of Sauron exemplifies the Ring's ability to twist even the most vulnerable of souls.
+
+
+[2024-06-20 15:34:36,861][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.11it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.42it/s]
+[2024-06-20 15:34:36,883][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:34:36,883][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:36,883][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:36,883][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:40,015][watermarkers.semstamp][INFO] - Candidate text:  His tragic tale serves as a cautionary warning about the dangers of unchecked ambition and the devastating consequences of succumbing to the Ring's allure.
+
+
+[2024-06-20 15:34:40,015][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 124.92it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.71it/s]
+[2024-06-20 15:34:40,036][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-20 15:34:40,037][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:40,037][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:40,037][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:43,014][watermarkers.semstamp][INFO] - Candidate text:  His divided loyalties and conflicted desires serve as a cautionary tale about the dangers of coveting power above all else.
+
+
+[2024-06-20 15:34:43,014][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.07it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:45,922][watermarkers.semstamp][INFO] - Candidate text:  His fractured psyche serves as a cautionary tale, warning of the devastating consequences of succumbing to the Ring's irresistible allure.
+
+
+[2024-06-20 15:34:45,923][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.21it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:48,753][watermarkers.semstamp][INFO] - Candidate text:  His tortured psyche serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's dark allure.
+
+
+[2024-06-20 15:34:48,753][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.47it/s]
+[2024-06-20 15:34:48,774][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:34:48,774][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:48,774][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:48,774][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:51,769][watermarkers.semstamp][INFO] - Candidate text:  His pitiful existence, bound to the Ring's will, serves as a cautionary tale of the devastating consequences of unchecked ambition.
+
+
+[2024-06-20 15:34:51,769][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.34it/s]
+[2024-06-20 15:34:51,790][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-20 15:34:51,790][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:51,790][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:51,790][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:54,616][watermarkers.semstamp][INFO] - Candidate text:  His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's dark allure.
+
+
+[2024-06-20 15:34:54,617][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.19it/s]
+[2024-06-20 15:34:54,637][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:34:54,638][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:54,638][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:54,638][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:34:57,290][watermarkers.semstamp][INFO] - Candidate text:  His tragic tale serves as a cautionary warning, the consequences of succumbing to the Ring's dark allure.
+
+
+[2024-06-20 15:34:57,291][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.31it/s]
+[2024-06-20 15:34:57,311][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:34:57,312][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:34:57,312][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:34:57,312][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:00,138][watermarkers.semstamp][INFO] - Candidate text:  His tragic tale serves as a cautionary warning about the perils of succumbing to the Ring's siren song.
+
+
+[2024-06-20 15:35:00,138][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 125.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.58it/s]
+[2024-06-20 15:35:00,159][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:35:00,160][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:00,160][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:00,160][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:02,909][watermarkers.semstamp][INFO] - Candidate text:  His inner turmoil serves as a cautionary tale, highlighting the devastating consequences of succumbing to the Ring's grasp.
+
+
+[2024-06-20 15:35:02,909][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.49it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.76it/s]
+[2024-06-20 15:35:02,930][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:35:02,930][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:02,930][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:02,930][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:06,574][watermarkers.semstamp][INFO] - Candidate text:  His dual identity torn between Sméagol's fleeting glimpses of redemption and Gollum's all-consuming passion for the Ring underscores the destructive nature of unchecked ambition.
+
+
+[2024-06-20 15:35:06,575][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 127.35it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.41it/s]
+[2024-06-20 15:35:06,595][watermarkers.semstamp][INFO] - LSH Candidate: 4
+[2024-06-20 15:35:06,595][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:06,596][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:06,596][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:09,437][watermarkers.semstamp][INFO] - Candidate text:  His tragic tale serves as a cautionary warning against the dangers of unchecked ambition and the corrosive effects of unchecked power.
+
+
+[2024-06-20 15:35:09,437][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 128.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.63it/s]
+[2024-06-20 15:35:09,458][watermarkers.semstamp][INFO] - LSH Candidate: 0
+[2024-06-20 15:35:09,458][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:09,458][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:09,459][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:12,203][watermarkers.semstamp][INFO] - Candidate text:  His tortured soul becomes trapped in a cycle of love and hatred, forever bound to the object of his desire.
+
+
+[2024-06-20 15:35:12,203][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 121.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 136.10it/s]
+[2024-06-20 15:35:12,225][watermarkers.semstamp][INFO] - LSH Candidate: 6
+[2024-06-20 15:35:12,225][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:12,225][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:12,225][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:15,029][watermarkers.semstamp][INFO] - Candidate text:  His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's power.
+
+
+[2024-06-20 15:35:15,030][watermarkers.semstamp][INFO] - Accept Mask: tensor([7, 2], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 129.30it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.12it/s]
+[2024-06-20 15:35:15,050][watermarkers.semstamp][INFO] - LSH Candidate: 7
+[2024-06-20 15:35:15,050][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:35:15,050][watermarkers.semstamp][INFO] - acceptmasklist: [7, 2]
+[2024-06-20 15:35:15,050][watermarkers.semstamp][INFO] - acceptmaskstr: 7,2
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:15,052][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall. His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's power.
+
+
+[2024-06-20 15:35:15,052][watermarkers.semstamp][INFO] - Text has 12 sentences.
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[2024-06-20 15:35:17,622][watermarkers.semstamp][INFO] - Candidate text: Boromir, son of Denethor, represents another facet of the Ring's power.
+[2024-06-20 15:35:17,623][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.84it/s]
+[2024-06-20 15:35:17,644][watermarkers.semstamp][INFO] - LSH Candidate: 1
+[2024-06-20 15:35:17,644][watermarkers.semstamp][INFO] - Candidate text is doesn't fall into the correct place in the embedding space.
+[2024-06-20 15:35:17,644][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-20 15:35:17,644][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:20,428][watermarkers.semstamp][INFO] - Candidate text: Boromir, the stalwart warrior from Gondor, is not immune to the Ring's grasp.
+[2024-06-20 15:35:20,429][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 122.63it/s]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:24,347][watermarkers.semstamp][INFO] - Candidate text: Boromir, Steward of Gondor, driven by a desire to protect his homeland from the forces of darkness, becomes entrapped in the Ring's snare.
+[2024-06-20 15:35:24,347][watermarkers.semstamp][INFO] - Accept Mask: tensor([6, 3], device='cuda:0')
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 123.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.65it/s]
+[2024-06-20 15:35:24,368][watermarkers.semstamp][INFO] - LSH Candidate: 3
+[2024-06-20 15:35:24,369][watermarkers.semstamp][INFO] - Candidate text falls within the semantic partition and is a single sentence.
+[2024-06-20 15:35:24,369][watermarkers.semstamp][INFO] - acceptmasklist: [6, 3]
+[2024-06-20 15:35:24,369][watermarkers.semstamp][INFO] - acceptmaskstr: 6,3
+Data appended to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/stats.csv
+[2024-06-20 15:35:24,371][watermarkers.semstamp][INFO] - Updating the sentence end criteria with <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a helpful personal assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall. His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's power.
+
+Boromir, Steward of Gondor, driven by a desire to protect his homeland from the forces of darkness, becomes entrapped in the Ring's snare.
+[2024-06-20 15:35:24,371][watermarkers.semstamp][INFO] - Text has 13 sentences.
+[2024-06-20 15:35:24,371][watermarkers.semstamp][INFO] - Prompt: Write a 250-word essay on the role of power in J.R.R. Tolkien's "The Lord of the Rings" series, focusing specifically on the One Ring as the central symbol of power. Discuss how the desire for the Ring influences the actions, motivations, and transformations of key characters, such as Frodo Baggins, Gollum, and Boromir. Only respond with the essay.
+[2024-06-20 15:35:24,372][watermarkers.semstamp][INFO] - Response: ('In J.R.R. Tolkien\'s "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.\n\nFrodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring\'s insidious whisperings sow seeds of doubt, eroding Frodo\'s resolve and threatening to consume him entirely.\n\nGollum, once a hobbit named Sméagol provides a stark example of the Ring\'s corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum\'s obsessive devotion ultimately proves his downfall. His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring\'s power.\n\nBoromir, Steward of Gondor, driven by a desire to protect his homeland from the forces of darkness, becomes entrapped in the Ring\'s snare.', 138)
+[2024-06-20 15:35:24,372][watermarker][INFO] - Received completion: In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall. His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's power.
+
+Boromir, Steward of Gondor, driven by a desire to protect his homeland from the forces of darkness, becomes entrapped in the Ring's snare.
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 130.28it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.62it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.09it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 137.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 138.58it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.60it/s]
+n_watermark: 9, n_test_sent: 9
+zscore: 5.196152422706632
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 134.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.64it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.24it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.63it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 135.41it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.82it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.66it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 132.66it/s]
+n_watermark: 9, n_test_sent: 9
+zscore: 5.196152422706632
+[2024-06-20 15:35:24,570][__main__][INFO] - Watermarked Text: In J.R.R. Tolkien's "The Lord of the Rings" series, the One Ring serves as the ultimate symbol of power, driving the plot forward and shaping the destinies of its characters. Created by the Dark Lord Sauron, the Ring embodies his malevolent will, exerting an otherworldly influence over those who come into contact with it.
+
+Frodo Baggins, the unsuspecting halfling tasked with destroying the Ring, is initially oblivious to its potent allure. As he bears the burden of the Ring, the weight of its power gradually takes hold, tempting him with promises of dominance and control. The Ring's insidious whisperings sow seeds of doubt, eroding Frodo's resolve and threatening to consume him entirely.
+
+Gollum, once a hobbit named Sméagol provides a stark example of the Ring's corrupting influence. Seduced by its promise of power and possession, to the point of madness and treachery, Gollum's obsessive devotion ultimately proves his downfall. His tortured existence serves as a cautionary tale, illustrating the devastating consequences of succumbing to the Ring's power.
+
+Boromir, Steward of Gondor, driven by a desire to protect his homeland from the forces of darkness, becomes entrapped in the Ring's snare.
+[2024-06-20 15:35:24,570][__main__][INFO] - Is Watermark Detected?: True
+[2024-06-20 15:35:24,570][__main__][INFO] - Score: 5.196152422706632
+[2024-06-20 15:35:24,570][__main__][INFO] - Time taken: 326.81387281417847
+Data saved to ./inputs/lotr_prompt_based_saves/prompt_4_temp_100_divp_0_attempt_1/watermarked_text.csv

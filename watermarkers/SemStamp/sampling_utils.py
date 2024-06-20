@@ -7,6 +7,10 @@ from itertools import groupby
 import re
 from typing import *
 
+import logging
+
+log = logging.getLogger(__name__)
+
 MAX_TRIALS = 100
 if torch.cuda.is_available():
     rng = torch.Generator("cuda")
@@ -16,38 +20,34 @@ hash_key = 15485863
 PUNCTS = '!.?'
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-def handle_bullet_points(sentences):
+def handle_bullet_points(sentences: List[str]) -> List[str]:
     new_sentences = []
-    digit_pattern = re.compile(r'^\d+\.$')
-    
+    digit_pattern = re.compile(r'^\*?\*?\d+\.$')
     i = 0
-    while i < len(sentences) - 1:
+    num_sentences = len(sentences)
+    if num_sentences == 0:
+        return sentences
+    # log.info(f"Num sentences: {num_sentences}")
+    while i < num_sentences - 1:
         if digit_pattern.match(sentences[i].strip()):
-            new_sentences.append(f'{sentences[i].strip()} {sentences[i + 1]}')
+            modified_sentence = f"{sentences[i].strip()} {sentences[i + 1]}"
+            new_sentences.append(modified_sentence)
+            # log.info(f"Adding {modified_sentence}")
             i += 1  # Skip the next element as it's already added
         else:
             new_sentences.append(sentences[i])
         i += 1
-
-    # Add the last sentence as well
-    new_sentences.append(sentences[-1])
-    
+        # log.info(f"i={i}")
+    # Add the last sentence as well, if we don't want to skip it
+    if i == num_sentences - 1:
+        new_sentences.append(sentences[-1])
+    # log.info(f"Sentences: {new_sentences}")
     return new_sentences
 
 def tokenize_sentences(text: str) -> List[str]:
     sentences = sent_tokenize(text)
     processed_sentences = handle_bullet_points(sentences)
     return processed_sentences
-
-# TODO: Remove this if the other solution works.
-def is_candidate_text_one_sentence(self, candidate_text: str) -> bool:
-    sentences = sent_tokenize(candidate_text)
-    num_sentences = len(sentences)
-
-    if num_sentences == 2:
-        return re.match(r'^\d\.$', sentences[0].strip())
-
-    return num_sentences == 1
 
 class SentenceEndCriteria(StoppingCriteria):
     """
@@ -75,6 +75,9 @@ class SentenceEndCriteria(StoppingCriteria):
         text = self.tokenizer.decode(input_ids[0], skip_special_tokens=True)
         sentences = tokenize_sentences(text)
         num_sentences = len(sentences)
+        # Debug statements
+        # log.info(f"Num sentences is {num_sentences} for the text \n {text}")
+        # log.info(f"Current number of sentences is {self.current_num_sentences}")
 
         return num_sentences > self.current_num_sentences + 1
 

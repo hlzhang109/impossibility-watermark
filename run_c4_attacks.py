@@ -21,11 +21,11 @@ def run_command(command, filepath):
         return None, e.stderr
 
 def main():
-    # TODO: Adjust to new config.
+    # TODO: Adjust to new config. This doesn't work right now.
     results = []
 
     for prompt_num in range(1,2):
-        log_filepath = f"./logs/semstamp_attacks/minic4_{prompt_num}_first.log"
+        log_filepath = f"./logs/semstamp_attacks/fine_tuned_minic4_{prompt_num}.log"
         
         # NOTE: Change the save_file_name to a new filename every time you run the code.
         command = f"python attack.py " \
@@ -34,7 +34,7 @@ def main():
                   f"++attack_args.watermarked_text_path='./inputs/c4_{prompt_num}.csv' " \
                   f"++attack_args.watermarked_text_num=1 " \
                   f"++attack_args.results_dir='./semstamp_attacks/c4/' " \
-                  f"++watermark_args.save_file_name='c4_{prompt_num}.csv' " \
+                  f"++watermark_args.save_file_name='06_18_fine_tuned_c4_{prompt_num}.csv' " \
                   f"++attack_args.is_completion=True " 
 
         stdout, stderr = run_command(command, log_filepath)

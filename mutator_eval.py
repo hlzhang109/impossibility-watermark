@@ -4,7 +4,7 @@ import pandas as pd
 import hydra
 from tqdm import tqdm
 import logging
-from oracles.absolute import AbsoluteOracle
+from oracles.absolute import PrometheusAbsoluteOracle
 
 log = logging.getLogger(__name__)
 
@@ -13,25 +13,23 @@ log = logging.getLogger(__name__)
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def eval(cfg):
 
-
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
-    os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.cuda_visible_devices)
+    os.environ["WORLD_SIZE"] = str(len(str(cfg.cuda_visible_devices).split(",")))
 
     # Tucking import here because 'import torch' prior to setting CUDA_VISIBLE_DEVICES causes an error
     # https://discuss.pytorch.org/t/runtimeerror-device-0-device-num-gpus-internal-assert-failed/178118/6
     from model_builders.pipeline import PipeLineBuilder
-    from watermark import Watermarker
-    from oracle import (
-        RankOracle,
-        JointOracle,
-        RelativeOracle,
-        SoloOracle
-    )
-    from mutators import (
-        LLMMutator,
-        MaskFillMutator,
-        SpanFillMutator
-    )
+    # from watermark import Watermarker
+    # from oracle import (
+    #     RankOracle,
+    #     JointOracle,
+    #     RelativeOracle,
+    #     SoloOracle
+    # )
+    from mutators.document import DocumentMutator
+    from mutators.sentence import SentenceMutator
+    from mutators.word import MaskFillMutator
+    from mutators.span import SpanFillMutator
 
     # Set number of mutation steps to analyze
     mutation_steps = 10
@@ -40,25 +38,25 @@ def eval(cfg):
     # Load test data
     # NOTE: we will reuse the outputs from the quality oracle tests
     log.info("Loading tests...")
-    tests_df = pd.read_csv("./tests/mutator/tests_v1.csv")
+    tests_df = pd.read_csv("./tests/mutator/tests_v2.csv")
     log.info(tests_df)
 
     # Init shared pipeline for oracles and LLMMutator
     log.info("Initializing shared pipeline for oracles and LLMMutator...")
-    pipeline = PipeLineBuilder(cfg.oracle_args)
+    # pipeline = PipeLineBuilder(cfg.oracle_args)
 
     # Init oracles
-    templates = [
-        ("solo.lmsys.ib", SoloOracle), 
-        # ("joint.lmsys.ib", JointOracle), 
-        ("relative.sandpaper.3", RelativeOracle), 
-    ]
-    log.info(f"Initializing oracles: {','.join(t for t,c in templates)}...")
-    prometheus = AbsoluteOracle()
+    # templates = [
+    #     ("solo.lmsys.ib", SoloOracle), 
+    #     # ("joint.lmsys.ib", JointOracle), 
+    #     ("relative.sandpaper.3", RelativeOracle), 
+    # ]
+    # log.info(f"Initializing oracles: {','.join(t for t,c in templates)}...")
+    prometheus = PrometheusAbsoluteOracle()
     oracles = []
-    for t, c in templates:
-        cfg.oracle_args.template = t
-        oracles.append(c(cfg=cfg.oracle_args, pipeline=pipeline))
+    # for t, c in templates:
+    #     cfg.oracle_args.template = t
+    #     oracles.append(c(cfg=cfg.oracle_args, pipeline=pipeline))
 
     # Init mutators
     log.info(f"Initializing mutators: LLMMutator (ours), MaskFillMutator (ours), SpanFillMutator (sandpaper)...")
@@ -71,8 +69,11 @@ def eval(cfg):
     results = []
     for index, row in tqdm(tests_df.iterrows(), desc='Tests'): 
         for mutator in tqdm(mutators, desc='Mutators'):
-
-            text = row["output"]
+            if row["winner_model_a"] == "1":
+                choose = "response_a"
+            else:
+                choose = "response_b"
+            text = row[choose]
 
             for mutation_step in range(mutation_steps):
 
@@ -99,7 +100,7 @@ def eval(cfg):
                 
                     # Evaluate Mutation Quality
                 try:
-                    is_quality_preserved, evals = prometheus.is_quality_preserved(row["instruction"], row["output"], text, return_evals=True)
+                    is_quality_preserved, evals = prometheus.is_quality_preserved(row["prompt"], row[choose], text, return_evals=True)
                 except Exception as e:
                     print(e)
                     is_quality_preserved = "Unknown"

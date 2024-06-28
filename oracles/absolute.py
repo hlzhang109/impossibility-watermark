@@ -9,7 +9,7 @@ class PrometheusAbsoluteOracle:
         self, 
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
         download_dir="./.cache",
-        num_gpus=4, 
+        num_gpus=1, 
     ):
         # Initialize any necessary attributes or models here
         self.model_id = model_id

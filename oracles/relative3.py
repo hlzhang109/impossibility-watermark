@@ -287,32 +287,34 @@ if __name__ == "__main__":
         #     device_map=cfg.oracle_args.device_map
         # )
 
-        cfg.oracle_args.model_id = "gpt-4o"
+        #cfg.oracle_args.model_id = "gpt-4o"
+        cfg.oracle_args.model_id = "TechxGenus/Meta-Llama-3-70B-Instruct-GPTQ"
+
 
         oracle = RelativeOracle3(cfg.oracle_args, llm=None)
 
         for _ in range(1):
-            start = time.time()
-            evaluation = oracle.evaluate(
-                instruction=instruction, 
-                output_1=output_1, 
-                output_2=output_2
-            )
-            time_taken = time.time() - start
-            print("oracle.evaluate")
-            print("evaluation:", evaluation)
-            print("time_taken:", time_taken)
+            # start = time.time()
+            # evaluation = oracle.evaluate(
+            #     instruction=instruction, 
+            #     output_1=output_1, 
+            #     output_2=output_2
+            # )
+            # time_taken = time.time() - start
+            # print("oracle.evaluate")
+            # print("evaluation:", evaluation)
+            # print("time_taken:", time_taken)
 
-            start = time.time()
-            quality_eval = oracle.is_quality_preserved(
-                instruction=instruction, 
-                output_1=output_1, 
-                output_2=output_2
-            )
-            time_taken = time.time() - start
-            print("oracle.is_quality_preserved")
-            print("quality_eval:", quality_eval)
-            print("time_taken:", time_taken)
+            # start = time.time()
+            # quality_eval = oracle.is_quality_preserved(
+            #     instruction=instruction, 
+            #     output_1=output_1, 
+            #     output_2=output_2
+            # )
+            # time_taken = time.time() - start
+            # print("oracle.is_quality_preserved")
+            # print("quality_eval:", quality_eval)
+            # print("time_taken:", time_taken)
 
             start = time.time()
             test_eval = oracle.test(
@@ -323,7 +325,7 @@ if __name__ == "__main__":
             )
             time_taken = time.time() - start
             print("oracle.test")
-            print("test_eval:", test_eval)
+            print("prec_correct:", test_eval["pred_correct"])
             print("time_taken:", time_taken)
 
     test()

@@ -7,8 +7,8 @@ class PrometheusRelativeOracle:
     def __init__(
         self, 
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
-        download_dir="./.cache",
-        num_gpus=4, 
+        download_dir="/data2/connorc/test_prometheus",
+        num_gpus=8, 
     ):
         # Initialize any necessary attributes or models here
         self.model_id = model_id

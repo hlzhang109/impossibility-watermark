@@ -17,12 +17,11 @@ from langchain.globals import set_debug; set_debug(True)
 
 import os
 import logging
-import hydra
 
 # from model_builders.pipeline import PipeLineBuilder
 from utils import read_text_file, extract_response_info, add_prefix_to_keys
 
-from .quality_analysis import quality_analysis_solo_self_reward, quality_analysis_solo_lmsys_ia, quality_analysis_solo_lmsys_ib, quality_analysis_relative_3, quality_analysis_relative_5, quality_analysis_joint_ia # TODO: These currently don't work. quality_analysis_joint_ib, quality_analysis_rank
+from .quality_analysis import quality_analysis_solo_self_reward, quality_analysis_solo_lmsys_ia, quality_analysis_solo_lmsys_ib, quality_analysis_relative_3, quality_analysis_relative_5, quality_analysis_joint_ia, quality_analysis_joint_ib, quality_analysis_rank # TODO: These currently don't work. quality_analysis_joint_ib, quality_analysis_rank
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -110,6 +109,15 @@ def invert_label(label):
         return label.replace("worse", "better")
     else:
         raise ValueError("Invalid label provided.")
+    
+def invert_numerical_label(label):
+    """For use with numerical labels (1,2,3) as opposed to strings"""
+    label = int(label)
+    if label == 1:
+        return 2
+    if label == 2:
+        return 1
+    return label
 
 # Abstract base class for all oracles
 class Oracle(ABC):
@@ -212,10 +220,13 @@ class RankOracle(Oracle):
             dict_input.update({"profile": self.cfg.system_profile})
 
         # Run Chain
-        pydantic_output = self.chain.invoke(dict_input)
+        #pydantic_output = self.chain.invoke(dict_input)
 
         # Prepare Output
-        dict_output = pydantic_output.dict()
+        #dict_output = pydantic_output.dict()
+        output = self.llm + self.quality_analysis(instruction, output_1, output_2)
+
+        dict_output = {"analysis" : output["analysis"], "model_1_ranking": output["model_1_ranking"], "model_2_ranking": output["model_2_ranking"]}
         dict_output.update({
             **dict_input,
             **kwargs,
@@ -225,10 +236,10 @@ class RankOracle(Oracle):
 
     def extract_label(self, evaluation):
         eval_key = "ranking"
-        ranking = list(evaluation[eval_key].values())
+        #ranking = list(evaluation[eval_key].values())
         eval_label = 1 # output_1 is better (default)
-        if ranking[1] == 1: 
-            eval_label = 5 # output_2 is better
+        if evaluation["model_2_ranking"] == "1": 
+            eval_label = 2 # output_2 is better
         return eval_label
 
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
@@ -239,7 +250,7 @@ class RankOracle(Oracle):
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
         
-        if original_pred in [5] and followup_pred in [1]:
+        if original_pred in [2] and followup_pred in [1]:
             is_quality_preserved = True
         else:
             is_quality_preserved = False
@@ -252,8 +263,8 @@ class RankOracle(Oracle):
         return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
-        original_label = numerize_label(downscale_label(label))
-        followup_label = numerize_label(downscale_label(invert_label(label)))
+        original_label = label
+        followup_label = invert_numerical_label(label)
 
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
@@ -367,13 +378,13 @@ class JointOracle(Oracle):
         if 5 <= diff <= 10: # output 1 is much better than output_2
             return 1
         elif 2 <= diff <= 5: # output 1 is slightly better than output_2
-            return 2
+            return 1
         elif -2 <= diff <= 2:  # output 1 is about the same as output_2
             return 3
         elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
-            return 4
+            return 2
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
-            return 5
+            return 2
 
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
@@ -395,8 +406,8 @@ class JointOracle(Oracle):
         return original
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
-        original_label = numerize_label(label)
-        followup_label = numerize_label(invert_label(label))
+        original_label = label
+        followup_label = invert_numerical_label(label)
 
         original = self.evaluate(instruction, output_1, output_2, **kwargs) 
         followup = self.evaluate(instruction, output_2, output_1, **kwargs) # switched outputs
@@ -513,7 +524,7 @@ class RelativeOracle(Oracle):
             elif "similar" in status:
                 return 3
             elif "worse" in status:
-                return 5
+                return 2
             else:
                 log.info(f"Invalid prediction label: {evaluation[eval_key]}")
                 log.info(f"Invalid parsed values: {response, status}")
@@ -521,14 +532,14 @@ class RelativeOracle(Oracle):
         elif "5" in self.cfg.template:
             if "much better" in status:
                 return 1
-            if "a little better" in status:
-                return 2
+            elif "a little better" in status:
+                return 1
             elif "similar" in status:
                 return 3
             elif "a little worse" in status:
-                return 4
+                return 2
             elif "much worse" in status:
-                return 5
+                return 2
             else:
                 log.info(f"Invalid prediction label: {evaluation[eval_key]}")
                 log.info(f"Invalid parsed values: {response, status}")
@@ -542,7 +553,7 @@ class RelativeOracle(Oracle):
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
         
-        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+        if original_pred in [2,3] and followup_pred in [1,3]:
             quality_preserved = True
         else:
             quality_preserved = False
@@ -679,13 +690,13 @@ class SoloOracle(Oracle):
         if 5 <= diff <= 10: # output 1 is much better than output_2
             pred =  1
         elif 2 <= diff <= 5: # output 1 is slightly better than output_2
-            pred =  2
-        elif -2 <= diff <= 2:  # output 1 is about the same as output_2
+            pred =  1
+        elif -2 < diff < 2:  # output 1 is about the same as output_2
             pred = 3
         elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
-            pred = 4
+            pred = 2
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
-            pred = 5
+            pred = 2
 
         return pred
 
@@ -712,7 +723,7 @@ class SoloOracle(Oracle):
 
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
-        label = numerize_label(label)
+        label = label
 
         output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
         output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
@@ -764,96 +775,3 @@ class SoloOracle(Oracle):
 #                 log.info(traceback.format_exc())
 
 
-
-@hydra.main(version_base=None, config_path="../conf", config_name="config")
-def test(cfg):
-
-    import pandas as pd
-    import time
-
-    #os.environ["CUDA_VISIBLE_DEVICES"] = str(cfg.attack_args.cuda)
-    #os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
-
-    templates = [
-        #("rate.self-reward", SoloOracle), 
-        #("solo.lmsys.ia", SoloOracle), 
-        #("solo.lmsys.ib", SoloOracle), 
-        #("rank.alpaca_eval", RankOracle), 
-        # ("joint.lmsys.ia", JointOracle), 
-        # ("joint.lmsys.ib", JointOracle), 
-        ("relative.sandpaper.3", RelativeOracle), 
-        # ("relative.sandpaper.5", RelativeOracle), 
-    ]
-
-    tests_df = pd.read_csv("./tests/quality_oracle/tests_v1.csv")
-
-    for template, Oracle in templates:
-        cfg.oracle_args.template = template
-        oracle = Oracle(cfg.oracle_args)
-
-        results = []
-        for index, row in tests_df.iterrows():
-            # try:
-            #     dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
-            # except:
-            #     log.info(f"Test crashed for {row} on template={template}")
-            #     dict_output = {
-            #         "instruction": row["instruction"], 
-            #         "output_1": row["output_1"], 
-            #         "output_2": row["output_2"], 
-            #         "label": row['label']
-            #     }
-
-            start = time.time()
-            evaluation = oracle.evaluate(
-                instruction=row["instruction"], 
-                output_1=row["output_1"], 
-                output_2=row["output_2"]
-            )
-            time_taken = time.time() - start
-            print("oracle.evaluate")
-            print("evaluation:", evaluation)
-            print("time_taken:", time_taken)
-
-            start = time.time()
-            quality_eval = oracle.is_quality_preserved(
-                instruction=row["instruction"], 
-                output_1=row["output_1"], 
-                output_2=row["output_2"]
-            )
-            time_taken = time.time() - start
-            print("oracle.is_quality_preserved")
-            print("quality_eval:", quality_eval)
-            print("time_taken:", time_taken)
-
-            start = time.time()
-            test_eval = oracle.test(
-                instruction=row["instruction"], 
-                output_1=row["output_1"], 
-                output_2=row["output_2"],
-                label=row['label']
-            )
-            time_taken = time.time() - start
-            print("oracle.test")
-            print("test_eval:", test_eval)
-            print("time_taken:", time_taken)
-
-            dict_output = test_eval
-            log.info(dict_output)
-            results.append(dict_output)
-
-            # (inefficient) incremental saving...
-            df = pd.DataFrame(results)
-            df.to_csv(f"./results/oracle_tests_{template}.csv")
-
-if __name__ == "__main__":
-    test()
-
-# Sample Output
-# [2024-01-22 18:54:14,617][__main__][INFO] - Is Quality Preserved?: True
-# [2024-01-22 18:54:14,617][__main__][INFO] - Quality Assessment: Grammatical correctness, fluency, helpfulness, relevance, accuracy, depth, and creativity are all comparable between Response A and Response B. Both responses provide a detailed examination of the role of power in The Lord of the Rings series, using the One Ring as a symbol of power and discussing its impact on various characters.
-# [2024-01-22 18:54:14,617][__main__][INFO] - Time taken: 13.206836223602295
-
-# [2024-01-22 18:54:25,389][__main__][INFO] - Is Quality Preserved?: False
-# [2024-01-22 18:54:25,389][__main__][INFO] - Quality Assessment: Grammatical correctness, fluency, helpfulness, relevance, accuracy, depth, and creativity are similar for both responses. However, Response A has a slightly more formal and polished tone.
-# [2024-01-22 18:54:25,389][__main__][INFO] - Time taken: 10.772081136703491

@@ -121,24 +121,10 @@ def invert_numerical_label(label):
 
 # Abstract base class for all oracles
 class Oracle(ABC):
-    def __init__(self, cfg, pipeline = None, llm = None) -> None:
+    def __init__(self, cfg) -> None:
         self.cfg = cfg # config.oracle_args
-        self.use_gpt = "gpt" in cfg.model_id
 
-        # if self.use_gpt:
-        #     self.pipeline = self._initialize_pipeline(self, pipeline)
-        # else: 
-        if not self.use_gpt:
-            self.llm = self._initialize_llm(llm)
-
-    # # TODO: Only used with GPT.
-    # def _initialize_pipeline(self, pipeline):
-    #     if not isinstance(pipeline, HuggingFacePipeline):
-    #         log.info("Initializing a new Oracle pipeline from cfg...")
-    #         return PipeLineBuilder(self.cfg)
-    #     return pipeline
-
-    def _initialize_llm(self, llm):
+    def _initialize_llm(self):
         log.info("Initializing a new Oracle model from cfg...")
         llm = models.Transformers(
             self.cfg.model_id, 
@@ -162,47 +148,12 @@ class Oracle(ABC):
 
 
 class RankOracle(Oracle):
-    
     def __init__(self, cfg, pipeline=None) -> None:
         super().__init__(cfg, pipeline)
         
-        # # init output parser with template specific object
-        # self.output_parser = OutputFixingParser.from_llm(
-        #     parser=PydanticOutputParser(pydantic_object=RankAnswer),
-        #     llm=self.pipeline,
-        #     max_retries=self.cfg.num_formatting_retries,
-        # )
- 
-        # # init prompt with specific inputs
-        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
-
-        # # TODO: Remove this code if experiment works. Find it in pipeline and remove the corresponding portion as well.
-        # # if self.pipeline.requires_INST_tokens:
-        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
-
-        # self.instruction_prompt = PromptTemplate(
-        #     template=self.instructions,
-        #     template_format='jinja2',
-        #     input_variables=["instruction", "output_1", "output_2"],
-        # )
-        
-        # if cfg.system_profile:
-        #     self.profile_template = """{profile}"""
-        #     self.system_prompt = PromptTemplate(
-        #         template=self.profile_template,
-        #         input_variables=["profile"],
-        #     )    
-        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        # else:
-        #     self.prompt = self.instruction_prompt 
-
-        # self.chain = self.prompt | self.pipeline | self.output_parser
-        
-        self.system_profile = ""
-        if cfg.system_profile:
-            self.system_profile = cfg.system_profile
+        self.use_gpt = "gpt" in cfg.model_id
+        if not self.use_gpt:
+            self.llm = self._initialize_llm()
 
         self.quality_analysis = quality_analysis_rank
 
@@ -295,45 +246,12 @@ class RankOracle(Oracle):
 
 class JointOracle(Oracle):
 
-    def __init__(self, cfg, pipeline=None) -> None:
-        super().__init__(cfg, pipeline)
+    def __init__(self, cfg) -> None:
+        super().__init__(cfg)
         
-        # # init output parser with template specific object
-        # self.output_parser = OutputFixingParser.from_llm(
-        #     parser=PydanticOutputParser(pydantic_object=JointAnswer),
-        #     llm=self.pipeline,
-        #     max_retries=self.cfg.num_formatting_retries,
-        # )
- 
-        # # init prompt with specific inputs
-        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
-
-        # # if self.pipeline.requires_INST_tokens:
-        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
-
-        # self.instruction_prompt = PromptTemplate(
-        #     template=self.instructions,
-        #     template_format='jinja2',
-        #     input_variables=["instruction", "output_1", "output_2"],
-        # )
-        
-        # if cfg.system_profile:
-        #     self.profile_template = """{profile}"""
-        #     self.system_prompt = PromptTemplate(
-        #         template=self.profile_template,
-        #         input_variables=["profile"],
-        #     )    
-        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        # else:
-        #     self.prompt = self.instruction_prompt 
-
-        # self.chain = self.prompt | self.pipeline | self.output_parser
-        
-        self.system_profile = ""
-        if cfg.system_profile:
-            self.system_profile = cfg.system_profile
+        self.use_gpt = "gpt" in cfg.model_id
+        if not self.use_gpt:
+            self.llm = self._initialize_llm()
 
         if(cfg.template == "joint.lmsys.ia"):
             self.quality_analysis = quality_analysis_joint_ia
@@ -437,47 +355,12 @@ class JointOracle(Oracle):
         return original
 
 class RelativeOracle(Oracle):
-
-    def __init__(self, cfg, pipeline=None) -> None:
+    def __init__(self, cfg) -> None:
+        super().__init__(cfg)
         
-        super().__init__(cfg, pipeline)
-        
-        # init output parser with template specific object
-        # self.output_parser = OutputFixingParser.from_llm(
-        #     parser=PydanticOutputParser(pydantic_object=RelativeAnswer),
-        #     llm=self.pipeline,
-        #     max_retries=self.cfg.num_formatting_retries,
-        # )
- 
-        # # init prompt with specific inputs
-        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
-
-        # # if self.pipeline.requires_INST_tokens:
-        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
-
-        # self.instruction_prompt = PromptTemplate(
-        #     template=self.instructions,
-        #     template_format='jinja2',
-        #     input_variables=["instruction", "output_1", "output_2"],
-        # )
-        
-        # if cfg.system_profile:
-        #     self.profile_template = """{profile}"""
-        #     self.system_prompt = PromptTemplate(
-        #         template=self.profile_template,
-        #         input_variables=["profile"],
-        #     )    
-        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        # else:
-        #     self.prompt = self.instruction_prompt 
-
-        # self.chain = self.prompt | self.pipeline | self.output_parser
-        
-        self.system_profile = ""
-        if cfg.system_profile:
-            self.system_profile = cfg.system_profile
+        self.use_gpt = "gpt" in cfg.model_id
+        if not self.use_gpt:
+            self.llm = self._initialize_llm()
         
         if "3" in self.cfg.template:
             self.quality_analysis = quality_analysis_relative_3
@@ -604,44 +487,12 @@ class RelativeOracle(Oracle):
 
 class SoloOracle(Oracle):
  
-    def __init__(self, cfg, pipeline=None) -> None:
-        super().__init__(cfg, pipeline)
+    def __init__(self, cfg) -> None:
+        super().__init__(cfg)
         
-        # # init output parser with template specific object
-        # self.output_parser = OutputFixingParser.from_llm(
-        #     parser=PydanticOutputParser(pydantic_object=SoloAnswer),
-        #     llm=self.pipeline,
-        #     max_retries=self.cfg.num_formatting_retries,
-        # )
- 
-        # # init prompt with specific inputs
-        # self.instructions = read_text_file(os.path.join(self.cfg.template_dir, f"{cfg.template}.txt"))
-
-        # # if self.pipeline.requires_INST_tokens:
-        # #     self.instructions = "[INST] " + self.instructions + " [\INST]" 
-
-        # self.instruction_prompt = PromptTemplate(
-        #     template=self.instructions,
-        #     template_format='jinja2',
-        #     input_variables=["instruction", "output_1", "output_2"],
-        # )
-        
-        # if cfg.system_profile:
-        #     self.profile_template = """{profile}"""
-        #     self.system_prompt = PromptTemplate(
-        #         template=self.profile_template,
-        #         input_variables=["profile"],
-        #     )    
-        #     s_prompt = SystemMessagePromptTemplate(prompt=self.system_prompt)
-        #     i_prompt = HumanMessagePromptTemplate(prompt=self.instruction_prompt)
-        #     self.prompt = ChatPromptTemplate.from_messages([s_prompt, i_prompt])
-        # else:
-        #     self.prompt = self.instruction_prompt 
-
-        # self.chain = self.prompt | self.pipeline | self.output_parser
-        self.system_profile = ""
-        if cfg.system_profile:
-            self.system_profile = cfg.system_profile
+        self.use_gpt = "gpt" in cfg.model_id
+        if not self.use_gpt:
+            self.llm = self._initialize_llm()
 
         log.info(f"Initialized SoloOracle with cfg={cfg}")
         
@@ -700,8 +551,7 @@ class SoloOracle(Oracle):
 
         return pred
 
-    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
-        
+    def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):        
         output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
         output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
 
@@ -723,8 +573,6 @@ class SoloOracle(Oracle):
 
 
     def test(self, instruction, output_1, output_2, label, **kwargs):
-        label = label
-
         output_1_evaluation = self.evaluate(instruction, output_1, **kwargs) 
         output_2_evaluation = self.evaluate(instruction, output_2, **kwargs)
 

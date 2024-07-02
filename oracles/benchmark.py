@@ -2,6 +2,8 @@ import hydra
 import logging
 
 from .custom import SoloOracle, RankOracle, JointOracle, RelativeOracle
+from .absolute import PrometheusAbsoluteOracle
+from .relative import PrometheusRelativeOracle
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -19,13 +21,15 @@ def test(cfg):
 
     templates = [
         #("rate.self-reward", SoloOracle), 
-        ("solo.lmsys.ia", SoloOracle), 
+        #("solo.lmsys.ia", SoloOracle), 
         #("solo.lmsys.ib", SoloOracle), 
         #("rank.alpaca_eval", RankOracle), 
         #("joint.lmsys.ia", JointOracle), 
         #("joint.lmsys.ib", JointOracle), 
         #("relative.sandpaper.3", RelativeOracle), 
         #("relative.sandpaper.5", RelativeOracle), 
+        #("prometheus_relative", PrometheusRelativeOracle),
+        #("prometheus_absolute", PrometheusAbsoluteOracle)
     ]
     
 
@@ -39,39 +43,6 @@ def test(cfg):
 
         results = []
         for index, row in tests_df.iterrows():
-            # try:
-            #     dict_output = oracle.test(row["instruction"], row["output_1"], row["output_2"], row['label'])
-            # except:
-            #     log.info(f"Test crashed for {row} on template={template}")
-            #     dict_output = {
-            #         "instruction": row["instruction"], 
-            #         "output_1": row["output_1"], 
-            #         "output_2": row["output_2"], 
-            #         "label": row['label']
-            #     }
-
-            # start = time.time()
-            # evaluation = oracle.evaluate(
-            #     instruction=row["instruction"], 
-            #     output_1=row["output_1"], 
-            #     output_2=row["output_2"]
-            # )
-            # time_taken = time.time() - start
-            # print("oracle.evaluate")
-            # print("evaluation:", evaluation)
-            # print("time_taken:", time_taken)
-
-            # start = time.time()
-            # quality_eval = oracle.is_quality_preserved(
-            #     instruction=row["instruction"], 
-            #     output_1=row["output_1"], 
-            #     output_2=row["output_2"]
-            # )
-            # time_taken = time.time() - start
-            # print("oracle.is_quality_preserved")
-            # print("quality_eval:", quality_eval)
-            # print("time_taken:", time_taken)
-
             start = time.time()
             test_eval = oracle.test(
                 instruction=row["prompt"], 

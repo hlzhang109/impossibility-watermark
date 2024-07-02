@@ -3,14 +3,18 @@
 from prometheus_eval import PrometheusEval
 from prometheus_eval.prompts import ABSOLUTE_PROMPT, SCORE_RUBRIC_TEMPLATE
 import warnings
+from .custom import Oracle
 
-class PrometheusAbsoluteOracle:
+class PrometheusAbsoluteOracle(Oracle):
     def __init__(
         self, 
+        cfg,
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
-        download_dir="/data2/connorc/test_prometheus",
-        num_gpus=8, 
+        download_dir="/data2/.shared_models",
+        num_gpus=4, 
     ):
+        self.cfg=cfg
+        super().__init__(cfg)
         # Initialize any necessary attributes or models here
         self.model_id = model_id
         self.download_dir = download_dir
@@ -85,10 +89,61 @@ class PrometheusAbsoluteOracle:
         }
 
         return quality_eval
+    
+    def extract_label(self, evaluation):
+        return evaluation[1]
 
-# Testing
-if __name__ == "__main__":
+    def derive_label(self, output_1_score, output_2_score):
+        diff = output_1_score - output_2_score 
+        pred = -1
+        if 2 <= diff <= 5: # output 1 is better than output_2
+            pred =  1
+        elif -2 < diff < 2:  # output 1 is about the same as output_2
+            pred = 3
+        elif -5 <= diff <= -2:  # output 1 is worse than output_2
+            pred = 2
+        return pred
+    
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        output_1_evaluation = self.evaluate(instruction, output_1)
+        output_2_evaluation = self.evaluate(instruction, output_2)
+        
+        output_1_score = self.extract_label(output_1_evaluation)
+        output_2_score = self.extract_label(output_2_evaluation)
 
+        pred = self.derive_label(output_1_score, output_2_score)
+        
+				# assign correctness points
+        pred_correct = 0
+        if (label == pred):
+            pred_correct = 1 
+            
+        results = {
+            "output_1_feedback": output_1_evaluation[0],
+            "output_1_score": output_1_score,  
+            "output_2_feedback": output_2_evaluation[0],
+            "output_2_score": output_2_score,  
+						"label": label,
+						"pred": pred,
+            "pred_correct": pred_correct,
+				}
+				
+        return results
+        
+import hydra
+import logging
+
+from .custom import SoloOracle, RankOracle, JointOracle, RelativeOracle
+from .absolute import PrometheusAbsoluteOracle
+from .relative import PrometheusRelativeOracle
+
+log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('optimum.gptq.quantizer').setLevel(logging.WARNING)
+
+
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
+def test(cfg):
     instruction = "Analyze the role of symbolism in 'To Kill a Mockingbird' and its impact on understanding the novel's themes."
 
     original_text = """
@@ -161,23 +216,35 @@ if __name__ == "__main__":
     Overall, symbolism in "To Kill a Mockingbird" serves as a powerful tool to deepen readers' understanding of its complex themes, enriching the narrative and leaving a lasting impact on its audience.
     """
 
-    oracle = PrometheusAbsoluteOracle()
+    oracle = PrometheusAbsoluteOracle(cfg)
 
-    quality_eval = oracle.is_quality_preserved(
-        instruction=instruction, 
-        original_text=original_text, 
-        mutated_text=mutated_text, 
-        reference_answer=None
-    )
-    print("EVAL oracle.is_quality_preserved")
-    print("quality_eval:", quality_eval)
+    # quality_eval = oracle.is_quality_preserved(
+    #     instruction=instruction, 
+    #     original_text=original_text, 
+    #     mutated_text=mutated_text, 
+    #     reference_answer=None
+    # )
+    # print("EVAL oracle.is_quality_preserved")
+    # print("quality_eval:", quality_eval)
 
-    feedback, score = oracle.evaluate(instruction, mutated_text, original_text)
-    print("Evaluation WITH Reference Answer")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # feedback, score = oracle.evaluate(instruction, mutated_text, original_text)
+    # print("Evaluation WITH Reference Answer")
+    # print("Feedback:", feedback)
+    # print("Score:", score)
 
-    print("Evaluation WITHOUT Reference Answer")
-    feedback, score = oracle.evaluate(instruction, mutated_text, None)
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # print("Evaluation WITHOUT Reference Answer")
+    # feedback, score = oracle.evaluate(instruction, mutated_text, None)
+    # print("Feedback:", feedback)
+    # print("Score:", score)
+    
+    print("Test Prometheus Absolute Oracle:")
+    results = oracle.test(instruction,original_text,mutated_text, 1)
+    print(results)
+
+    
+
+
+# Testing
+if __name__ == "__main__":
+    test()
+    

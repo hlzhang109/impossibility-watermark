@@ -1,14 +1,16 @@
 import warnings
 from prometheus_eval import PrometheusEval
 from prometheus_eval.prompts import RELATIVE_PROMPT
+from .custom import Oracle
 
-class PrometheusRelativeOracle:
+class PrometheusRelativeOracle(Oracle):
     """Relative Grading: Outputs A or B"""
     def __init__(
         self, 
+        cfg,
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
-        download_dir="/data2/connorc/test_prometheus",
-        num_gpus=8, 
+        download_dir="/data2/.shared_models",
+        num_gpus=4, 
     ):
         # Initialize any necessary attributes or models here
         self.model_id = model_id
@@ -80,6 +82,31 @@ class PrometheusRelativeOracle:
         }
 
         return quality_eval
+    
+    def extract_label(self, evaluation):
+        if evaluation == 'A':
+            return 1
+        else:
+            return 2
+    
+    def test(self, instruction, output_1, output_2, label, **kwargs):
+        evaluation = self.evaluate(instruction, output_1, output_2, kwargs.get("reference_answer"))
+        
+        pred = self.extract_label(evaluation)
+        
+				# assign correctness points
+        pred_correct = 0
+        if (label == pred):
+            pred_correct = 1 
+            
+        results = {
+            "evaluation": evaluation,
+						"label": label,
+						"pred": pred,
+            "pred_correct": pred_correct,
+				}
+				
+        return results
 
 if __name__ == "__main__":
 
@@ -157,31 +184,35 @@ if __name__ == "__main__":
 
     oracle = PrometheusRelativeOracle()
 
-    quality_eval = oracle.is_quality_preserved(
-        instruction=instruction, 
-        original_text=original_text, 
-        mutated_text=mutated_text, 
-        reference_answer=None
-    )
-    print("EVAL oracle.is_quality_preserved")
-    print("quality_eval:", quality_eval)
+    # quality_eval = oracle.is_quality_preserved(
+    #     instruction=instruction, 
+    #     original_text=original_text, 
+    #     mutated_text=mutated_text, 
+    #     reference_answer=None
+    # )
+    # print("EVAL oracle.is_quality_preserved")
+    # print("quality_eval:", quality_eval)
 
-    feedback, score = oracle.evaluate(instruction, original_text, mutated_text, reference_answer)
-    print("Evaluation WITH Reference Answer")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # feedback, score = oracle.evaluate(instruction, original_text, mutated_text, reference_answer)
+    # print("Evaluation WITH Reference Answer")
+    # print("Feedback:", feedback)
+    # print("Score:", score)
 
-    feedback, score = oracle.evaluate(instruction, mutated_text, original_text, reference_answer)
-    print("Evaluation WITH Reference Answer + Responses Flipped")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # feedback, score = oracle.evaluate(instruction, mutated_text, original_text, reference_answer)
+    # print("Evaluation WITH Reference Answer + Responses Flipped")
+    # print("Feedback:", feedback)
+    # print("Score:", score)
 
-    feedback, score = oracle.evaluate(instruction, original_text, mutated_text, None)
-    print("Evaluation WITHOUT Reference Answer")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # feedback, score = oracle.evaluate(instruction, original_text, mutated_text, None)
+    # print("Evaluation WITHOUT Reference Answer")
+    # print("Feedback:", feedback)
+    # print("Score:", score)
 
-    feedback, score = oracle.evaluate(instruction, mutated_text, original_text, None)
-    print("Evaluation WITHOUT Reference Answer + Responses Flipped")
-    print("Feedback:", feedback)
-    print("Score:", score)
+    # feedback, score = oracle.evaluate(instruction, mutated_text, original_text, None)
+    # print("Evaluation WITHOUT Reference Answer + Responses Flipped")
+    # print("Feedback:", feedback)
+    # print("Score:", score)
+    
+    print("Test Prometheus Relative Oracle:")
+    results = oracle.test(instruction,original_text,mutated_text, 1)
+    print(results)

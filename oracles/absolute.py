@@ -11,7 +11,7 @@ class PrometheusAbsoluteOracle(Oracle):
         cfg,
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
         download_dir="/data2/.shared_models",
-        num_gpus=4, 
+        num_gpus=8, 
     ):
         self.cfg=cfg
         super().__init__(cfg)

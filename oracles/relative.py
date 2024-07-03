@@ -10,7 +10,7 @@ class PrometheusRelativeOracle(Oracle):
         cfg,
         model_id="prometheus-eval/prometheus-8x7b-v2.0",
         download_dir="/data2/.shared_models",
-        num_gpus=4, 
+        num_gpus=8, 
     ):
         # Initialize any necessary attributes or models here
         self.model_id = model_id

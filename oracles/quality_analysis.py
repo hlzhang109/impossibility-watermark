@@ -8,29 +8,14 @@ n = "\n"
 def quality_analysis_solo_self_reward(lm, instruction, output):
 		with system():
 			lm += f"""\
-			Review the user's question and the corresponding response using the additive 5-point
-			scoring system described below. Points are accumulated based on the satisfaction of each
-			criterion:
-			- Add 1 point if the response is relevant and provides some information related to
-			the user's prompt, even if it is incomplete or contains some irrelevant content.
-			- Add another point if the response addresses a substantial portion of the user's question,
-			but does not completely resolve the query or provide a direct answer.
-			- Award a third point if the response answers the basic elements of the user's question in a
-			useful way, regardless of whether it seems to have been written by an AI Assistant or if it
-			has elements typically found in blogs or search results.
-			- Grant a fourth point if the response is clearly written from an AI Assistant's perspective,
-			addressing the user's question directly and comprehensively, and is well-organized and
-			helpful, even if there is slight room for improvement in clarity, conciseness or focus.
-			- Bestow a fifth point for a response that is impeccably tailored to the user's question
-			by an AI Assistant, without extraneous information, reflecting expert knowledge, and
-			demonstrating a high-quality, engaging, and insightful answer.
+			Review the user's question and the corresponding response using a 10-point scoring system.
 
 			User: {instruction}
 			Response: {output}
 
-			After examining the user's instruction and the response, reply in the desired JSON format:
+			After examining the user's instruction and the response, reply in the desired format:
 			- "analysis": A string that describes the reasoning behind your scores for each answer. 
-			- "score": An integer score for assistant 1's answer.
+			- "score": An integer score for the assistant's answer.
                   
       Remember to assess from the AI Assistant perspective. To evaluate the response in alignment with 
 			this additive scoring model, we'll systematically attribute points based on the outlined criteria.
@@ -41,7 +26,7 @@ def quality_analysis_solo_self_reward(lm, instruction, output):
 		with assistant():
 			lm += f"""\
 			analysis: {gen('analysis', stop=n)}
-			score: {select(options=[1, 2, 3, 4, 5, 0], name='score')}
+			score: {select(options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], name='score')}
 			"""
 
 		return lm
@@ -60,7 +45,7 @@ def quality_analysis_solo_lmsys_ia(lm, instruction, output):
 
 			[System]
 			We would like to request your feedback on the performance of an AI assistant in response to the user prompt displayed above.
-			Please rate the helpfulness, relevance, accuracy, level of details of their responses. Rate the answer with an overall score on a scale of 1 to 5, where a higher score indicates better overall performance.
+			Please rate the helpfulness, relevance, accuracy, level of details of their responses. Rate the answer with an overall score on a scale of 1 to 10, where a higher score indicates better overall performance.
 			Respond in the desired JSON format:
 			- "analysis": A string that describes the reasoning behind your score. 
 			- "score": An integer score for the assistant's answer.
@@ -68,7 +53,7 @@ def quality_analysis_solo_lmsys_ia(lm, instruction, output):
     with assistant():
       lm += f"""\
 			analysis: {gen('analysis', stop=n)}
-			score: {select(options=[1, 2, 3, 4, 5, 0], name='score')}
+			score: {select(options=[1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10], name='score')}
 
 			Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
 
@@ -97,7 +82,7 @@ def quality_analysis_solo_lmsys_ib(lm, instruction, output):
     with assistant():
       lm += f"""\
 			analysis: {gen('analysis', stop=n)}
-			score: {select(options=[1, 2, 3, 4, 5, 0], name='score')}
+			score: {select(options=[1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10], name='score')}
 	
 			Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
 

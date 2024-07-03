@@ -148,8 +148,8 @@ class Oracle(ABC):
 
 
 class RankOracle(Oracle):
-    def __init__(self, cfg, pipeline=None) -> None:
-        super().__init__(cfg, pipeline)
+    def __init__(self, cfg) -> None:
+        super().__init__(cfg)
         
         self.use_gpt = "gpt" in cfg.model_id
         if not self.use_gpt:
@@ -540,11 +540,11 @@ class SoloOracle(Oracle):
         pred = -1
         if 5 <= diff <= 10: # output 1 is much better than output_2
             pred =  1
-        elif 2 <= diff <= 5: # output 1 is slightly better than output_2
+        elif 1 <= diff <= 5: # output 1 is slightly better than output_2
             pred =  1
-        elif -2 < diff < 2:  # output 1 is about the same as output_2
+        elif -1 < diff < 1:  # output 1 is about the same as output_2
             pred = 3
-        elif -5 <= diff <= -2:  # output 1 is slightly worse than output_2
+        elif -5 <= diff <= -1:  # output 1 is slightly worse than output_2
             pred = 2
         elif -5 <= diff <= -10: # output 1 is much worse than output_2
             pred = 2

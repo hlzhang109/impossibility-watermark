@@ -20,24 +20,26 @@ def test(cfg):
     #os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
-        #("rate.self-reward", SoloOracle), 
-        #("solo.lmsys.ia", SoloOracle), 
-        #("solo.lmsys.ib", SoloOracle), 
-        #("rank.alpaca_eval", RankOracle), 
-        #("joint.lmsys.ia", JointOracle), 
-        #("joint.lmsys.ib", JointOracle), 
-        #("relative.sandpaper.3", RelativeOracle), 
-        #("relative.sandpaper.5", RelativeOracle), 
-        #("prometheus_relative", PrometheusRelativeOracle),
-        #("prometheus_absolute", PrometheusAbsoluteOracle)
+        ("rate.self-reward", SoloOracle), 
+        ("solo.lmsys.ia", SoloOracle), 
+        ("solo.lmsys.ib", SoloOracle), 
+        ("rank.alpaca_eval", RankOracle), 
+        ("joint.lmsys.ia", JointOracle), 
+        ("joint.lmsys.ib", JointOracle), 
+        ("relative.sandpaper.3", RelativeOracle), 
+        ("relative.sandpaper.5", RelativeOracle), 
+        ("prometheus_relative", PrometheusRelativeOracle),
+        ("prometheus_absolute", PrometheusAbsoluteOracle)
     ]
     
 
 
-    tests_df = pd.read_csv("./tests/quality_oracle/lmsys_short.csv")
+    tests_df = pd.read_csv("./tests/quality_oracle/lmsys_tiny.csv")
 		
+    eval_results = []
 
     for template, Oracle in templates:
+        
         cfg.oracle_args.template = template
         oracle = Oracle(cfg.oracle_args)
 
@@ -56,13 +58,34 @@ def test(cfg):
             print("time_taken:", time_taken)
 
             dict_output = test_eval
+            dict_output["time_taken"] = time_taken
             log.info(dict_output)
             results.append(dict_output)
 
             # (inefficient) incremental saving...
             df = pd.DataFrame(results)
             df.to_csv(f"./results/oracle_tests_{template}.csv")
-            
+
+				# report oracle performance results]
+        n = len(results) 
+        time_avg = 0
+        correctness = 0
+        for r in results:
+            time_avg += r["time_taken"]
+            correctness += r["pred_correct"]
+        time_avg /= n
+        correctness /= n 
+        oracle_results =  {"avg_time_taken" : time_avg, "avg_pred_correct": correctness}
+        oracle_results.update(d)
+        eval_results.append(oracle_results)
+        
+        log.info(oracle_results)
+        
+				 # (inefficient) incremental saving...
+        results_df = pd.DataFrame(eval_results)
+        results_df.to_csv(f"./results/oracle_tests_summary.csv")
+        
+        
 
 def lmsys_row_to_label(row):
     if row["winner_model_a"]:

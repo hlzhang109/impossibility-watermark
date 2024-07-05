@@ -115,7 +115,7 @@ def quality_analysis_relative_3(lm, instruction, output_1, output_2):
     with assistant():
       lm += f"""\
 			analysis: {gen('analysis', stop=n)} 
-			answer: {gen('answer', stop=n)}
+			answer: {select(options=[1, 2, 3], name='answer')}
 
 			Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
 
@@ -151,7 +151,7 @@ def quality_analysis_relative_5(lm, instruction, output_1, output_2):
       lm += f"""\
 									
 			analysis: {gen('analysis', stop=n)} 
-			answer: {gen('answer', stop=n)}
+			answer: {select(options=[1, 2, 3, 4, 5], name='answer')}
 
 			Please avoid any potential bias and ensuring that the order in which the responses were presented does not affect your judgment."""
 

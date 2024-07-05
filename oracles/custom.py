@@ -145,6 +145,8 @@ class Oracle(ABC):
     @abstractmethod
     def test(self, instruction, output_1, output_2, label, **kwargs):
         pass
+    
+    judge = None
 
 
 class RankOracle(Oracle):
@@ -312,7 +314,7 @@ class JointOracle(Oracle):
         original_pred = self.extract_label(original)
         followup_pred = self.extract_label(followup)
         
-        if original_pred in [3,4,5] and followup_pred in [1,2,3]:
+        if original_pred in [3,2] and followup_pred in [1,3]:
             quality_preserved = True
         else:
             quality_preserved = False
@@ -397,36 +399,16 @@ class RelativeOracle(Oracle):
         return dict_output
 
     def extract_label(self, evaluation):
-        eval_key = "answer"
-        response, status = extract_response_info(evaluation[eval_key])
-        response = response.lower()
-        log.info(f"Parsed values: {response, status}")
+        label = int(evaluation["answer"])
         if "3" in self.cfg.template:
-            if "better" in status:
-                return 1
-            elif "similar" in status:
-                return 3
-            elif "worse" in status:
-                return 2
-            else:
-                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
-                log.info(f"Invalid parsed values: {response, status}")
-                return -1
+            return label
         elif "5" in self.cfg.template:
-            if "much better" in status:
+            if label in [1,2]:
                 return 1
-            elif "a little better" in status:
-                return 1
-            elif "similar" in status:
+            elif label in [3]:
                 return 3
-            elif "a little worse" in status:
-                return 2
-            elif "much worse" in status:
-                return 2
             else:
-                log.info(f"Invalid prediction label: {evaluation[eval_key]}")
-                log.info(f"Invalid parsed values: {response, status}")
-                return -1
+                return 2
 
     def is_quality_preserved(self, instruction, output_1, output_2, **kwargs):
         
@@ -450,11 +432,11 @@ class RelativeOracle(Oracle):
     def test(self, instruction, output_1, output_2, label, **kwargs):
 
         if "3" in self.cfg.template:
-            original_label = numerize_label(downscale_label(label))
-            followup_label = numerize_label(downscale_label(invert_label(label)))
+            original_label = label
+            followup_label = invert_numerical_label(label)
         elif "5" in self.cfg.template:
-            original_label = numerize_label(label)
-            followup_label = numerize_label(invert_label(label))
+            original_label = label
+            followup_label = invert_numerical_label(label)
         else:
             raise ValueError("Invalid template name, should specify '3' or '5' choices! e.g. 'relative.sandpaper.3'")
 

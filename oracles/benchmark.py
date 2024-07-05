@@ -20,16 +20,16 @@ def test(cfg):
     #os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
-        ("rate.self-reward", SoloOracle), 
-        ("solo.lmsys.ia", SoloOracle), 
-        ("solo.lmsys.ib", SoloOracle), 
-        ("rank.alpaca_eval", RankOracle), 
-        ("joint.lmsys.ia", JointOracle), 
-        ("joint.lmsys.ib", JointOracle), 
-        ("relative.sandpaper.3", RelativeOracle), 
-        ("relative.sandpaper.5", RelativeOracle), 
+        # ("rate.self-reward", SoloOracle), 
+        # ("solo.lmsys.ia", SoloOracle), 
+        # ("solo.lmsys.ib", SoloOracle), 
+        # ("rank.alpaca_eval", RankOracle), 
+        # ("joint.lmsys.ia", JointOracle), 
+        # ("joint.lmsys.ib", JointOracle), 
+        #("relative.sandpaper.3", RelativeOracle), 
+        #("relative.sandpaper.5", RelativeOracle), 
+        ("prometheus_absolute", PrometheusAbsoluteOracle),
         ("prometheus_relative", PrometheusRelativeOracle),
-        ("prometheus_absolute", PrometheusAbsoluteOracle)
     ]
     
 
@@ -76,7 +76,7 @@ def test(cfg):
         time_avg /= n
         correctness /= n 
         oracle_results =  {"avg_time_taken" : time_avg, "avg_pred_correct": correctness}
-        oracle_results.update(d)
+        oracle_results.update(dict(cfg.oracle_args))
         eval_results.append(oracle_results)
         
         log.info(oracle_results)

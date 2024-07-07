@@ -20,16 +20,16 @@ def test(cfg):
     #os.environ["WORLD_SIZE"] = str(len(str(cfg.attack_args.cuda).split(",")))
 
     templates = [
-        # ("rate.self-reward", SoloOracle), 
-        # ("solo.lmsys.ia", SoloOracle), 
-        # ("solo.lmsys.ib", SoloOracle), 
-        # ("rank.alpaca_eval", RankOracle), 
-        # ("joint.lmsys.ia", JointOracle), 
-        # ("joint.lmsys.ib", JointOracle), 
-        #("relative.sandpaper.3", RelativeOracle), 
-        #("relative.sandpaper.5", RelativeOracle), 
-        ("prometheus_absolute", PrometheusAbsoluteOracle),
-        ("prometheus_relative", PrometheusRelativeOracle),
+        ("rate.self-reward", SoloOracle), 
+        ("solo.lmsys.ia", SoloOracle), 
+        ("solo.lmsys.ib", SoloOracle), 
+        ("rank.alpaca_eval", RankOracle), 
+        ("joint.lmsys.ia", JointOracle), 
+        ("joint.lmsys.ib", JointOracle), 
+        ("relative.sandpaper.3", RelativeOracle), 
+        ("relative.sandpaper.5", RelativeOracle), 
+        # ("prometheus_absolute", PrometheusAbsoluteOracle),
+        # ("prometheus_relative", PrometheusRelativeOracle),
     ]
     
 
@@ -38,8 +38,7 @@ def test(cfg):
 		
     eval_results = []
 
-    for template, Oracle in templates:
-        
+    for template, Oracle in templates:        
         cfg.oracle_args.template = template
         oracle = Oracle(cfg.oracle_args)
 
@@ -86,7 +85,7 @@ def test(cfg):
         results_df.to_csv(f"./results/oracle_tests_summary.csv")
         
         
-
+    
 def lmsys_row_to_label(row):
     if row["winner_model_a"]:
         return 1

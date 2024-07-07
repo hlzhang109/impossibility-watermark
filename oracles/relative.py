@@ -1,6 +1,6 @@
 import warnings
 from prometheus_eval import PrometheusEval
-from prometheus_eval.prompts import RELATIVE_PROMPT
+from prometheus_eval.prompts import RELATIVE_PROMPT, ABSOLUTE_PROMPT
 from .custom import Oracle
 
 class PrometheusRelativeOracle(Oracle):
@@ -12,6 +12,7 @@ class PrometheusRelativeOracle(Oracle):
         download_dir="/data2/.shared_models",
         num_gpus=4, 
     ):
+        self.cfg = cfg
         # Initialize any necessary attributes or models here
         self.model_id = model_id
         self.download_dir = download_dir
@@ -26,17 +27,18 @@ class PrometheusRelativeOracle(Oracle):
             warnings.warn(
                 f"`prometheus-8x7b-v2.0` requires ~172GB of GPU RAM. Increasing num_gpus from {self.num_gpus} to 4."
             )
-        self.judge = self.load_judge()
+        self.load_judge()
     
     def load_judge(self):
         # Load or initialize the model used for scoring and feedback
-        judge = PrometheusEval(
-            model_id=self.model_id, 
-            num_gpus=self.num_gpus, 
-            relative_grade_template=RELATIVE_PROMPT, 
-            download_dir=self.download_dir
-        )
-        return judge
+        if Oracle.judge == None:
+            Oracle.judge = PrometheusEval(
+								model_id=self.model_id, 
+								download_dir=self.download_dir,
+								num_gpus=self.num_gpus, 
+								absolute_grade_template=ABSOLUTE_PROMPT, 
+								relative_grade_template=RELATIVE_PROMPT, 
+						)
 
     def evaluate(self, instruction, response_A, response_B, reference_answer=None):
         feedback, score = self.judge.single_relative_grade(
@@ -183,6 +185,7 @@ if __name__ == "__main__":
     """
 
     oracle = PrometheusRelativeOracle()
+    
 
     # quality_eval = oracle.is_quality_preserved(
     #     instruction=instruction, 

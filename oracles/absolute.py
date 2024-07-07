@@ -41,8 +41,8 @@ class PrometheusAbsoluteOracle(Oracle):
     
     def load_judge(self):
         # Load or initialize the model used for scoring and feedback
-        if Oracle.judge != None:
-            Oracle.judge = PrometheusEval(
+        if Oracle.judge == None:
+            self.judge = PrometheusEval(
 								model_id=self.model_id, 
 								download_dir=self.download_dir,
 								num_gpus=self.num_gpus, 
@@ -217,8 +217,8 @@ def test(cfg):
     Overall, symbolism in "To Kill a Mockingbird" serves as a powerful tool to deepen readers' understanding of its complex themes, enriching the narrative and leaving a lasting impact on its audience.
     """
 
-    oracle = PrometheusAbsoluteOracle(cfg)
-    oracle = PrometheusAbsoluteOracle(cfg)
+    oracle = PrometheusRelativeOracle(cfg)
+    oracle2 = PrometheusRelativeOracle(cfg)
 
     # quality_eval = oracle.is_quality_preserved(
     #     instruction=instruction, 

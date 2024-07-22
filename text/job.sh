@@ -10,7 +10,7 @@
 
 wtmk_name='KGW' 
 attack_name='Random-Walk' 
-model_name_or_path="meta-llama/Meta-Llama-3-70B-Instruct"
+model_name_or_path="meta-llama/Meta-Llama-3-70B-Instruct" # "meta-llama/Llama-2-7b"
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --model_name_or_path=${model_name_or_path} \
                --wtmk_name=${wtmk_name} \

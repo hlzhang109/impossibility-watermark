@@ -32,10 +32,11 @@ def get_attack(attack_name, model=None, tokenizer=None, device="cuda"):
                                    lex_diversity=60, order_diversity=0, sent_interval=1, 
                                    max_new_tokens=100, do_sample=True, top_p=0.75, top_k=None)
     elif attack_name == 'Random-Walk':
-        perturbation_model = "google/t5-v1_1-xl" 
+        perturbation_model = "google/t5-v1_1-xl"
+        reward_model = "OpenAssistant/reward-model-deberta-v3-large-v2"
         perturbation_oracle = AutoModelForSeq2SeqLM.from_pretrained(perturbation_model, device_map='auto')
         perturbation_tokenizer = AutoTokenizer.from_pretrained(perturbation_model)
-        quality_oracle = QualityOracle(tokenizer, model, choice_granularity=5, device=device, check_quality='checker')
+        quality_oracle = QualityOracle(tokenizer, reward_model, choice_granularity=5, device=device, check_quality='checker')
         span_len = 6 
         attack = RandomWalkAttack(perturbation_tokenizer=perturbation_tokenizer, perturbation_oracle=perturbation_oracle,
                                   quality_oracle=quality_oracle,

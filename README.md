@@ -30,12 +30,12 @@ export OPENAI_API_KEY=<your_key_here>
 ### Language Models
 We adopt [MarkLLM](https://github.com/THU-BPM/MarkLLM) for benchmarking attacks.
 ```bash
-bash text/job.sh
+sbatch text/job.sh
 ```
 
 ### Vision-Language Models
 ```bash 
-bash vision/job.sh
+sbatch vision/job.sh
 ```
 
 
